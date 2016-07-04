@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.netforceinfotech.ibet.login.EmailLogin">
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/app_bar" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:weightSum="100"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:scaleType="fitXY"
+            android:src="@drawable/login_top"
+            android:layout_weight="30"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="64dp"
+            android:gravity="center"
+            android:layout_weight="50"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <EditText
+                android:gravity="center"
+                android:hint="@string/user_name"
+                android:inputType="text"
+                android:id="@+id/editTextUsername"
+                android:drawableLeft="@drawable/ic_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:hint="@string/password"
+                android:gravity="center"
+                android:id="@+id/editTextPassword"
+                android:inputType="textPassword"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_lock"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            >
+            <ImageView
+                android:scaleType="fitXY"
+                android:src="@drawable/login_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
