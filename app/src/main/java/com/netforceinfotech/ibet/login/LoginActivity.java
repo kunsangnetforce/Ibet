@@ -19,6 +19,8 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.Dashboard;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoginButton buttonFacebook;
     private List<String> permissions;
     Button buttonFacebookCustom;
+    private Profile profile;
+    private UserSessionManager userSessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
         setContentView(R.layout.activity_login);
+        userSessionManager=new UserSessionManager(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         findViewById(R.id.textViewRegister).setOnClickListener(this);
         buttonFacebookCustom = (Button) findViewById(R.id.buttonCustomFB);
@@ -48,6 +53,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         permissions.add("user_birthday");
         buttonFacebook.setReadPermissions(permissions);
         buttonFacebook.registerCallback(mCallbackManager, mCallBack);
+        profile = Profile.getCurrentProfile();
+        if (profile != null) {
+            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+        }
     }
 
     @Override
@@ -94,6 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String fbName;
                                 try {
                                     fbName = object.getString("name");
+                                    userSessionManager.setName(fbName);
                                 } catch (JSONException e) {
                                     fbName = "";
                                     e.printStackTrace();
@@ -101,6 +114,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String fbId;
                                 try {
                                     fbId = object.getString("id");
+                                    userSessionManager.setFBID(fbId);
                                 } catch (JSONException e) {
                                     fbId = "";
                                     e.printStackTrace();
@@ -108,6 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String fbEmail;
                                 try {
                                     fbEmail = object.getString("email");
+                                    userSessionManager.setEmail(fbEmail);
                                 } catch (JSONException e) {
                                     fbEmail = "";
                                     e.printStackTrace();
@@ -128,10 +143,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
 
                                 String fbToken = accessToken.getToken();
+                                userSessionManager.setToken(fbToken);
                                 String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
 
                                 buttonFacebookCustom.setText(R.string.logout);
                                 Log.i("facebookgrapth", fbName + " " + fbBirthday);
+                                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.enter, R.anim.exit);
+                                finish();
                             }
                         }
                     });

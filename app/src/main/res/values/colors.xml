@@ -3,4 +3,22 @@
     <color name="colorPrimary">#072f52</color>
     <color name="colorPrimaryDark">#041b2e</color>
     <color name="colorAccent">#ff9700</color>
+    <color name="black">#000000</color>
+    <color name="grey">#d1cece</color>
+    <color name="grey_transparent">#daaba8a8</color>
+    <color name="white">#ffffff</color>
+    <color name="greentranparent">#a463cc55</color>
+    <color name="red">#e40e0e</color>
+    <color name="footer">#d97ba5</color>
+    <color name="colorPrimary1">#99009688</color>
+    <color name="green">#2a990b</color>
+    <color name="statusbar_splash">#347fb1</color>
+    <color name="statusbar_nointernet">#d4c7c7</color>
+    <color name="colorPrimaryText">#515151</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="textviewBackground1">#ef1940</color>
+    <color name="colorPrimaryLight">#1479d2</color>
+    <color name="greendark">#185807</color>
+
 </resources>
