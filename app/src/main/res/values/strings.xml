@@ -16,4 +16,14 @@
     <string name="start_new_bet">Start New Bet</string>
     <string name="participants">Participants</string>
     <string name="posts">Posts</string>
+    <string name="join">Join</string>
+    <string name="country">COUNTRY</string>
+    <string name="best_ammount">Best ammount</string>
+    <string name="player">Player</string>
+    <string name="result">Result</string>
+    <string name="team">Team</string>
+    <string name="score">Score</string>
+    <string name="loser_will_have_to">Loser will have to</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
 </resources>

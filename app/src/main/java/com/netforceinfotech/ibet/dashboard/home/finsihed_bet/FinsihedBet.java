@@ -43,12 +43,21 @@ public class FinsihedBet extends Fragment {
     }
 
     private void setupRecyclerView(View view) {
+          /*
+        *  recyclerView_Same = (RecyclerView) findViewById(R.id.recyclerFeatured);
+        layoutManagerSame = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView_Same.setLayoutManager(layoutManagerSame);
+        adapterSame = new RecyclerViewAdapterS(context, rowDataS, imagePath);
+        recyclerView_Same.setAdapter(adapterSame);
+        * */
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        adapter = new FinishedBetAdapter(context, FinsihedDatas);
-        layoutManager = new LinearLayoutManager(context);
-        setupFinsihedDatas();
+        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new FinishedBetAdapter(context, FinsihedDatas);
         recyclerView.setAdapter(adapter);
+        setupFinsihedDatas();
+        adapter.notifyDataSetChanged();
     }
     private void setupFinsihedDatas() {
         try {

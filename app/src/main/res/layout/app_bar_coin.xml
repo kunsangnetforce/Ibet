@@ -1,0 +1,40 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/AppTheme.AppBarOverlay"
+    app:titleTextAppearance="@style/Toolbar.TitleText">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Italy vs Germany"
+            android:textColor="@color/colorText"
+            />
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/colorText"
+            android:layout_marginRight="3dp"
+            android:id="@+id/textViewCoins"
+            android:text="30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/img_dollor"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>

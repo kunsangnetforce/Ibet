@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet.dashboard.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.*;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 
@@ -22,6 +22,7 @@ import at.grabner.circleprogress.AnimationStateChangedListener;
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 import de.hdodenhof.circleimageview.CircleImageView;
+import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +33,7 @@ public class Home extends Fragment {
     TextView textViewRemaining;
     CircleImageView circleImageViewDp;
     private Context context;
+    private StikkyHeaderBuilder stikkyHeader;
 
     public Home() {
         // Required empty public constructor
@@ -69,6 +71,17 @@ public class Home extends Fragment {
         setupTab(view);
         return view;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+      /*  stikkyHeader = StikkyHeaderBuilder.stickTo(recyclerView_Commom);
+        stikkyHeader.setHeader(R.id.header, (ViewGroup) getView())
+                .minHeightHeaderDim(R.dimen.min_height_header)
+                .animator(new ParallaxStikkyAnimator())
+                .build();*/
+    }
+
     private void setupTab(View view) {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Finished Bets"));
@@ -76,8 +89,8 @@ public class Home extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager)view. findViewById(R.id.pager);
-        final com.netforceinfotech.ibet.dashboard.PagerAdapter adapter = new com.netforceinfotech.ibet.dashboard.PagerAdapter
-                (getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
+        final PagerAdapter adapter = new PagerAdapter
+                (getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

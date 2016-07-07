@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.finsihed_bet;
+package com.netforceinfotech.ibet.dashboard.home.detail_finished_bet;
 
 
 import android.content.Context;
@@ -16,15 +16,15 @@ import java.util.List;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<FinsihedData> itemList;
+    private List<DetailBetData> itemList;
     private Context context;
 
-    public FinishedBetAdapter(Context context, List<FinsihedData> itemList) {
+    public DetailBetAdapter(Context context, List<DetailBetData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -42,8 +42,8 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.row_finishedbet, parent, false);
-        FinishedBetHolder viewHolder = new FinishedBetHolder(view);
+        View view = inflater.inflate(R.layout.row_detailbet, parent, false);
+        DetailBetHolder viewHolder = new DetailBetHolder(view);
         return viewHolder;
 
 

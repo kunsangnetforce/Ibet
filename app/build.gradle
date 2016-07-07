@@ -21,6 +21,7 @@ android {
 
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     mavenCentral()
 }
 
@@ -37,4 +38,6 @@ dependencies {
     compile 'com.github.jakob-grabner:Circle-Progress-View:v1.2.9'
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
     compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.github.carlonzo.stikkyheader:core:0.0.3-SNAPSHOT'
+
 }

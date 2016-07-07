@@ -4,10 +4,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.netforceinfotech.ibet.dashboard.home.bets_to_join.BetsToJoin;
 import com.netforceinfotech.ibet.dashboard.home.finsihed_bet.FinsihedBet;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
+    private FinsihedBet finsihedBet;
 
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
@@ -19,14 +21,16 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                FinsihedBet finsihedBet = new FinsihedBet();
+                finsihedBet = new FinsihedBet();
                 return finsihedBet;
             case 1:
                 BetsToJoin betsToJoin = new BetsToJoin();
                 return betsToJoin;
             default:
-                return null;
+                finsihedBet = new FinsihedBet();
+                return finsihedBet;
         }
+
     }
 
     @Override
