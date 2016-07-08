@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    android:paddingBottom="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="16dp">
+
     <LinearLayout
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
@@ -34,10 +35,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:background="@color/colorPrimaryDark"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="80"
+                android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:weightSum="130">
 
@@ -55,22 +56,22 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="30">
+                    android:layout_weight="30"
+                    android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/italy"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp" />
+                        android:layout_height="40dp"
+                        android:src="@drawable/italy" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="50">
+                    android:layout_weight="50"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -81,6 +82,7 @@
 
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,22 +142,23 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/colorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="16dp"
             android:text="11.45"
-            />
+            android:textColor="@color/colorText" />
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:weightSum="130"
             android:layout_width="280dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="130">
+
             <LinearLayout
-                android:background="@color/colorPrimaryDark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:weightSum="130">
 
@@ -164,35 +167,38 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
                     android:gravity="center">
+
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:weightSum="100"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:weightSum="100">
 
                         <LinearLayout
-                            android:gravity="center"
-                            android:layout_weight="50"
                             android:layout_width="0dp"
-                            android:layout_height="40dp">
+                            android:layout_height="40dp"
+                            android:layout_weight="50"
+                            android:gravity="center">
+
                             <ImageView
-                                android:src="@drawable/italy"
                                 android:layout_width="40dp"
-                                android:layout_height="30dp" />
+                                android:layout_height="30dp"
+                                android:src="@drawable/italy" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:gravity="center"
-                            android:layout_weight="50"
                             android:layout_width="0dp"
-                            android:layout_height="40dp">
+                            android:layout_height="40dp"
+                            android:layout_weight="50"
+                            android:gravity="center">
+
                             <TextView
-                                android:textSize="12sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Italy"
-                                android:textColor="@color/colorText" />
+                                android:textColor="@color/colorText"
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -200,51 +206,54 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="30">
+                    android:layout_weight="30"
+                    android:gravity="center">
 
                     <ImageView
-                        android:src="@drawable/ball"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp" />
+                        android:layout_height="40dp"
+                        android:src="@drawable/ball" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="50">
+                    android:layout_weight="50"
+                    android:gravity="center">
 
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:weightSum="100"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:weightSum="100">
+
                         <LinearLayout
-                            android:gravity="center"
-                            android:layout_weight="50"
                             android:layout_width="0dp"
-                            android:layout_height="40dp">
+                            android:layout_height="40dp"
+                            android:layout_weight="50"
+                            android:gravity="center">
+
                             <TextView
-                                android:textSize="12sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Germany"
-                                android:textColor="@color/colorText" />
+                                android:textColor="@color/colorText"
+                                android:textSize="12sp" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:gravity="center"
-                            android:layout_weight="50"
                             android:layout_width="0dp"
-                            android:layout_height="40dp">
+                            android:layout_height="40dp"
+                            android:layout_weight="50"
+                            android:gravity="center">
+
                             <ImageView
-                                android:src="@drawable/italy"
                                 android:layout_width="40dp"
-                                android:layout_height="30dp" />
+                                android:layout_height="30dp"
+                                android:src="@drawable/italy" />
                         </LinearLayout>
 
 
@@ -255,16 +264,18 @@
         </LinearLayout>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/colorAccent"
             android:text="You lost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/colorAccent" />
+
         <TextView
-            android:layout_marginTop="16dp"
-            android:textColor="@color/colorText"
-            android:text="View Detail"
+            android:id="@+id/textViewDetail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="View Detail"
+            android:textColor="@color/colorText" />
     </LinearLayout>
 </LinearLayout>

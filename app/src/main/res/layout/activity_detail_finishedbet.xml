@@ -118,10 +118,10 @@
                         android:src="@drawable/img_vs" />
 
                     <TextView
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:gravity="center"
                         android:text="@string/best_ammount"
                         android:textColor="@color/colorText"
                         android:textSize="12sp" />
@@ -139,11 +139,11 @@
                             android:src="@drawable/img_dollor_small" />
 
                         <TextView
-                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="150"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -262,7 +262,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler"
@@ -271,47 +271,49 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:padding="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#01070b"
                     android:gravity="center"
+                    android:padding="6dp"
                     android:text="@string/loser_will_have_to"
                     android:textColor="@color/colorText"
                     android:textStyle="bold" />
+
                 <TextView
-                    android:background="@color/colorPrimaryDark"
-                    android:padding="6dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorText"
-                    android:text="Loser will have to pay 5 full ..."
-                    android:lines="3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:lines="3"
+                    android:padding="6dp"
+                    android:text="Loser will have to pay 5 full ..."
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
 
             </LinearLayout>
-            
+
             <LinearLayout
-                android:gravity="center"
-                android:layout_marginTop="32dp"
-                android:weightSum="100"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                
-                    <Button
-                        android:backgroundTint="@color/red"
-                        android:text="@string/close"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <Button
+                    android:id="@+id/buttonClose"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:backgroundTint="@color/red"
+                    android:text="@string/close" />
 
 
             </LinearLayout>

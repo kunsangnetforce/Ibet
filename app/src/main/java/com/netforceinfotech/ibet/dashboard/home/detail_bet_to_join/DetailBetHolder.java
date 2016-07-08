@@ -2,8 +2,11 @@ package com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.netforceinfotech.ibet.R;
 
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
@@ -11,8 +14,7 @@ import android.widget.TextView;
 public class DetailBetHolder extends RecyclerView.ViewHolder {
 
 
-    TextView textViewTitle, textViewCategory, textViewPros;
-    ImageView imageView;
+    Button buttonClose;
     View view;
 
 

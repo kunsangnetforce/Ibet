@@ -13,14 +13,14 @@ import com.netforceinfotech.ibet.R;
 public class FinishedBetHolder extends RecyclerView.ViewHolder {
 
 
-    TextView textViewTitle, textViewCategory, textViewPros;
-    ImageView imageView;
+    TextView textViewDetail;
     View view;
 
 
     public FinishedBetHolder(View itemView) {
         super(itemView);
         //implementing onClickListener
+        textViewDetail= (TextView) itemView.findViewById(R.id.textViewDetail);
         view = itemView;
 
     }

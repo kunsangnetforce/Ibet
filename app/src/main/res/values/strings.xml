@@ -26,4 +26,27 @@
     <string name="loser_will_have_to">Loser will have to</string>
     <string name="cancel">Cancel</string>
     <string name="close">Close</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="chart">Charts</string>
+    <string name="highestrank">Highest Ranked User</string>
+    <string name="all">All</string>
+    <string name="friends">Friends</string>
+    <string name="richestuser">Richest Users</string>
+    <string name="store">Store</string>
+    <string name="setting">Setting</string>
+    <string name="language">Language</string>
+    <string name="notification">Notification</string>
+    <string name="teamnotification">Team Notification</string>
+    <string name="generalnotification">General Notification</string>
+    <string name="sounds">Sounds</string>
+    <string name="themes">Themes</string>
+    <string name="odds">Odds</string>
+    <string name="info">Info</string>
+    <string name="removeads">Remove Ads</string>
+    <string name="feedback">Feedback</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="share">Share</string>
 </resources>

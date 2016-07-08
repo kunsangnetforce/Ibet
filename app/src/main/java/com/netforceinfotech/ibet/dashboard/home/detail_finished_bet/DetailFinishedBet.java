@@ -7,13 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
 
 import java.util.ArrayList;
 
-public class DetailFinishedBet extends AppCompatActivity {
+public class DetailFinishedBet extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -25,10 +26,11 @@ public class DetailFinishedBet extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_bet_to_join);
+        setContentView(R.layout.activity_detail_finishedbet);
         context = this;
         setupRecyclerView();
         setupToolBar("Germany vs Italy");
+        findViewById(R.id.buttonClose).setOnClickListener(this);
 
     }
     @Override
@@ -82,4 +84,13 @@ public class DetailFinishedBet extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.buttonClose:
+                finish();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                break;
+        }
+    }
 }

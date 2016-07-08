@@ -14,7 +14,7 @@ import com.netforceinfotech.ibet.R;
 
 import java.util.ArrayList;
 
-public class DetailBetToJoin extends AppCompatActivity {
+public class DetailBetToJoin extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -26,12 +26,13 @@ public class DetailBetToJoin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_bet_to_join);
+        setContentView(R.layout.activity_detail_betstobejoin);
         context = this;
         setupRecyclerView();
         setupToolBar("Germany vs Italy");
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -74,7 +75,7 @@ public class DetailBetToJoin extends AppCompatActivity {
 
     private void setupToolBar(String app_name) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView textView= (TextView) toolbar.findViewById(R.id.textViewTitle);
+        TextView textView = (TextView) toolbar.findViewById(R.id.textViewTitle);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -83,4 +84,10 @@ public class DetailBetToJoin extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+
+        }
+    }
 }

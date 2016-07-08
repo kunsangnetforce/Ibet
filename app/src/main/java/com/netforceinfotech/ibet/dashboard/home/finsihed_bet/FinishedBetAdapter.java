@@ -2,6 +2,8 @@ package com.netforceinfotech.ibet.dashboard.home.finsihed_bet;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.home.detail_finished_bet.DetailFinishedBet;
 
 import java.util.List;
 
@@ -52,6 +55,15 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.i("ibet_position",""+position);
+        FinishedBetHolder finishedBetHolder= (FinishedBetHolder) holder;
+        finishedBetHolder.textViewDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, DetailFinishedBet.class);
+                context.startActivity(intent);
+                ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
 
     }
 
