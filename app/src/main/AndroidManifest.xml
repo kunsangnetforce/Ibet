@@ -25,7 +25,8 @@
         <activity android:name=".login.EmailLogin" />
         <activity android:name=".dashboard.Dashboard" />
         <activity android:name=".dashboard.home.detail_finished_bet.DetailFinishedBet" />
-        <activity android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin"></activity>
+        <activity android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin" />
+        <activity android:name=".dashboard.home.bets_to_join.WhoWillWinActivity"></activity>
     </application>
 
 </manifest>
