@@ -5,8 +5,26 @@
     android:background="@color/colorPrimary"
     tools:context=".dashboard.home.startnewbet.currentgame.CurrentGameFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonNext"
+            android:layout_alignParentTop="true"></android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="240dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/green"
+            android:text="Next"
+            android:textColor="@color/colorText" />
+    </RelativeLayout>
 </FrameLayout>
