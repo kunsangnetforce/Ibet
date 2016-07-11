@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet.dashboard.home.bets_to_join;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ public class BetsToJoinHolder extends RecyclerView.ViewHolder {
 
 
     TextView textViewDetail;
+    TextView button;
     View view;
 
 
@@ -21,6 +23,7 @@ public class BetsToJoinHolder extends RecyclerView.ViewHolder {
         super(itemView);
         //implementing onClickListener
         view = itemView;
+        button= (TextView) view.findViewById(R.id.buttonJoin);
         textViewDetail= (TextView) view.findViewById(R.id.textViewDetail);
 
     }

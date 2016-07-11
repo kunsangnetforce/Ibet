@@ -30,4 +30,7 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
     </style>
+    <style name="btn_stand" parent="AppTheme.Base">
+        <item name="android:background">@drawable/btn_stand_sel</item>
+    </style>
 </resources>

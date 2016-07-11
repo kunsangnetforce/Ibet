@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.DetailBetToJoin;
+import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.WhoWillWinActivity;
 
 import java.util.List;
 
@@ -62,6 +63,15 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 Intent intent = new Intent(context, DetailBetToJoin.class);
                 context.startActivity(intent);
                 ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
+            }
+        });
+        betsToJoinHolder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+         Intent intent = new Intent(context, WhoWillWinActivity.class);
+                context.startActivity(intent);
+                ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
+
             }
         });
 

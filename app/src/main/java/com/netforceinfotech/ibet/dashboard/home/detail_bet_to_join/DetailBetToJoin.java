@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,8 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_betstobejoin);
         context = this;
+        findViewById(R.id.buttonJoin).setOnClickListener(this);
+        findViewById(R.id.buttonCancel).setOnClickListener(this);
         setupRecyclerView();
         setupToolBar("Germany vs Italy");
 
@@ -87,6 +90,15 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.buttonJoin:
+                Intent intent = new Intent(context, WhoWillWinActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                break;
+            case R.id.buttonCancel:
+                finish();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                break;
 
         }
     }
