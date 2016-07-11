@@ -1,0 +1,291 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".dashboard.home.Home">
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/circleImageViewDp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/david"
+                        app:civ_border_color="#12f4f0f0"
+                        app:civ_border_width="12dp" />
+
+                    <TextView
+                        android:id="@+id/textViewName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Ronney Singh"
+                        android:textColor="@color/colorText" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/text1"
+                                android:layout_width="60dp"
+                                android:layout_height="40dp"
+                                android:gravity="center"
+                                android:text="Level \n12"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/textViewRemaining"
+                                android:layout_width="60dp"
+                                android:layout_height="30dp"
+                                android:layout_below="@+id/text1"
+                                android:gravity="center"
+                                android:text="25%\nto next level"
+                                android:textColor="@color/white"
+                                android:textSize="10sp" />
+
+                        </RelativeLayout>
+
+                        <at.grabner.circleprogress.CircleProgressView
+                            android:id="@+id/cpvLevel"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="16dp"
+                            CircleProgressView:cpv_autoTextSize="true"
+                            CircleProgressView:cpv_barColor="@color/colorAccent"
+                            CircleProgressView:cpv_barWidth="12dp"
+                            CircleProgressView:cpv_contourColor="#12f4f0f0"
+                            CircleProgressView:cpv_contourSize="0dp"
+                            CircleProgressView:cpv_maxValue="100"
+                            CircleProgressView:cpv_rimColor="@color/colorPrimaryDark"
+                            CircleProgressView:cpv_rimWidth="10dp"
+                            CircleProgressView:cpv_seekMode="false"
+                            CircleProgressView:cpv_showTextInSpinningMode="false"
+                            CircleProgressView:cpv_showUnit="true"
+                            CircleProgressView:cpv_spinColor="@color/colorPrimary"
+                            CircleProgressView:cpv_textColor="@color/white"
+                            CircleProgressView:cpv_textMode="Text"
+                            CircleProgressView:cpv_textScale="2"
+                            CircleProgressView:cpv_textSize="12sp"
+                            CircleProgressView:cpv_unitColor="@color/white"
+                            CircleProgressView:cpv_unitScale="2"
+                            CircleProgressView:cpv_unitSize="12dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewWins"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:background="@drawable/circular_bg"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="30"
+                            android:textColor="@color/green"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/wins"
+                            android:textColor="@color/green" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewLosses"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:background="@drawable/circular_bg"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="40"
+                            android:textColor="@color/green"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/losses"
+                            android:textColor="@color/green" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="32dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="200">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_weight="20"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_thumb_up" />
+
+                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="50"
+                        CircleProgressView:rcProgressColor="@color/green"
+                        app:rcBackgroundColor="@color/colorPrimaryDark"
+                        app:rcMax="100"
+                        app:rcProgress="0"
+                        app:rcRadius="10dp"
+                        app:rcReverse="true" />
+
+                    <at.grabner.circleprogress.CircleProgressView
+                        android:id="@+id/cpvstatus"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="50"
+                        CircleProgressView:cpv_autoTextSize="true"
+                        CircleProgressView:cpv_barColor="@color/colorAccent"
+                        CircleProgressView:cpv_barWidth="12dp"
+                        CircleProgressView:cpv_contourColor="#12f4f0f0"
+                        CircleProgressView:cpv_contourSize="0dp"
+                        CircleProgressView:cpv_maxValue="100"
+                        CircleProgressView:cpv_rimColor="@color/colorPrimaryDark"
+                        CircleProgressView:cpv_rimWidth="10dp"
+                        CircleProgressView:cpv_seekMode="false"
+                        CircleProgressView:cpv_showTextInSpinningMode="false"
+                        CircleProgressView:cpv_showUnit="true"
+                        CircleProgressView:cpv_spinColor="@color/colorPrimary"
+                        CircleProgressView:cpv_textColor="@color/white"
+                        CircleProgressView:cpv_textMode="Percent"
+                        CircleProgressView:cpv_textScale="1"
+                        CircleProgressView:cpv_textSize="12sp"
+                        CircleProgressView:cpv_unit="%"
+                        CircleProgressView:cpv_unitColor="@color/white"
+                        CircleProgressView:cpv_unitScale="1" />
+
+                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                        android:layout_width="0dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="50"
+                        app:rcBackgroundColor="@color/colorPrimaryDark"
+                        app:rcMax="100"
+                        app:rcProgress="43"
+                        app:rcProgressColor="#D50000"
+                        app:rcRadius="10dp"
+                        app:rcReverse="false" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_weight="20"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_thumb_down" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/beginner"
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:layout_width="240dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorAccent"
+                    android:text="@string/start_new_bet"
+                    android:textColor="@color/colorText" />
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="240dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/tab_bg"
+                    android:elevation="6dp"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:tabIndicatorColor="@color/colorAccent"
+                    app:tabSelectedTextColor="@color/colorText"
+                    app:tabTextColor="@color/white" />
+
+                <android.support.v4.view.ViewPager
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="450dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>

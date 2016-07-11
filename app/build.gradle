@@ -21,14 +21,25 @@ android {
 
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     mavenCentral()
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile('com.mikepenz:materialdrawer:5.2.7@aar') {
+        transitive = true
+    }
+
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:support-v4:24.0.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.github.jakob-grabner:Circle-Progress-View:v1.2.9'
+    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.github.carlonzo.stikkyheader:core:0.0.3-SNAPSHOT'
 }
