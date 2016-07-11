@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
@@ -46,7 +47,7 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        setupToolBar();
+        setupToolBar("Ibet");
         setupDashboardFragment();
         userSessionManager = new UserSessionManager(getApplicationContext());
         String id = userSessionManager.getFBID();
@@ -80,7 +81,6 @@ public class Dashboard extends AppCompatActivity {
         PrimaryDrawerItem logout = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.logout);
 
 //create the drawer and remember the `Drawer` result object
-        setheaderImage(imageURL);
         AccountHeader accountHeader = getAccountHeader(imageURL);
         Drawer result = new DrawerBuilder()
                 .withAccountHeader(accountHeader)
@@ -128,11 +128,12 @@ public class Dashboard extends AppCompatActivity {
                 .build();
     }
 
-    private void setheaderImage(final String imageURL) {
+
+    private AccountHeader getAccountHeader(String imageURL) {
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
             public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Picasso.with(imageView.getContext()).load(imageURL).placeholder(placeholder).into(imageView);
+                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
             }
 
             @Override
@@ -152,9 +153,6 @@ public class Dashboard extends AppCompatActivity {
     }
     */
         });
-    }
-
-    private AccountHeader getAccountHeader(String imageURL) {
         UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
         String name = userSessionManager.getName();
         String email = userSessionManager.getEmail();
@@ -163,7 +161,7 @@ public class Dashboard extends AppCompatActivity {
                 .withSelectionListEnabledForSingleProfile(false)
                 .withHeaderBackground(R.drawable.background)
                 .addProfiles(
-                        new ProfileDrawerItem().withName(name).withEmail(email)
+                        new ProfileDrawerItem().withName(name).withEmail(email).withIcon(imageURL)
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -179,9 +177,11 @@ public class Dashboard extends AppCompatActivity {
         Toast.makeText(Dashboard.this, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void setupToolBar() {
+    private void setupToolBar(String s) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        TextView title = (TextView) toolbar.findViewById(R.id.textViewTitle);
+        title.setText(s);
     }
 
     private void replaceFragment(Fragment newFragment, String tag) {
@@ -191,18 +191,11 @@ public class Dashboard extends AppCompatActivity {
     }
 
     private void setupDashboardFragment() {
-        String teams = "Ibet";
-        getSupportActionBar().setTitle(teams);
         if (dashboardFragment == null) {
             dashboardFragment = new DashboardFragment();
         }
         String tagName = dashboardFragment.getClass().getName();
         replaceFragment(dashboardFragment, tagName);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.dashboard, menu);
-        return true;
     }
 
 }

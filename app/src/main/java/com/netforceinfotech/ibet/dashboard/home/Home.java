@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet.dashboard.home;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -15,12 +16,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 
 import at.grabner.circleprogress.CircleProgressView;
 import de.hdodenhof.circleimageview.CircleImageView;
-import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +32,6 @@ public class Home extends Fragment implements View.OnClickListener {
     TextView textViewRemaining;
     CircleImageView circleImageViewDp;
     private Context context;
-    private StikkyHeaderBuilder stikkyHeader;
     Button buttonStartNewGame;
 
     public Home() {
@@ -94,7 +94,7 @@ public class Home extends Fragment implements View.OnClickListener {
                 (getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -117,6 +117,8 @@ public class Home extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.buttonStartnewBet:
                 //go to new bet
+                Intent intent = new Intent(context, StartNewBetActivity.class);
+                startActivity(intent);
                 break;
         }
     }

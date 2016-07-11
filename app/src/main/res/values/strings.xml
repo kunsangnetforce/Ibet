@@ -52,4 +52,6 @@
     <string name="next">Next</string>
     <string name="bets_to_join">Bets to Join</string>
     <string name="finished_bet">Finished Bets</string>
+    <string name="coin">Coins</string>
+    <string name="germany_vs_italy">Germany vs Italy</string>
 </resources>

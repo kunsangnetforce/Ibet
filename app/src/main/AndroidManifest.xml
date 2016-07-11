@@ -27,7 +27,7 @@
         <activity android:name=".dashboard.home.detail_finished_bet.DetailFinishedBet" />
         <activity android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin" />
         <activity android:name=".dashboard.home.detail_bet_to_join.WhoWillWinActivity" />
-        <activity android:name=".dashboard.StartNewBetActivity"></activity>
+        <activity android:name=".dashboard.home.startnewbet.StartNewBetActivity"></activity>
     </application>
 
 </manifest>

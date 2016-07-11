@@ -30,7 +30,7 @@
 
                     <include
                         android:id="@+id/toolbar"
-                        layout="@layout/app_bar" />
+                        layout="@layout/app_bar_coin" />
                 </android.support.design.widget.AppBarLayout>
 
 
