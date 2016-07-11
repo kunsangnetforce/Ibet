@@ -53,6 +53,7 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.i("ibet_position",""+position);
 
+
     }
 
     private void showMessage(String s) {

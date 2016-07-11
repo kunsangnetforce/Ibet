@@ -49,4 +49,7 @@
     <string name="feedback">Feedback</string>
     <string name="tutorial">Tutorial</string>
     <string name="share">Share</string>
+    <string name="next">Next</string>
+    <string name="bets_to_join">Bets to Join</string>
+    <string name="finished_bet">Finished Bets</string>
 </resources>

@@ -11,29 +11,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 
-import at.grabner.circleprogress.AnimationState;
-import at.grabner.circleprogress.AnimationStateChangedListener;
 import at.grabner.circleprogress.CircleProgressView;
-import at.grabner.circleprogress.TextMode;
 import de.hdodenhof.circleimageview.CircleImageView;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Home extends Fragment {
+public class Home extends Fragment implements View.OnClickListener {
     Boolean mShowUnit = true;
     CircleProgressView circleProgressViewStatus, circleProgressViewLevel;
     TextView textViewRemaining;
     CircleImageView circleImageViewDp;
     private Context context;
     private StikkyHeaderBuilder stikkyHeader;
+    Button buttonStartNewGame;
 
     public Home() {
         // Required empty public constructor
@@ -50,6 +49,8 @@ public class Home extends Fragment {
         circleProgressViewStatus = (CircleProgressView) view.findViewById(R.id.cpvstatus);
         circleProgressViewLevel = (CircleProgressView) view.findViewById(R.id.cpvLevel);
         textViewRemaining = (TextView) view.findViewById(R.id.textViewRemaining);
+        buttonStartNewGame = (Button) view.findViewById(R.id.buttonStartnewBet);
+        buttonStartNewGame.setOnClickListener(this);
         circleProgressViewLevel.setOnProgressChangedListener(new CircleProgressView.OnProgressChangedListener() {
             @Override
             public void onProgressChanged(float value) {
@@ -61,7 +62,7 @@ public class Home extends Fragment {
         circleProgressViewStatus.setValueAnimated(35f, 1500);
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String fbId = userSessionManager.getFBID();
-        Log.i("ibet_fbid",fbId);
+        Log.i("ibet_fbid", fbId);
         String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
         Picasso.with(context)
                 .load(imageURL)
@@ -84,11 +85,11 @@ public class Home extends Fragment {
 
     private void setupTab(View view) {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Finished Bets"));
-        tabLayout.addTab(tabLayout.newTab().setText("Bets tp Join"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.finished_bet));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.bets_to_join));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager)view. findViewById(R.id.pager);
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
                 (getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -109,5 +110,14 @@ public class Home extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttonStartnewBet:
+                //go to new bet
+                break;
+        }
     }
 }
