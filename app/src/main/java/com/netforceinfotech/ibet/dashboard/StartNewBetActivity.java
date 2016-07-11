@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.netforceinfotech.ibet.R;
 
-public class StartVewBetActivity extends AppCompatActivity {
+public class StartNewBetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
