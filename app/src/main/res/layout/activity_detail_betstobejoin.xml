@@ -318,7 +318,7 @@
                     android:id="@+id/buttonJoin"
                     android:layout_width="120dp"
                     android:layout_height="60dp"
-                    android:backgroundTint="@color/green"
+                    android:background="@color/green"
                     android:text="@string/join" />
                 </LinearLayout>
 
@@ -332,7 +332,7 @@
                         android:id="@+id/buttonCancel"
                         android:layout_width="120dp"
                         android:layout_height="60dp"
-                        android:backgroundTint="@color/red"
+                        android:background="@color/red"
                         android:text="@string/cancel" />
                 </LinearLayout>
 

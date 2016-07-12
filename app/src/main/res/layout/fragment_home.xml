@@ -1,12 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".dashboard.home.Home">
-
+    android:layout_height="match_parent"
+    >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,7 +34,6 @@
                         android:id="@+id/circleImageViewDp"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:layout_marginTop="45dp"
                         android:src="@drawable/david"
                         app:civ_border_color="#12f4f0f0"
                         app:civ_border_width="12dp" />
@@ -290,4 +289,4 @@
         </LinearLayout>
 
     </ScrollView>
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

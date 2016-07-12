@@ -23,7 +23,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/green"
+            android:background="@color/green"
             android:text="Next"
             android:textColor="@color/colorText" />
     </RelativeLayout>
