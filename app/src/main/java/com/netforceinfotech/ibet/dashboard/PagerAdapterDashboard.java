@@ -9,10 +9,10 @@ import com.netforceinfotech.ibet.dashboard.LiveEvents;
 import com.netforceinfotech.ibet.dashboard.SoloBet;
 import com.netforceinfotech.ibet.dashboard.home.Home;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapterDashboard extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapterDashboard(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }

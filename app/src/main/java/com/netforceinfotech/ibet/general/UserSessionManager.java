@@ -16,6 +16,7 @@ public class UserSessionManager {
     private static final String FBID = "fbid";
     private static final String EMAIL = "email";
     private static final String NAME = "name";
+    private static final String ISFIRSTTIME = "first_time";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -42,6 +43,15 @@ public class UserSessionManager {
         editor.commit();
     }
 
+    public boolean getIsFirstTime() {
+        return pref.getBoolean(ISFIRSTTIME, true);
+    }
+
+    public void setIsFirstTime(boolean regid) {
+        editor.putBoolean(ISFIRSTTIME, regid);
+        editor.commit();
+    }
+
     public String getToken() {
         return pref.getString(TOKEN, "");
     }
@@ -50,6 +60,7 @@ public class UserSessionManager {
         editor.putString(TOKEN, regid);
         editor.commit();
     }
+
     public String getFBID() {
         return pref.getString(FBID, "");
     }
@@ -58,6 +69,7 @@ public class UserSessionManager {
         editor.putString(FBID, regid);
         editor.commit();
     }
+
     public String getEmail() {
         return pref.getString(EMAIL, "");
     }
@@ -66,6 +78,7 @@ public class UserSessionManager {
         editor.putString(EMAIL, regid);
         editor.commit();
     }
+
     public String getName() {
         return pref.getString(NAME, "");
     }
@@ -74,7 +87,6 @@ public class UserSessionManager {
         editor.putString(NAME, regid);
         editor.commit();
     }
-
 
 
 }

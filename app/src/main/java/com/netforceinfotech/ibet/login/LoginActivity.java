@@ -21,6 +21,7 @@ import com.facebook.login.widget.LoginButton;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.profilesetting.ProfileSettingActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private List<String> permissions;
     Button buttonFacebookCustom;
     private Profile profile;
+    private Intent intent;
     private UserSessionManager userSessionManager;
 
     @Override
@@ -42,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
         setContentView(R.layout.activity_login);
-        userSessionManager=new UserSessionManager(getApplicationContext());
+        userSessionManager = new UserSessionManager(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         findViewById(R.id.textViewRegister).setOnClickListener(this);
         buttonFacebookCustom = (Button) findViewById(R.id.buttonCustomFB);
@@ -145,13 +147,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String fbToken = accessToken.getToken();
                                 userSessionManager.setToken(fbToken);
                                 String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
-
                                 buttonFacebookCustom.setText(R.string.logout);
                                 Log.i("facebookgrapth", fbName + " " + fbBirthday);
-                                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                                startActivity(intent);
-                                overridePendingTransition(R.anim.enter, R.anim.exit);
-                                finish();
+                                UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
+                                if (userSessionManager.getIsFirstTime()) {
+                                    intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                   /* intent = new Intent(getApplicationContext(), Dashboard.class);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                                    finish();*/
+                                }
                             }
                         }
                     });

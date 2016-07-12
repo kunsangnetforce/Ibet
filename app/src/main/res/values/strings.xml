@@ -33,6 +33,7 @@
     <string name="chart">Charts</string>
     <string name="highestrank">Highest Ranked User</string>
     <string name="all">All</string>
+    <string name="editpic">Change profile picture</string>
     <string name="friends">Friends</string>
     <string name="richestuser">Richest Users</string>
     <string name="store">Store</string>
@@ -52,4 +53,9 @@
     <string name="next">Next</string>
     <string name="bets_to_join">Bets to Join</string>
     <string name="finished_bet">Finished Bets</string>
+    <string name="coin">Coins</string>
+    <string name="germany_vs_italy">Germany vs Italy</string>
+    <string name="select_favourite_team">Select Favourite Team</string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
 </resources>
