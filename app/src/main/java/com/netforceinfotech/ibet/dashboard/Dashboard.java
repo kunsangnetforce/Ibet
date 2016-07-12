@@ -94,7 +94,7 @@ public class Dashboard extends AppCompatActivity {
                         richestUsers, friends, all, new DividerDrawerItem(),
                         store,
                         setting,
-                        language, new DividerDrawerItem(),
+                  /*      language, new DividerDrawerItem(),
                         notification, teamNotification, generalNotification, new DividerDrawerItem(),
                         sounds,
                         themes,
@@ -102,7 +102,7 @@ public class Dashboard extends AppCompatActivity {
                         info,
                         removeads,
                         feedback,
-                        tutorial,
+                  */      tutorial,
                         share,
                         logout
                 )
@@ -112,7 +112,7 @@ public class Dashboard extends AppCompatActivity {
                         // do something with the clicked item :D
 
                         switch (position) {
-                            case 29:
+                            case 17:
                                 LoginManager.getInstance().logOut();
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);

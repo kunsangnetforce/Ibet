@@ -34,6 +34,7 @@
                         android:id="@+id/circleImageViewDp"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
+                        android:layout_marginTop="45dp"
                         android:src="@drawable/david"
                         app:civ_border_color="#12f4f0f0"
                         app:civ_border_width="12dp" />
