@@ -66,37 +66,18 @@ public class Dashboard extends AppCompatActivity {
         imageURL = "https://graph.facebook.com/" + id + "/picture?type=large";
         setupNavigation(imageURL);
 
-
     }
 
-    private void setupNavigation(String imageURL)
-    {
-
-
-        PrimaryDrawerItem home = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home);
-        PrimaryDrawerItem profile = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.profile);
-        PrimaryDrawerItem chart = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.chart);
-        PrimaryDrawerItem highestrank = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.highestrank);
-        SecondaryDrawerItem friends = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(2).withName(R.string.friends);
-        SecondaryDrawerItem all = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(2).withName(R.string.all);
-        PrimaryDrawerItem richestUsers = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.richestuser);
-        PrimaryDrawerItem store = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.store);
-        PrimaryDrawerItem setting = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.setting);
-        PrimaryDrawerItem language = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.language);
-        PrimaryDrawerItem notification = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.notification);
-        SecondaryDrawerItem teamNotification = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(2).withName(R.string.teamnotification);
-        SecondaryDrawerItem generalNotification = (SecondaryDrawerItem) new SecondaryDrawerItem().withIdentifier(2).withName(R.string.generalnotification);
-        PrimaryDrawerItem sounds = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.sounds);
-        PrimaryDrawerItem themes = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.themes);
-        PrimaryDrawerItem odds = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.odds);
-        PrimaryDrawerItem info = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.info);
-        PrimaryDrawerItem removeads = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.removeads);
-        PrimaryDrawerItem feedback = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.feedback);
-        PrimaryDrawerItem tutorial = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.tutorial);
-        PrimaryDrawerItem share = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.share);
-        PrimaryDrawerItem logout = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.logout);
-
-
+    private void setupNavigation(String imageURL) {
+        PrimaryDrawerItem home = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home).withIcon(R.drawable.ic_home).withSelectedIcon(R.drawable.ic_home_white);
+        PrimaryDrawerItem profile = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.profile).withIcon(R.drawable.ic_account).withSelectedIcon(R.drawable.ic_account_white);
+        PrimaryDrawerItem chart = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.chart).withIcon(R.drawable.ic_chart).withSelectedIcon(R.drawable.ic_chart_white);
+        PrimaryDrawerItem setting = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.setting).withIcon(R.drawable.ic_setting).withSelectedIcon(R.drawable.ic_settings_white);
+        PrimaryDrawerItem store = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.store).withIcon(R.drawable.ic_cart).withSelectedIcon(R.drawable.ic_cart_white);
+        PrimaryDrawerItem tutorial = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.tutorial).withIcon(R.drawable.ic_clipboard).withSelectedIcon(R.drawable.ic_clipboard_white);
+        PrimaryDrawerItem share = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.share).withIcon(R.drawable.ic_share).withSelectedIcon(R.drawable.ic_share_white);
+        PrimaryDrawerItem logout = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.logout).withIcon(R.drawable.ic_logout).withSelectedIcon(R.drawable.ic_logout_white);
+        PrimaryDrawerItem rateus = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.rateus).withIcon(R.drawable.ic_rateus).withSelectedIcon(R.drawable.ic_rateus_white);
 
 //create the drawer and remember the `Drawer` result object
         AccountHeader accountHeader = getAccountHeader(imageURL);
@@ -107,21 +88,12 @@ public class Dashboard extends AppCompatActivity {
                 .addDrawerItems(
                         home,
                         profile,
-                        chart, new DividerDrawerItem(),
-                        highestrank, friends, all, new DividerDrawerItem(),
-                        richestUsers, friends, all, new DividerDrawerItem(),
+                        chart,
                         store,
                         setting,
-                  /*      language, new DividerDrawerItem(),
-                        notification, teamNotification, generalNotification, new DividerDrawerItem(),
-                        sounds,
-                        themes,
-                        odds,
-                        info,
-                        removeads,
-                        feedback,
-                  */      tutorial,
+                        tutorial,
                         share,
+                        rateus,
                         logout
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -129,30 +101,12 @@ public class Dashboard extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
 
-                        switch (position)
-                        {
+                        switch (position) {
                             case 17:
                                 LoginManager.getInstance().logOut();
-                                intent = new Intent(getApplicationContext(), MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
-                                break;
-
-                            case 1:
-                                setupDashboardFragment();
-                                break;
-
-                            case 2:
-                                setupFeedbackFragment();
-
-                                break;
-                            case 3:
-                                setupChartFragment();
-
-                                break;
-                            case 5:
-                                setupLanguageFragment();
-
                                 break;
                             default:
                                 showMessage("Yet to implement" + position);
