@@ -3,6 +3,8 @@
     <string name="facebook_app_id">1756172004658425</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="login_as_guest">Login as a guest</string>
+    <string name="chart_highest">Highest Rank</string>
+    <string name="chart_richest">Richest Rank</string>
     <string name="dont_have_an_account_register">Dont have an Account? Register</string>
     <string name="user_name">User name</string>
     <string name="password">Password</string>
@@ -58,4 +60,6 @@
     <string name="select_favourite_team">Select Favourite Team</string>
     <string name="skip">Skip</string>
     <string name="done">Done</string>
+    <string name="title_activity_chart">ChartActivity</string>
+    <string name="title_activity_chart_tab">ChartTabActivity</string>
 </resources>

@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.textViewRegister:
-                Intent intent = new Intent(getApplicationContext(), EmailLogin.class);
+                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
