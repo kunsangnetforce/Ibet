@@ -32,6 +32,7 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Chart.ChartActivity;
+import com.netforceinfotech.ibet.dashboard.Chart.ChartFragment;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -39,11 +40,13 @@ import com.squareup.picasso.Target;
 public class Dashboard extends AppCompatActivity {
 
     private DashboardFragment dashboardFragment;
+    private ChartFragment chartFragment;
     private Toolbar toolbar;
     private UserSessionManager userSessionManager;
     private AccountHeader headerResult;
     private String imageURL;
     Intent intent;
+
 
 
     @Override
@@ -122,11 +125,14 @@ public class Dashboard extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                                 break;
+
                             case 2:
-                                LoginManager.getInstance().logOut();
-                                 intent = new Intent(getApplicationContext(), ChartActivity.class);
-                                startActivity(intent);
-                                finish();
+
+                                chartFragment = new ChartFragment();
+                                String tagName = chartFragment.getClass().getName();
+                                replaceFragment(chartFragment, tagName);
+
+
                                 break;
                             default:
                                 showMessage("Yet to implement" + position);
