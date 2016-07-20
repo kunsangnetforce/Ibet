@@ -29,7 +29,15 @@
         <activity android:name=".dashboard.home.detail_bet_to_join.WhoWillWinActivity" />
         <activity android:name=".dashboard.home.startnewbet.StartNewBetActivity" />
         <activity android:name=".profilesetting.ProfileSettingActivity" />
-        <activity android:name=".profilesetting.selectteam.SelectTeamActivity"></activity>
+        <activity android:name=".profilesetting.selectteam.SelectTeamActivity" />
+        <activity
+            android:name=".dashboard.Chart.ChartActivity"
+            android:label="@string/title_activity_chart"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".dashboard.Chart.ChartTabActivity"
+            android:label="@string/title_activity_chart_tab"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

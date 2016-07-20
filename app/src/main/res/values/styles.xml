@@ -11,6 +11,7 @@
         <item name="textAllCaps">false</item>
         <item name="android:textViewStyle">@style/SanSarif</item>
     </style>
+
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="textAllCaps">false</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -30,6 +31,7 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
     </style>
+
     <style name="btn_stand" parent="AppTheme.Base">
         <item name="android:background">@drawable/btn_stand_sel</item>
     </style>

@@ -14,23 +14,26 @@ import com.netforceinfotech.ibet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment
+{
 
 
-    public DashboardFragment() {
+    public DashboardFragment()
+    {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_dashboard, container, false);
         setupTab(view);
         return view;
     }
-    private void setupTab(View view) {
+    private void setupTab(View view)
+    {
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
         tabLayout.addTab(tabLayout.newTab().setText("Current Bets"));
@@ -43,6 +46,8 @@ public class DashboardFragment extends Fragment {
                 (getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
      /*   tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -59,7 +64,8 @@ public class DashboardFragment extends Fragment {
 
             }
         });*/
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());

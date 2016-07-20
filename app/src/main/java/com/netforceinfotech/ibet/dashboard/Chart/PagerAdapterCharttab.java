@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.startnewbet;
+package com.netforceinfotech.ibet.dashboard.Chart;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,20 +7,23 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.currentgame.CurrentGameFragment;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.upcominggame.UpComingGamesFragment;
 
-public class PagerAdapterNewBet extends FragmentStatePagerAdapter
-{
+/**
+ * Created by asdf on 7/20/2016.
+ */
+public class PagerAdapterCharttab  extends FragmentStatePagerAdapter {
+
     int mNumOfTabs;
 
-    public PagerAdapterNewBet(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapterCharttab(FragmentManager fm, int NumOfTabs)
+    {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
 
-    @Override
+
     public Fragment getItem(int position) {
 
-        switch (position)
-        {
+        switch (position) {
             case 0:
                 CurrentGameFragment currentGameFragment = new CurrentGameFragment();
                 return currentGameFragment;
