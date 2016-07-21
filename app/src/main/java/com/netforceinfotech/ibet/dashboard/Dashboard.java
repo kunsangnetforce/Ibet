@@ -31,6 +31,8 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.Chart.ChartActivity;
+import com.netforceinfotech.ibet.dashboard.Chart.ChartFragment;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -38,13 +40,18 @@ import com.squareup.picasso.Target;
 public class Dashboard extends AppCompatActivity {
 
     private DashboardFragment dashboardFragment;
+    private ChartFragment chartFragment;
     private Toolbar toolbar;
     private UserSessionManager userSessionManager;
     private AccountHeader headerResult;
     private String imageURL;
+    Intent intent;
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         setupToolBar("Ibet");
@@ -92,9 +99,18 @@ public class Dashboard extends AppCompatActivity {
                         switch (position) {
                             case 17:
                                 LoginManager.getInstance().logOut();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                 intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
+                                break;
+
+                            case 2:
+
+                                chartFragment = new ChartFragment();
+                                String tagName = chartFragment.getClass().getName();
+                                replaceFragment(chartFragment, tagName);
+
+
                                 break;
                             default:
                                 showMessage("Yet to implement" + position);
