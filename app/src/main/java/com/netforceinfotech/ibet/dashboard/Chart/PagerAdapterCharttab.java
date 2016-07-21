@@ -10,7 +10,8 @@ import com.netforceinfotech.ibet.dashboard.home.startnewbet.upcominggame.UpComin
 /**
  * Created by asdf on 7/20/2016.
  */
-public class PagerAdapterCharttab  extends FragmentStatePagerAdapter {
+public class PagerAdapterCharttab  extends FragmentStatePagerAdapter
+{
 
     int mNumOfTabs;
 
@@ -21,15 +22,17 @@ public class PagerAdapterCharttab  extends FragmentStatePagerAdapter {
     }
 
 
-    public Fragment getItem(int position) {
+    public Fragment getItem(int position)
+    {
 
-        switch (position) {
+        switch (position)
+        {
             case 0:
-                CurrentGameFragment currentGameFragment = new CurrentGameFragment();
-                return currentGameFragment;
+                Highest_Fragment highestFragment = new Highest_Fragment();
+                return highestFragment;
             case 1:
-                UpComingGamesFragment upComingGamesFragment = new UpComingGamesFragment();
-                return upComingGamesFragment;
+                Highest_Fragment richestFragment = new Highest_Fragment();
+                return richestFragment;
 
             default:
                 return null;
