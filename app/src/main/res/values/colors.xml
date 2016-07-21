@@ -22,4 +22,23 @@
     <color name="colorPrimaryLight">#1479d2</color>
     <color name="greendark">#185807</color>
 
+
+    //material drawer
+    <!-- Material DEFAULT colors -->
+    <color name="material_drawer_primary">#2196F3</color>
+    <color name="material_drawer_primary_dark">#1976D2</color>
+    <color name="material_drawer_primary_light">#BBDEFB</color>
+    <color name="material_drawer_accent">#FF4081</color>
+
+    <!-- OVERWRITE THESE COLORS FOR A LIGHT THEME -->
+    <!-- MaterialDrawer DEFAULT colors -->
+    <color name="material_drawer_background">#ff9700</color>
+    <!-- Material DEFAULT text / items colors -->
+    <color name="material_drawer_primary_text">#DE000000</color>
+    <color name="material_drawer_secondary_text">#8A000000</color>
+    <!-- Material DEFAULT drawer colors -->
+    <color name="material_drawer_selected">#a46304</color>
+    <color name="material_drawer_selected_text">#FFFFFF</color>
+
+
 </resources>

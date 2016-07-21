@@ -104,15 +104,7 @@ public class Dashboard extends AppCompatActivity {
                         richestUsers, friends, all, new DividerDrawerItem(),
                         store,
                         setting,
-                  /*      language, new DividerDrawerItem(),
-                        notification, teamNotification, generalNotification, new DividerDrawerItem(),
-                        sounds,
-                        themes,
-                        odds,
-                        info,
-                        removeads,
-                        feedback,
-                  */      tutorial,
+                        tutorial,
                         share,
                         logout
                 )
