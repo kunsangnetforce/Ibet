@@ -21,5 +21,6 @@
     <color name="textviewBackground1">#ef1940</color>
     <color name="colorPrimaryLight">#1479d2</color>
     <color name="greendark">#185807</color>
+    <color name="yellow_view">#E4D00A</color>
 
 </resources>

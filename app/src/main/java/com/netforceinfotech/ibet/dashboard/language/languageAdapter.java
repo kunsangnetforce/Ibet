@@ -26,16 +26,22 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<LanguageFragmentData> itemList;
+    private ArrayList<String> itemList;
+    LanguageHolder viewHolder;
+
     private Context context;
     ArrayList<Boolean> booleanGames = new ArrayList<>();
 
-    public languageAdapter(Context context, List<LanguageFragmentData> itemList)
+
+
+
+    public languageAdapter(Context context, ArrayList<String> itemList)
     {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
+
 
     /*  @Override
       public int getItemViewType(int position) {
@@ -45,23 +51,19 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
               return IMAGE_TYPE;
           }
       }
-  */
+       */
+
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
 
         View view = inflater.inflate(R.layout.row_language, parent, false);
-        LanguageHolder viewHolder = new LanguageHolder(view);
-        for (int i = 0; i < itemList.size(); i++) {
-            if (i == 0) {
-                booleanGames.add(true);
-            } else {
-                booleanGames.add(false);
-            }
-            Log.i("looppp", "" + i);
-        }
+         viewHolder = new LanguageHolder(view);
 
         return viewHolder;
+
+
 
 
     }
@@ -70,7 +72,7 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
     {
 
-
+        viewHolder.textViewTitle.setText(itemList.get(position));
 
     }
 
@@ -81,8 +83,13 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     @Override
-    public int getItemCount() {
-        return 5;
+    public int getItemCount()
+    {
+        return 3;
 //        return itemList.size();
     }
+
+
+
+
 }

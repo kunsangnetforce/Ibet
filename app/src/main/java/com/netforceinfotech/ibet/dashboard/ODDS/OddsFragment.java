@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.language;
+package com.netforceinfotech.ibet.dashboard.ODDS;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,14 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Chart.HighestAdapter;
-import com.netforceinfotech.ibet.dashboard.Chart.HighestFragmentData;
 import com.netforceinfotech.ibet.dashboard.Dashboard;
+import com.netforceinfotech.ibet.dashboard.language.languageAdapter;
 
 import java.util.ArrayList;
 
 
-public class LanguageFragment extends Fragment
+public class OddsFragment extends  Fragment
 {
 
     private RecyclerView recyclerView;
@@ -26,18 +25,20 @@ public class LanguageFragment extends Fragment
     private LinearLayoutManager layoutManager;
     private languageAdapter adapter;
 
-    ArrayList<String>  languagedatas = new ArrayList<String>();
+    ArrayList<String> oddsdatas = new ArrayList<String>();
 
-    public LanguageFragment()
+    public OddsFragment()
     {
         // Required empty public constructor
     }
 
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_language, container, false);
+        View view = inflater.inflate(R.layout.fragment_odds, container, false);
         context = getActivity();
 
         Dashboard.title.setText("Language");
@@ -51,10 +52,13 @@ public class LanguageFragment extends Fragment
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        languagedatas.add("English");
-        languagedatas.add("Hindi");
-        languagedatas.add("Spanish");
-        adapter = new languageAdapter(context, languagedatas);
+
+        oddsdatas.add("Decimal");
+        oddsdatas.add("American");
+        oddsdatas.add("Fractional");
+
+
+        adapter = new languageAdapter(context, oddsdatas);
         recyclerView.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
