@@ -42,14 +42,14 @@
             android:layout_height="match_parent">
 
             <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/drawer_layout1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/drawer_layout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <include layout="@layout/content_main" />
+            <include layout="@layout/content_main" />
 
-            </FrameLayout>
+        </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/fragmentAd"

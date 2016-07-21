@@ -17,6 +17,7 @@
     <color name="colorPrimaryText">#515151</color>
     <color name="colorSecondaryText">#727272</color>
     <color name="colorText">#FFFFFF</color>
+    <color name="blue_background_view">#5e90af</color>
     <color name="textviewBackground1">#ef1940</color>
     <color name="colorPrimaryLight">#1479d2</color>
     <color name="greendark">#185807</color>

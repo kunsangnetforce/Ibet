@@ -33,6 +33,8 @@ import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Chart.ChartActivity;
 import com.netforceinfotech.ibet.dashboard.Chart.ChartFragment;
+import com.netforceinfotech.ibet.dashboard.Feedback.FeedbackFragment;
+import com.netforceinfotech.ibet.dashboard.language.LanguageFragment;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -41,17 +43,18 @@ public class Dashboard extends AppCompatActivity {
 
     private DashboardFragment dashboardFragment;
     private ChartFragment chartFragment;
+    private FeedbackFragment feedbackFragment;
+    private LanguageFragment languageFragment;
     private Toolbar toolbar;
     private UserSessionManager userSessionManager;
     private AccountHeader headerResult;
-    private String imageURL;
+    private String imageURL, tagName;
     Intent intent;
-
+    public static TextView title;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         setupToolBar("Ibet");
@@ -118,20 +121,29 @@ public class Dashboard extends AppCompatActivity {
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
 
-                        switch (position) {
+                        switch (position)
+                        {
                             case 17:
                                 LoginManager.getInstance().logOut();
-                                 intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
                                 break;
 
+                            case 1:
+                                setupDashboardFragment();
+                                break;
+
                             case 2:
+                                setupFeedbackFragment();
 
-                                chartFragment = new ChartFragment();
-                                String tagName = chartFragment.getClass().getName();
-                                replaceFragment(chartFragment, tagName);
+                                break;
+                            case 3:
+                                setupChartFragment();
 
+                                break;
+                            case 5:
+                                setupLanguageFragment();
 
                                 break;
                             default:
@@ -144,11 +156,53 @@ public class Dashboard extends AppCompatActivity {
                 .build();
     }
 
+    private void setupLanguageFragment()
+    {
 
-    private AccountHeader getAccountHeader(String imageURL) {
-        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+        if(languageFragment == null)
+        {
+            languageFragment = new LanguageFragment();
+        }
+        languageFragment = new LanguageFragment();
+        tagName = languageFragment.getClass().getName();
+        replaceFragment(languageFragment, tagName);
+
+    }
+
+    private void setupFeedbackFragment()
+    {
+        if(feedbackFragment == null)
+        {
+            feedbackFragment = new FeedbackFragment();
+        }
+        feedbackFragment = new FeedbackFragment();
+        tagName = feedbackFragment.getClass().getName();
+        replaceFragment(feedbackFragment, tagName);
+
+
+    }
+
+    private void setupChartFragment()
+    {
+        if (chartFragment == null)
+        {
+            chartFragment = new ChartFragment();
+        }
+        chartFragment = new ChartFragment();
+        tagName = chartFragment.getClass().getName();
+        replaceFragment(chartFragment, tagName);
+
+
+    }
+
+
+    private AccountHeader getAccountHeader(String imageURL)
+    {
+        DrawerImageLoader.init(new AbstractDrawerImageLoader()
+        {
             @Override
-            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+            public void set(ImageView imageView, Uri uri, Drawable placeholder)
+            {
                 Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
             }
 
@@ -196,7 +250,7 @@ public class Dashboard extends AppCompatActivity {
     private void setupToolBar(String s) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView title = (TextView) toolbar.findViewById(R.id.textViewTitle);
+        title = (TextView) toolbar.findViewById(R.id.textViewTitle);
         title.setText(s);
     }
 
@@ -210,7 +264,7 @@ public class Dashboard extends AppCompatActivity {
         if (dashboardFragment == null) {
             dashboardFragment = new DashboardFragment();
         }
-        String tagName = dashboardFragment.getClass().getName();
+        tagName = dashboardFragment.getClass().getName();
         replaceFragment(dashboardFragment, tagName);
     }
 
