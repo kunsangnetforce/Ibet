@@ -26,5 +26,6 @@ public class LanguageHolder  extends RecyclerView.ViewHolder {
 
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
 
+        textViewTitle = (TextView) itemView.findViewById(R.id.txt_language);
     }
 }

@@ -54,7 +54,9 @@ public class Dashboard extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         setupToolBar("Ibet");
@@ -64,9 +66,13 @@ public class Dashboard extends AppCompatActivity {
         imageURL = "https://graph.facebook.com/" + id + "/picture?type=large";
         setupNavigation(imageURL);
 
+
     }
 
-    private void setupNavigation(String imageURL) {
+    private void setupNavigation(String imageURL)
+    {
+
+
         PrimaryDrawerItem home = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home);
         PrimaryDrawerItem profile = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.profile);
         PrimaryDrawerItem chart = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.chart);
@@ -89,6 +95,8 @@ public class Dashboard extends AppCompatActivity {
         PrimaryDrawerItem tutorial = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.tutorial);
         PrimaryDrawerItem share = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.share);
         PrimaryDrawerItem logout = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.logout);
+
+
 
 //create the drawer and remember the `Drawer` result object
         AccountHeader accountHeader = getAccountHeader(imageURL);
