@@ -10,33 +10,22 @@ import com.netforceinfotech.ibet.dashboard.home.startnewbet.upcominggame.UpComin
 /**
  * Created by asdf on 7/20/2016.
  */
-public class PagerAdapterCharttab  extends FragmentStatePagerAdapter
-{
+public class PagerAdapterCharttab extends FragmentStatePagerAdapter {
 
     int mNumOfTabs;
 
-    public PagerAdapterCharttab(FragmentManager fm, int NumOfTabs)
-    {
+    public PagerAdapterCharttab(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
 
 
-    public Fragment getItem(int position)
-    {
+    public Fragment getItem(int position) {
 
-        switch (position)
-        {
-            case 0:
-                Highest_Fragment highestFragment = new Highest_Fragment();
-                return highestFragment;
-            case 1:
-                Highest_Fragment richestFragment = new Highest_Fragment();
-                return richestFragment;
+        switch (position) {
 
-            default:
-                return null;
         }
+        return null;
     }
 
     @Override
