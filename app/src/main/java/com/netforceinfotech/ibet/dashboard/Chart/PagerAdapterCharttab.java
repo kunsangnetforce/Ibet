@@ -4,9 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.netforceinfotech.ibet.dashboard.home.startnewbet.currentgame.CurrentGameFragment;
-import com.netforceinfotech.ibet.dashboard.home.startnewbet.upcominggame.UpComingGamesFragment;
-
 /**
  * Created by asdf on 7/20/2016.
  */
@@ -28,10 +25,10 @@ public class PagerAdapterCharttab  extends FragmentStatePagerAdapter
         switch (position)
         {
             case 0:
-                Highest_Fragment highestFragment = new Highest_Fragment();
+                HighestFragment highestFragment = new HighestFragment();
                 return highestFragment;
             case 1:
-                Highest_Fragment richestFragment = new Highest_Fragment();
+                HighestFragment richestFragment = new HighestFragment();
                 return richestFragment;
 
             default:

@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Chart.HighestFragmentData;
-import com.netforceinfotech.ibet.dashboard.Chart.HighestHolder;
 
 import java.util.ArrayList;
 import java.util.List;

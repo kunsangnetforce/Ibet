@@ -1,7 +1,6 @@
 package com.netforceinfotech.ibet.dashboard.language;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Chart.HighestAdapter;
-import com.netforceinfotech.ibet.dashboard.Chart.HighestFragmentData;
 
 import java.util.ArrayList;
 
