@@ -21,8 +21,10 @@ public class OddsFragment extends  Fragment
 {
 
     private RecyclerView recyclerView;
+
     Context context;
     private LinearLayoutManager layoutManager;
+
     private languageAdapter adapter;
 
     ArrayList<String> oddsdatas = new ArrayList<String>();
