@@ -19,7 +19,8 @@ import java.util.List;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
@@ -43,7 +44,8 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
       }
   */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
 
         View view = inflater.inflate(R.layout.row_finishedbet, parent, false);
         FinishedBetHolder viewHolder = new FinishedBetHolder(view);
@@ -53,10 +55,12 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
+    {
         Log.i("ibet_position",""+position);
         FinishedBetHolder finishedBetHolder= (FinishedBetHolder) holder;
-        finishedBetHolder.textViewDetail.setOnClickListener(new View.OnClickListener() {
+        finishedBetHolder.textViewDetail.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context, DetailFinishedBet.class);

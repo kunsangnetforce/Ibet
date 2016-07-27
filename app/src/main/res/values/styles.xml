@@ -35,4 +35,11 @@
     <style name="btn_stand" parent="AppTheme.Base">
         <item name="android:background">@drawable/btn_stand_sel</item>
     </style>
+
+    <style name="SwitchButtonStyle">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
 </resources>

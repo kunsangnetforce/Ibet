@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+         android:orientation="vertical"
+        >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/orange"
+        android:padding="16dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <EditText
+                android:id="@+id/email_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@color/white"
+
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:padding="10dp"
+                android:hint="@string/feedback_email_hint"
+
+                />
+
+
+            <EditText
+                android:id="@+id/text_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/white"
+                android:hint="jfhu hfejhfyuse f"
+                android:padding="15dp"
+                android:gravity="top"
+                />
+
+            <Button
+                android:id="@+id/buttonSend_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@color/primary"
+                android:textAlignment="center"
+                android:drawablePadding="16dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|center_vertical"
+                android:text="@string/sendbutton"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:layout_margin="30dp"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

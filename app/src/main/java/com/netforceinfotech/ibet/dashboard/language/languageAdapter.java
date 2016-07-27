@@ -6,8 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
 
 import java.util.ArrayList;
@@ -20,19 +23,22 @@ import java.util.List;
 
 public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-
+    languageHolder viewHolder;
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<LanguageFragmentData> itemList;
+    private List<String> itemList;
     private Context context;
-    ArrayList<Boolean> booleanGames = new ArrayList<>();
 
-    public languageAdapter(Context context, List<LanguageFragmentData> itemList)
+    ArrayList<Integer> setting_icon = new ArrayList<>();
+
+    public languageAdapter(Context context, List<String> itemList)
     {
         this.itemList = itemList;
         this.context = context;
+
         inflater = LayoutInflater.from(context);
+
     }
 
     /*  @Override
@@ -49,15 +55,7 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
 
         View view = inflater.inflate(R.layout.row_language, parent, false);
-        LanguageHolder viewHolder = new LanguageHolder(view);
-        for (int i = 0; i < itemList.size(); i++) {
-            if (i == 0) {
-                booleanGames.add(true);
-            } else {
-                booleanGames.add(false);
-            }
-            Log.i("looppp", "" + i);
-        }
+        viewHolder = new languageHolder(view);
 
         return viewHolder;
 
@@ -68,7 +66,7 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
     {
 
-
+        viewHolder.textViewTitle.setText(itemList.get(position));
 
     }
 
@@ -79,8 +77,51 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     @Override
-    public int getItemCount() {
-        return 5;
+    public int getItemCount()
+    {
+        return 3;
 //        return itemList.size();
     }
+
+
+    public class languageHolder  extends RecyclerView.ViewHolder  implements View.OnClickListener
+    {
+
+
+        TextView textViewTitle, textViewCategory, textViewPros;
+
+        MaterialRippleLayout materialRippleLayout;
+        View view;
+
+
+        public languageHolder(View itemView)
+        {
+            super(itemView);
+            //implementing onClickListener
+            itemView.setOnClickListener(this);
+            view = itemView;
+
+            materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+
+
+            textViewTitle = (TextView) itemView.findViewById(R.id.language_text);
+
+        }
+        @Override
+        public void onClick(View v)
+        {
+
+            int position  =   getAdapterPosition();
+
+            if(position==0)
+            {
+
+
+
+            }
+
+        }
+    }
+
 }
+

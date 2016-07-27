@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/orange"
+    >
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/app_bar" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        ><!--
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />-->
+
+
+        <TextView
+            android:id="@+id/teamnotification_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/teamnotification_heading"
+            android:padding="10dp"
+            android:background="@color/white"
+            />
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/brown_color"
+            android:orientation="horizontal"
+            >
+
+
+
+            <TextView
+                android:id="@+id/muteallnotification_yxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/muteallnotification"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/teamnotifibox_icon"
+                android:src="@drawable/teammute_whiteicon"
+                android:padding="5dp"
+                />
+
+        </RelativeLayout>
+
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            ></android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -33,7 +33,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
                 android:layout_alignParentLeft="true"
-
+                android:textSize="14dp"
                 android:text="@string/highets_friend" />
 
             <TextView
@@ -43,7 +43,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:layout_alignParentRight="true"
-                android:text="@string/highets_rank" />
+                android:text="@string/highets_rank"
+                android:textSize="14dp"
+                />
         </RelativeLayout>
         <View
             android:background="@color/blue_background_view"

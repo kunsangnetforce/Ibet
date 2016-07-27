@@ -7,17 +7,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.RichestRank.RichestTabActivity;
 
 public class ChartActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button button_richest,button_highest;
    Context context;
 
+    Toolbar toolbar;
 
     Intent intent;
 
@@ -29,11 +32,9 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_chart);
 
         context = this;
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
-
+        setupToolBar("Charts");
         button_highest= (Button) findViewById(R.id.buttonHighest);
         button_richest = (Button) findViewById(R.id.buttonRichest);
 
@@ -44,6 +45,29 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private void setupToolBar(String title) {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String teams = title;
+        getSupportActionBar().setTitle(teams);
+
+    }
 
     @Override
     public void onClick(View view) {
@@ -57,7 +81,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.buttonRichest:
-                intent = new Intent(context, ChartTabActivity.class);
+                intent = new Intent(context, RichestTabActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
 

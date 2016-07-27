@@ -14,30 +14,123 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.LoginActivity" />
-        <activity android:name=".login.EmailLogin" />
-        <activity android:name=".dashboard.Dashboard" />
-        <activity android:name=".dashboard.home.detail_finished_bet.DetailFinishedBet" />
-        <activity android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin" />
-        <activity android:name=".dashboard.home.detail_bet_to_join.WhoWillWinActivity" />
-        <activity android:name=".dashboard.home.startnewbet.StartNewBetActivity" />
-        <activity android:name=".profilesetting.ProfileSettingActivity" />
-        <activity android:name=".profilesetting.selectteam.SelectTeamActivity" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".login.EmailLogin"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.Dashboard"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.home.detail_finished_bet.DetailFinishedBet"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.home.detail_bet_to_join.WhoWillWinActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.home.startnewbet.StartNewBetActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".profilesetting.ProfileSettingActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".profilesetting.selectteam.SelectTeamActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".dashboard.Chart.ChartActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_chart"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".dashboard.Chart.ChartTabActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_chart_tab"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".dashboard.Setting.SettingActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.SoundlistActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_soundlist"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".dashboard.Feedback.FeedbackActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".dashboard.Teamlist.TeamlistActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+
+        <activity
+            android:name=".dashboard.Purchase.PurchaseActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.RichestRank.RichestFriendsFragment"
+            android:label="@string/title_activity_richest_rank"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".dashboard.RichestRank.RichestTabActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.Odds.OddsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_odds"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GeneralNotification.GeneralNotificationActivity"
+
+            android:screenOrientation="portrait"
+            />
+        <activity
+
+            android:name=".TeamNotification.TeamNotificationActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.language.LanguageActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.Theme.ThemeActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.Sounds.SoundActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".dashboard.Profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

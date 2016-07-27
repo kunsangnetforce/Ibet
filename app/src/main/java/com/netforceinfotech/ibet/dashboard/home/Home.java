@@ -26,7 +26,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Home extends Fragment implements View.OnClickListener {
+public class Home extends Fragment implements View.OnClickListener
+{
     Boolean mShowUnit = true;
     CircleProgressView circleProgressViewStatus, circleProgressViewLevel;
     TextView textViewRemaining;
@@ -34,7 +35,8 @@ public class Home extends Fragment implements View.OnClickListener {
     private Context context;
     Button buttonStartNewGame;
 
-    public Home() {
+    public Home()
+    {
         // Required empty public constructor
     }
 
@@ -51,12 +53,17 @@ public class Home extends Fragment implements View.OnClickListener {
         textViewRemaining = (TextView) view.findViewById(R.id.textViewRemaining);
         buttonStartNewGame = (Button) view.findViewById(R.id.buttonStartnewBet);
         buttonStartNewGame.setOnClickListener(this);
-        circleProgressViewLevel.setOnProgressChangedListener(new CircleProgressView.OnProgressChangedListener() {
+        circleProgressViewLevel.setOnProgressChangedListener(new CircleProgressView.OnProgressChangedListener()
+        {
+
             @Override
-            public void onProgressChanged(float value) {
+            public void onProgressChanged(float value)
+            {
                 Log.i("ibetchange", value + "");
                 textViewRemaining.setText(value + "%\nto next level");
             }
+
+
         });
         circleProgressViewLevel.setValueAnimated(88f, 1500);
         circleProgressViewStatus.setValueAnimated(35f, 1500);

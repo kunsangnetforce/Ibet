@@ -1,0 +1,67 @@
+<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:id="@+id/ripple"
+    android:background="@color/orange"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            >
+
+            <ImageView
+                android:id="@+id/setting_list_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_cart"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:id="@+id/setting_list_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/setting_list_icon"
+                android:text="@string/language"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                />
+
+
+            <TextView
+                android:id="@+id/sound_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:text="@string/language"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                />
+
+
+        </RelativeLayout>
+        <View
+            android:background="@color/colorDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+</com.balysv.materialripple.MaterialRippleLayout>

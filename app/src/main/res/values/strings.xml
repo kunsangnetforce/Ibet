@@ -6,6 +6,7 @@
     <string name="chart_highest">Highest Rank</string>
     <string name="chart_richest">Richest Rank</string>
     <string name="sendbutton">Send</string>
+    <string name="purchase_button">Purchase</string>
     <string name="dont_have_an_account_register">Dont have an Account? Register</string>
     <string name="user_name">User name</string>
     <string name="password">Password</string>
@@ -37,6 +38,7 @@
     <string name="chart">Charts</string>
     <string name="highestrank">Highest Ranked User</string>
     <string name="all">All</string>
+    <string name="All_notification_heading">Select all notification</string>
     <string name="editpic">Change profile picture</string>
     <string name="friends">Friends</string>
     <string name="richestuser">Richest Users</string>
@@ -68,5 +70,10 @@
     <string name="rateus">Rate Us</string>
     <string name="title_activity_chart">ChartActivity</string>
     <string name="title_activity_chart_tab">ChartTabActivity</string>
-    <string name="rateus">Rate Us</string>
+    <string name="title_activity_soundlist">SoundlistActivity</string>
+    <string name="purchase_heading">Purchase more virtual money!</string>
+    <string name="title_activity_richest_rank">RichestRankActivity</string>
+    <string name="title_activity_odds">OddsActivity</string>
+    <string name="teamnotification_heading">Dummy Text Loreum Lipsum.Dummy Text Loreum Lipsum</string>
+    <string name="muteallnotification">Mute all notifications</string>
 </resources>

@@ -29,7 +29,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener
+{
+
     public CallbackManager mCallbackManager;
     private LoginButton buttonFacebook;
     private List<String> permissions;
@@ -38,8 +40,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Intent intent;
     private UserSessionManager userSessionManager;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+
+    {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
@@ -47,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         userSessionManager = new UserSessionManager(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         findViewById(R.id.textViewRegister).setOnClickListener(this);
+        findViewById(R.id.buttonGuest).setOnClickListener(this);
         buttonFacebookCustom = (Button) findViewById(R.id.buttonCustomFB);
         buttonFacebookCustom.setOnClickListener(this);
         buttonFacebook = (LoginButton) findViewById(R.id.login_button);
@@ -56,20 +63,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonFacebook.setReadPermissions(permissions);
         buttonFacebook.registerCallback(mCallbackManager, mCallBack);
         profile = Profile.getCurrentProfile();
-        if (profile != null) {
+
+
+        if (profile != null)
+        {
             Intent intent = new Intent(getApplicationContext(), Dashboard.class);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.enter, R.anim.exit);
         }
+
+
+
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.textViewRegister:
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+
+            case R.id.buttonGuest:
                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                break;
+            case R.id.textViewRegister:
+                Intent intent2 = new Intent(getApplicationContext(), Dashboard.class);
+                startActivity(intent2);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
             case R.id.buttonCustomFB:
@@ -79,14 +100,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode,
                 resultCode, data);
 
     }
 
-    FacebookCallback<LoginResult> mCallBack = new FacebookCallback<LoginResult>() {
+    FacebookCallback<LoginResult> mCallBack = new FacebookCallback<LoginResult>()
+    {
 
         @Override
         public void onSuccess(final LoginResult loginResult) {
@@ -117,15 +140,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 try {
                                     fbId = object.getString("id");
                                     userSessionManager.setFBID(fbId);
-                                } catch (JSONException e) {
+                                }
+                                catch (JSONException e)
+                                {
                                     fbId = "";
                                     e.printStackTrace();
                                 }
                                 String fbEmail;
-                                try {
+                                try
+                                {
                                     fbEmail = object.getString("email");
                                     userSessionManager.setEmail(fbEmail);
-                                } catch (JSONException e) {
+                                }
+                                catch (JSONException e) {
                                     fbEmail = "";
                                     e.printStackTrace();
                                 }

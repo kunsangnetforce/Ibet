@@ -1,8 +1,6 @@
 package com.netforceinfotech.ibet.dashboard;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -10,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,30 +18,31 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.TeamNotification.TeamNotificationActivity;
 import com.netforceinfotech.ibet.dashboard.Chart.ChartActivity;
 import com.netforceinfotech.ibet.dashboard.Chart.ChartFragment;
-import com.netforceinfotech.ibet.dashboard.Feedback.FeedbackFragment;
-import com.netforceinfotech.ibet.dashboard.language.LanguageFragment;
+import com.netforceinfotech.ibet.dashboard.Chart.ChartTabActivity;
+import com.netforceinfotech.ibet.dashboard.Feedback.FeedbackActivity;
+import com.netforceinfotech.ibet.dashboard.Profile.ProfileActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.SettingActivity;
+import com.netforceinfotech.ibet.dashboard.language.LanguageActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 public class Dashboard extends AppCompatActivity {
 
     private DashboardFragment dashboardFragment;
     private ChartFragment chartFragment;
-    private FeedbackFragment feedbackFragment;
-    private LanguageFragment languageFragment;
+    private FeedbackActivity feedbackFragment;
+    private LanguageActivity languageFragment;
     private Toolbar toolbar;
     private UserSessionManager userSessionManager;
     private AccountHeader headerResult;
@@ -113,16 +111,23 @@ public class Dashboard extends AppCompatActivity {
                                 break;
 
                             case 2:
-                                setupFeedbackFragment();
 
+                                Intent feedback = new Intent(Dashboard.this, ProfileActivity.class);
+                                startActivity(feedback);
                                 break;
                             case 3:
-                                setupChartFragment();
+                                Intent chart = new Intent(Dashboard.this, ChartActivity.class);
+                                startActivity(chart);
 
                                 break;
                             case 5:
-                                setupLanguageFragment();
+                                Intent setting = new Intent(Dashboard.this, SettingActivity.class);
+                                startActivity(setting);
+                                break;
 
+                            case 6:
+                                Intent team = new Intent(Dashboard.this, TeamNotificationActivity.class);
+                                startActivity(team);
                                 break;
                             default:
                                 showMessage("Yet to implement" + position);
@@ -132,46 +137,13 @@ public class Dashboard extends AppCompatActivity {
                     }
                 })
                 .build();
-    }
-
-    private void setupLanguageFragment()
-    {
-
-        if(languageFragment == null)
-        {
-            languageFragment = new LanguageFragment();
-        }
-        languageFragment = new LanguageFragment();
-        tagName = languageFragment.getClass().getName();
-        replaceFragment(languageFragment, tagName);
 
     }
 
-    private void setupFeedbackFragment()
-    {
-        if(feedbackFragment == null)
-        {
-            feedbackFragment = new FeedbackFragment();
-        }
-        feedbackFragment = new FeedbackFragment();
-        tagName = feedbackFragment.getClass().getName();
-        replaceFragment(feedbackFragment, tagName);
 
 
-    }
-
-    private void setupChartFragment()
-    {
-        if (chartFragment == null)
-        {
-            chartFragment = new ChartFragment();
-        }
-        chartFragment = new ChartFragment();
-        tagName = chartFragment.getClass().getName();
-        replaceFragment(chartFragment, tagName);
 
 
-    }
 
 
     private AccountHeader getAccountHeader(String imageURL)
@@ -221,27 +193,30 @@ public class Dashboard extends AppCompatActivity {
         return headerResult;
     }
 
-    private void showMessage(String s) {
+    private void showMessage(String s)
+    {
         Toast.makeText(Dashboard.this, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void setupToolBar(String s) {
+    private void setupToolBar(String s)
+    {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         title = (TextView) toolbar.findViewById(R.id.textViewTitle);
         title.setText(s);
     }
 
-    private void replaceFragment(Fragment newFragment, String tag) {
+    private void replaceFragment(Fragment newFragment, String tag)
+    {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag);
         transaction.commit();
     }
 
     private void setupDashboardFragment() {
-        if (dashboardFragment == null) {
+
             dashboardFragment = new DashboardFragment();
-        }
+
         tagName = dashboardFragment.getClass().getName();
         replaceFragment(dashboardFragment, tagName);
     }
