@@ -16,9 +16,9 @@
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:padding="32dp"
-
-
         >
+
+
 
         <Button
             android:id="@+id/buttonHighest"
@@ -29,7 +29,7 @@
             android:textAlignment="center"
             android:drawablePadding="16dp"
             android:fontFamily="sans-serif-light"
-            android:gravity="left|center_vertical"
+            android:gravity="center"
             android:text="@string/theme"
             android:textAllCaps="false"
             android:textColor="#ffffff"
@@ -45,11 +45,12 @@
             android:textAlignment="center"
             android:drawablePadding="16dp"
             android:fontFamily="sans-serif-light"
-            android:gravity="left|center_vertical"
+            android:gravity="center"
             android:text="@string/choose_background"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:layout_marginTop="40dp"
+
             />
     </LinearLayout>
 

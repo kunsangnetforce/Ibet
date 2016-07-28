@@ -1,79 +1,134 @@
-<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<com.chauthai.swipereveallayout.SwipeRevealLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_vertical"
-    android:id="@+id/ripple"
-    android:background="@color/orange"
-    android:orientation="horizontal">
 
+    app:dragEdge="right"
+    app:mode="same_level">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
+        android:id="@+id/delete_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:background="@drawable/delete_frame_layout_background"
+
+        >
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+
+            android:textColor="@android:color/white"
+            android:text="Delete"/>
+    </FrameLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="70dp"
+       >
 
 
-        <RelativeLayout
+        <com.balysv.materialripple.MaterialRippleLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            >
-
-            <ImageView
-                android:id="@+id/setting_list_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_cart"
-                android:layout_marginLeft="10dp"
-                />
-
-            <TextView
-                android:id="@+id/setting_list_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/setting_list_icon"
-                android:text="@string/language"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            >
-
-            <ImageView
-                android:id="@+id/sound_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center"
-                android:src="@drawable/teammusic_icon"
-                />
+            android:id="@+id/ripple"
+            android:background="@color/orange"
+            android:orientation="horizontal">
 
 
-            <ImageView
-                android:id="@+id/setting_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/teamsetting_icon"
-                android:layout_toRightOf="@+id/sound_icon"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                />
-           </RelativeLayout>
-        </RelativeLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    >
+
+                    <ImageView
+                        android:id="@+id/setting_list_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_cart"
+                        android:layout_marginLeft="10dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/setting_list_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/setting_list_icon"
+                        android:text="@string/language"
+                        android:textColor="@color/black"
+                        android:textSize="18dp"
+                        />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="5dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/sound_icon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/teammusic_icon"
+                            />
+
+
+                        <ImageView
+                            android:id="@+id/setting_icon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/teamsetting_icon"
+                            android:layout_toRightOf="@+id/sound_icon"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+
+
         <View
             android:background="@color/colorDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
-    </LinearLayout>
-</com.balysv.materialripple.MaterialRippleLayout>
+
+
+
+    </FrameLayout>
+
+
+
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>
+
+
+
+
+
+
+

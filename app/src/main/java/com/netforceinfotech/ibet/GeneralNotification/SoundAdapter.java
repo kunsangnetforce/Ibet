@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet.GeneralNotification;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.SoundlistActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,14 +115,11 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void onClick(View v)
         {
 
-            int position  =   getAdapterPosition();
+                int position  =   getAdapterPosition();
+                Intent intent =  new Intent(context, SoundlistActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
 
-            if(position==0)
-            {
-
-
-
-            }
 
         }
     }

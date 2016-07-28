@@ -18,7 +18,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="5dp"
             android:background="@color/brown_color"
             android:orientation="horizontal"
             >
@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/All_notification_heading"
                 android:textColor="@color/white"
-
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
                 />
 
            <CheckBox
@@ -38,7 +39,7 @@
                android:layout_height="40dp"
                android:layout_alignParentRight="true"
                android:button="@xml/custom_checkbox"
-               android:text=""
+
                />
 
         </RelativeLayout>

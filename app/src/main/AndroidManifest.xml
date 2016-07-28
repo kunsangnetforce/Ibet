@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -16,8 +16,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,58 +25,48 @@
         </activity>
         <activity
             android:name=".login.LoginActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.EmailLogin"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.Dashboard"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.home.detail_finished_bet.DetailFinishedBet"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.home.detail_bet_to_join.WhoWillWinActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.home.startnewbet.StartNewBetActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".profilesetting.ProfileSettingActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".profilesetting.selectteam.SelectTeamActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.Chart.ChartActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_chart"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".dashboard.Chart.ChartTabActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_chart_tab"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".dashboard.Setting.SettingActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.SoundlistActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_soundlist"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".dashboard.Feedback.FeedbackActivity"
@@ -86,51 +75,39 @@
             android:name=".dashboard.Teamlist.TeamlistActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
-
         <activity
             android:name=".dashboard.Purchase.PurchaseActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.RichestRank.RichestFriendsFragment"
             android:label="@string/title_activity_richest_rank"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".dashboard.RichestRank.RichestTabActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.Odds.OddsActivity"
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_odds"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".GeneralNotification.GeneralNotificationActivity"
-
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
-
             android:name=".TeamNotification.TeamNotificationActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.language.LanguageActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.Theme.ThemeActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.Sounds.SoundActivity"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.Profile.ProfileActivity"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

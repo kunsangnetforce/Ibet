@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,6 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
     private Context context;
 
     ArrayList<Integer> setting_icon = new ArrayList<>();
-
 
 
     public TeamNotificationAdapter(Context context, List<String> itemList,ArrayList<Integer> imagelist)
@@ -91,8 +91,10 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public int getItemCount()
     {
-        return 4;
-//        return itemList.size();
+        if (itemList == null)
+            return 0;
+       return itemList.size();
+
     }
 
 
@@ -104,7 +106,7 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
         ImageView image_icon,setting_image_icon;
         MaterialRippleLayout materialRippleLayout;
         View view;
-
+       FrameLayout delete_layout ;
 
         public SettingHolder(View itemView)
         {
@@ -118,8 +120,19 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
             image_icon = (ImageView)  itemView.findViewById(R.id.setting_list_icon);
             textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
 
+            delete_layout = (FrameLayout) itemView.findViewById(R.id.delete_layout);
+
             setting_image_icon  = (ImageView)itemView.findViewById(R.id.setting_icon);
 
+
+            delete_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemList.remove(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
+
+                }
+            });
 
             setting_image_icon.setOnClickListener(new View.OnClickListener()
             {
@@ -129,7 +142,9 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                      Intent  intent =  new Intent(context, SoundlistActivity.class);
                      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
+                      context.startActivity(intent);
+
+
                 }
             });
 

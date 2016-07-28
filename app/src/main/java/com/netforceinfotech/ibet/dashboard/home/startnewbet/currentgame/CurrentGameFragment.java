@@ -17,7 +17,8 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CurrentGameFragment extends Fragment {
+public class CurrentGameFragment extends Fragment
+{
 
 
     private RecyclerView recyclerView;
@@ -26,21 +27,25 @@ public class CurrentGameFragment extends Fragment {
     private CurrentGameAdapter adapter;
     ArrayList<CurrentGameData> currentGameDatas = new ArrayList<>();
 
-    public CurrentGameFragment() {
+
+
+    public CurrentGameFragment()
+    {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_current_game, container, false);
         context = getActivity();
         setupRecyclerView(view);
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    private void setupRecyclerView(View view)
+    {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -50,10 +55,14 @@ public class CurrentGameFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private void setupFinsihedDatas() {
-        try {
+    private void setupFinsihedDatas()
+    {
+        try
+        {
             currentGameDatas.clear();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
 
         }
         currentGameDatas.add(new CurrentGameData("Tea", "imageurl"));

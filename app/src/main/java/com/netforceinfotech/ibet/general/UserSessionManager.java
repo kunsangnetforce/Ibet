@@ -43,6 +43,13 @@ public class UserSessionManager {
         editor.commit();
     }
 
+    public void setTeamNotification(String team_name , String sound)
+    {
+        editor.putString(team_name, sound);
+        editor.commit();
+
+    }
+
     public boolean getIsFirstTime() {
         return pref.getBoolean(ISFIRSTTIME, true);
     }
@@ -62,28 +69,34 @@ public class UserSessionManager {
     }
 
     public String getFBID() {
+
         return pref.getString(FBID, "");
     }
 
-    public void setFBID(String regid) {
+    public void setFBID(String regid)
+    {
         editor.putString(FBID, regid);
         editor.commit();
     }
 
     public String getEmail() {
+
         return pref.getString(EMAIL, "");
     }
 
-    public void setEmail(String regid) {
+    public void setEmail(String regid)
+    {
         editor.putString(EMAIL, regid);
         editor.commit();
     }
 
     public String getName() {
+
         return pref.getString(NAME, "");
     }
 
-    public void setName(String regid) {
+    public void setName(String regid)
+    {
         editor.putString(NAME, regid);
         editor.commit();
     }

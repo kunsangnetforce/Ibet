@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Ibet</string>
+    <string name="add_more">Add More Items</string>
     <string name="facebook_app_id">1756172004658425</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="login_as_guest">Login as a guest</string>
