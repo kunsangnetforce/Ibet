@@ -138,6 +138,10 @@ public class ThemeColorAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             {
                 userSessionManager.setTheme(3);
             }
+            else  if(getAdapterPosition() == 4)
+            {
+                userSessionManager.setTheme(4);
+            }
 
             context.finish();
             Intent intent  = new Intent(context, Dashboard.class);
