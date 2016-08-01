@@ -3,14 +3,22 @@ package com.netforceinfotech.ibet.dashboard;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +56,10 @@ public class Dashboard extends AppCompatActivity
     public static TextView title;
     int theme;
     int drawer_color;
-
+    NavigationView navigationView;
+    DrawerLayout drawerLayout ;
+    Window window;
+    RelativeLayout header_background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,11 +71,73 @@ public class Dashboard extends AppCompatActivity
         theme = userSessionManager.getTheme();
 
         setupToolBar("Ibet");
+
+         window = getWindow();
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+
+        if(theme == 0)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme1));
+            }
+
+        }
+        else if (theme == 1)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme2));
+            }
+
+
+        }
+        else if (theme == 2)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme3));
+            }
+
+        }
+        else if (theme == 3)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme4));
+            }
+        }
+        else if (theme == 4)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme5));
+            }
+        }
+
+
+
+
         setupDashboardFragment();
         userSessionManager = new UserSessionManager(getApplicationContext());
         String id = userSessionManager.getFBID();
         imageURL = "https://graph.facebook.com/" + id + "/picture?type=large";
-        setupNavigation(imageURL);
+       // setupNavigation(imageURL);
 
 
     }
@@ -86,8 +159,6 @@ public class Dashboard extends AppCompatActivity
         AccountHeader accountHeader = getAccountHeader(imageURL);
 
 
-
-
         Drawer result = new DrawerBuilder()
                 .withAccountHeader(accountHeader)
                 .withActivity(this)
@@ -104,9 +175,13 @@ public class Dashboard extends AppCompatActivity
                         rateus,
                         logout
                 )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener()
+                {
+
+
                     @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem)
+                    {
                         // do something with the clicked item :D
 
                         switch (position) {
@@ -205,33 +280,143 @@ public class Dashboard extends AppCompatActivity
 
     private void setupToolBar(String s)
     {
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+        header_background = (RelativeLayout) findViewById(R.id.header_relative);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
         if(theme == 0)
         {
+
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme1));
+
+
         }
         else if (theme == 1)
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme2));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme2));
+
         }
         else if (theme == 2)
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme3));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme3));
 
         }
         else if (theme == 3)
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme4));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme4));
+
         }
         else if (theme == 4)
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme5));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
+
         }
+
+
 
         setSupportActionBar(toolbar);
         title = (TextView) toolbar.findViewById(R.id.textViewTitle);
         title.setText(s);
+
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem)
+            {
+
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if (menuItem.isChecked()) menuItem.setChecked(false);
+                else menuItem.setChecked(true);
+
+                //Closing drawer on item click
+                drawerLayout.closeDrawers();
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId())
+                {
+
+
+                    //Replacing the main content with ContentFragment Which is our Inbox View;
+                    case R.id.home:
+                        setupDashboardFragment();
+                        return true;
+
+                    case R.id.profile:
+                        Intent feedback = new Intent(Dashboard.this, ProfileActivity.class);
+                        startActivity(feedback);
+                        return true;
+                    case R.id.chart:
+                        Intent chart = new Intent(Dashboard.this, ChartActivity.class);
+                        startActivity(chart);
+                        return true;
+                    case R.id.store:
+                        Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.setting:
+                        Intent setting = new Intent(Dashboard.this, SettingActivity.class);
+                        startActivity(setting);
+                        return true;
+                    case R.id.tutorial:
+                        Toast.makeText(getApplicationContext(), "Trash Selected", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.share:
+                        Toast.makeText(getApplicationContext(), "Spam Selected", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.rateus:
+                        Toast.makeText(getApplicationContext(), "Spam Selected", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.logout:
+
+                        LoginManager.getInstance().logOut();
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                        return true;
+                    default:
+                        Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
+                        return true;
+
+                }
+            }
+        });
+
+
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close)
+        {
+
+            @Override
+            public void onDrawerClosed(View v)
+            {
+                super.onDrawerClosed(v);
+            }
+
+            @Override
+            public void onDrawerOpened(View v)
+            {
+                super.onDrawerOpened(v);
+            }
+
+
+
+        };
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
     }
 
     private void replaceFragment(Fragment newFragment, String tag)
@@ -250,5 +435,7 @@ public class Dashboard extends AppCompatActivity
 
 
     }
+
+    //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
 
 }
