@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/home"
+            android:checked="false"
+            android:icon="@drawable/ic_home_white"
+            android:title="@string/home" />
+
+
+        <item
+            android:id="@+id/profile"
+            android:checked="false"
+            android:icon="@drawable/ic_profile_setting"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/chart"
+            android:checked="false"
+            android:icon="@drawable/ic_chart"
+            android:title="@string/chart" />
+
+        <item
+            android:id="@+id/store"
+            android:checked="false"
+            android:icon="@drawable/ic_cart_white"
+            android:title="@string/store" />
+
+
+        <item
+            android:id="@+id/setting"
+            android:checked="false"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/setting" />
+        <item
+            android:id="@+id/tutorial"
+            android:checked="false"
+            android:icon="@drawable/ic_clipboard"
+            android:title="@string/tutorial" />
+        <item
+            android:id="@+id/share"
+            android:checked="false"
+            android:icon="@drawable/ic_share"
+            android:title="@string/share" />
+
+        <item
+            android:id="@+id/rateus"
+            android:checked="false"
+            android:icon="@drawable/ic_rateus"
+            android:title="@string/rateus" />
+
+
+        <item
+            android:id="@+id/logout"
+            android:checked="false"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
+
+    </group>
+</menu>
