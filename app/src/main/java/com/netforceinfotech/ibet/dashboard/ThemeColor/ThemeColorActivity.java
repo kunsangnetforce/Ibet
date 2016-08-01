@@ -55,11 +55,12 @@ public class ThemeColorActivity extends AppCompatActivity
         layoutManager =  new GridLayoutManager(ThemeColorActivity.this, 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        icon_list.add(R.drawable.home_theme3);
+
+        icon_list.add(R.drawable.home_theme5);
         icon_list.add(R.drawable.home_theme4);
         icon_list.add(R.drawable.home_theme1);
         icon_list.add(R.drawable.home_theme2);
-        icon_list.add(R.drawable.home_theme5);
+        icon_list.add(R.drawable.home_theme3);
 
 
         adapter = new ThemeColorAdapter(ThemeColorActivity.this, icon_list);

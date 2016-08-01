@@ -53,13 +53,9 @@ public class DashboardFragment extends Fragment
         {
 
 
-         /*   tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme5));
-*/
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.colorAccent));
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme1));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme1));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme1));
 
 
 
@@ -94,11 +90,11 @@ public class DashboardFragment extends Fragment
         else if (theme == 4)
         {
 
-          /*  tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
             tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
             tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme5));
 
-*/
+
         }
 
 
