@@ -77,4 +77,5 @@
     <string name="title_activity_odds">OddsActivity</string>
     <string name="teamnotification_heading">Dummy Text Loreum Lipsum.Dummy Text Loreum Lipsum</string>
     <string name="muteallnotification">Mute all notifications</string>
+    <string name="enter_bet_arena">Enter Bet Arena</string>
 </resources>

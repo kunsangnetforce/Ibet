@@ -108,7 +108,8 @@
         <activity
             android:name=".dashboard.Profile.ProfileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".dashboard.Setting.Theme.ThemeColor.ThemeColorActivity"></activity>
+        <activity android:name=".dashboard.Setting.Theme.ThemeColor.ThemeColorActivity" />
+        <activity android:name=".currentbet.betarena.EnterBetArenaActivity"></activity>
     </application>
 
 </manifest>

@@ -1,13 +1,11 @@
-package com.netforceinfotech.ibet.dashboard;
+package com.netforceinfotech.ibet.currentbet;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.netforceinfotech.ibet.currentbet.CurrentBet;
-import com.netforceinfotech.ibet.dashboard.home.Home;
-import com.netforceinfotech.ibet.live_event.LiveEvents;
-import com.netforceinfotech.ibet.solobet.SoloBet;
+import com.netforceinfotech.ibet.currentbet.livebet.LiveBetFragment;
+import com.netforceinfotech.ibet.currentbet.upcoming.UpcomingBetFragment;
 
 /**
  * Created by Netforce on 8/1/2016.
@@ -25,17 +23,11 @@ public class PagerAdapterCurrentBet  extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                Home home = new Home();
+                LiveBetFragment home = new LiveBetFragment();
                 return home;
             case 1:
-                CurrentBet currentBet = new CurrentBet();
+                UpcomingBetFragment currentBet = new UpcomingBetFragment();
                 return currentBet;
-            case 2:
-                LiveEvents liveEvents = new LiveEvents();
-                return liveEvents;
-            case 3:
-                SoloBet soloBet = new SoloBet();
-                return soloBet;
 
             default:
                 return null;
