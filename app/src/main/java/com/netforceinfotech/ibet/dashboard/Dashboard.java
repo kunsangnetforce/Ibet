@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -40,8 +41,6 @@ public class Dashboard extends AppCompatActivity
 {
 
     private DashboardFragment dashboardFragment;
-    private FeedbackActivity feedbackFragment;
-    private LanguageActivity languageFragment;
     private Toolbar toolbar;
     private UserSessionManager userSessionManager;
     private AccountHeader headerResult;
@@ -49,8 +48,7 @@ public class Dashboard extends AppCompatActivity
     Intent intent;
     public static TextView title;
     int theme;
-
-
+    int drawer_color;
 
 
     @Override
@@ -62,13 +60,13 @@ public class Dashboard extends AppCompatActivity
         userSessionManager = new UserSessionManager(getApplicationContext());
         theme = userSessionManager.getTheme();
 
-
         setupToolBar("Ibet");
         setupDashboardFragment();
         userSessionManager = new UserSessionManager(getApplicationContext());
         String id = userSessionManager.getFBID();
         imageURL = "https://graph.facebook.com/" + id + "/picture?type=large";
         setupNavigation(imageURL);
+
 
     }
 
@@ -87,10 +85,15 @@ public class Dashboard extends AppCompatActivity
 
 //create the drawer and remember the `Drawer` result object
         AccountHeader accountHeader = getAccountHeader(imageURL);
+
+
+
+
         Drawer result = new DrawerBuilder()
                 .withAccountHeader(accountHeader)
                 .withActivity(this)
                 .withToolbar(toolbar)
+
                 .addDrawerItems(
                         home,
                         profile,
@@ -102,43 +105,33 @@ public class Dashboard extends AppCompatActivity
                         rateus,
                         logout
                 )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener()
-                {
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem)
-                    {
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
 
-                        switch (position)
-                        {
+                        switch (position) {
                             case 17:
                                 LoginManager.getInstance().logOut();
                                 intent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                                 finish();
                                 break;
-
                             case 1:
-
                                 setupDashboardFragment();
                                 break;
-
                             case 2:
-
                                 Intent feedback = new Intent(Dashboard.this, ProfileActivity.class);
                                 startActivity(feedback);
                                 break;
-
                             case 3:
                                 Intent chart = new Intent(Dashboard.this, ChartActivity.class);
                                 startActivity(chart);
-
                                 break;
                             case 5:
                                 Intent setting = new Intent(Dashboard.this, SettingActivity.class);
                                 startActivity(setting);
                                 break;
-
                             case 6:
                                 Intent team = new Intent(Dashboard.this, TeamNotificationActivity.class);
                                 startActivity(team);
@@ -152,6 +145,8 @@ public class Dashboard extends AppCompatActivity
                     }
                 })
                 .build();
+
+
 
     }
 
@@ -190,18 +185,19 @@ public class Dashboard extends AppCompatActivity
                 .withActivity(this)
                 .withSelectionListEnabledForSingleProfile(false)
                 .withHeaderBackground(R.drawable.background)
-                .addProfiles(
-                        new ProfileDrawerItem().withName(name).withEmail(email).withIcon(imageURL)
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                .addProfiles(new ProfileDrawerItem().withName(name).withEmail(email).withIcon(imageURL))
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener()
+                {
                     @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile)
+                    {
                         return false;
                     }
                 })
                 .build();
         return headerResult;
     }
+
 
     private void showMessage(String s)
     {
@@ -214,37 +210,24 @@ public class Dashboard extends AppCompatActivity
 
         if(theme == 0)
         {
-
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
-
-
         }
         else if (theme == 1)
         {
-
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme2));
-
-
         }
         else if (theme == 2)
         {
-
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme3));
 
         }
         else if (theme == 3)
         {
-
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme4));
-
-
         }
         else if (theme == 4)
         {
-
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme5));
-
-
         }
 
         setSupportActionBar(toolbar);
@@ -259,12 +242,14 @@ public class Dashboard extends AppCompatActivity
         transaction.commit();
     }
 
-    private void setupDashboardFragment() {
+    private void setupDashboardFragment()
+    {
 
-            dashboardFragment = new DashboardFragment();
-
+        dashboardFragment = new DashboardFragment();
         tagName = dashboardFragment.getClass().getName();
         replaceFragment(dashboardFragment, tagName);
+
+
     }
 
 }

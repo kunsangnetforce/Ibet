@@ -147,7 +147,7 @@ public class Home extends Fragment implements View.OnClickListener
 
         }
 
-        else if(theme == 3)
+        else if(theme == 4)
         {
 
 
