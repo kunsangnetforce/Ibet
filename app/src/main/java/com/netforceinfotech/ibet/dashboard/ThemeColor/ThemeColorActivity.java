@@ -21,7 +21,6 @@ public class ThemeColorActivity extends AppCompatActivity
     RecyclerView recyclerView;
     GridLayoutManager layoutManager;
     ThemeColorAdapter adapter;
-
     ArrayList<Integer> icon_list = new ArrayList<Integer>();
     Toolbar toolbar;
 

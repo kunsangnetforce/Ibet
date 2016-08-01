@@ -119,9 +119,8 @@ public class Home extends Fragment implements View.OnClickListener
 
         if(theme == 0)
         {
-
-            coordinatorLayout.setBackgroundResource(R.drawable.background_theme1);
-
+            //coordinatorLayout.setBackgroundResource(R.drawable.background_theme1);
+            coordinatorLayout.setBackgroundResource(R.color.colorPrimary);
 
         }
         else if(theme == 1)
@@ -136,6 +135,14 @@ public class Home extends Fragment implements View.OnClickListener
 
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme3);
+
+
+        }
+        else if(theme == 3)
+        {
+
+
+            coordinatorLayout.setBackgroundResource(R.drawable.background_theme4);
 
 
         }
@@ -167,8 +174,10 @@ public class Home extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
             case R.id.buttonStartnewBet:
                 //go to new bet
                 Intent intent = new Intent(context, StartNewBetActivity.class);

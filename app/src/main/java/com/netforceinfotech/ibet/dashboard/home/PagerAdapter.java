@@ -11,7 +11,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     private FinsihedBet finsihedBet;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapter(FragmentManager fm, int NumOfTabs)
+    {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -19,7 +20,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (position) {
+        switch (position)
+        {
             case 0:
                 finsihedBet = new FinsihedBet();
                 return finsihedBet;
