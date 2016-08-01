@@ -119,7 +119,7 @@ public class Home extends Fragment implements View.OnClickListener
 
         if(theme == 0)
         {
-            //coordinatorLayout.setBackgroundResource(R.drawable.background_theme1);
+            //coordinatorLayout.setBackgroundResource(R.drawable.background_theme5);
             coordinatorLayout.setBackgroundResource(R.color.colorPrimary);
 
         }
@@ -143,6 +143,15 @@ public class Home extends Fragment implements View.OnClickListener
 
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme4);
+
+
+        }
+
+        else if(theme == 3)
+        {
+
+
+            coordinatorLayout.setBackgroundResource(R.drawable.background_theme5);
 
 
         }
