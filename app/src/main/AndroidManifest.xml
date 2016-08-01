@@ -56,7 +56,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".dashboard.Chart.ChartTabActivity"
+            android:name=".dashboard.Chart.highest.HighestTabActivity"
             android:label="@string/title_activity_chart_tab"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -64,51 +64,51 @@
             android:name=".dashboard.Setting.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.SoundlistActivity"
+            android:name=".dashboard.Setting.notification.TeamNotification.SoundlistActivity"
             android:label="@string/title_activity_soundlist"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".dashboard.Feedback.FeedbackActivity"
+            android:name=".dashboard.Setting.Feedback.FeedbackActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".dashboard.Teamlist.TeamlistActivity"
+            android:name=".dashboard.Setting.notification.TeamNotification.Teamlist.TeamlistActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".dashboard.Purchase.PurchaseActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.RichestRank.RichestFriendsFragment"
+            android:name=".dashboard.Chart.RichestRank.RichestFriendsFragment"
             android:label="@string/title_activity_richest_rank"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".dashboard.RichestRank.RichestTabActivity"
+            android:name=".dashboard.Chart.RichestRank.RichestTabActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Odds.OddsActivity"
+            android:name=".dashboard.Setting.Odds.OddsActivity"
             android:label="@string/title_activity_odds"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".GeneralNotification.GeneralNotificationActivity"
+            android:name=".dashboard.Setting.notification.GeneralNotification.GeneralNotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TeamNotification.TeamNotificationActivity"
+            android:name=".dashboard.Setting.notification.TeamNotification.TeamNotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.language.LanguageActivity"
+            android:name=".dashboard.Setting.language.LanguageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Theme.ThemeActivity"
+            android:name=".dashboard.Setting.Theme.ThemeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Sounds.SoundActivity"
+            android:name=".dashboard.Setting.Sounds.SoundActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.Profile.ProfileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".dashboard.ThemeColor.ThemeColorActivity"></activity>
+        <activity android:name=".dashboard.Setting.Theme.ThemeColor.ThemeColorActivity"></activity>
     </application>
 
 </manifest>

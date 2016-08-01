@@ -26,14 +26,13 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.TeamNotification.TeamNotificationActivity;
+import com.netforceinfotech.ibet.currentbet.DashboardFragment;
+import com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.TeamNotificationActivity;
 import com.netforceinfotech.ibet.dashboard.Chart.ChartActivity;
-import com.netforceinfotech.ibet.dashboard.Chart.ChartFragment;
-import com.netforceinfotech.ibet.dashboard.Chart.ChartTabActivity;
-import com.netforceinfotech.ibet.dashboard.Feedback.FeedbackActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.Feedback.FeedbackActivity;
 import com.netforceinfotech.ibet.dashboard.Profile.ProfileActivity;
 import com.netforceinfotech.ibet.dashboard.Setting.SettingActivity;
-import com.netforceinfotech.ibet.dashboard.language.LanguageActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.language.LanguageActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +40,6 @@ public class Dashboard extends AppCompatActivity
 {
 
     private DashboardFragment dashboardFragment;
-    private ChartFragment chartFragment;
     private FeedbackActivity feedbackFragment;
     private LanguageActivity languageFragment;
     private Toolbar toolbar;

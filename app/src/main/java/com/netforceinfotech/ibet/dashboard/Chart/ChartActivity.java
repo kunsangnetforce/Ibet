@@ -3,17 +3,15 @@ package com.netforceinfotech.ibet.dashboard.Chart;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.RichestRank.RichestTabActivity;
+import com.netforceinfotech.ibet.dashboard.Chart.RichestRank.RichestTabActivity;
+import com.netforceinfotech.ibet.dashboard.Chart.highest.HighestTabActivity;
 
 public class ChartActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -75,7 +73,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
         {
             case R.id.buttonHighest:
 
-                intent = new Intent(context, ChartTabActivity.class);
+                intent = new Intent(context, HighestTabActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;

@@ -11,15 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
-import com.netforceinfotech.ibet.GeneralNotification.GeneralNotificationActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.notification.GeneralNotification.GeneralNotificationActivity;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.TeamNotification.TeamNotificationActivity;
-import com.netforceinfotech.ibet.dashboard.Feedback.FeedbackActivity;
-import com.netforceinfotech.ibet.dashboard.Odds.OddsActivity;
-import com.netforceinfotech.ibet.dashboard.SoundlistActivity;
-import com.netforceinfotech.ibet.dashboard.Sounds.SoundActivity;
-import com.netforceinfotech.ibet.dashboard.Theme.ThemeActivity;
-import com.netforceinfotech.ibet.dashboard.language.LanguageActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.TeamNotificationActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.Feedback.FeedbackActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.Odds.OddsActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.Sounds.SoundActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.Theme.ThemeActivity;
+import com.netforceinfotech.ibet.dashboard.Setting.language.LanguageActivity;
 
 import java.util.ArrayList;
 import java.util.List;

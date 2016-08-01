@@ -9,10 +9,13 @@ import com.netforceinfotech.ibet.dashboard.home.Home;
 import com.netforceinfotech.ibet.live_event.LiveEvents;
 import com.netforceinfotech.ibet.solobet.SoloBet;
 
-public class PagerAdapterDashboard extends FragmentStatePagerAdapter {
+/**
+ * Created by Netforce on 8/1/2016.
+ */
+public class PagerAdapterCurrentBet  extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public PagerAdapterDashboard(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapterCurrentBet(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
