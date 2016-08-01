@@ -10,6 +10,7 @@
     <color name="white">#ffffff</color>
     <color name="greentranparent">#a463cc55</color>
     <color name="red">#e40e0e</color>
+
     <color name="footer">#d97ba5</color>
     <color name="colorPrimary1">#99009688</color>
     <color name="green">#2a990b</color>
@@ -42,5 +43,32 @@
     <color name="material_drawer_selected_text">#FFFFFF</color>
     <color name="brown_color">#A0522D</color>
     <color name="orange">#D08720</color>
+
+
+
+
+    <color name="home_background_theme1">#570000</color>
+    <color name="tab_background_theme1">#570000</color>
+    <color name="tab_seclector_text_color_theme1">#FF5A2E</color>
+    <color name="tab_not_seclector_highlitedcolor_theme1">#7C1E07</color>
+    <color name="tab_seclector_highlitedcolor_theme1">#FF5A2E</color>
+
+    <color name="tab_background_theme2">#6F1C03</color>
+    <color name="home_background_theme2">#721D06</color>
+    <color name="tab_seclector_text_color_theme2">#FF5A2E</color>
+    <color name="tab_not_seclector_highlitedcolor_theme2">#7C1E07</color>
+    <color name="tab_seclector_highlitedcolor_theme2">#FF5A2E</color>.
+
+
+    <color name="tab_background_theme3">#39064B</color>
+    <color name="home_background_theme3">#721D06</color>
+    <color name="tab_seclector_text_color_theme3">#DE00FF</color>
+    <color name="tab_not_seclector_highlitedcolor_theme3">#7C1E07</color>
+    <color name="tab_seclector_highlitedcolor_theme3">#DE00FF</color>
+
+   <color name="toolbar_background_theme1">#570000</color>
+    <color name="toolbar_background_theme2">#6F1C03</color>
+    <color name="toolbar_background_theme3">#DE00FF</color>
+
 
 </resources>

@@ -108,6 +108,7 @@
         <activity
             android:name=".dashboard.Profile.ProfileActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".dashboard.ThemeColor.ThemeColorActivity"></activity>
     </application>
 
 </manifest>

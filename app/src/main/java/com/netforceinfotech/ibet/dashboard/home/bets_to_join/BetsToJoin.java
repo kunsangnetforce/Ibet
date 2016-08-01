@@ -19,7 +19,6 @@ import java.util.ArrayList;
  */
 public class BetsToJoin extends Fragment {
 
-
     private Context context;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
@@ -32,8 +31,10 @@ public class BetsToJoin extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bets_to_join, container, false);
         context = getActivity();
@@ -41,7 +42,8 @@ public class BetsToJoin extends Fragment {
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    private void setupRecyclerView(View view)
+    {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);

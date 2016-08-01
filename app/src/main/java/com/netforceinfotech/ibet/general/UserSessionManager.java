@@ -17,6 +17,7 @@ public class UserSessionManager {
     private static final String EMAIL = "email";
     private static final String NAME = "name";
     private static final String ISFIRSTTIME = "first_time";
+    private static final String THEME = "theme";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -28,17 +29,20 @@ public class UserSessionManager {
 
 
     // Constructor
-    public UserSessionManager(Context context) {
+    public UserSessionManager(Context context)
+    {
         this._context = context;
         pref = _context.getSharedPreferences(PREFER_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
 
-    public String getRegId() {
+    public String getRegId()
+    {
         return pref.getString(REG_ID, "");
     }
 
-    public void setRegId(String regid) {
+    public void setRegId(String regid)
+    {
         editor.putString(REG_ID, regid);
         editor.commit();
     }
@@ -76,6 +80,16 @@ public class UserSessionManager {
     public void setFBID(String regid)
     {
         editor.putString(FBID, regid);
+        editor.commit();
+    }
+    public int getTheme() {
+
+        return pref.getInt(THEME, 0);
+    }
+
+    public void setTheme(int theme)
+    {
+        editor.putInt(THEME, theme);
         editor.commit();
     }
 

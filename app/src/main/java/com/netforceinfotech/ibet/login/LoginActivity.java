@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -39,16 +40,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Profile profile;
     private Intent intent;
     private UserSessionManager userSessionManager;
-
+    RelativeLayout relative_login;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
-
     {
+
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
+
+
+
         setContentView(R.layout.activity_login);
         userSessionManager = new UserSessionManager(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();

@@ -9,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
 
@@ -27,14 +29,24 @@ public class FinsihedBet extends Fragment {
     private FinishedBetAdapter adapter;
     private LinearLayoutManager layoutManager;
     static protected ArrayList<FinsihedData> FinsihedDatas = new ArrayList<>();
-    public FinsihedBet() {
+    FrameLayout frameLayout;
+    UserSessionManager userSessionManager;
+    int theme;
+
+
+    public FinsihedBet()
+    {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+
+        userSessionManager = new UserSessionManager(getActivity());
+        theme = userSessionManager.getTheme();
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_finsihed_bet, container, false);
         context=getActivity();
@@ -42,7 +54,8 @@ public class FinsihedBet extends Fragment {
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    private void setupRecyclerView(View view)
+    {
           /*
         *  recyclerView_Same = (RecyclerView) findViewById(R.id.recyclerFeatured);
         layoutManagerSame = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -50,19 +63,29 @@ public class FinsihedBet extends Fragment {
         adapterSame = new RecyclerViewAdapterS(context, rowDataS, imagePath);
         recyclerView_Same.setAdapter(adapterSame);
         * */
-
+        frameLayout = (FrameLayout) view.findViewById(R.id.frame_layout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+
+
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
+
         adapter = new FinishedBetAdapter(context, FinsihedDatas);
         recyclerView.setAdapter(adapter);
         setupFinsihedDatas();
         adapter.notifyDataSetChanged();
+
+
+
     }
-    private void setupFinsihedDatas() {
-        try {
+    private void setupFinsihedDatas()
+    {
+        try
+        {
             FinsihedDatas.clear();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
 
         }
         FinsihedDatas.add(new FinsihedData("Tea", "imageurl"));

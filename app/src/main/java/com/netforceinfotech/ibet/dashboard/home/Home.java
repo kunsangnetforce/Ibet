@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -32,8 +33,14 @@ public class Home extends Fragment implements View.OnClickListener
     CircleProgressView circleProgressViewStatus, circleProgressViewLevel;
     TextView textViewRemaining;
     CircleImageView circleImageViewDp;
+     ViewPager viewPager;
     private Context context;
     Button buttonStartNewGame;
+    CoordinatorLayout coordinatorLayout;
+    UserSessionManager  userSessionManager;
+    int theme ;
+
+
 
     public Home()
     {
@@ -42,11 +49,18 @@ public class Home extends Fragment implements View.OnClickListener
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         context = getActivity();
+
+        userSessionManager = new UserSessionManager(getActivity());
+        theme = userSessionManager.getTheme();
+
+
         circleImageViewDp = (CircleImageView) view.findViewById(R.id.circleImageViewDp);
         circleProgressViewStatus = (CircleProgressView) view.findViewById(R.id.cpvstatus);
         circleProgressViewLevel = (CircleProgressView) view.findViewById(R.id.cpvLevel);
@@ -90,20 +104,53 @@ public class Home extends Fragment implements View.OnClickListener
                 .build();*/
     }
 
-    private void setupTab(View view) {
+    private void setupTab(View view)
+    {
+
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
+
+        viewPager = (ViewPager) view.findViewById(R.id.pager);
+
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.finished_bet));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.bets_to_join));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
-                (getChildFragmentManager(), tabLayout.getTabCount());
+
+        if(theme == 0)
+        {
+
+            coordinatorLayout.setBackgroundResource(R.drawable.background_theme1);
+
+
+        }
+        else if(theme == 1)
+        {
+
+            coordinatorLayout.setBackgroundResource(R.drawable.background_theme2);
+
+        }
+
+        else if(theme == 2)
+        {
+
+
+            coordinatorLayout.setBackgroundResource(R.drawable.background_theme3);
+
+
+        }
+
+        final PagerAdapter adapter = new PagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab)
+            {
                 viewPager.setCurrentItem(tab.getPosition());
             }
 

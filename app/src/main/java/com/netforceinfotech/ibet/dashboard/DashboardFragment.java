@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet.dashboard;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DashboardFragment extends Fragment
 {
+
+
+    UserSessionManager userSessionManager;
+    int theme;
+    public static  TabLayout tabLayout;
+
 
 
     public DashboardFragment()
@@ -28,13 +36,49 @@ public class DashboardFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
+        userSessionManager = new UserSessionManager(getActivity());
+        theme = userSessionManager.getTheme();
+
         View view= inflater.inflate(R.layout.fragment_dashboard, container, false);
         setupTab(view);
+
+
         return view;
     }
     private void setupTab(View view)
     {
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+
+
+        if(theme == 0)
+        {
+
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme1));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.red));
+
+
+
+        }
+        else if (theme == 1)
+        {
+
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme2));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.red));
+
+
+        }
+        else if (theme == 2)
+        {
+
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme3));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme3));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme3));
+
+
+        }
+
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
         tabLayout.addTab(tabLayout.newTab().setText("Current Bets"));
         tabLayout.addTab(tabLayout.newTab().setText("Live Events"));

@@ -1,4 +1,5 @@
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorlayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,13 +11,13 @@
     >
 
 
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-
         >
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -289,7 +290,9 @@
                     android:id="@+id/pager"
                     android:layout_width="match_parent"
                     android:layout_height="1000dp"
-                    android:layout_marginTop="16dp" />
+                    android:layout_marginTop="16dp"
+
+                    />
 
             </LinearLayout>
         </LinearLayout>

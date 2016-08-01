@@ -26,11 +26,12 @@
                     android:id="@+id/appbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary">
+                   >
 
                     <include
                         android:id="@+id/toolbar"
                         layout="@layout/app_bar_coin" />
+
                 </android.support.design.widget.AppBarLayout>
 
 
@@ -59,7 +60,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal|bottom">
-
 
                 <!---add your views here-->
 

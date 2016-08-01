@@ -37,7 +37,8 @@ import com.netforceinfotech.ibet.dashboard.language.LanguageActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends AppCompatActivity
+{
 
     private DashboardFragment dashboardFragment;
     private ChartFragment chartFragment;
@@ -49,12 +50,18 @@ public class Dashboard extends AppCompatActivity {
     private String imageURL, tagName;
     Intent intent;
     public static TextView title;
-
+    int theme;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        userSessionManager = new UserSessionManager(getApplicationContext());
+        theme = userSessionManager.getTheme();
+
+
         setupToolBar("Ibet");
         setupDashboardFragment();
         userSessionManager = new UserSessionManager(getApplicationContext());
@@ -64,7 +71,9 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-    private void setupNavigation(String imageURL) {
+    private void setupNavigation(String imageURL)
+    {
+
         PrimaryDrawerItem home = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home).withIcon(R.drawable.ic_home).withSelectedIcon(R.drawable.ic_home_white);
         PrimaryDrawerItem profile = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.profile).withIcon(R.drawable.ic_account).withSelectedIcon(R.drawable.ic_account_white);
         PrimaryDrawerItem chart = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.chart).withIcon(R.drawable.ic_chart).withSelectedIcon(R.drawable.ic_chart_white);
@@ -92,9 +101,11 @@ public class Dashboard extends AppCompatActivity {
                         rateus,
                         logout
                 )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener()
+                {
                     @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem)
+                    {
                         // do something with the clicked item :D
 
                         switch (position)
@@ -107,6 +118,7 @@ public class Dashboard extends AppCompatActivity {
                                 break;
 
                             case 1:
+
                                 setupDashboardFragment();
                                 break;
 
@@ -115,6 +127,7 @@ public class Dashboard extends AppCompatActivity {
                                 Intent feedback = new Intent(Dashboard.this, ProfileActivity.class);
                                 startActivity(feedback);
                                 break;
+
                             case 3:
                                 Intent chart = new Intent(Dashboard.this, ChartActivity.class);
                                 startActivity(chart);
@@ -129,6 +142,7 @@ public class Dashboard extends AppCompatActivity {
                                 Intent team = new Intent(Dashboard.this, TeamNotificationActivity.class);
                                 startActivity(team);
                                 break;
+
                             default:
                                 showMessage("Yet to implement" + position);
                                 break;
@@ -139,12 +153,6 @@ public class Dashboard extends AppCompatActivity {
                 .build();
 
     }
-
-
-
-
-
-
 
     private AccountHeader getAccountHeader(String imageURL)
     {
@@ -157,7 +165,8 @@ public class Dashboard extends AppCompatActivity {
             }
 
             @Override
-            public void cancel(ImageView imageView) {
+            public void cancel(ImageView imageView)
+            {
                 Picasso.with(imageView.getContext()).cancelRequest(imageView);
             }
 
@@ -201,6 +210,29 @@ public class Dashboard extends AppCompatActivity {
     private void setupToolBar(String s)
     {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        if(theme == 0)
+        {
+
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
+
+
+        }
+        else if (theme == 1)
+        {
+
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme2));
+
+
+        }
+        else if (theme == 2)
+        {
+
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme3));
+
+
+        }
+
         setSupportActionBar(toolbar);
         title = (TextView) toolbar.findViewById(R.id.textViewTitle);
         title.setText(s);
