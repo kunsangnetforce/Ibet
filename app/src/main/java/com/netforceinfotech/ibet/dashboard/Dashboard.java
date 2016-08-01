@@ -52,6 +52,9 @@ public class Dashboard extends AppCompatActivity
     public static TextView title;
     int theme;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -214,8 +217,9 @@ public class Dashboard extends AppCompatActivity
         if(theme == 0)
         {
 
-            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
+           // toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
 
+             toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
         }
         else if (theme == 1)
@@ -229,6 +233,20 @@ public class Dashboard extends AppCompatActivity
         {
 
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme3));
+
+
+        }
+        else if (theme == 3)
+        {
+
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme4));
+
+
+        }
+        else if (theme == 4)
+        {
+
+           // toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme5));
 
 
         }

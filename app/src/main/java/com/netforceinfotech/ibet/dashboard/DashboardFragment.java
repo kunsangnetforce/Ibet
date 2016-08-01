@@ -22,7 +22,7 @@ public class DashboardFragment extends Fragment
 
     UserSessionManager userSessionManager;
     int theme;
-    public static  TabLayout tabLayout;
+    public static TabLayout tabLayout;
 
 
 
@@ -49,13 +49,17 @@ public class DashboardFragment extends Fragment
     {
          tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
-
         if(theme == 0)
         {
 
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme1));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.red));
+
+         /*   tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme5));
+*/
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.colorAccent));
 
 
 
@@ -78,6 +82,25 @@ public class DashboardFragment extends Fragment
 
 
         }
+        else if (theme == 3)
+        {
+
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme4));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme4));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme4));
+
+
+        }
+        else if (theme == 4)
+        {
+
+          /*  tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme5));
+
+*/
+        }
+
 
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
         tabLayout.addTab(tabLayout.newTab().setText("Current Bets"));
