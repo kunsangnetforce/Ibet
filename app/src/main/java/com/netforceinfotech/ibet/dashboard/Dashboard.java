@@ -36,11 +36,9 @@ import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.TeamNotificationActivity;
-import com.netforceinfotech.ibet.dashboard.Chart.ChartActivity;
-import com.netforceinfotech.ibet.dashboard.Setting.Feedback.FeedbackActivity;
-import com.netforceinfotech.ibet.dashboard.Profile.ProfileActivity;
-import com.netforceinfotech.ibet.dashboard.Setting.SettingActivity;
-import com.netforceinfotech.ibet.dashboard.Setting.language.LanguageActivity;
+import com.netforceinfotech.ibet.dashboard.Chart.ChartFragment;
+import com.netforceinfotech.ibet.dashboard.Profile.ProfileFragment;
+import com.netforceinfotech.ibet.dashboard.Setting.SettingFragment;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 
@@ -48,6 +46,9 @@ public class Dashboard extends AppCompatActivity
 {
 
     private DashboardFragment dashboardFragment;
+    private ProfileFragment profileFragment;
+    private ChartFragment chartfragment;
+    private SettingFragment settingfragment;
     private Toolbar toolbar;
     private UserSessionManager userSessionManager;
     private AccountHeader headerResult;
@@ -61,6 +62,8 @@ public class Dashboard extends AppCompatActivity
     Window window;
     RelativeLayout header_background;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -71,9 +74,7 @@ public class Dashboard extends AppCompatActivity
         theme = userSessionManager.getTheme();
 
         setupToolBar("Ibet");
-
          window = getWindow();
-
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
@@ -86,7 +87,7 @@ public class Dashboard extends AppCompatActivity
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                 // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme1));
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
 
         }
@@ -96,7 +97,7 @@ public class Dashboard extends AppCompatActivity
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                 // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme2));
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
 
 
@@ -107,7 +108,7 @@ public class Dashboard extends AppCompatActivity
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                 // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme3));
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
             }
 
         }
@@ -117,7 +118,7 @@ public class Dashboard extends AppCompatActivity
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                 // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme4));
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
             }
         }
         else if (theme == 4)
@@ -126,7 +127,7 @@ public class Dashboard extends AppCompatActivity
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                 // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme5));
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
             }
         }
 
@@ -195,15 +196,14 @@ public class Dashboard extends AppCompatActivity
                                 setupDashboardFragment();
                                 break;
                             case 2:
-                                Intent feedback = new Intent(Dashboard.this, ProfileActivity.class);
+                                Intent feedback = new Intent(Dashboard.this, ProfileFragment.class);
                                 startActivity(feedback);
                                 break;
                             case 3:
-                                Intent chart = new Intent(Dashboard.this, ChartActivity.class);
-                                startActivity(chart);
+                                setupDashboardFragment();
                                 break;
                             case 5:
-                                Intent setting = new Intent(Dashboard.this, SettingActivity.class);
+                                Intent setting = new Intent(Dashboard.this, SettingFragment.class);
                                 startActivity(setting);
                                 break;
                             case 6:
@@ -219,8 +219,6 @@ public class Dashboard extends AppCompatActivity
                     }
                 })
                 .build();
-
-
 
     }
 
@@ -294,7 +292,7 @@ public class Dashboard extends AppCompatActivity
 
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
             navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme1));
-
+           // header_background.setBackgroundColor(Color.RED);
 
         }
         else if (theme == 1)
@@ -348,26 +346,22 @@ public class Dashboard extends AppCompatActivity
                 switch (menuItem.getItemId())
                 {
 
-
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.home:
                         setupDashboardFragment();
                         return true;
 
                     case R.id.profile:
-                        Intent feedback = new Intent(Dashboard.this, ProfileActivity.class);
-                        startActivity(feedback);
+                        setupProfileFragment();
                         return true;
                     case R.id.chart:
-                        Intent chart = new Intent(Dashboard.this, ChartActivity.class);
-                        startActivity(chart);
+                        setupChartFragment();
                         return true;
                     case R.id.store:
                         Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.setting:
-                        Intent setting = new Intent(Dashboard.this, SettingActivity.class);
-                        startActivity(setting);
+                        setupSettingFragment();
                         return true;
                     case R.id.tutorial:
                         Toast.makeText(getApplicationContext(), "Trash Selected", Toast.LENGTH_SHORT).show();
@@ -389,6 +383,9 @@ public class Dashboard extends AppCompatActivity
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
+
+
+
 
                 }
             }
@@ -429,9 +426,44 @@ public class Dashboard extends AppCompatActivity
     private void setupDashboardFragment()
     {
 
+
+        title.setText("Ibet");
         dashboardFragment = new DashboardFragment();
         tagName = dashboardFragment.getClass().getName();
         replaceFragment(dashboardFragment, tagName);
+
+
+
+
+    }
+
+    private void setupProfileFragment()
+    {
+
+        profileFragment = new ProfileFragment();
+        tagName = profileFragment.getClass().getName();
+        replaceFragment(profileFragment, tagName);
+
+
+    }
+    private void setupSettingFragment()
+    {
+
+        settingfragment = new SettingFragment();
+        tagName = settingfragment.getClass().getName();
+        replaceFragment(settingfragment, tagName);
+
+
+    }
+
+
+
+    private void setupChartFragment()
+    {
+
+        chartfragment = new ChartFragment();
+        tagName = chartfragment.getClass().getName();
+        replaceFragment(chartfragment, tagName);
 
 
     }

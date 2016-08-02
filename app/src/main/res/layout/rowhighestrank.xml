@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:id="@+id/ripple"
-    android:background="@color/colorPrimary"
+
     android:orientation="horizontal"
     >
    <!-- <AbsoluteLayout

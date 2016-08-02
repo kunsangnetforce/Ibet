@@ -1,31 +1,108 @@
 package com.netforceinfotech.ibet.dashboard.Chart.highest;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Chart.highest.PagerAdapterCharttab;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
-public class HighestTabActivity extends AppCompatActivity {
+public class HighestTabActivity extends AppCompatActivity
+{
 
     private Toolbar toolbar;
+    Window window;
+    private UserSessionManager userSessionManager;
+    int theme;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_vew_bet);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
+        userSessionManager = new UserSessionManager(getApplicationContext());
+        theme = userSessionManager.getTheme();
+
+        window = getWindow();
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+
+        if(theme == 0)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
+            }
+
+        }
+        else if (theme == 1)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
+            }
+
+
+        }
+        else if (theme == 2)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
+            }
+
+        }
+        else if (theme == 3)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
+            }
+        }
+        else if (theme == 4)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
+            }
+        }
+
         setupTab();
         setupToolBar("Highest Rank");
     }
 
-    private void setupToolBar(String app_name) {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+    private void setupToolBar(String app_name)
+    {
+
         TextView textView = (TextView) toolbar.findViewById(R.id.textViewTitle);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -33,10 +110,62 @@ public class HighestTabActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(app_name);
         textView.setText(app_name);
 
+
+
+        if(theme == 0)
+        {
+
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
+
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme1));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme1));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme1));
+
+
+        }
+        else if (theme == 1)
+        {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme2));
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme2));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme2));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme2));
+
+
+        }
+        else if (theme == 2)
+        {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme3));
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme3));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme3));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme3));
+
+
+        }
+        else if (theme == 3)
+        {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme4));
+
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme4));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme4));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme4));
+
+
+        }
+        else if (theme == 4)
+        {
+            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme5));
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
+            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme5));
+
+
+        }
+
     }
 
-    private void setupTab() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+    private void setupTab()
+    {
+         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Friends"));
         tabLayout.addTab(tabLayout.newTab().setText("All"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

@@ -41,7 +41,7 @@
     <!-- Material DEFAULT drawer colors -->
     <color name="material_drawer_selected">#a46304</color>
     <color name="material_drawer_selected_text">#FFFFFF</color>
-    <color name="brown_color">#A0522D</color>
+    <color name="brown_color">#B17215</color>
     <color name="orange">#D08720</color>
 
 
@@ -84,6 +84,12 @@
     <color name="toolbar_background_theme4">#002E07</color>
     <color name="toolbar_background_theme5">#570000</color>
 
+
+    <color name="statusbar_background_theme1">#FF072f52</color>
+    <color name="statusbar_background_theme2">#FF6F1C03</color>
+    <color name="statusbar_background_theme3">#FF39064B</color>
+    <color name="statusbar_background_theme4">#FF002E07</color>
+    <color name="statusbar_background_theme5">#FF570000</color>
 
 
 </resources>

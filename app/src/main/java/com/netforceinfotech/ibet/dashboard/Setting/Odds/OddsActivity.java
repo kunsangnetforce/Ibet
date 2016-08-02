@@ -1,14 +1,21 @@
 package com.netforceinfotech.ibet.dashboard.Setting.Odds;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
 
@@ -22,12 +29,80 @@ public class OddsActivity extends AppCompatActivity {
 
     ArrayList<Integer> icon_list = new ArrayList<Integer>();
     private Toolbar toolbar;
+    UserSessionManager userSessionManager;
+    int theme;
+    Window window;
+    LinearLayout odds_layout;
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odds);
+
+        userSessionManager = new UserSessionManager(getApplicationContext());
+        theme = userSessionManager.getTheme();
+
+        window = getWindow();
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+
+        if(theme == 0)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
+            }
+
+        }
+        else if (theme == 1)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
+            }
+
+        }
+        else if (theme == 2)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
+            }
+
+        }
+        else if (theme == 3)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
+            }
+        }
+        else if (theme == 4)
+        {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
+            }
+        }
+
         setupToolBar("ODDS");
         setupRecyclerView();
     }
@@ -57,8 +132,53 @@ public class OddsActivity extends AppCompatActivity {
     }
     private void setupRecyclerView()
     {
+
+        odds_layout = (LinearLayout)  findViewById(R.id.odds_layout);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+
+
+        if(theme == 0)
+        {
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
+            odds_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme1));
+
+        }
+        else if (theme == 1)
+        {
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
+            odds_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme2));
+
+        }
+        else if (theme == 2)
+        {
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
+            odds_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme3));
+
+
+        }
+        else if (theme == 3)
+        {
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
+
+            odds_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme4));
+
+
+        }
+        else if (theme == 4)
+        {
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
+
+            odds_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme5));
+
+        }
+
+
+
         recyclerView.setLayoutManager(layoutManager);
 
         icon_list.add(R.drawable.ic_cart);

@@ -30,6 +30,9 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     ArrayList<Integer> setting_icon = new ArrayList<>();
 
+
+
+
     public languageAdapter(Context context, List<String> itemList)
     {
         this.itemList = itemList;
