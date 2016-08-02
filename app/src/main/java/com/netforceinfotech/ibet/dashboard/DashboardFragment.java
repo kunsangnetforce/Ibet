@@ -98,7 +98,7 @@ public class DashboardFragment extends Fragment
 
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
         tabLayout.addTab(tabLayout.newTab().setText("Current Bets"));
-        tabLayout.addTab(tabLayout.newTab().setText("Live Events"));
+        tabLayout.addTab(tabLayout.newTab().setText("Live EventsFragment"));
         tabLayout.addTab(tabLayout.newTab().setText("Solo Bet"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

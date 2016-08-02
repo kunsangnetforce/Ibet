@@ -1,24 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".currentbet.betarena.EnterBetArenaActivity">
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.netforceinfotech.ibet.currentbet.betarena.stats.StateFragment">
 
     <LinearLayout
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -26,9 +14,10 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
+            android:layout_height="50dp"
             android:background="@drawable/tab_bg"
             android:elevation="6dp"
             android:minHeight="?attr/actionBarSize"
@@ -41,9 +30,7 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
 
             />
     </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

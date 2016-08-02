@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.currentbet.PagerAdapterCurrentBet;
+import com.netforceinfotech.ibet.currentbet.betarena.stats.PagerAdapterState;
 import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
@@ -22,10 +23,11 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_bet_arena);
         userSessionManager = new UserSessionManager(this);
         theme = userSessionManager.getTheme();
+        setupTab();
     }
 
-    private void setupTab(View view) {
-        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+    private void setupTab() {
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
         if (theme == 0) {
 
@@ -72,8 +74,8 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("The Arena"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
-        final PagerAdapterCurrentBet adapter = new PagerAdapterCurrentBet
+        final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);
+        final PagerAdapterBetArena adapter = new PagerAdapterBetArena
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);

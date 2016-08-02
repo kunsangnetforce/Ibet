@@ -83,7 +83,8 @@
     <color name="toolbar_background_theme3">#39064B</color>
     <color name="toolbar_background_theme4">#002E07</color>
     <color name="toolbar_background_theme5">#570000</color>
-
+    <color name="blue">#04c4f9</color>
+    <color name="unselected">#504e4e</color>
 
 
 </resources>

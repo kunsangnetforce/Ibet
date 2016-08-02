@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.currentbet.betarena.live_event;
+package com.netforceinfotech.ibet.currentbet.betarena.thearena;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.netforceinfotech.ibet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LiveEventFragment extends Fragment {
+public class TheArenaFragmen extends Fragment {
 
 
-    public LiveEventFragment() {
+    public TheArenaFragmen() {
         // Required empty public constructor
     }
 
@@ -24,8 +24,7 @@ public class LiveEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_live_event, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_the_arena, container, false);
     }
 
 }
