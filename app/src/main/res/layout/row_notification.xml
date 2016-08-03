@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
     android:id="@+id/ripple"
-    android:background="@color/orange"
+
     android:orientation="horizontal">
 
 

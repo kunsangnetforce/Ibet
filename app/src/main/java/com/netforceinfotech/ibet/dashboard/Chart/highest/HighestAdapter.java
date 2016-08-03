@@ -17,7 +17,8 @@ import java.util.List;
 /**
  * Created by asdf on 7/21/2016.1
  */
-public class HighestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HighestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;

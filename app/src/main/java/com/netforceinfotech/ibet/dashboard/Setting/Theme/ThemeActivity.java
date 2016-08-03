@@ -1,23 +1,34 @@
 package com.netforceinfotech.ibet.dashboard.Setting.Theme;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Setting.Theme.ThemeColor.ThemeColorActivity;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 
 public class ThemeActivity extends AppCompatActivity
 {
 
-
     private Toolbar toolbar;
     Button choose_theme,choose_backgropund;
+    UserSessionManager userSessionManager;
+    int theme;
+    Window window;
+    RelativeLayout  theam_layout;
+
 
 
     @Override
@@ -25,6 +36,67 @@ public class ThemeActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
+
+        userSessionManager = new UserSessionManager(getApplicationContext());
+        theme = userSessionManager.getTheme();
+
+        window = getWindow();
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+
+        if(theme == 0)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
+            }
+
+        }
+        else if (theme == 1)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
+            }
+
+        }
+        else if (theme == 2)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
+            }
+
+        }
+        else if (theme == 3)
+        {
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
+            }
+        }
+        else if (theme == 4)
+        {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                // only for gingerbread and newer versions
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
+            }
+        }
+
+
         setupToolBar("Themes");
 
     }
@@ -33,6 +105,9 @@ public class ThemeActivity extends AppCompatActivity
     {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        theam_layout = (RelativeLayout) findViewById(R.id.theme_layout);
+
         choose_theme = (Button) findViewById(R.id.buttonTheme);
         choose_backgropund = (Button) findViewById(R.id.buttonBackground);
         setSupportActionBar(toolbar);
@@ -41,6 +116,48 @@ public class ThemeActivity extends AppCompatActivity
         String teams = title;
         getSupportActionBar().setTitle(teams);
 
+
+        if(theme == 0)
+        {
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme1));
+
+        }
+        else if (theme == 1)
+        {
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme2));
+
+        }
+        else if (theme == 2)
+        {
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme3));
+
+
+        }
+        else if (theme == 3)
+        {
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
+
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme4));
+
+
+        }
+        else if (theme == 4)
+        {
+
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
+
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme5));
+
+
+
+        }
 
         choose_theme.setOnClickListener(new View.OnClickListener()
         {

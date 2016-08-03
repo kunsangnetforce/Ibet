@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-    android:background="@color/orange"
+    android:id="@+id/language_layout"
     >
+
+
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/app_bar" />

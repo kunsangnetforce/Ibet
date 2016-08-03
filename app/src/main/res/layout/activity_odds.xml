@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/orange"
+
+    android:id="@+id/odds_layout"
     >
     <include
         android:id="@+id/toolbar"

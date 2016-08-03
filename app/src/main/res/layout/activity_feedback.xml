@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
 
 
@@ -33,10 +32,11 @@
 
 
     <RelativeLayout
-
+        android:id="@+id/feedback_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/orange"
+
         android:padding="16dp"
         >
 
@@ -81,7 +81,7 @@
                 android:textAlignment="center"
                 android:drawablePadding="16dp"
                 android:fontFamily="sans-serif-light"
-                android:gravity="left|center_vertical"
+
                 android:text="@string/sendbutton"
                 android:textAllCaps="false"
                 android:textColor="#ffffff"

@@ -1,9 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/orange"
+    android:id="@+id/teamnotification_layout"
     >
 
 
@@ -17,11 +18,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_below="@+id/toolbar"
-        ><!--
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />-->
-
+        >
 
         <TextView
             android:id="@+id/teamnotification_heading"
@@ -54,6 +51,7 @@
                 />
 
             <ImageView
+                android:id="@+id/mute_image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
@@ -71,23 +69,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header"
-            ></android.support.v7.widget.RecyclerView>
+            >
 
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+
+            android:id="@+id/button_add_notifiaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_more"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="35dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            />
 
 
     </LinearLayout>
 
-    <Button
 
-        android:id="@+id/button_add_notifiaction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_more"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="35dp"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        />
 
 </RelativeLayout>

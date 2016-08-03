@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".dashboard.home.startnewbet.StartNewBetActivity">
 
+    
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
