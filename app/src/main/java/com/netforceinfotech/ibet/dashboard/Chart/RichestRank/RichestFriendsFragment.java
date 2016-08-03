@@ -57,31 +57,31 @@ public class RichestFriendsFragment extends Fragment
         if(theme == 0)
         {
 
-            highestLayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme1));
+            highestLayout.setBackgroundResource(R.drawable.background_theme1);
 
         }
         else if (theme == 1)
         {
 
-            highestLayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme2));
+            highestLayout.setBackgroundResource(R.drawable.background_theme2);
 
         }
         else if (theme == 2)
         {
 
-            highestLayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme3));
+            highestLayout.setBackgroundResource(R.drawable.background_theme3);;
 
         }
         else if (theme == 3)
         {
 
-            highestLayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme4));
+            highestLayout.setBackgroundResource(R.drawable.background_theme4);
 
         }
         else if (theme == 4)
         {
 
-            highestLayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme5));
+            highestLayout.setBackgroundResource(R.drawable.background_theme5);
 
         }
 
@@ -99,7 +99,10 @@ public class RichestFriendsFragment extends Fragment
         try
         {
             richestDatas.clear();
-        } catch (Exception ex) {
+        }
+
+        catch (Exception ex)
+        {
 
         }
         richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));

@@ -74,25 +74,25 @@ public class SettingFragment extends Fragment
         else if (theme == 1)
         {
 
-            setting_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_seclector_highlitedcolor_theme2));
+            setting_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme2));
 
         }
         else if (theme == 2)
         {
 
-            setting_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_seclector_highlitedcolor_theme3));
+            setting_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme3));
 
         }
         else if (theme == 3)
         {
 
-            setting_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_seclector_highlitedcolor_theme4));
+            setting_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme4));
 
         }
         else if (theme == 4)
         {
 
-            setting_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_seclector_highlitedcolor_theme5));
+            setting_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme5));
 
         }
 

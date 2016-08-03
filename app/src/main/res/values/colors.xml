@@ -19,7 +19,7 @@
     <color name="colorPrimaryText">#515151</color>
     <color name="colorSecondaryText">#727272</color>
     <color name="colorText">#FFFFFF</color>
-    <color name="blue_background_view">#5e90af</color>
+    <color name="blue_background_view">#7FA1BC</color>
     <color name="textviewBackground1">#ef1940</color>
     <color name="colorPrimaryLight">#1479d2</color>
     <color name="greendark">#185807</color>
@@ -43,7 +43,7 @@
     <color name="material_drawer_selected_text">#FFFFFF</color>
     <color name="brown_color">#B17215</color>
     <color name="orange">#D08720</color>
-
+    <color name="viewpager_color">#EBA746</color>
 
     <color name="tab_background_theme1">#072f52</color>
     <color name="home_background_theme1">#721D06</color>
@@ -91,6 +91,13 @@
     <color name="statusbar_background_theme3">#FF39064B</color>
     <color name="statusbar_background_theme4">#FF002E07</color>
     <color name="statusbar_background_theme5">#FF570000</color>
+
+    <color name="navigation_background_theme1">#D08720</color>
+    <color name="navigation_background_theme2">#FFF7A665</color>
+    <color name="navigation_background_theme3">#FFE6CDF1</color>
+    <color name="navigation_background_theme4">#FFC4C37F</color>
+    <color name="navigation_background_theme5">#FFDEC9CE</color>
+
 
 
 </resources>

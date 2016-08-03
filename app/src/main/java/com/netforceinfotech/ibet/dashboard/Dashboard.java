@@ -298,19 +298,20 @@ public class Dashboard extends AppCompatActivity
         else if (theme == 1)
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme2));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme2));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme2));
 
         }
         else if (theme == 2)
         {
+
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme3));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme3));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme3));
 
         }
         else if (theme == 3)
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme4));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme4));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme4));
 
         }
         else if (theme == 4)

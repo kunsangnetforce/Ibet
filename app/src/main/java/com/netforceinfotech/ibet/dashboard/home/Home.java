@@ -116,11 +116,10 @@ public class Home extends Fragment implements View.OnClickListener
         tabLayout.addTab(tabLayout.newTab().setText(R.string.bets_to_join));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-
         if(theme == 0)
         {
             //coordinatorLayout.setBackgroundResource(R.drawable.background_theme5);
-            coordinatorLayout.setBackgroundResource(R.color.colorPrimary);
+            coordinatorLayout.setBackgroundResource(R.drawable.background_theme1);
 
         }
         else if(theme == 1)
@@ -133,9 +132,7 @@ public class Home extends Fragment implements View.OnClickListener
         else if(theme == 2)
         {
 
-
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme3);
-
 
         }
         else if(theme == 3)

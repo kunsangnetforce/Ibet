@@ -24,14 +24,14 @@ import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
 
-public class TeamNotificationActivity extends AppCompatActivity
-{
+public class TeamNotificationActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     TeamNotificationAdapter adapter;
     ArrayList<String> teamDatas = new ArrayList<String>();
     ArrayList<Integer> icon_list = new ArrayList<Integer>();
+    ArrayList<Integer> ic_sound_list = new ArrayList<Integer>();
     private Toolbar toolbar;
     Button add_more_notification;
     private UserSessionManager userSessionManager;
@@ -41,12 +41,8 @@ public class TeamNotificationActivity extends AppCompatActivity
     ImageView mute_image;
 
 
-
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
@@ -62,51 +58,37 @@ public class TeamNotificationActivity extends AppCompatActivity
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
 
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
             }
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
             }
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
             }
@@ -117,9 +99,7 @@ public class TeamNotificationActivity extends AppCompatActivity
         setupRecyclerView();
     }
 
-    private void setupToolBar(String title)
-    {
-
+    private void setupToolBar(String title) {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -137,83 +117,65 @@ public class TeamNotificationActivity extends AppCompatActivity
         getSupportActionBar().setTitle(teams);
 
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme1));
+
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
 
-        }
-        else if (theme == 1)
-        {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme2));
+        } else if (theme == 1) {
+
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
 
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme3));
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme4));
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme5));
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme5));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
 
 
-
         }
 
-        mute_image.setOnClickListener(new View.OnClickListener()
-        {
+        mute_image.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
-                icon_list.clear();
-                teamDatas.clear();
+                ic_sound_list.clear();
 
-                icon_list.add(R.drawable.teammute_whiteicon);
-                icon_list.add(R.drawable.teammute_whiteicon);
-                icon_list.add(R.drawable.teammute_whiteicon);
-                icon_list.add(R.drawable.teammute_whiteicon);
-
-                teamDatas.add("Manchester United");
-                teamDatas.add("Real Madrid");
-                teamDatas.add("Fc Barcelona");
-                teamDatas.add("Hapeol Beer Sheva");
+                ic_sound_list.add(R.drawable.teammute_icon);
+                ic_sound_list.add(R.drawable.teammute_icon);
+                ic_sound_list.add(R.drawable.teammute_icon);
+                ic_sound_list.add(R.drawable.teammute_icon);
 
                 adapter = new TeamNotificationAdapter(getApplicationContext(), teamDatas, icon_list);
                 recyclerView.setAdapter(adapter);
 
                 adapter.notifyDataSetChanged();
-
+                userSessionManager.setMuteAllNotification(false);
 
             }
         });
 
 
-        add_more_notification.setOnClickListener(new View.OnClickListener()
-        {
+        add_more_notification.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
-                 Intent intent =  new Intent(TeamNotificationActivity.this, TeamlistActivity.class);
-                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                 startActivity(intent);
+                Intent intent = new Intent(TeamNotificationActivity.this, TeamlistActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
 
             }
@@ -222,11 +184,9 @@ public class TeamNotificationActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -235,15 +195,17 @@ public class TeamNotificationActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
 
 
-
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void setupRecyclerView()
+
     {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+
         recyclerView.setLayoutManager(layoutManager);
 
         icon_list.add(R.drawable.match_reminder);
@@ -251,10 +213,13 @@ public class TeamNotificationActivity extends AppCompatActivity
         icon_list.add(R.drawable.red_cardicon);
         icon_list.add(R.drawable.yellow_card);
 
+
         teamDatas.add("Manchester United");
         teamDatas.add("Real Madrid");
         teamDatas.add("Fc Barcelona");
         teamDatas.add("Hapeol Beer Sheva");
+
+
 
         adapter = new TeamNotificationAdapter(getApplicationContext(), teamDatas, icon_list);
         recyclerView.setAdapter(adapter);
@@ -262,10 +227,7 @@ public class TeamNotificationActivity extends AppCompatActivity
         adapter.notifyDataSetChanged();
 
 
-
-
     }
-
 
 
 }

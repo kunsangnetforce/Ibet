@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.Chart.highest.HighestFragmentData;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class TeamlistActivity extends AppCompatActivity
     int theme;
     Window window;
 
+    ArrayList<TeamFragmentData> highestDatas = new ArrayList<TeamFragmentData>();
 
 
 
@@ -121,14 +124,14 @@ public class TeamlistActivity extends AppCompatActivity
         if(theme == 0)
         {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme1));
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
 
         }
         else if (theme == 1)
         {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme2));
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
 
 
@@ -136,21 +139,21 @@ public class TeamlistActivity extends AppCompatActivity
         else if (theme == 2)
         {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme3));
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
 
         }
         else if (theme == 3)
         {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme4));
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
 
         }
         else if (theme == 4)
         {
 
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme5));
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme5));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
 
         }
@@ -165,9 +168,7 @@ public class TeamlistActivity extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
 
 
-        teamData.add("Team 1");
-        teamData.add("Team 2");
-        teamData.add("Team 3");
+
 
         adapter = new TeamlistAdapter(getApplicationContext(), teamData);
         recyclerView.setAdapter(adapter);
@@ -176,4 +177,40 @@ public class TeamlistActivity extends AppCompatActivity
 
 
     }
+
+
+    private void setupFinsihedDatas()
+    {
+        try
+        {
+            highestDatas.clear();
+        } catch (Exception ex) {
+
+        }
+        highestDatas.add(new TeamFragmentData("India", "imageurl"));
+        highestDatas.add(new TeamFragmentData("Srilanka", "imageurl"));
+        highestDatas.add(new TeamFragmentData("Pakistan", "imageurl"));
+        highestDatas.add(new TeamFragmentData("South Africa", "imageurl"));
+        highestDatas.add(new TeamFragmentData("Australia", "imageurl"));
+        highestDatas.add(new TeamFragmentData("Zimbambe", "imageurl"));
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
 }

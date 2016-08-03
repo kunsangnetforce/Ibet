@@ -84,12 +84,13 @@
                         >
 
                         <ImageView
+                            android:src="@drawable/teammusic_icon"
                             android:id="@+id/sound_icon"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="5dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/teammusic_icon"
+
                             />
 
 
@@ -111,7 +112,7 @@
 
 
         <View
-            android:background="@color/colorDivider"
+            android:background="@color/viewpager_color"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
