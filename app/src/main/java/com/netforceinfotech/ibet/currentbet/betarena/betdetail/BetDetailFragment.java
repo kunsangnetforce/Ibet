@@ -39,7 +39,7 @@ Context context;
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
         DetailBetAdapter detailBetAdapter=new DetailBetAdapter(context,null);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(detailBetAdapter);
     }
 
 }

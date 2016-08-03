@@ -91,6 +91,7 @@
     <color name="statusbar_background_theme3">#FF39064B</color>
     <color name="statusbar_background_theme4">#FF002E07</color>
     <color name="statusbar_background_theme5">#FF570000</color>
+    <color name="overlayColor">#7e000000</color>
 
 
 </resources>
