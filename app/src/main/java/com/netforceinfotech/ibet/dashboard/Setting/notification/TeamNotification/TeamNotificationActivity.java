@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -36,12 +38,17 @@ public class TeamNotificationActivity extends AppCompatActivity
     RelativeLayout team_layout;
     int theme;
     Window window;
+    ImageView mute_image;
+
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_notification);
 
@@ -119,6 +126,10 @@ public class TeamNotificationActivity extends AppCompatActivity
         team_layout = (RelativeLayout) findViewById(R.id.teamnotification_layout);
 
         add_more_notification = (Button) findViewById(R.id.button_add_notifiaction);
+
+
+        mute_image = (ImageView) findViewById(R.id.mute_image);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -161,7 +172,38 @@ public class TeamNotificationActivity extends AppCompatActivity
             team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme5));
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
 
+
+
         }
+
+        mute_image.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+                icon_list.clear();
+                teamDatas.clear();
+
+                icon_list.add(R.drawable.teammute_whiteicon);
+                icon_list.add(R.drawable.teammute_whiteicon);
+                icon_list.add(R.drawable.teammute_whiteicon);
+                icon_list.add(R.drawable.teammute_whiteicon);
+
+                teamDatas.add("Manchester United");
+                teamDatas.add("Real Madrid");
+                teamDatas.add("Fc Barcelona");
+                teamDatas.add("Hapeol Beer Sheva");
+
+                adapter = new TeamNotificationAdapter(getApplicationContext(), teamDatas, icon_list);
+                recyclerView.setAdapter(adapter);
+
+                adapter.notifyDataSetChanged();
+
+
+            }
+        });
+
 
         add_more_notification.setOnClickListener(new View.OnClickListener()
         {
@@ -180,15 +222,20 @@ public class TeamNotificationActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle item selection
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
+
+
+
         }
         return super.onOptionsItemSelected(item);
     }
