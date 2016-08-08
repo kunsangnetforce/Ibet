@@ -22,7 +22,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final LayoutInflater inflater;
     private Context context;
 
-    public EventsAdapter(Context context, List<EventsFragment> itemList) {
+    public EventsAdapter(Context context, List<EventsFragment> itemList)
+    {
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
