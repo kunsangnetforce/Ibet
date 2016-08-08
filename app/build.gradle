@@ -40,6 +40,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.2.7@aar') {
         transitive = true
     }
+
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.balysv:material-ripple:1.0.2'
@@ -55,5 +56,4 @@ dependencies {
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-
 }

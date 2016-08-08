@@ -38,7 +38,10 @@ public class StateFragment extends Fragment {
         return view;
     }
 
-    private void setupTab(View view) {
+    private void setupTab(View view)
+    {
+
+
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
         tabLayout.addTab(tabLayout.newTab().setIcon(ContextCompat.getDrawable(context, R.drawable.ic_graph)));
@@ -51,7 +54,7 @@ public class StateFragment extends Fragment {
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
         final PagerAdapterState adapter = new PagerAdapterState
                 (getChildFragmentManager(), tabLayout.getTabCount());
-        viewPager.setPagingEnabled(false);
+        viewPager.setPagingEnabled(true);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

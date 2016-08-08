@@ -30,6 +30,8 @@ import java.util.ArrayList;
 public class ThemeColorAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
+
+
     SettingHolder viewHolder;
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
