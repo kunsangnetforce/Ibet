@@ -68,18 +68,21 @@ public class Dashboard extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_dashboard);
 
         userSessionManager = new UserSessionManager(getApplicationContext());
+
         theme = userSessionManager.getTheme();
 
         setupToolBar("Ibet");
+
          window = getWindow();
+
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
 
         if(theme == 0)
         {
@@ -89,7 +92,6 @@ public class Dashboard extends AppCompatActivity
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
-
         }
         else if (theme == 1)
         {
@@ -99,7 +101,6 @@ public class Dashboard extends AppCompatActivity
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
-
 
         }
         else if (theme == 2)
@@ -156,7 +157,10 @@ public class Dashboard extends AppCompatActivity
         PrimaryDrawerItem logout = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.logout).withIcon(R.drawable.ic_logout).withSelectedIcon(R.drawable.ic_logout_white);
         PrimaryDrawerItem rateus = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.rateus).withIcon(R.drawable.ic_rateus).withSelectedIcon(R.drawable.ic_rateus_white);
 
-//create the drawer and remember the `Drawer` result object
+        //create the drawer and remember the `Drawer` result object
+
+
+
         AccountHeader accountHeader = getAccountHeader(imageURL);
 
 
@@ -317,7 +321,7 @@ public class Dashboard extends AppCompatActivity
         else if (theme == 4)
         {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme5));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
+            navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme5));
 
         }
 
@@ -327,14 +331,13 @@ public class Dashboard extends AppCompatActivity
         title = (TextView) toolbar.findViewById(R.id.textViewTitle);
         title.setText(s);
 
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
+        {
 
             // This method will trigger on item Click of navigation menu
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem)
             {
-
 
                 //Checking if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked()) menuItem.setChecked(false);
@@ -385,9 +388,6 @@ public class Dashboard extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
 
-
-
-
                 }
             }
         });
@@ -396,7 +396,6 @@ public class Dashboard extends AppCompatActivity
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close)
         {
-
             @Override
             public void onDrawerClosed(View v)
             {
@@ -408,8 +407,6 @@ public class Dashboard extends AppCompatActivity
             {
                 super.onDrawerOpened(v);
             }
-
-
 
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -426,15 +423,10 @@ public class Dashboard extends AppCompatActivity
 
     private void setupDashboardFragment()
     {
-
-
         title.setText("Ibet");
         dashboardFragment = new DashboardFragment();
         tagName = dashboardFragment.getClass().getName();
         replaceFragment(dashboardFragment, tagName);
-
-
-
 
     }
 
@@ -461,11 +453,9 @@ public class Dashboard extends AppCompatActivity
 
     private void setupChartFragment()
     {
-
         chartfragment = new ChartFragment();
         tagName = chartfragment.getClass().getName();
         replaceFragment(chartfragment, tagName);
-
 
     }
 

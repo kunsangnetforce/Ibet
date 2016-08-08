@@ -33,6 +33,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
 
+
     public CallbackManager mCallbackManager;
     private LoginButton buttonFacebook;
     private List<String> permissions;
@@ -51,9 +52,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
 
-
-
         setContentView(R.layout.activity_login);
+
         userSessionManager = new UserSessionManager(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         findViewById(R.id.textViewRegister).setOnClickListener(this);

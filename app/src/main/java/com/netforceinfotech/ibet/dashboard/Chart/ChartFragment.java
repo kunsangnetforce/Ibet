@@ -29,7 +29,6 @@ public class ChartFragment extends Fragment implements View.OnClickListener
 
 
 
-
     public ChartFragment()
     {
         // Required empty public constructor

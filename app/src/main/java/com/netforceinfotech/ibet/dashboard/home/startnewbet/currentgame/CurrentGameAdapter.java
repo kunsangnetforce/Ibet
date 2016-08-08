@@ -17,7 +17,8 @@ import java.util.List;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
@@ -26,7 +27,8 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context context;
     ArrayList<Boolean> booleanGames=new ArrayList<>();
 
-    public CurrentGameAdapter(Context context, List<CurrentGameData> itemList) {
+    public CurrentGameAdapter(Context context, List<CurrentGameData> itemList)
+    {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -42,17 +44,25 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
       }
   */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
 
         View view = inflater.inflate(R.layout.row_currentgame, parent, false);
         CurrentGameHolder viewHolder = new CurrentGameHolder(view);
-        for (int i = 0; i < itemList.size(); i++) {
-            if (i == 0) {
+        for (int i = 0; i < itemList.size(); i++)
+        {
+            if (i == 0)
+            {
                 booleanGames.add(true);
-            } else {
+            }
+            else
+            {
                 booleanGames.add(false);
             }
             Log.i("looppp",""+i);
+
+
+
         }
 
         return viewHolder;
@@ -61,24 +71,34 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        if(booleanGames.get(position)){
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
+    {
+
+
+        if(booleanGames.get(position))
+        {
             ((CurrentGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
         }
-        else {
+        else
+        {
             ((CurrentGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
         }
         Log.i("ibet_position", "" + position);
         CurrentGameHolder currentGameHolder = (CurrentGameHolder) holder;
         currentGameHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
 
-                for (int i = 0; i < itemList.size(); i++) {
-                    if (i == position) {
+                for (int i = 0; i < itemList.size(); i++)
+                {
+                    if (i == position)
+                    {
                         ((CurrentGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
                         booleanGames.set(position, true);
-                    } else {
+                    }
+                    else
+                    {
                         ((CurrentGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
                         booleanGames.set(i, false);
                     }
@@ -96,7 +116,8 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return 5;
 //        return itemList.size();
     }
