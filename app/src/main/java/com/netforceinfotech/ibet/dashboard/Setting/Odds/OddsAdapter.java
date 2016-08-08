@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet.dashboard.Setting.Odds;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,10 @@ public class OddsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context context;
     ArrayList<Boolean> booleanGames = new ArrayList<>();
     ArrayList<Integer> setting_icon = new ArrayList<>();
+    int theme;
+    UserSessionManager userSessionManager;
+
+
 
     public OddsAdapter(Context context, List<String> itemList,ArrayList<Integer> imagelist)
     {
@@ -36,6 +42,10 @@ public class OddsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.context = context;
         this.setting_icon = imagelist;
         inflater = LayoutInflater.from(context);
+
+        userSessionManager = new UserSessionManager(context);
+        theme = userSessionManager.getTheme();
+
 
     }
 
@@ -45,6 +55,8 @@ public class OddsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         View view = inflater.inflate(R.layout.row_odds, parent, false);
         viewHolder = new OddsHolder(view);
+
+        setlist_border();
 
         return viewHolder;
 
@@ -75,12 +87,9 @@ public class OddsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public class OddsHolder  extends RecyclerView.ViewHolder  implements View.OnClickListener
     {
-
-
         TextView textViewTitle, textViewCategory, textViewPros;
-
         MaterialRippleLayout materialRippleLayout;
-        View view;
+        View view,layout_view;
 
 
         public OddsHolder(View itemView)
@@ -95,6 +104,8 @@ public class OddsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
 
+            layout_view = (View)  itemView.findViewById(R.id.view);
+
         }
         @Override
         public void onClick(View v)
@@ -105,11 +116,38 @@ public class OddsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if(position==0)
             {
 
-
-
             }
 
         }
     }
+
+    private void setlist_border()
+    {
+        if(theme == 0)
+        {
+            viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
+        }
+        else if (theme == 1)
+        {
+            viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background2));
+        }
+        else if (theme == 2)
+        {
+            viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background3));
+        }
+        else if (theme == 3)
+        {
+            viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background4));
+        }
+        else if (theme == 4)
+        {
+            viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background5));
+        }
+
+
+    }
+
+
+
 
 }

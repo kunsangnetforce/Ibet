@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
     <com.balysv.materialripple.MaterialRippleLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:id="@+id/ripple"
@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         >
@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/setting_list_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:src="@drawable/home_theme1"
         android:scaleType="fitXY"
 

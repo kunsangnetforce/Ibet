@@ -40,8 +40,31 @@
                 />
 
 
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                >
+
+
+                <CheckBox
+                    android:id="@+id/choose_team"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:button="@xml/custom_sound_checkbox"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    />
+
+
+            </RelativeLayout>
+
         </RelativeLayout>
         <View
+            android:id="@+id/view"
             android:background="@color/md_orange_300"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>

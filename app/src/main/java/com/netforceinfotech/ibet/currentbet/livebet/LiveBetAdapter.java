@@ -25,11 +25,14 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<LiveBetData> itemList;
     private Context context;
 
-    public LiveBetAdapter(Context context, List<LiveBetData> itemList) {
+    public LiveBetAdapter(Context context, List<LiveBetData> itemList)
+    {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
+
+
 
     /*  @Override
       public int getItemViewType(int position) {
@@ -41,7 +44,8 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
       }
   */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
 
         View view = inflater.inflate(R.layout.row_livebet, parent, false);
         LiveBetHolder viewHolder = new LiveBetHolder(view);
@@ -51,18 +55,21 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
+    {
         LiveBetHolder liveBetHolder = (LiveBetHolder) holder;
-        liveBetHolder.textViewEnterBetArena.setOnClickListener(new View.OnClickListener() {
+
+        liveBetHolder.textViewEnterBetArena.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Intent intent = new Intent(context, EnterBetArenaActivity.class);
                 context.startActivity(intent);
             }
         });
 
     }
-
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }

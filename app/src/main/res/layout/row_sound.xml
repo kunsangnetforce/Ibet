@@ -60,7 +60,8 @@
 
         </RelativeLayout>
         <View
-            android:background="@color/colorDivider"
+            android:id="@+id/view"
+            android:background="@color/viewpager_color"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
     </LinearLayout>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -130,14 +131,14 @@ public class ThemeColorActivity extends AppCompatActivity
         if(theme == 0)
         {
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
-            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme1));
+            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
 
         }
         else if (theme == 1)
         {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
-            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme2));
+            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
 
 
         }
@@ -145,7 +146,7 @@ public class ThemeColorActivity extends AppCompatActivity
         {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
-            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme3));
+            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
 
 
         }
@@ -154,7 +155,7 @@ public class ThemeColorActivity extends AppCompatActivity
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
 
-            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme4));
+            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
 
 
         }
@@ -163,7 +164,7 @@ public class ThemeColorActivity extends AppCompatActivity
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
 
-            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme5));
+            theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme5));
 
 
         }
@@ -187,6 +188,18 @@ public class ThemeColorActivity extends AppCompatActivity
 
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

@@ -4,6 +4,7 @@ package com.netforceinfotech.ibet.dashboard.Chart;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,6 @@ public class ChartFragment extends Fragment implements View.OnClickListener
     LinearLayout chart_back_layout;
     Intent intent;
     int theme;
-
 
 
 
@@ -65,31 +65,31 @@ public class ChartFragment extends Fragment implements View.OnClickListener
         if(theme == 0)
         {
 
-            chart_back_layout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme1));
+            chart_back_layout.setBackgroundResource(R.drawable.background_theme1);
 
         }
         else if (theme == 1)
         {
 
-            chart_back_layout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme2));
+            chart_back_layout.setBackgroundResource(R.drawable.background_theme2);
 
         }
         else if (theme == 2)
         {
 
-            chart_back_layout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme3));
+            chart_back_layout.setBackgroundResource(R.drawable.background_theme3);
 
         }
         else if (theme == 3)
         {
 
-            chart_back_layout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme4));
+            chart_back_layout.setBackgroundResource(R.drawable.background_theme4);
 
         }
         else if (theme == 4)
         {
 
-            chart_back_layout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
+            chart_back_layout.setBackgroundResource(R.drawable.background_theme5);
 
 
         }

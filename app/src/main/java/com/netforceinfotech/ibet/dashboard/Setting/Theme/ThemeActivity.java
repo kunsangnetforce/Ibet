@@ -1,5 +1,6 @@
 package com.netforceinfotech.ibet.dashboard.Setting.Theme;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.RelativeLayout;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Setting.Theme.ThemeColor.ThemeColorActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+
+import java.io.File;
 
 
 public class ThemeActivity extends AppCompatActivity
@@ -37,8 +40,11 @@ public class ThemeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
 
+
+        deleteCache(getApplicationContext());
         userSessionManager = new UserSessionManager(getApplicationContext());
         theme = userSessionManager.getTheme();
+
 
         window = getWindow();
 
@@ -120,22 +126,21 @@ public class ThemeActivity extends AppCompatActivity
         if(theme == 0)
         {
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
-            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme1));
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
 
         }
         else if (theme == 1)
         {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
-            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme2));
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
 
         }
         else if (theme == 2)
         {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
-            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme3));
-
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
 
         }
         else if (theme == 3)
@@ -143,7 +148,7 @@ public class ThemeActivity extends AppCompatActivity
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
 
-            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme4));
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
 
 
         }
@@ -153,7 +158,7 @@ public class ThemeActivity extends AppCompatActivity
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
 
-            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme5));
+            theam_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme5));
 
 
 
@@ -175,9 +180,11 @@ public class ThemeActivity extends AppCompatActivity
 
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle item selection
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -186,5 +193,28 @@ public class ThemeActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public static void deleteCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            if (dir != null && dir.isDirectory()) {
+                deleteDir(dir);
+            }
+        } catch (Exception e) {}
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        return dir.delete();
     }
 }

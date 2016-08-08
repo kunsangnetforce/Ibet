@@ -43,17 +43,24 @@ public class HighestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
       }
   */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
 
         View view = inflater.inflate(R.layout.rowhighestrank, parent, false);
         HighestHolder viewHolder = new HighestHolder(view);
-        for (int i = 0; i < itemList.size(); i++) {
-            if (i == 0) {
+        for (int i = 0; i < itemList.size(); i++)
+        {
+
+            if (i == 0)
+            {
                 booleanGames.add(true);
-            } else {
+            }
+            else
+            {
                 booleanGames.add(false);
             }
             Log.i("looppp", "" + i);
+
         }
 
         return viewHolder;
@@ -69,12 +76,14 @@ public class HighestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private void showMessage(String s)
     {
+
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return 5;
 //        return itemList.size();
     }

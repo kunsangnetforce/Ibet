@@ -17,7 +17,10 @@ public class UserSessionManager {
     private static final String EMAIL = "email";
     private static final String NAME = "name";
     private static final String ISFIRSTTIME = "first_time";
+
     private static final String THEME = "theme";
+
+    private  static  final String MUTEALL ="muteall";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -82,6 +85,35 @@ public class UserSessionManager {
         editor.putString(FBID, regid);
         editor.commit();
     }
+
+    public boolean getMuteAllNotification()
+    {
+
+        return  pref.getBoolean(MUTEALL,false);
+    }
+
+
+    public void setMuteAllNotification(boolean mute)
+    {
+
+        editor.putBoolean(MUTEALL, mute);
+        editor.commit();
+
+    }
+
+    public boolean getTeamNotification(String team_name)
+    {
+        return pref.getBoolean(team_name, false);
+
+    }
+
+    public void setTeamNotification(String team_name, boolean sound)
+    {
+        editor.putBoolean(team_name, sound);
+        editor.commit();
+    }
+
+
     public int getTheme() {
 
         return pref.getInt(THEME, 0);
