@@ -66,7 +66,6 @@ public class FinsihedBet extends Fragment {
         frameLayout = (FrameLayout) view.findViewById(R.id.frame_layout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
 
-
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 

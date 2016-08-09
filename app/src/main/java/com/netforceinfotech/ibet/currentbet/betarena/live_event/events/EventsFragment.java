@@ -40,9 +40,13 @@ public class EventsFragment extends Fragment {
     }
 
     private void setupData() {
-        for (int i = 0; i < 20; i++) {
-            eventsDatas.add(new EventsData("", ""));
-        }
+        eventsDatas.add(new EventsData("neymar", "", "goal", "76"));
+        eventsDatas.add(new EventsData("", "bale", "goal", "55"));
+        eventsDatas.add(new EventsData("masherano", "", "yellow", "34"));
+        eventsDatas.add(new EventsData("Pique", "", "red", "12"));
+        eventsDatas.add(new EventsData("", "Ronaldo", "goal", "6"));
+        eventsDatas.add(new EventsData("", "", "", "0"));
+
     }
 
     private void setupRecycler(View view) {
