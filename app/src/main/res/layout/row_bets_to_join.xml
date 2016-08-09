@@ -30,7 +30,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/circleImageViewDp"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/david"
                     app:civ_border_color="#12f4f0f0"
                     app:civ_border_width="6dp" />
@@ -43,7 +43,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="80"
-                android:layout_marginRight="5dp"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:weightSum="130">
@@ -55,6 +54,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:textSize="14sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ronie sing"
@@ -68,8 +68,9 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:layout_margin="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="30dp"
                         android:src="@drawable/italy" />
                 </LinearLayout>
 
@@ -82,6 +83,7 @@
                     >
 
                     <TextView
+                        android:textSize="14sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Italy"
@@ -90,11 +92,18 @@
 
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:paddingBottom="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:weightSum="100">
 
@@ -107,8 +116,8 @@
 
                 <TextView
                     android:id="@+id/textViewWins"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/circular_bg"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="30"
@@ -116,6 +125,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -132,8 +142,8 @@
 
                 <TextView
                     android:id="@+id/textViewLosses"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/circular_bg"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="40"
@@ -141,6 +151,7 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:textSize="14sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -150,10 +161,11 @@
         </LinearLayout>
 
         <TextView
+            android:textSize="14sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="11.45"
             android:textColor="@color/colorText" />
 
@@ -166,7 +178,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:weightSum="130">
 
@@ -186,7 +198,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:layout_weight="50"
+                            android:layout_weight="40"
                             android:gravity="center">
 
                             <ImageView
@@ -198,7 +210,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:layout_weight="50"
+                            android:layout_weight="60"
                             android:gravity="center">
 
                             <TextView
@@ -206,7 +218,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Italy"
                                 android:textColor="@color/colorText"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -241,7 +253,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:layout_weight="50"
+                            android:layout_weight="60"
                             android:gravity="center">
 
                             <TextView
@@ -249,13 +261,13 @@
                                 android:layout_height="wrap_content"
                                 android:text="Germany"
                                 android:textColor="@color/colorText"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="40dp"
-                            android:layout_weight="50"
+                            android:layout_weight="40"
                             android:gravity="center">
 
                             <ImageView
@@ -288,8 +300,10 @@
             android:id="@+id/textViewDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="View Detail"
+            android:textStyle="bold"
             android:textColor="@color/colorText" />
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
