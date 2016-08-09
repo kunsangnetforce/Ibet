@@ -5,9 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.netforceinfotech.ibet.currentbet.betarena.live_event.events.EventsFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.live_event.lineup.LineUpFragment;
-import com.netforceinfotech.ibet.currentbet.livebet.LiveBetFragment;
-import com.netforceinfotech.ibet.currentbet.upcoming.UpcomingBetFragment;
+import com.netforceinfotech.ibet.currentbet.betarena.stats.lineup.LineUpFragment;
 
 /**
  * Created by Netforce on 8/1/2016.
