@@ -44,12 +44,13 @@ public class BetsToJoin extends Fragment {
 
     private void setupRecyclerView(View view)
     {
+        setupbetsToJoinDatas();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        recyclerView.setNestedScrollingEnabled(false);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new BetsToJoinAdapter(context, betsToJoinDatas);
         recyclerView.setAdapter(adapter);
-        setupbetsToJoinDatas();
         adapter.notifyDataSetChanged();
     }
 
