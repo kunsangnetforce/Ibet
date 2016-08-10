@@ -38,8 +38,7 @@ public class StateFragment extends Fragment {
         return view;
     }
 
-    private void setupTab(View view)
-    {
+    private void setupTab(View view) {
 
 
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
@@ -47,7 +46,10 @@ public class StateFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setIcon(ContextCompat.getDrawable(context, R.drawable.ic_graph)));
         tabLayout.addTab(tabLayout.newTab().setIcon(ContextCompat.getDrawable(context, R.drawable.ic_line_up)));
         tabLayout.addTab(tabLayout.newTab().setIcon(ContextCompat.getDrawable(context, R.drawable.ic_list)));
-        int tabIconColor = ContextCompat.getColor(context, R.color.unselected);
+        final int tabIconColor = ContextCompat.getColor(context, R.color.unselected);
+        final int tabIconSelectedColor = ContextCompat.getColor(context, R.color.white);
+
+        tabLayout.getTabAt(0).getIcon().setColorFilter(tabIconSelectedColor, PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(1).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(2).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -62,8 +64,7 @@ public class StateFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                int tabIconColor = ContextCompat.getColor(context, R.color.white);
-                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+                tab.getIcon().setColorFilter(tabIconSelectedColor, PorterDuff.Mode.SRC_IN);
 
             }
 
