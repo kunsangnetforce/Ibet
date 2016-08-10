@@ -84,7 +84,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return 5;
+        return 10;
 //        return itemList.size();
     }
 }

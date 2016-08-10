@@ -2,13 +2,14 @@ package com.netforceinfotech.ibet.general;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
 /**
  * Created by hegazy on 2/13/15.
  */
 public class CustomViewPager extends android.support.v4.view.ViewPager{
     private boolean enabled;
-
+    private int mCurrentPagePosition = 0;
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.enabled = true;
