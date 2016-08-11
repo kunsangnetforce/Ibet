@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet.live_event.stand;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -55,19 +56,19 @@ public class StandFragment extends Fragment implements View.OnClickListener {
             case R.id.buttonNeutral:
             case R.id.imageViewTeamA:
             case R.id.imageViewTeamB:
-                setupArenaFragment();
+                startActivity(new Intent(context, TheArenaActivity.class));
+             //   setupArenaFragment();
                 break;
         }
     }
-    private void replaceFragment(Fragment newFragment, String tag)
-    {
+
+    private void replaceFragment(Fragment newFragment, String tag) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, newFragment, tag);
         transaction.commit();
     }
 
-    private void setupArenaFragment()
-    {
+    private void setupArenaFragment() {
         theArenaFragment = new TheArenaFragment();
         tagName = theArenaFragment.getClass().getName();
         replaceFragment(theArenaFragment, tagName);
