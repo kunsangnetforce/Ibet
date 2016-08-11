@@ -20,6 +20,7 @@ import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
 import com.netforceinfotech.ibet.general.WrapContentViewPager;
 import com.netforceinfotech.ibet.live_event.stand.StandActivity;
 import com.squareup.picasso.Picasso;

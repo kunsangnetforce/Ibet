@@ -40,6 +40,7 @@ import com.netforceinfotech.ibet.dashboard.Chart.ChartFragment;
 import com.netforceinfotech.ibet.dashboard.Profile.ProfileFragment;
 import com.netforceinfotech.ibet.dashboard.Setting.SettingFragment;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
 import com.squareup.picasso.Picasso;
 
 public class Dashboard extends AppCompatActivity
@@ -157,6 +158,8 @@ public class Dashboard extends AppCompatActivity
         PrimaryDrawerItem logout = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.logout).withIcon(R.drawable.ic_logout).withSelectedIcon(R.drawable.ic_logout_white);
         PrimaryDrawerItem rateus = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.rateus).withIcon(R.drawable.ic_rateus).withSelectedIcon(R.drawable.ic_rateus_white);
 
+        PrimaryDrawerItem bonus = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.bonus).withIcon(R.drawable.ic_rateus).withSelectedIcon(R.drawable.ic_rateus_white);
+
         //create the drawer and remember the `Drawer` result object
 
 
@@ -178,7 +181,8 @@ public class Dashboard extends AppCompatActivity
                         tutorial,
                         share,
                         rateus,
-                        logout
+                        logout,
+                        bonus
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener()
                 {
@@ -382,6 +386,13 @@ public class Dashboard extends AppCompatActivity
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();
+
+                        return true;
+
+                    case R.id.bonus:
+
+                        Intent bonus = new Intent(Dashboard.this, ImageOverlayDrawable.class);
+                        startActivity(bonus);
 
                         return true;
                     default:
