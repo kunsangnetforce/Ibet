@@ -32,8 +32,6 @@ public class TeamlistActivity extends AppCompatActivity
     RelativeLayout team_layout;
     int theme;
     Window window;
-
-
     ArrayList<TeamFragmentData> teamlistDatas = new ArrayList<TeamFragmentData>();
 
 

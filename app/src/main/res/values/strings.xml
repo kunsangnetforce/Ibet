@@ -69,6 +69,7 @@
     <string name="skip">Skip</string>
     <string name="done">Done</string>
     <string name="rateus">Rate Us</string>
+    <string name="bonus">Scratch Bonus</string>
     <string name="title_activity_chart">ChartActivity</string>
     <string name="title_activity_chart_tab">ChartTabActivity</string>
     <string name="title_activity_soundlist">SoundlistActivity</string>
@@ -78,4 +79,5 @@
     <string name="teamnotification_heading">Dummy Text Loreum Lipsum.Dummy Text Loreum Lipsum</string>
     <string name="muteallnotification">Mute all notifications</string>
     <string name="enter_bet_arena">Enter Bet Arena</string>
+    <string name="title_activity_scratch">ScratchActivity</string>
 </resources>

@@ -58,5 +58,11 @@
             android:icon="@drawable/ic_logout"
             android:title="@string/logout" />
 
+        <item
+            android:id="@+id/bonus"
+            android:checked="false"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/bonus" />
+
     </group>
 </menu>

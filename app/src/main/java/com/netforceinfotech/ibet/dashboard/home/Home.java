@@ -17,8 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
 import com.squareup.picasso.Picasso;
 
 import at.grabner.circleprogress.CircleProgressView;
@@ -170,6 +170,7 @@ public class Home extends Fragment implements View.OnClickListener
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
+
             }
 
             @Override
@@ -186,7 +187,7 @@ public class Home extends Fragment implements View.OnClickListener
         {
             case R.id.buttonStartnewBet:
                 //go to new bet
-                Intent intent = new Intent(context, StartNewBetActivity.class);
+                Intent intent = new Intent(context, ImageOverlayDrawable.class);
                 startActivity(intent);
                 break;
         }
