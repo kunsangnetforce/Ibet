@@ -86,4 +86,5 @@
     <string name="top">Top</string>
 
     <string name="title_activity_scratch">ScratchActivity</string>
+    <string name="lorem">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</string>
 </resources>

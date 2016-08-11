@@ -42,6 +42,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.2.7@aar') {
         transitive = true
     }
+    compile project(':wscratchview-library2')
     compile 'cn.pedant.sweetalert:library:1.3'
     compile 'com.afollestad.material-dialogs:commons:0.9.0.0'
     compile 'com.github.cooltechworks:ScratchView:v1.0'
@@ -60,5 +61,4 @@ dependencies {
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-    compile project(':wscratchview-library2')
 }
