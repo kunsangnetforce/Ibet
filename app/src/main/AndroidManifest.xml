@@ -95,7 +95,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".dashboard.Setting.Theme.ThemeColor.ThemeColorActivity" />
         <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
-        <activity android:name=".live_event.stand.TheArenaActivity"></activity>
+        <activity android:name=".live_event.stand.TheArenaActivity" />
+        <activity android:name=".live_event.stand.StandActivity"></activity>
     </application>
 
 </manifest>

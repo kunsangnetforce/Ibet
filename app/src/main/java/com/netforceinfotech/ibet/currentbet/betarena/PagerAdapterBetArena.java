@@ -7,9 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.netforceinfotech.ibet.currentbet.betarena.betdetail.BetDetailFragment;
 import com.netforceinfotech.ibet.currentbet.betarena.live_event.LiveEventFragment;
 import com.netforceinfotech.ibet.currentbet.betarena.stats.StateFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.thearena.TheArenaFragmen;
-import com.netforceinfotech.ibet.currentbet.livebet.LiveBetFragment;
-import com.netforceinfotech.ibet.currentbet.upcoming.UpcomingBetFragment;
+import com.netforceinfotech.ibet.currentbet.betarena.thearena.TheArenaFragment;
 
 /**
  * Created by Netforce on 8/1/2016.
@@ -36,8 +34,8 @@ public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
                 BetDetailFragment betDetailFragment = new BetDetailFragment();
                 return betDetailFragment;
             case 3:
-                TheArenaFragmen theArenaFragmen = new TheArenaFragmen();
-                return theArenaFragmen;
+                TheArenaFragment theArenaFragment = new TheArenaFragment();
+                return theArenaFragment;
 
             default:
                 return null;
