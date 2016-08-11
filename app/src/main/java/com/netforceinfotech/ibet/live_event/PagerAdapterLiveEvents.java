@@ -1,19 +1,20 @@
-package com.netforceinfotech.ibet.currentbet.betarena.live_event;
+package com.netforceinfotech.ibet.live_event;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.netforceinfotech.ibet.currentbet.CurrentBet;
 import com.netforceinfotech.ibet.currentbet.betarena.live_event.events.EventsFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.stats.lineup.LineUpFragment;
+import com.netforceinfotech.ibet.currentbet.betarena.stats.StateFragment;
+import com.netforceinfotech.ibet.dashboard.home.Home;
+import com.netforceinfotech.ibet.live_event.stand.StandFragment;
+import com.netforceinfotech.ibet.solobet.SoloBet;
 
-/**
- * Created by Netforce on 8/1/2016.
- */
-public class PagerAdapterLiveEvent extends FragmentStatePagerAdapter {
+public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
-    public PagerAdapterLiveEvent(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapterLiveEvents(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
@@ -26,8 +27,11 @@ public class PagerAdapterLiveEvent extends FragmentStatePagerAdapter {
                 EventsFragment home = new EventsFragment();
                 return home;
             case 1:
-                LineUpFragment currentBet = new LineUpFragment();
+                StateFragment currentBet = new StateFragment();
                 return currentBet;
+            case 2:
+                StandFragment liveEvents = new StandFragment();
+                return liveEvents;
 
             default:
                 return null;

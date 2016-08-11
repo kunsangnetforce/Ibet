@@ -17,8 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
+import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
+import com.netforceinfotech.ibet.general.WrapContentViewPager;
+import com.netforceinfotech.ibet.live_event.stand.StandActivity;
 import com.squareup.picasso.Picasso;
 
 import at.grabner.circleprogress.CircleProgressView;
@@ -33,7 +37,7 @@ public class Home extends Fragment implements View.OnClickListener
     CircleProgressView circleProgressViewStatus, circleProgressViewLevel;
     TextView textViewRemaining;
     CircleImageView circleImageViewDp;
-     ViewPager viewPager;
+    WrapContentViewPager viewPager;
     private Context context;
     Button buttonStartNewGame;
     CoordinatorLayout coordinatorLayout;
@@ -109,7 +113,8 @@ public class Home extends Fragment implements View.OnClickListener
 
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
 
-        viewPager = (ViewPager) view.findViewById(R.id.pager);
+        viewPager = (WrapContentViewPager) view.findViewById(R.id.pager);
+        viewPager.setPagingEnabled(false);
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.finished_bet));
@@ -165,11 +170,12 @@ public class Home extends Fragment implements View.OnClickListener
             public void onTabSelected(TabLayout.Tab tab)
             {
                 viewPager.setCurrentItem(tab.getPosition());
+                viewPager.reMeasureCurrentPage(viewPager.getCurrentItem());
+
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
 
             }
 
@@ -178,6 +184,8 @@ public class Home extends Fragment implements View.OnClickListener
 
             }
         });
+
+
     }
 
     @Override
@@ -187,7 +195,7 @@ public class Home extends Fragment implements View.OnClickListener
         {
             case R.id.buttonStartnewBet:
                 //go to new bet
-                Intent intent = new Intent(context, ImageOverlayDrawable.class);
+                Intent intent = new Intent(context, StandActivity.class);
                 startActivity(intent);
                 break;
         }

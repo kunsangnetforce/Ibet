@@ -18,6 +18,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wins">Wins</string>
     <string name="losses">Losses</string>
+    <string name="fan">Fans</string>
     <string name="beginner">Beginner</string>
     <string name="start_new_bet">Start New Bet</string>
     <string name="participants">Participants</string>
@@ -79,5 +80,10 @@
     <string name="teamnotification_heading">Dummy Text Loreum Lipsum.Dummy Text Loreum Lipsum</string>
     <string name="muteallnotification">Mute all notifications</string>
     <string name="enter_bet_arena">Enter Bet Arena</string>
+    <string name="events">Events</string>
+    <string name="stats">Stats</string>
+    <string name="stand">Stand</string>
+    <string name="top">Top</string>
+
     <string name="title_activity_scratch">ScratchActivity</string>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,13 +18,14 @@ import java.util.List;
  */
 public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int SIMPLE_TYPE = 0;
-    private static final int IMAGE_TYPE = 1;
+    private static final int NORMAL = 0;
+    private static final int START = 1;
     private final LayoutInflater inflater;
     private Context context;
+    ArrayList<EventsData> eventsDatas;
 
-    public EventsAdapter(Context context, List<EventsFragment> itemList)
-    {
+    public EventsAdapter(Context context, ArrayList<EventsData> eventsDatas) {
+        this.eventsDatas = eventsDatas;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
@@ -37,19 +39,69 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
           }
       }
   */
+
+    @Override
+    public int getItemViewType(int position) {
+        if (eventsDatas.get(position).nameb.trim().length() < 1 && eventsDatas.get(position).namea.trim().length() < 1) {
+            return START;
+        } else {
+            return NORMAL;
+        }
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.row_table, parent, false);
-        EventsHolder viewHolder = new EventsHolder(view);
-        return viewHolder;
+        if (viewType == NORMAL) {
+            View view = inflater.inflate(R.layout.row_event, parent, false);
+            EventsHolder viewHolder = new EventsHolder(view);
+            return viewHolder;
+        } else {
+            View view = inflater.inflate(R.layout.row_event_start, parent, false);
+            EventsHolder viewHolder = new EventsHolder(view);
+            return viewHolder;
+        }
 
 
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        if (position != eventsDatas.size() - 1) {
+            EventsHolder holder1 = (EventsHolder) holder;
+            if (eventsDatas.get(position).namea.trim().length() < 1) {
+                holder1.linearLayouta.setVisibility(View.INVISIBLE);
+                holder1.textViewTime.setText(eventsDatas.get(position).time);
+                switch (eventsDatas.get(position).event) {
+                    case "red":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.ic_card_red);
+                        break;
+                    case "yellow":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.ic_card_yellow);
+                        break;
+                    case "goal":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.ball);
+                        break;
+                }
+                holder1.textViewNameb.setText(eventsDatas.get(position).nameb);
 
+            } else {
+                holder1.linearLayoutb.setVisibility(View.INVISIBLE);
+                holder1.textViewTime.setText(eventsDatas.get(position).time);
+                switch (eventsDatas.get(position).event) {
+                    case "red":
+                        holder1.imageViewTypea.setImageResource(R.drawable.ic_card_red);
+                        break;
+                    case "yellow":
+                        holder1.imageViewTypea.setImageResource(R.drawable.ic_card_yellow);
+                        break;
+                    case "goal":
+                        holder1.imageViewTypea.setImageResource(R.drawable.ball);
+                        break;
+                }
+                holder1.textViewNamea.setText(eventsDatas.get(position).namea);
+            }
+        }
     }
 
     private void showMessage(String s) {
@@ -59,7 +111,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return 18;
+        return eventsDatas.size();
 //        return itemList.size();
     }
 }

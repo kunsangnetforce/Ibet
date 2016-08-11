@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#072f52</color>
-    <color name="colorPrimaryDark">#041b2e</color>
+    <color name="colorPrimaryDark">#062239</color>
+    <color name="colorPrimaryDarkTranslusent">#c3062239</color>
     <color name="colorAccent">#D08720</color>
     <color name="colorDivider">#B6B6B6</color>
     <color name="black">#000000</color>
@@ -21,7 +22,7 @@
     <color name="colorText">#FFFFFF</color>
     <color name="blue_background_view">#7FA1BC</color>
     <color name="textviewBackground1">#ef1940</color>
-    <color name="colorPrimaryLight">#1479d2</color>
+    <color name="colorPrimaryLight">#0a4273</color>
     <color name="greendark">#185807</color>
    <color name="row_odds_view">#EBEBEB</color>
 
@@ -106,5 +107,6 @@
     <color name="view_background5">#FFB4A4A8</color>
 
     <color name="solo_txt_color">#FE9700</color>
+    <color name="transulation">#b9000000</color>
 
 </resources>

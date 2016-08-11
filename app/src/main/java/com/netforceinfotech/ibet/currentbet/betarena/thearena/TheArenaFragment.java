@@ -12,10 +12,10 @@ import com.netforceinfotech.ibet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TheArenaFragmen extends Fragment {
+public class TheArenaFragment extends Fragment {
 
 
-    public TheArenaFragmen() {
+    public TheArenaFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class TheArenaFragmen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_the_arena, container, false);
+        return inflater.inflate(R.layout.fragment_the_arena2, container, false);
     }
 
 }

@@ -52,11 +52,13 @@
         <activity
             android:name=".profilesetting.selectteam.SelectTeamActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".dashboard.Chart.highest.HighestTabActivity"
             android:label="@string/title_activity_chart_tab"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name=".dashboard.Setting.notification.TeamNotification.Soundlist.SoundlistActivity"
             android:label="@string/title_activity_soundlist"
@@ -72,6 +74,7 @@
         <activity
             android:name=".dashboard.Purchase.PurchaseActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".dashboard.Chart.RichestRank.RichestTabActivity"
             android:screenOrientation="portrait" />
@@ -95,7 +98,11 @@
         <activity
             android:name=".dashboard.Setting.Sounds.SoundActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".dashboard.Setting.Theme.ThemeColor.ThemeColorActivity" />
+        <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
+        <activity android:name=".live_event.stand.TheArenaActivity" />
+        <activity android:name=".live_event.stand.StandActivity"></activity>
         <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
 
 
