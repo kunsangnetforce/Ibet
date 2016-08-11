@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#072f52</color>
     <color name="colorPrimaryDark">#062239</color>
+    <color name="colorPrimaryDarkTranslusent">#c3062239</color>
     <color name="colorAccent">#D08720</color>
     <color name="colorDivider">#B6B6B6</color>
     <color name="black">#000000</color>
@@ -106,5 +107,6 @@
     <color name="view_background5">#FFB4A4A8</color>
 
     <color name="solo_txt_color">#FE9700</color>
+    <color name="transulation">#b9000000</color>
 
 </resources>
