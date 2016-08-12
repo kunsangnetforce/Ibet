@@ -103,9 +103,8 @@
         <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
         <activity android:name=".live_event.stand.TheArenaActivity" />
         <activity android:name=".live_event.stand.StandActivity"></activity>
-        <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
 
-
+        <activity android:name=".dashboard.home.create_bet.CreateBet"></activity>
         <activity
             android:name=".scratchview.ImageOverlayDrawable"
             android:label="Image Overlay Drawable (Experimental)" >

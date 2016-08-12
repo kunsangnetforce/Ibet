@@ -43,7 +43,8 @@ import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
 import com.squareup.picasso.Picasso;
 
-public class Dashboard extends AppCompatActivity
+public class
+        Dashboard extends AppCompatActivity
 {
 
     private DashboardFragment dashboardFragment;

@@ -84,7 +84,9 @@
     <string name="stats">Stats</string>
     <string name="stand">Stand</string>
     <string name="top">Top</string>
-
+    <string name="create_bet">Create Bet</string>
+    <string name="got_it">Got it</string>
+    <string name="create_bet_txt">If all checkboxes are off. By default all users can view and join the bet</string>
     <string name="title_activity_scratch">ScratchActivity</string>
     <string name="lorem">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</string>
 </resources>
