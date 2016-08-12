@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet.scratchview;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -111,8 +112,7 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnTo
                             revealCount++;
                         }
                     }
-                }
-                else {
+                } else {
                     if (count >= 3) {
                         scratchView0.resetView();
                     } else {
@@ -589,5 +589,19 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnTo
         }
 */
         return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

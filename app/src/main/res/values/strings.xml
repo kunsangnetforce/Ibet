@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Ibet</string>
-    <string name="add_more">Add More Items</string>
+    <string name="add_more">Add More Teams</string>
     <string name="facebook_app_id">1756172004658425</string>
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="login_as_guest">Login as a guest</string>
@@ -89,4 +89,5 @@
     <string name="create_bet_txt">If all checkboxes are off. By default all users can view and join the bet</string>
     <string name="title_activity_scratch">ScratchActivity</string>
     <string name="lorem">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</string>
+    <string name="shareit">Share it with</string>
 </resources>
