@@ -5,7 +5,7 @@
     android:background="@color/colorPrimary"
     tools:context=".currentbet.betarena.betdetail.BetDetailFragment">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true">
@@ -296,6 +296,6 @@
 
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </FrameLayout>

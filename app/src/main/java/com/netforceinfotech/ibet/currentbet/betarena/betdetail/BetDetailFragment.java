@@ -36,6 +36,7 @@ Context context;
 
     private void setupRecyclerView(View view) {
         RecyclerView recyclerView= (RecyclerView) view.findViewById(R.id.recycler);
+        recyclerView.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
         DetailBetAdapter detailBetAdapter=new DetailBetAdapter(context,null);
         recyclerView.setLayoutManager(linearLayoutManager);

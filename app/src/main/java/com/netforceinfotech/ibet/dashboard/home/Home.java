@@ -31,8 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Home extends Fragment implements View.OnClickListener
-{
+public class Home extends Fragment implements View.OnClickListener {
     Boolean mShowUnit = true;
     CircleProgressView circleProgressViewStatus, circleProgressViewLevel;
     TextView textViewRemaining;
@@ -41,20 +40,17 @@ public class Home extends Fragment implements View.OnClickListener
     private Context context;
     Button buttonStartNewGame;
     CoordinatorLayout coordinatorLayout;
-    UserSessionManager  userSessionManager;
-    int theme ;
+    UserSessionManager userSessionManager;
+    int theme;
 
 
-
-    public Home()
-    {
+    public Home() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
         // Inflate the layout for this fragment
@@ -71,12 +67,10 @@ public class Home extends Fragment implements View.OnClickListener
         textViewRemaining = (TextView) view.findViewById(R.id.textViewRemaining);
         buttonStartNewGame = (Button) view.findViewById(R.id.buttonStartnewBet);
         buttonStartNewGame.setOnClickListener(this);
-        circleProgressViewLevel.setOnProgressChangedListener(new CircleProgressView.OnProgressChangedListener()
-        {
+        circleProgressViewLevel.setOnProgressChangedListener(new CircleProgressView.OnProgressChangedListener() {
 
             @Override
-            public void onProgressChanged(float value)
-            {
+            public void onProgressChanged(float value) {
                 Log.i("ibetchange", value + "");
                 textViewRemaining.setText(value + "%\nto next level");
             }
@@ -108,8 +102,7 @@ public class Home extends Fragment implements View.OnClickListener
                 .build();*/
     }
 
-    private void setupTab(View view)
-    {
+    private void setupTab(View view) {
 
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
 
@@ -121,36 +114,25 @@ public class Home extends Fragment implements View.OnClickListener
         tabLayout.addTab(tabLayout.newTab().setText(R.string.bets_to_join));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
             //coordinatorLayout.setBackgroundResource(R.drawable.background_theme5);
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme1);
 
-        }
-        else if(theme == 1)
-        {
+        } else if (theme == 1) {
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme2);
 
-        }
-
-        else if(theme == 2)
-        {
+        } else if (theme == 2) {
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme3);
 
-        }
-        else if(theme == 3)
-        {
+        } else if (theme == 3) {
 
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme4);
 
 
-        }
-
-        else if(theme == 4)
-        {
+        } else if (theme == 4) {
 
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme5);
@@ -164,13 +146,10 @@ public class Home extends Fragment implements View.OnClickListener
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
-        {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab)
-            {
+            public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                viewPager.reMeasureCurrentPage(viewPager.getCurrentItem());
 
             }
 
@@ -189,13 +168,11 @@ public class Home extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View view)
-    {
-        switch (view.getId())
-        {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.buttonStartnewBet:
                 //go to new bet
-                Intent intent = new Intent(context, StandActivity.class);
+                Intent intent = new Intent(context, StartNewBetActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -114,7 +114,6 @@ public class StandActivity extends AppCompatActivity  implements View.OnClickLis
             public void onTabSelected(TabLayout.Tab tab)
             {
                 viewPager.setCurrentItem(tab.getPosition());
-                viewPager.reMeasureCurrentPage(viewPager.getCurrentItem());
 
             }
 
