@@ -235,8 +235,7 @@
                     CircleProgressView:cpv_textScale="1"
                     CircleProgressView:cpv_unit="%"
                     CircleProgressView:cpv_unitColor="@color/white"
-                    CircleProgressView:cpv_unitScale="1"
-                     />
+                    CircleProgressView:cpv_unitScale="1" />
 
                 <LinearLayout
                     android:layout_width="0dp"

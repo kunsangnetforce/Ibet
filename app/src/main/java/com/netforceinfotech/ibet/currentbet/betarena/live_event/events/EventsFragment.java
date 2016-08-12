@@ -51,6 +51,7 @@ public class EventsFragment extends Fragment {
 
     private void setupRecycler(View view) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        recyclerView.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         EventsAdapter adapter = new EventsAdapter(context, eventsDatas);
         recyclerView.setLayoutManager(linearLayoutManager);
