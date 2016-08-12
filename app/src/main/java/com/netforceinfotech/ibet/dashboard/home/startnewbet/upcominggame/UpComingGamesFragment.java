@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet.dashboard.home.startnewbet.upcominggame;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -9,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.WhoWillWinActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
@@ -19,13 +22,14 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UpComingGamesFragment extends Fragment {
+public class UpComingGamesFragment extends Fragment implements View.OnClickListener {
 
 
     private UserSessionManager userSessionManager;
     int theme;
-    FrameLayout upcomming_games_layout ;
+    FrameLayout upcomming_games_layout;
     ArrayList<UpcomingGameData> upcomingGameDatas = new ArrayList<>();
+    Button buttonNext;
 
     public UpComingGamesFragment() {
         // Required empty public constructor
@@ -38,6 +42,8 @@ public class UpComingGamesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_up_coming_games, container, false);
 
+        buttonNext = (Button) view.findViewById(R.id.buttonNext);
+        buttonNext.setOnClickListener(this);
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
 
@@ -63,34 +69,24 @@ public class UpComingGamesFragment extends Fragment {
     private void setupRecycler(View view) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
 
-        upcomming_games_layout = (FrameLayout)view.findViewById(R.id.upcomming_games_layout);
+        upcomming_games_layout = (FrameLayout) view.findViewById(R.id.upcomming_games_layout);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
             upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme1));
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
             upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme2));
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
             upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme3));
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
             upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme4));
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
             upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme5));
         }
-
 
 
         UpcomingGameAdapter upcomingGameAdapter = new UpcomingGameAdapter(getActivity(), upcomingGameDatas);
@@ -99,4 +95,13 @@ public class UpComingGamesFragment extends Fragment {
         recyclerView.setAdapter(upcomingGameAdapter);
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttonNext:
+                Intent intent=new Intent(getActivity(), WhoWillWinActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
 }
