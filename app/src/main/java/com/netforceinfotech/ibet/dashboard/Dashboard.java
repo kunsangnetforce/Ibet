@@ -44,8 +44,7 @@ import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
 import com.squareup.picasso.Picasso;
 
 public class
-        Dashboard extends AppCompatActivity
-{
+Dashboard extends AppCompatActivity {
 
     private DashboardFragment dashboardFragment;
     private ProfileFragment profileFragment;
@@ -60,15 +59,13 @@ public class
     int theme;
     int drawer_color;
     NavigationView navigationView;
-    DrawerLayout drawerLayout ;
+    DrawerLayout drawerLayout;
     Window window;
     RelativeLayout header_background;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dashboard);
@@ -79,75 +76,58 @@ public class
 
         setupToolBar("Ibet");
 
-         window = getWindow();
+        window = getWindow();
 
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
             }
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
             }
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
             }
         }
 
 
-
-
         setupDashboardFragment();
         userSessionManager = new UserSessionManager(getApplicationContext());
         String id = userSessionManager.getFBID();
         imageURL = "https://graph.facebook.com/" + id + "/picture?type=large";
-       // setupNavigation(imageURL);
+        // setupNavigation(imageURL);
 
 
     }
 
-    private void setupNavigation(String imageURL)
-    {
+    private void setupNavigation(String imageURL) {
 
         PrimaryDrawerItem home = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home).withIcon(R.drawable.ic_home).withSelectedIcon(R.drawable.ic_home_white);
         PrimaryDrawerItem profile = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.profile).withIcon(R.drawable.ic_account).withSelectedIcon(R.drawable.ic_account_white);
@@ -162,7 +142,6 @@ public class
         PrimaryDrawerItem bonus = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.bonus).withIcon(R.drawable.ic_rateus).withSelectedIcon(R.drawable.ic_rateus_white);
 
         //create the drawer and remember the `Drawer` result object
-
 
 
         AccountHeader accountHeader = getAccountHeader(imageURL);
@@ -185,13 +164,11 @@ public class
                         logout,
                         bonus
                 )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener()
-                {
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
 
 
                     @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem)
-                    {
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
 
                         switch (position) {
@@ -231,19 +208,15 @@ public class
 
     }
 
-    private AccountHeader getAccountHeader(String imageURL)
-    {
-        DrawerImageLoader.init(new AbstractDrawerImageLoader()
-        {
+    private AccountHeader getAccountHeader(String imageURL) {
+        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
-            public void set(ImageView imageView, Uri uri, Drawable placeholder)
-            {
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
                 Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
             }
 
             @Override
-            public void cancel(ImageView imageView)
-            {
+            public void cancel(ImageView imageView) {
                 Picasso.with(imageView.getContext()).cancelRequest(imageView);
             }
 
@@ -267,11 +240,9 @@ public class
                 .withSelectionListEnabledForSingleProfile(false)
                 .withHeaderBackground(R.drawable.background)
                 .addProfiles(new ProfileDrawerItem().withName(name).withEmail(email).withIcon(imageURL))
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener()
-                {
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile)
-                    {
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
                         return false;
                     }
                 })
@@ -280,13 +251,11 @@ public class
     }
 
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
         Toast.makeText(Dashboard.this, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void setupToolBar(String s)
-    {
+    private void setupToolBar(String s) {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -296,53 +265,41 @@ public class
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
             navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme1));
-           // header_background.setBackgroundColor(Color.RED);
+            // header_background.setBackgroundColor(Color.RED);
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme2));
             navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme2));
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme3));
             navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme3));
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme4));
             navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme4));
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme5));
             navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme5));
 
         }
 
 
-
         setSupportActionBar(toolbar);
         title = (TextView) toolbar.findViewById(R.id.textViewTitle);
         title.setText(s);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener()
-        {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             // This method will trigger on item Click of navigation menu
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem)
-            {
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
 
                 //Checking if the item is in checked state or not, if not make it in checked state
                 if (menuItem.isChecked()) menuItem.setChecked(false);
@@ -352,8 +309,7 @@ public class
                 drawerLayout.closeDrawers();
 
                 //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId())
-                {
+                switch (menuItem.getItemId()) {
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.home:
@@ -405,18 +361,14 @@ public class
         });
 
 
-
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close)
-        {
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
-            public void onDrawerClosed(View v)
-            {
+            public void onDrawerClosed(View v) {
                 super.onDrawerClosed(v);
             }
 
             @Override
-            public void onDrawerOpened(View v)
-            {
+            public void onDrawerOpened(View v) {
                 super.onDrawerOpened(v);
             }
 
@@ -426,15 +378,13 @@ public class
 
     }
 
-    private void replaceFragment(Fragment newFragment, String tag)
-    {
+    private void replaceFragment(Fragment newFragment, String tag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag);
         transaction.commit();
     }
 
-    private void setupDashboardFragment()
-    {
+    private void setupDashboardFragment() {
         title.setText("Ibet");
         dashboardFragment = new DashboardFragment();
         tagName = dashboardFragment.getClass().getName();
@@ -442,8 +392,7 @@ public class
 
     }
 
-    private void setupProfileFragment()
-    {
+    private void setupProfileFragment() {
 
         profileFragment = new ProfileFragment();
         tagName = profileFragment.getClass().getName();
@@ -451,8 +400,8 @@ public class
 
 
     }
-    private void setupSettingFragment()
-    {
+
+    private void setupSettingFragment() {
 
         settingfragment = new SettingFragment();
         tagName = settingfragment.getClass().getName();
@@ -462,9 +411,7 @@ public class
     }
 
 
-
-    private void setupChartFragment()
-    {
+    private void setupChartFragment() {
         chartfragment = new ChartFragment();
         tagName = chartfragment.getClass().getName();
         replaceFragment(chartfragment, tagName);

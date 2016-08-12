@@ -18,7 +18,7 @@ public class PurchaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase);
 
-        setupToolBar("Feedback");
+        setupToolBar("Purchase Coin");
 
     }
 

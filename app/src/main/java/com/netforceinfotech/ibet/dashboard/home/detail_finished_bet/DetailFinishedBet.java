@@ -48,6 +48,7 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
 
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView.setNestedScrollingEnabled(false);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new DetailBetAdapter(context, detailBetDatas);

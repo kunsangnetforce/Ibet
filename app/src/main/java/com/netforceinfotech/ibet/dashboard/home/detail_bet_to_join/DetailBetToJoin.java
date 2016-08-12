@@ -51,6 +51,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
 
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView.setNestedScrollingEnabled(false);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new DetailBetAdapter(context, detailBetDatas);
