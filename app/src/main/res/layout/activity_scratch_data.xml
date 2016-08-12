@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bonus_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/bonus_layout"
-    >
-
+    android:orientation="vertical">
 
 
     <include
@@ -14,181 +12,382 @@
         layout="@layout/app_bar" />
 
 
-<LinearLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="10dp"
-    >
-
-
     <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:weightSum="100"
-        >
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_weight="20"
-
-            >
-
-            <TextView
-                android:id="@+id/textview1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Scratch to find 3 of a kind"
-                android:layout_margin="10dp"
-                />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="60"
-            >
+            android:weightSum="100">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:orientation="horizontal"
-                android:weightSum="100"
-
+                android:layout_weight="20"
+                android:gravity="center"
 
                 >
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/textview1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical"
+                    android:layout_margin="10dp"
+                    android:text="Scratch to find 3 of a kind" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal"
+                    android:weightSum="100"
+
 
                     >
 
-
-
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical"
+
                         >
 
 
+                        <RelativeLayout
 
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
-
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView0"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
 
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
 
-                    </RelativeLayout>
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView0"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
 
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
+
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView1"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
+
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView2"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100"
 
+                    >
 
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        >
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
 
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
 
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
-
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView1"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView3"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
 
 
+                        </RelativeLayout>
 
-                    </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical">
 
 
+                        <RelativeLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
+
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView4"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
+
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView5"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
                 </LinearLayout>
+
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical">
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100"
 
-                    <RelativeLayout
+                    >
 
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical"
+
                         >
 
+                        <RelativeLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
 
 
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
 
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView2"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView6"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
 
 
+                        </RelativeLayout>
 
-                    </RelativeLayout>
 
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
+
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView7"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33"
+                        android:gravity="left"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_launcher" />
+
+                            <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/scratchView8"
+                                android:layout_width="110dp"
+                                android:layout_height="120dp"
+                                android:layout_marginLeft="3dp"
+                                wsv:scratchable="true" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
-
-
 
 
             </LinearLayout>
@@ -196,283 +395,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:weightSum="100"
+                android:layout_weight="20"
+                android:gravity="center"
 
                 >
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical"
-                    >
-
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-
-
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
-
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView3"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
-
-
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical">
-
-
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-
-
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
-
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView4"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
-
-
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-
-
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
-
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView5"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
-
-
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                android:weightSum="100"
-
-                >
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
 
                     >
 
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
+                    <Button
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        >
-
-
-
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
-
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView6"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
-
-
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical">
-
-
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-
-
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
-
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView7"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
-
-
-
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="33"
-                    android:gravity="left"
-                    android:orientation="vertical">
-
-
-                    <RelativeLayout
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        >
-
-
-
-                        <ImageView
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
-
-                        <com.winsontan520.WScratchView
-                            xmlns:wsv="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/scratchView8"
-                            android:layout_width="110dp"
-                            android:layout_height="120dp"
-                            android:layout_marginLeft="3dp"
-                            wsv:scratchable="true"
-                            />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
+                        android:background="#FF0000"
+                        android:padding="5dp"
+                        android:text="Collect Your Prize"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF" />
+                </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="20"
-
-            >
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Collect Your Prize"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="#FF0000"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:padding="5dp"
-                />
 
         </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
 
 </LinearLayout>

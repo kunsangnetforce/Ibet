@@ -1,11 +1,9 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    android:id="@+id/teamnotification_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/teamnotification_layout"
-    >
+    android:orientation="vertical">
 
 
     <include
@@ -13,80 +11,76 @@
         layout="@layout/app_bar" />
 
 
+    <TextView
+        android:id="@+id/teamnotification_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:text="@string/teamnotification_heading" />
+
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/teamnotification_heading"
+        android:background="@color/brown_color"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
         <TextView
-            android:id="@+id/teamnotification_heading"
-            android:layout_width="match_parent"
+            android:id="@+id/muteallnotification_yxt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/teamnotification_heading"
-            android:padding="10dp"
-            android:background="@color/white"
-            android:layout_below="@+id/toolbar"
-            />
+            android:layout_centerVertical="true"
+            android:text="@string/muteallnotification"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/mute_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/teamnotifibox_icon"
+            android:padding="5dp"
+            android:src="@drawable/teammute_whiteicon" />
+
+    </RelativeLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@color/brown_color"
-            android:orientation="horizontal"
-            android:layout_below="@+id/teamnotification_heading"
-            >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_add_notifiaction1"
+        android:layout_below="@+id/header">
+
+    </android.support.v7.widget.RecyclerView>
 
 
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:id="@+id/button_add_notifiaction1"
 
-            <TextView
-                android:id="@+id/muteallnotification_yxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/muteallnotification"
-                android:textColor="@color/white"
-                android:layout_centerVertical="true"
-                />
-
-            <ImageView
-                android:id="@+id/mute_image"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/teamnotifibox_icon"
-                android:src="@drawable/teammute_whiteicon"
-                android:padding="5dp"
-                />
-
-        </RelativeLayout>
-
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/header"
-           android:layout_above="@+id/button_add_notifiaction"
-            >
-
-        </android.support.v7.widget.RecyclerView>
-
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp">
 
         <Button
-
             android:id="@+id/button_add_notifiaction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_more"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginBottom="15dp"
             android:background="@color/colorPrimary"
-            android:textColor="@color/white"
+            android:text="@string/add_more"
             android:textAllCaps="false"
-            />
+            android:textColor="@color/white" />
 
-
+    </com.balysv.materialripple.MaterialRippleLayout>
 
 
 </RelativeLayout>

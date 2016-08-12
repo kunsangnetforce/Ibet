@@ -35,6 +35,7 @@ import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.Purchase.PurchaseActivity;
 import com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.TeamNotificationActivity;
 import com.netforceinfotech.ibet.dashboard.Chart.ChartFragment;
 import com.netforceinfotech.ibet.dashboard.Profile.ProfileFragment;
@@ -323,19 +324,20 @@ Dashboard extends AppCompatActivity {
                         setupChartFragment();
                         return true;
                     case R.id.store:
-                        Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), PurchaseActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.setting:
                         setupSettingFragment();
                         return true;
                     case R.id.tutorial:
-                        Toast.makeText(getApplicationContext(), "Trash Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Tutotial screen to be shown... yet to implment", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.share:
-                        Toast.makeText(getApplicationContext(), "Spam Selected", Toast.LENGTH_SHORT).show();
+                        shareData();
                         return true;
                     case R.id.rateus:
-                        Toast.makeText(getApplicationContext(), "Spam Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "App url... yet to implement", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.logout:
 
@@ -399,6 +401,15 @@ Dashboard extends AppCompatActivity {
         replaceFragment(profileFragment, tagName);
 
 
+    }
+
+    private void shareData() {
+        String shareBody = "Ibet... app for football lover";
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.shareit)));
     }
 
     private void setupSettingFragment() {

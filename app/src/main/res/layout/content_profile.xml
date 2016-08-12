@@ -98,7 +98,7 @@
                     android:background="@drawable/circular_bg"
                     android:gravity="center_vertical|center_horizontal"
                     android:padding="2dp"
-                    android:text="12345"
+                    android:text="12"
                     android:textColor="@color/green"
                     android:textSize="20sp" />
 
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="WINNINGS"
+                    android:text="LEVEL"
                     android:textColor="@color/green" />
 
             </LinearLayout>
@@ -125,7 +125,7 @@
                     android:background="@drawable/circular_bg"
                     android:gravity="center_vertical|center_horizontal"
                     android:padding="2dp"
-                    android:text="12345"
+                    android:text="1235"
                     android:textColor="@color/green"
                     android:textSize="20sp" />
 
@@ -133,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="WINNINGS"
+                    android:text="LOSSES"
                     android:textColor="@color/green" />
 
             </LinearLayout>
@@ -144,30 +144,39 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             android:layout_weight="60"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp"
-            >
+            android:orientation="vertical">
 
-            <Button
+            <com.balysv.materialripple.MaterialRippleLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:background="@color/accent"
-                android:text="Set your Favourite Team"
-                android:textColor="@color/white" />
+                android:layout_marginRight="32dp">
 
-            <Button
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/accent"
+                    android:text="Set your Favourite Team"
+                    android:textColor="@color/white" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/green"
-                android:text="Done"
-                android:textColor="@color/white" />
+                android:layout_marginRight="32dp">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/green"
+                    android:text="Done"
+                    android:textColor="@color/white" />
+            </com.balysv.materialripple.MaterialRippleLayout>
 
 
         </LinearLayout>
