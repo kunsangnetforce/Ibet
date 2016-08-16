@@ -84,6 +84,15 @@
                                 android:layout_height="80dp"
                                 android:src="@drawable/italy" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/country"
+                                android:textColor="@color/colorText"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
                         </LinearLayout>
 
 
@@ -130,6 +139,15 @@
                                 android:layout_height="80dp"
                                 android:src="@drawable/italy" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/country"
+                                android:textColor="@color/colorText"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
                         </LinearLayout>
 
 
@@ -138,69 +156,60 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:weightSum="130">
+                android:weightSum="120">
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="55"
-                    android:gravity="center">
-
+                    android:layout_weight="50">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="6dp"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/country"
-                        android:textColor="@color/colorText"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/img_win" />
-
+                        android:gravity="center"
+                        android:background="@drawable/circular_bg"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:text="WIN"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="20"></LinearLayout>
+                    android:layout_weight="20">
+
+                    <TextView
+                        android:gravity="center"
+                        android:background="@drawable/circular_bg"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:text="X"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp" />
+                </LinearLayout>
 
                 <LinearLayout
+                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="55">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="55"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="6dp"
-                            android:layout_marginTop="6dp"
-                            android:text="@string/country"
-                            android:textColor="@color/colorText"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/img_win" />
-
-                    </LinearLayout>
+                    android:layout_weight="50">
+                    <TextView
+                        android:gravity="center"
+                        android:background="@drawable/circular_bg"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:text="WIN"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
 
                 </LinearLayout>
             </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"

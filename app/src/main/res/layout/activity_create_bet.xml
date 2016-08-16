@@ -54,165 +54,234 @@
             android:padding="5dp"
             android:text="@string/create_bet_txt"
             android:textColor="@color/white"
+            android:textSize="14sp"
 
             />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_margin="6dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="90">
 
-            <ImageView
-                android:id="@+id/setting_list_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_info" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/canViewJoin"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_info" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Other user/s can view the bet and join"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:gravity="center">
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    style="@style/SwitchButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    app:kswBackDrawable="@drawable/flyme_back_drawable"
+                    app:kswBackMeasureRatio="2.4"
+                    app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
+                    app:kswThumbHeight="16dp"
+                    app:kswThumbWidth="16dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="90">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/canView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_info" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Other user/s can only View without join"
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:gravity="center">
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    style="@style/SwitchButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    app:kswBackDrawable="@drawable/flyme_back_drawable"
+                    app:kswBackMeasureRatio="2.4"
+                    app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
+                    app:kswThumbHeight="16dp"
+                    app:kswThumbWidth="16dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="90">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/cantView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_info" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60">
+
+                <TextView
+                    android:id="@+id/setting_list_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="No one can view the bet accept the invited users."
+                    android:textColor="@color/grey"
+                    android:textSize="14sp"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:gravity="center">
+
+                <com.kyleduo.switchbutton.SwitchButton
+                    android:id="@+id/sb_custom_flyme"
+                    style="@style/SwitchButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    app:kswBackDrawable="@drawable/flyme_back_drawable"
+                    app:kswBackMeasureRatio="2.4"
+                    app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
+                    app:kswThumbHeight="16dp"
+                    app:kswThumbWidth="16dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/setting_list_text"
-                android:layout_width="wrap_content"
+                android:id="@+id/textViewRemaing"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/setting_list_icon"
-                android:text="@string/language"
-                android:textColor="@color/black"
+                android:text="200 characters remaining"
+                android:textColor="@color/white"
+
+                android:textSize="12sp"
+
 
                 />
 
 
-            <com.kyleduo.switchbutton.SwitchButton
-                android:id="@+id/sb_custom_flyme"
-                style="@style/SwitchButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                app:kswBackDrawable="@drawable/flyme_back_drawable"
-                app:kswBackMeasureRatio="2.4"
-                app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
-                app:kswThumbHeight="16dp"
-                app:kswThumbWidth="16dp" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/setting_list_icon2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_info" />
-
-            <TextView
-                android:id="@+id/setting_list_text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/setting_list_icon2"
-                android:text="@string/language"
-                android:textColor="@color/black"
-
-                />
-
-
-            <com.kyleduo.switchbutton.SwitchButton
-                android:id="@+id/sb_custom_flyme2"
-                style="@style/SwitchButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                app:kswBackDrawable="@drawable/flyme_back_drawable"
-                app:kswBackMeasureRatio="2.4"
-                app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
-                app:kswThumbHeight="16dp"
-                app:kswThumbWidth="16dp" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/setting_list_icon3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_info" />
-
-            <TextView
-                android:id="@+id/setting_list_text3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/setting_list_icon3"
-                android:text="@string/language"
-                android:textColor="@color/black"
-
-                />
-
-
-            <com.kyleduo.switchbutton.SwitchButton
-                android:id="@+id/sb_custom_flyme3"
-                style="@style/SwitchButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                app:kswBackDrawable="@drawable/flyme_back_drawable"
-                app:kswBackMeasureRatio="2.4"
-                app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
-                app:kswThumbHeight="16dp"
-                app:kswThumbWidth="16dp" />
-
-
-        </RelativeLayout>
-
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/create_bet_txt"
-
-            android:textColor="@color/white"
-
-
-            />
-
-
-        <EditText
-
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/contact_background"
-            android:hint="@string/score"
-            android:padding="5dp"
-            android:textColor="@color/white" />
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/contact_background"
+                android:gravity="top|left"
+                android:hint="@string/score"
+                android:padding="5dp"
+                android:textColor="@color/white" />
+        </LinearLayout>
 
         <Button
 

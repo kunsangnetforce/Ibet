@@ -175,96 +175,79 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="200">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="70">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="20"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_thumb_up" />
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp">
 
                     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                        android:layout_width="0dp"
-                        android:layout_height="18dp"
-                        android:layout_weight="50"
+                        android:id="@+id/win"
+                        android:layout_width="90dp"
+                        android:layout_height="17dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="27dp"
                         CircleProgressView:rcProgressColor="@color/green"
                         app:rcBackgroundColor="#0a4273"
                         app:rcMax="100"
                         app:rcProgress="0"
-                        app:rcRadius="10dp"
+                        app:rcRadius="5dp"
                         app:rcReverse="true" />
-
-
-                </LinearLayout>
-
-                <at.grabner.circleprogress.CircleProgressView
-                    android:id="@+id/cpvstatus"
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="50"
-                    CircleProgressView:cpv_autoTextSize="true"
-                    CircleProgressView:cpv_barColor="@color/colorAccent"
-                    CircleProgressView:cpv_barWidth="7dp"
-                    CircleProgressView:cpv_contourColor="#0a4273"
-                    CircleProgressView:cpv_contourSize="7dp"
-                    CircleProgressView:cpv_fillColor="@color/colorPrimaryLight"
-                    CircleProgressView:cpv_maxValue="100"
-                    CircleProgressView:cpv_rimColor="@color/colorPrimaryDark"
-                    CircleProgressView:cpv_rimWidth="7dp"
-                    CircleProgressView:cpv_seekMode="false"
-                    CircleProgressView:cpv_showTextInSpinningMode="false"
-                    CircleProgressView:cpv_showUnit="true"
-                    CircleProgressView:cpv_spinColor="@color/colorPrimary"
-                    CircleProgressView:cpv_textColor="@color/white"
-                    CircleProgressView:cpv_textMode="Percent"
-                    CircleProgressView:cpv_textScale="1"
-                    CircleProgressView:cpv_unit="%"
-                    CircleProgressView:cpv_unitColor="@color/white"
-                    CircleProgressView:cpv_unitScale="1" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="70">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="85dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_thumb_up" />
 
                     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                        android:layout_width="0dp"
-                        android:layout_height="18dp"
-                        android:layout_weight="50"
+                        android:layout_width="90dp"
+                        android:layout_height="17dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="199dp"
                         app:rcBackgroundColor="#0a4273"
                         app:rcMax="100"
                         app:rcProgress="43"
                         app:rcProgressColor="#D50000"
-                        app:rcRadius="10dp"
+                        app:rcRadius="5dp"
                         app:rcReverse="false" />
 
                     <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="20"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="40dp"
+                        android:layout_height="85dp"
+                        android:layout_marginLeft="277dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ic_thumb_down" />
-                </LinearLayout>
-
+                    <at.grabner.circleprogress.CircleProgressView
+                        android:id="@+id/cpvstatus"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_marginLeft="112dp"
+                        CircleProgressView:cpv_autoTextSize="true"
+                        CircleProgressView:cpv_barColor="@color/colorAccent"
+                        CircleProgressView:cpv_barWidth="7dp"
+                        CircleProgressView:cpv_contourColor="#0a4273"
+                        CircleProgressView:cpv_contourSize="7dp"
+                        CircleProgressView:cpv_fillColor="@color/colorPrimaryLight"
+                        CircleProgressView:cpv_maxValue="100"
+                        CircleProgressView:cpv_rimColor="@color/colorPrimaryDark"
+                        CircleProgressView:cpv_rimWidth="7dp"
+                        CircleProgressView:cpv_seekMode="false"
+                        CircleProgressView:cpv_showTextInSpinningMode="false"
+                        CircleProgressView:cpv_showUnit="true"
+                        CircleProgressView:cpv_spinColor="@color/colorPrimary"
+                        CircleProgressView:cpv_textColor="@color/white"
+                        CircleProgressView:cpv_textMode="Percent"
+                        CircleProgressView:cpv_textScale="1"
+                        CircleProgressView:cpv_unit="%"
+                        CircleProgressView:cpv_unitColor="@color/white"
+                        CircleProgressView:cpv_unitScale="1" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
