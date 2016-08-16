@@ -70,7 +70,7 @@ public class CreateBet extends AppCompatActivity {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int before, int count) {
-                int remaining = 200 - count;
+                int remaining = 200 - editText.length();
                 textViewRemaining.setText(remaining + " characters remaining");
             }
 
