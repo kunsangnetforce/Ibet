@@ -57,26 +57,28 @@
                     android:textColor="@color/white"
                     android:textSize="22dp" />
 
-<com.balysv.materialripple.MaterialRippleLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="30dp"
-    android:layout_marginBottom="16dp"
-    >
-                <Button
+                <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/buttonSend_feedback"
-                    android:background="@color/md_orange_500"
-                    android:drawablePadding="16dp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center"
-                    android:text="@string/purchase_button"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-</com.balysv.materialripple.MaterialRippleLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:layout_marginBottom="16dp"
+                    app:mrl_rippleColor="@color/ripple"
+                    app:mrl_rippleOverlay="true">
+
+                    <Button
+                        android:id="@+id/buttonSend_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/md_orange_500"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+                        android:text="@string/purchase_button"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>
 
 

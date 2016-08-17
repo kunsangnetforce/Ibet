@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:id="@+id/teamnotification_layout"
     android:layout_width="match_parent"
@@ -63,13 +64,14 @@
 
     <com.balysv.materialripple.MaterialRippleLayout
         android:id="@+id/button_add_notifiaction1"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp">
+        android:layout_marginRight="35dp"
+        app:mrl_rippleColor="@color/ripple"
+        app:mrl_rippleOverlay="true">
 
         <Button
             android:id="@+id/button_add_notifiaction"

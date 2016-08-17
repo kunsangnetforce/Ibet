@@ -24,7 +24,7 @@
     <color name="textviewBackground1">#ef1940</color>
     <color name="colorPrimaryLight">#0a4273</color>
     <color name="greendark">#185807</color>
-   <color name="row_odds_view">#EBEBEB</color>
+    <color name="row_odds_view">#EBEBEB</color>
 
     //material drawer
     <!-- Material DEFAULT colors -->
@@ -108,5 +108,6 @@
 
     <color name="solo_txt_color">#FE9700</color>
     <color name="transulation">#b9000000</color>
+    <color name="ripple">#adccc7c7</color>
 
 </resources>

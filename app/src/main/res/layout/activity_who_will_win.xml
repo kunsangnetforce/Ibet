@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -156,56 +157,58 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="16dp"
-                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:weightSum="120">
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="50">
+                    android:layout_weight="50"
+                    android:gravity="center">
+
                     <TextView
-                        android:gravity="center"
-                        android:background="@drawable/circular_bg"
-                        android:textSize="14sp"
-                        android:textColor="@color/white"
-                        android:text="WIN"
                         android:layout_width="60dp"
-                        android:layout_height="60dp" />
+                        android:layout_height="60dp"
+                        android:background="@drawable/circular_bg"
+                        android:gravity="center"
+                        android:text="WIN"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="20">
+                    android:layout_weight="20"
+                    android:gravity="center">
 
                     <TextView
-                        android:gravity="center"
-                        android:background="@drawable/circular_bg"
-                        android:textSize="14sp"
-                        android:textColor="@color/white"
-                        android:text="X"
                         android:layout_width="40dp"
-                        android:layout_height="40dp" />
+                        android:layout_height="40dp"
+                        android:background="@drawable/circular_bg"
+                        android:gravity="center"
+                        android:text="X"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="50">
+                    android:layout_weight="50"
+                    android:gravity="center">
+
                     <TextView
-                        android:gravity="center"
-                        android:background="@drawable/circular_bg"
-                        android:textSize="14sp"
-                        android:textColor="@color/white"
-                        android:text="WIN"
                         android:layout_width="60dp"
-                        android:layout_height="60dp" />
+                        android:layout_height="60dp"
+                        android:background="@drawable/circular_bg"
+                        android:gravity="center"
+                        android:text="WIN"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -382,15 +385,22 @@
                     android:src="@drawable/img_dollor" />
             </RelativeLayout>
 
-            <Button
-                android:id="@+id/buttonNext"
+            <com.balysv.materialripple.MaterialRippleLayout
                 android:layout_width="240dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/green"
-                android:text="@string/next"
-                android:textColor="@color/colorText"
-                android:textSize="24dp" />
+                app:mrl_rippleColor="@color/ripple"
+                app:mrl_rippleOverlay="true">
+
+                <Button
+                    android:id="@+id/buttonNext"
+                    android:layout_width="240dp"
+                    android:layout_height="60dp"
+                    android:background="@color/green"
+                    android:text="@string/next"
+                    android:textColor="@color/colorText"
+                    android:textSize="24dp" />
+            </com.balysv.materialripple.MaterialRippleLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

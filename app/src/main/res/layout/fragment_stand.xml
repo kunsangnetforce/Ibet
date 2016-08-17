@@ -68,7 +68,9 @@
 
                         <com.balysv.materialripple.MaterialRippleLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/ripple"
+                            app:mrl_rippleOverlay="true">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/imageViewTeamA"
@@ -88,7 +90,9 @@
 
                         <com.balysv.materialripple.MaterialRippleLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            app:mrl_rippleColor="@color/ripple"
+                            app:mrl_rippleOverlay="true">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/imageViewTeamB"
@@ -131,7 +135,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp">
+                    android:layout_marginRight="32dp"
+                    app:mrl_rippleColor="@color/ripple"
+                    app:mrl_rippleOverlay="true">
 
                     <Button
                         android:id="@+id/buttonNeutral"
