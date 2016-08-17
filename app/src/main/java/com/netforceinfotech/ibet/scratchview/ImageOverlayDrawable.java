@@ -1,5 +1,6 @@
 package com.netforceinfotech.ibet.scratchview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.netforceinfotech.ibet.R;
@@ -16,19 +18,18 @@ import com.winsontan520.WScratchView;
 
 import java.util.ArrayList;
 
-public class ImageOverlayDrawable extends AppCompatActivity implements View.OnTouchListener {
+public class ImageOverlayDrawable extends AppCompatActivity {
 
     WScratchView scratchView0, scratchView1, scratchView2, scratchView3, scratchView4, scratchView5, scratchView6, scratchView7, scratchView8;
     TextView percentageView;
     float mPercentage;
-    ArrayList<Boolean> status = new ArrayList<>();
-    ArrayList<Boolean> revealStatus = new ArrayList<>();
-    int count = 0;
-    int revealCount = 0;
     private MaterialDialog.Builder dialog;
     Toolbar toolbar;
     LinearLayout bonus_layout;
-
+    ArrayList<ScratchData> scratchDatas = new ArrayList<>();
+    ArrayList<Boolean> enables = new ArrayList<>();
+    ArrayList<Boolean> revealed = new ArrayList<>();
+    ArrayList<Integer> sameKindCount = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +37,15 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnTo
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_scratch_data);
-
-        setupToolBar("Scratch Bonus");
-
+        setScratchData();
         for (int i = 0; i < 9; i++) {
-            status.add(false);
-            revealStatus.add(false);
+            enables.add(true);
+            revealed.add(false);
         }
-
+        for (int i = 0; i < 9; i++) {
+            sameKindCount.add(0);
+        }
+        setupToolBar("Scratch Bonus");
         dialog = new MaterialDialog.Builder(this)
                 .title("You can Choose Only Three Bonus")
                 .content("Hi")
@@ -72,433 +74,930 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnTo
 
         // set drawable to scratchview
         scratchView0.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
         scratchView1.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
         scratchView2.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
         scratchView3.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
         scratchView4.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
         scratchView5.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
         scratchView6.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
         scratchView7.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
         scratchView8.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
-
-        scratchView0.setOnTouchListener(this);
-        scratchView1.setOnTouchListener(this);
-        scratchView2.setOnTouchListener(this);
-        scratchView3.setOnTouchListener(this);
-        scratchView4.setOnTouchListener(this);
-        scratchView5.setOnTouchListener(this);
-        scratchView6.setOnTouchListener(this);
-        scratchView7.setOnTouchListener(this);
-        scratchView8.setOnTouchListener(this);
-
-
         scratchView0.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(0) == true) {
-                    if (revealStatus.get(0) == false) {
-                        if (v > 90) {
-                            revealStatus.set(0, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView0.resetView();
-                    } else {
-                        if (status.get(0) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(0, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
+                if (mPercentage > 85) {
+                    if (!revealed.get(0)) {
+                        revealed.set(0, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView1.setScratchable(true);
+                        scratchView2.setScratchable(true);
+                        scratchView3.setScratchable(true);
+                        scratchView4.setScratchable(true);
+                        scratchView5.setScratchable(true);
+                        scratchView6.setScratchable(true);
+                        scratchView7.setScratchable(true);
+                        scratchView8.setScratchable(true);
+                        String type = scratchDatas.get(0).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
 
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(0) == false) {
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView0.resetView();
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView1.setScratchable(false);
+                    scratchView2.setScratchable(false);
+                    scratchView3.setScratchable(false);
+                    scratchView4.setScratchable(false);
+                    scratchView5.setScratchable(false);
+                    scratchView6.setScratchable(false);
+                    scratchView7.setScratchable(false);
+                    scratchView8.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
-
             }
         });
-
-
-        // add callback for update scratch percentage
         scratchView1.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(1) == true) {
-                    if (revealStatus.get(1) == false) {
-                        if (v > 90) {
-                            revealStatus.set(1, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView1.resetView();
-                    } else {
-                        if (status.get(1) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(1, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
+                if (mPercentage > 85) {
+                    if (!revealed.get(1)) {
+                        revealed.set(1, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView0.setScratchable(true);
+                        scratchView2.setScratchable(true);
+                        scratchView3.setScratchable(true);
+                        scratchView4.setScratchable(true);
+                        scratchView5.setScratchable(true);
+                        scratchView6.setScratchable(true);
+                        scratchView7.setScratchable(true);
+                        scratchView8.setScratchable(true);
+                        String type = scratchDatas.get(1).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
 
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(1) == false) {
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView1.resetView();
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView0.setScratchable(false);
+                    scratchView2.setScratchable(false);
+                    scratchView3.setScratchable(false);
+                    scratchView4.setScratchable(false);
+                    scratchView5.setScratchable(false);
+                    scratchView6.setScratchable(false);
+                    scratchView7.setScratchable(false);
+                    scratchView8.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
             }
         });
         scratchView2.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(2) == true) {
-                    if (revealStatus.get(2) == false) {
-                        if (v > 90) {
-                            revealStatus.set(2, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView2.resetView();
-                    } else {
-                        if (status.get(2) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(2, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(2) == false) {
+                if (mPercentage > 85) {
+                    if (!revealed.get(2)) {
+                        revealed.set(2, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView1.setScratchable(true);
+                        scratchView0.setScratchable(true);
+                        scratchView3.setScratchable(true);
+                        scratchView4.setScratchable(true);
+                        scratchView5.setScratchable(true);
+                        scratchView6.setScratchable(true);
+                        scratchView7.setScratchable(true);
+                        scratchView8.setScratchable(true);
+                        String type = scratchDatas.get(2).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
 
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView2.resetView();
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView0.setScratchable(false);
+                    scratchView1.setScratchable(false);
+                    scratchView3.setScratchable(false);
+                    scratchView4.setScratchable(false);
+                    scratchView5.setScratchable(false);
+                    scratchView6.setScratchable(false);
+                    scratchView7.setScratchable(false);
+                    scratchView8.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
             }
         });
         scratchView3.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(3) == true) {
-                    if (revealStatus.get(3) == false) {
-                        if (v > 90) {
-                            revealStatus.set(3, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView3.resetView();
-                    } else {
-                        if (status.get(3) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(3, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
+                if (mPercentage > 85) {
+                    if (!revealed.get(3)) {
+                        revealed.set(3, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView1.setScratchable(true);
+                        scratchView2.setScratchable(true);
+                        scratchView0.setScratchable(true);
+                        scratchView4.setScratchable(true);
+                        scratchView5.setScratchable(true);
+                        scratchView6.setScratchable(true);
+                        scratchView7.setScratchable(true);
+                        scratchView8.setScratchable(true);
+                        String type = scratchDatas.get(3).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
 
-
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(3) == false) {
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView3.resetView();
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView0.setScratchable(false);
+                    scratchView1.setScratchable(false);
+                    scratchView2.setScratchable(false);
+                    scratchView4.setScratchable(false);
+                    scratchView5.setScratchable(false);
+                    scratchView6.setScratchable(false);
+                    scratchView7.setScratchable(false);
+                    scratchView8.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
             }
         });
         scratchView4.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(4) == true) {
-                    if (revealStatus.get(4) == false) {
-                        if (v > 90) {
-                            revealStatus.set(4, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView4.resetView();
-                    } else {
-                        if (status.get(4) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(4, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(4) == false) {
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView4.resetView();
+                if (mPercentage > 85) {
+                    if (!revealed.get(1)) {
+                        revealed.set(4, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView1.setScratchable(true);
+                        scratchView2.setScratchable(true);
+                        scratchView3.setScratchable(true);
+                        scratchView0.setScratchable(true);
+                        scratchView5.setScratchable(true);
+                        scratchView6.setScratchable(true);
+                        scratchView7.setScratchable(true);
+                        scratchView8.setScratchable(true);
+                        String type = scratchDatas.get(4).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
+
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView0.setScratchable(false);
+                    scratchView1.setScratchable(false);
+                    scratchView2.setScratchable(false);
+                    scratchView3.setScratchable(false);
+                    scratchView5.setScratchable(false);
+                    scratchView6.setScratchable(false);
+                    scratchView7.setScratchable(false);
+                    scratchView8.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
             }
         });
         scratchView5.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(5) == true) {
-                    if (revealStatus.get(5) == false) {
-                        if (v > 90) {
-                            revealStatus.set(5, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView5.resetView();
-                    } else {
-                        if (status.get(5) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(5, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(5) == false) {
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView5.resetView();
+                if (mPercentage > 85) {
+                    if (!revealed.get(5)) {
+                        revealed.set(5, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView1.setScratchable(true);
+                        scratchView2.setScratchable(true);
+                        scratchView3.setScratchable(true);
+                        scratchView4.setScratchable(true);
+                        scratchView0.setScratchable(true);
+                        scratchView6.setScratchable(true);
+                        scratchView7.setScratchable(true);
+                        scratchView8.setScratchable(true);
+                        String type = scratchDatas.get(5).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
+
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView0.setScratchable(false);
+                    scratchView2.setScratchable(false);
+                    scratchView3.setScratchable(false);
+                    scratchView4.setScratchable(false);
+                    scratchView1.setScratchable(false);
+                    scratchView6.setScratchable(false);
+                    scratchView7.setScratchable(false);
+                    scratchView8.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
             }
         });
         scratchView6.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(6) == true) {
-                    if (revealStatus.get(6) == false) {
-                        if (v > 90) {
-                            revealStatus.set(6, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView6.resetView();
-                    } else {
-                        if (status.get(6) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(6, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
+                if (mPercentage > 85) {
+                    if (!revealed.get(6)) {
+                        revealed.set(6, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView1.setScratchable(true);
+                        scratchView2.setScratchable(true);
+                        scratchView3.setScratchable(true);
+                        scratchView4.setScratchable(true);
+                        scratchView5.setScratchable(true);
+                        scratchView0.setScratchable(true);
+                        scratchView7.setScratchable(true);
+                        scratchView8.setScratchable(true);
+                        String type = scratchDatas.get(6).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
 
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(6) == false) {
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView6.resetView();
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView0.setScratchable(false);
+                    scratchView2.setScratchable(false);
+                    scratchView3.setScratchable(false);
+                    scratchView4.setScratchable(false);
+                    scratchView5.setScratchable(false);
+                    scratchView1.setScratchable(false);
+                    scratchView7.setScratchable(false);
+                    scratchView8.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
             }
         });
         scratchView7.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(7) == true) {
-                    if (revealStatus.get(7) == false) {
-                        if (v > 90) {
-                            revealStatus.set(7, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView7.resetView();
-                    } else {
-                        if (status.get(7) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(7, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(7) == false) {
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView7.resetView();
+                if (mPercentage > 85) {
+                    if (!revealed.get(7)) {
+                        revealed.set(7, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView1.setScratchable(true);
+                        scratchView2.setScratchable(true);
+                        scratchView3.setScratchable(true);
+                        scratchView4.setScratchable(true);
+                        scratchView5.setScratchable(true);
+                        scratchView6.setScratchable(true);
+                        scratchView0.setScratchable(true);
+                        scratchView8.setScratchable(true);
+                        String type = scratchDatas.get(7).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
+
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView0.setScratchable(false);
+                    scratchView2.setScratchable(false);
+                    scratchView3.setScratchable(false);
+                    scratchView4.setScratchable(false);
+                    scratchView5.setScratchable(false);
+                    scratchView6.setScratchable(false);
+                    scratchView1.setScratchable(false);
+                    scratchView8.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
             }
         });
         scratchView8.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
             public void onScratch(float v) {
-
-
-                if (status.get(8) == true) {
-                    if (revealStatus.get(8) == false) {
-                        if (v > 90) {
-                            revealStatus.set(8, true);
-                            revealCount++;
-                        }
-                    }
-                } else {
-                    if (count >= 3) {
-                        scratchView8.resetView();
-                    } else {
-                        if (status.get(8) == false) {
-
-                            if (v > 3) {
-                                count++;
-                                status.set(8, true);
-
-                            }
-                        }
-                    }
-                }
+                mPercentage = v;
             }
 
             @Override
             public void onDetach(boolean b) {
-                if (revealCount == 3) {
-                    showPopUpMessage("All card Revealed... Collect Your Price");
-                } else {
-                    if (status.get(8) == false) {
-                        if (count >= 3) {
-                            showPopUpMessage("Cant scratch more than 3 card. Please scratch 3 cards completely");
-                            scratchView8.resetView();
+                if (mPercentage > 85) {
+                    if (!revealed.get(8)) {
+                        revealed.set(8, true);
+                        showMessage("card revealed");
+                        mPercentage = 0;
+                        scratchView1.setScratchable(true);
+                        scratchView2.setScratchable(true);
+                        scratchView3.setScratchable(true);
+                        scratchView4.setScratchable(true);
+                        scratchView5.setScratchable(true);
+                        scratchView6.setScratchable(true);
+                        scratchView7.setScratchable(true);
+                        scratchView0.setScratchable(true);
+                        String type = scratchDatas.get(8).type;
+                        switch (type) {
+                            case "a":
+                                int a_count = sameKindCount.get(0);
+                                ++a_count;
+                                sameKindCount.set(0, a_count);
+                                break;
+                            case "b":
+                                int b_count = sameKindCount.get(1);
+                                ++b_count;
+                                sameKindCount.set(1, b_count);
+                                break;
+                            case "c":
+                                int c_count = sameKindCount.get(2);
+                                ++c_count;
+                                sameKindCount.set(2, c_count);
+                                break;
+                            case "d":
+                                int d_count = sameKindCount.get(3);
+                                ++d_count;
+                                sameKindCount.set(3, d_count);
+                                break;
+                            case "e":
+                                int e_count = sameKindCount.get(4);
+                                ++e_count;
+                                sameKindCount.set(4, e_count);
+                                break;
+                            case "f":
+                                int f_count = sameKindCount.get(5);
+                                ++f_count;
+                                sameKindCount.set(5, f_count);
+                                break;
+                            case "g":
+                                int g_count = sameKindCount.get(6);
+                                ++g_count;
+                                sameKindCount.set(6, g_count);
+                                break;
+                            case "h":
+                                int h_count = sameKindCount.get(7);
+                                ++h_count;
+                                sameKindCount.set(7, h_count);
+                                break;
+                            case "i":
+                                int i_count = sameKindCount.get(8);
+                                ++i_count;
+                                sameKindCount.set(8, i_count);
+                                break;
+
                         }
+                    } else {
+                        showMessage("card already revealed");
+                    }
+                } else {
+                    scratchView0.setScratchable(false);
+                    scratchView2.setScratchable(false);
+                    scratchView3.setScratchable(false);
+                    scratchView4.setScratchable(false);
+                    scratchView5.setScratchable(false);
+                    scratchView6.setScratchable(false);
+                    scratchView1.setScratchable(false);
+                    scratchView7.setScratchable(false);
+                }
+                for (int i = 0; i < 9; i++) {
+                    int counter = sameKindCount.get(i);
+                    if (counter >= 3) {
+                        showPopUpMessage("Congrats");
+                        scratchView0.setScratchAll(true);
+                        scratchView1.setScratchAll(true);
+                        scratchView2.setScratchAll(true);
+                        scratchView3.setScratchAll(true);
+                        scratchView4.setScratchAll(true);
+                        scratchView5.setScratchAll(true);
+                        scratchView6.setScratchAll(true);
+                        scratchView7.setScratchAll(true);
+                        scratchView8.setScratchAll(true);
                     }
                 }
-
             }
         });
 
         // updatePercentage(0f);
+    }
+
+    private void setScratchData() {
+        scratchDatas.add(new ScratchData(0, "180", "", "a"));
+        scratchDatas.add(new ScratchData(1, "20", "", "b"));
+        scratchDatas.add(new ScratchData(2, "70", "", "c"));
+        scratchDatas.add(new ScratchData(3, "70", "", "c"));
+        scratchDatas.add(new ScratchData(4, "180", "", "a"));
+        scratchDatas.add(new ScratchData(5, "90", "", "d"));
+        scratchDatas.add(new ScratchData(6, "100", "", "e"));
+        scratchDatas.add(new ScratchData(7, "0", "", "f"));
+        scratchDatas.add(new ScratchData(8, "70", "", "c"));
+
+
     }
 
     private void showPopUpMessage(String s) {
@@ -530,66 +1029,9 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnTo
 
 
     private void showMessage(String s) {
-        dialog.build().dismiss();
-        dialog.build().setTitle(s);
-        dialog.build().show();
-        //Toast.makeText(ImageOverlayDrawable.this, "Hi Kunsang", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ImageOverlayDrawable.this, s, Toast.LENGTH_SHORT).show();
     }
 
-
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-      /*  switch (view.getId()) {
-            case R.id.sample_image1:
-                if (!scratchView0.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-            case R.id.sample_image2:
-                if (!scratchView1.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-            case R.id.sample_image3:
-                if (!scratchView2.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-            case R.id.sample_image4:
-                if (!scratchView0.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-            case R.id.sample_image5:
-                if (!scratchView1.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-            case R.id.sample_image6:
-                if (!scratchView2.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-            case R.id.sample_image7:
-                if (!scratchView0.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-            case R.id.sample_image8:
-                if (!scratchView1.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-            case R.id.sample_image9:
-                if (!scratchView2.isScratchable()) {
-                    showMessage("Cannot Scratch anymore");
-                }
-                break;
-        }
-*/
-        return false;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -279,8 +279,9 @@
                 android:background="@drawable/contact_background"
                 android:gravity="top|left"
                 android:hint="@string/score"
+                android:maxLength="200"
                 android:padding="5dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <Button
