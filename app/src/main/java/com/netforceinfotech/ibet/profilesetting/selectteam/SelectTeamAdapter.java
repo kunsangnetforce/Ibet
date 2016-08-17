@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,16 +60,25 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 booleanGames.set(position, !booleanGames.get(position));
                 if (booleanGames.get(position)) {
                     selectTeamHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
-                    selectTeamHolder.linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
                 } else {
                     selectTeamHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
-                    selectTeamHolder.linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
                 }
                 notifyDataSetChanged();
 
             }
         });
+        selectTeamHolder.textViewTeamName.setText(itemList.get(position).name);
+        if(itemList.get(position).logo.length()>1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(selectTeamHolder.imageViewLogo);
+        }
+        else {
+            selectTeamHolder.imageViewLogo.setImageResource(R.drawable.ic_error);
+        }
 
     }
 
@@ -79,7 +89,7 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return 5;
+        return itemList.size();
 //        return itemList.size();
     }
 }

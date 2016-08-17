@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +17,8 @@ import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
-import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
-import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
 import com.netforceinfotech.ibet.general.WrapContentViewPager;
-import com.netforceinfotech.ibet.live_event.stand.StandActivity;
 import com.squareup.picasso.Picasso;
 
 import at.grabner.circleprogress.CircleProgressView;

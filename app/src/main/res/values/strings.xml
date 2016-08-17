@@ -90,4 +90,6 @@
     <string name="title_activity_scratch">ScratchActivity</string>
     <string name="lorem">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</string>
     <string name="shareit">Share it with</string>
+    <string name="appkey">12334ddfdfdf</string>
+    <string name="url">https://netforcesales.com/ibet_admin/api/services.php</string>
 </resources>

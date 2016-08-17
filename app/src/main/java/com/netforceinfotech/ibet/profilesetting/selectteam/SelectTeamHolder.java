@@ -15,8 +15,8 @@ import com.netforceinfotech.ibet.R;
 public class SelectTeamHolder extends RecyclerView.ViewHolder {
 
 
-    TextView textViewTitle, textViewCategory, textViewPros;
-    ImageView imageViewChecked;
+    TextView textViewTeamName;
+    ImageView imageViewChecked,imageViewLogo;
     MaterialRippleLayout materialRippleLayout;
     LinearLayout linearLayout;
     View view;
@@ -26,6 +26,8 @@ public class SelectTeamHolder extends RecyclerView.ViewHolder {
         super(itemView);
         //implementing onClickListener
         view = itemView;
+        imageViewLogo= (ImageView) view.findViewById(R.id.logo);
+        textViewTeamName= (TextView) view.findViewById(R.id.teamName);
         imageViewChecked = (ImageView) itemView.findViewById(R.id.imageViewChecked);
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
         linearLayout= (LinearLayout) itemView.findViewById(R.id.linearLayoutMain);
