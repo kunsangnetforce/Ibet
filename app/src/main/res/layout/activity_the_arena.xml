@@ -34,7 +34,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayout"
+        android:layout_above="@+id/linearLayoutProgres"
         android:layout_below="@+id/toolbar_container">
 
         <ImageView
@@ -149,7 +149,7 @@
 
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutProgres"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

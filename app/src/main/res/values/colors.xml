@@ -92,7 +92,7 @@
     <color name="statusbar_background_theme3">#FF39064B</color>
     <color name="statusbar_background_theme4">#FF002E07</color>
     <color name="statusbar_background_theme5">#FF570000</color>
-    <color name="overlayColor">#7e000000</color>
+    <color name="overlayColor">#b1000000</color>
 
     <color name="navigation_background_theme1">#D08720</color>
     <color name="navigation_background_theme2">#FFF7A665</color>
@@ -109,5 +109,7 @@
     <color name="solo_txt_color">#FE9700</color>
     <color name="transulation">#b9000000</color>
     <color name="ripple">#adccc7c7</color>
+    <color name="colorAccentTransution">#9bd08720</color>
+    <color name="darkgrey">#424242</color>
 
 </resources>

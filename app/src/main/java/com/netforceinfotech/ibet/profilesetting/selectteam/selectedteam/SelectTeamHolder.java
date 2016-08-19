@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.profilesetting.selectteam;
+package com.netforceinfotech.ibet.profilesetting.selectteam.selectedteam;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,10 +15,7 @@ import com.netforceinfotech.ibet.R;
 public class SelectTeamHolder extends RecyclerView.ViewHolder {
 
 
-    TextView textViewTitle, textViewCategory, textViewPros;
-    ImageView imageViewChecked;
-    MaterialRippleLayout materialRippleLayout;
-    LinearLayout linearLayout;
+    ImageView imageViewClose, ImageViewLogo;
     View view;
 
 
@@ -26,9 +23,7 @@ public class SelectTeamHolder extends RecyclerView.ViewHolder {
         super(itemView);
         //implementing onClickListener
         view = itemView;
-        imageViewChecked = (ImageView) itemView.findViewById(R.id.imageViewChecked);
-        materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-        linearLayout= (LinearLayout) itemView.findViewById(R.id.linearLayoutMain);
-
+        ImageViewLogo = (ImageView) view.findViewById(R.id.imageViewLogo);
+        imageViewClose = (ImageView) view.findViewById(R.id.imageViewClose);
     }
 }
