@@ -34,20 +34,12 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         inflater = LayoutInflater.from(context);
     }
 
-    /*  @Override
-      public int getItemViewType(int position) {
-          if (itemList.get(position).image.isEmpty()) {
-              return SIMPLE_TYPE;
-          } else {
-              return IMAGE_TYPE;
-          }
-      }
-  */
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
 
-        View view = inflater.inflate(R.layout.row_currentgame, parent, false);
+        View view = inflater.inflate(R.layout.row_live_event, parent, false);
         CurrentGameHolder viewHolder = new CurrentGameHolder(view);
         for (int i = 0; i < itemList.size(); i++)
         {

@@ -91,6 +91,6 @@
     <string name="lorem">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</string>
     <string name="shareit">Share it with</string>
     <string name="appkey">12334ddfdfdf</string>
-    <string name="url">https://netforcesales.com/ibet_admin/api/services.php</string>
+    <string name="url">https://netforcesales.com/ibet_admin/api</string>
     <string name="urlsearch">https://netforcesales.com/ibet_admin/api/search_team.php</string>
 </resources>
