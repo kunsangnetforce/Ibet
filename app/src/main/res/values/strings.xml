@@ -92,4 +92,5 @@
     <string name="shareit">Share it with</string>
     <string name="appkey">12334ddfdfdf</string>
     <string name="url">https://netforcesales.com/ibet_admin/api/services.php</string>
+    <string name="urlsearch">https://netforcesales.com/ibet_admin/api/search_team.php</string>
 </resources>

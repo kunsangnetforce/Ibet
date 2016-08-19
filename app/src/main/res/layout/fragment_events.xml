@@ -15,24 +15,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="100">
+            android:weightSum="90">
 
             <RelativeLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="30"
+                android:layout_weight="20"
                 android:gravity="center">
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="170dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/gs_stadium" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="170dp"
                     android:background="@color/overlayColor" />
 
                 <LinearLayout
@@ -51,12 +51,13 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/italy" />
 
                         <TextView
+                            android:textSize="18sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Italy"
@@ -100,7 +101,7 @@
                                     android:layout_margin="3dp"
                                     android:text="1"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp"
+                                    android:textSize="18sp"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -109,7 +110,7 @@
                                     android:layout_margin="3dp"
                                     android:text="-"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp"
+                                    android:textSize="18sp"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -118,7 +119,7 @@
                                     android:layout_margin="3dp"
                                     android:text="1"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp"
+                                    android:textSize="18sp"
                                     android:textStyle="bold" />
                             </LinearLayout>
 
@@ -137,12 +138,12 @@
                             CircleProgressView:cpv_contourColor="#12f4f0f0"
                             CircleProgressView:cpv_contourSize="0dp"
                             CircleProgressView:cpv_maxValue="100"
-                            CircleProgressView:cpv_rimColor="@color/colorPrimaryDark"
+                            CircleProgressView:cpv_rimColor="@color/colorAccentTransution"
                             CircleProgressView:cpv_rimWidth="10dp"
                             CircleProgressView:cpv_seekMode="false"
                             CircleProgressView:cpv_showTextInSpinningMode="false"
                             CircleProgressView:cpv_showUnit="true"
-                            CircleProgressView:cpv_spinColor="@color/colorPrimary"
+                            CircleProgressView:cpv_spinColor="@color/colorAccent"
                             CircleProgressView:cpv_textColor="@color/white"
                             CircleProgressView:cpv_textMode="Text"
                             CircleProgressView:cpv_textScale="2"
@@ -150,7 +151,7 @@
                             CircleProgressView:cpv_unitColor="@color/white"
                             CircleProgressView:cpv_unitScale="2"
                             CircleProgressView:cpv_unitSize="12dp"
-                            CircleProgressView:cpv_value="100" />
+                            CircleProgressView:cpv_value="20" />
                     </RelativeLayout>
 
                     <LinearLayout
@@ -161,12 +162,13 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/italy" />
 
                         <TextView
+                            android:textSize="18sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Italy"
@@ -184,7 +186,7 @@
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_margin="16dp">
 
                 </android.support.v7.widget.RecyclerView>
 

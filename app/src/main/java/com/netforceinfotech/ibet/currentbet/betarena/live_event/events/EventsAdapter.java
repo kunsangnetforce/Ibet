@@ -71,7 +71,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             EventsHolder holder1 = (EventsHolder) holder;
             if (eventsDatas.get(position).namea.trim().length() < 1) {
                 holder1.linearLayouta.setVisibility(View.INVISIBLE);
-                holder1.textViewTime.setText(eventsDatas.get(position).time);
+                holder1.textViewTime.setText(eventsDatas.get(position).time+"'");
                 switch (eventsDatas.get(position).event) {
                     case "red":
                         holder1.imageViewTypeb.setImageResource(R.drawable.ic_card_red);

@@ -6,10 +6,12 @@
     android:orientation="vertical">
 
     <TextView
+
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/circular_bg_fill"
+        android:background="@drawable/circular_bg_fill_dark"
         android:gravity="center"
-        android:text="0" />
+        android:text="0'"
+        android:textColor="@color/colorAccent" />
 
 </LinearLayout>

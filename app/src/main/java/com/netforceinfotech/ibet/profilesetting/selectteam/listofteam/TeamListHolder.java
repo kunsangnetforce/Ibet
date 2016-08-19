@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.profilesetting.selectteam;
+package com.netforceinfotech.ibet.profilesetting.selectteam.listofteam;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,7 +12,7 @@ import com.netforceinfotech.ibet.R;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class SelectTeamHolder extends RecyclerView.ViewHolder {
+public class TeamListHolder extends RecyclerView.ViewHolder {
 
 
     TextView textViewTeamName;
@@ -22,7 +22,7 @@ public class SelectTeamHolder extends RecyclerView.ViewHolder {
     View view;
 
 
-    public SelectTeamHolder(View itemView) {
+    public TeamListHolder(View itemView) {
         super(itemView);
         //implementing onClickListener
         view = itemView;

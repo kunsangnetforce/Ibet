@@ -10,8 +10,11 @@
         android:id="@+id/linearLayouta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_weight="50"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
+        android:padding="6dp"
         android:weightSum="100">
 
         <LinearLayout
@@ -24,13 +27,9 @@
                 android:id="@+id/textViewNamea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient_rtl"
-                android:gravity="center"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:text="Bravo Hard"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+                android:gravity="center" android:text="Bravo Hard"
+                android:textColor="@color/colorText"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -59,7 +58,7 @@
             android:layout_height="32dp"
             android:layout_below="@+id/textViewTime"
             android:layout_centerHorizontal="true"
-            android:background="@color/grey" />
+            android:background="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/textViewTime"
@@ -67,17 +66,22 @@
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:background="@drawable/circular_bg_fill"
+            android:background="@drawable/circular_bg_fill_dark"
             android:gravity="center"
-            android:text="89" />
+            android:text="89"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
         android:layout_weight="50"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
+        android:padding="6dp"
         android:weightSum="100">
 
 
@@ -104,13 +108,10 @@
                 android:id="@+id/textViewNameb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient_rtl"
-                android:gravity="center"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
+                android:gravity="center" android:paddingRight="6dp"
                 android:text="Bravo Hard"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp" />
+                android:textColor="@color/colorText"
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
