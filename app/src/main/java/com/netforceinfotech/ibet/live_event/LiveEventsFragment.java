@@ -1,19 +1,15 @@
-package com.netforceinfotech.ibet.dashboard.home.startnewbet.upcominggame;
+package com.netforceinfotech.ibet.live_event;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,27 +20,22 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.WhoWillWinActivity;
-import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UpComingGamesFragment extends Fragment implements View.OnClickListener {
+public class LiveEventsFragment extends Fragment {
 
-
-    private UserSessionManager userSessionManager;
-    int theme;
-    FrameLayout upcomming_games_layout;
-    ArrayList<UpcomingGameData> upcomingGameDatas = new ArrayList<>();
-    Button buttonNext;
-    private UpcomingGameAdapter upcomingGameAdapter;
     Context context;
+    ArrayList<CurrentGameData> currentGameDatas = new ArrayList<>();
+    private CurrentGameAdapter currentGameAdapter;
     LinearLayout linearLayout;
 
-    public UpComingGamesFragment() {
+    public LiveEventsFragment() {
         // Required empty public constructor
     }
 
@@ -53,62 +44,18 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_up_coming_games, container, false);
+        View view = inflater.inflate(R.layout.fragment_live_events, container, false);
         context = getActivity();
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
-        buttonNext = (Button) view.findViewById(R.id.buttonNext);
-        buttonNext.setOnClickListener(this);
-        userSessionManager = new UserSessionManager(getActivity());
-        theme = userSessionManager.getTheme();
-        setupRecycler(view);
+        setupRecyclerView(view);
         getLiveMatch();
         return view;
-    }
-
-
-    private void setupRecycler(View view) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-
-        upcomming_games_layout = (FrameLayout) view.findViewById(R.id.upcomming_games_layout);
-
-        if (theme == 0) {
-            upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme1));
-
-        } else if (theme == 1) {
-
-            upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme2));
-
-        } else if (theme == 2) {
-            upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme3));
-
-        } else if (theme == 3) {
-            upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme4));
-
-        } else if (theme == 4) {
-            upcomming_games_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme5));
-        }
-
-
-        upcomingGameAdapter = new UpcomingGameAdapter(getActivity(), upcomingGameDatas);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(upcomingGameAdapter);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.buttonNext:
-                Intent intent = new Intent(getActivity(), WhoWillWinActivity.class);
-                startActivity(intent);
-                break;
-        }
     }
 
     private void getLiveMatch() {
         //https://netforcesales.com/ibet_admin/api/current_matches.php?todaydate=2016-08-20
         String url = getResources().getString(R.string.url);
-        url = url + "/upcoming_matches.php";
+        url = url + "/current_matches.php?todaydate=2016-08-20";
         Log.i("result url", url);
         setHeader();
         Ion.with(context)
@@ -147,10 +94,10 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
                                     }
 
                                     if (!(matchid == null || teama == null || teamb == null)) {
-                                        upcomingGameDatas.add(new UpcomingGameData(matchid, teama, teamb, logohome_team, awayteam_team));
+                                        currentGameDatas.add(new CurrentGameData(matchid, teama, teamb, logohome_team, awayteam_team));
                                     }
                                 }
-                                upcomingGameAdapter.notifyDataSetChanged();
+                                currentGameAdapter.notifyDataSetChanged();
                             } else {
                                 showMessage("json error");
                             }
@@ -162,6 +109,14 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
 
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setupRecyclerView(View view) {
+        currentGameAdapter = new CurrentGameAdapter(context, currentGameDatas);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(currentGameAdapter);
     }
 
     private void setHeader() {

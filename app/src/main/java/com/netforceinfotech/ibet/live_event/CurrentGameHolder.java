@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.startnewbet.currentgame;
+package com.netforceinfotech.ibet.live_event;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,8 +14,8 @@ import com.netforceinfotech.ibet.R;
 public class CurrentGameHolder extends RecyclerView.ViewHolder {
 
 
-    TextView textView;
-    ImageView imageViewChecked, teama, teamb;
+    TextView teama, teamb;
+    ImageView logoteama, logoteamb;
     MaterialRippleLayout materialRippleLayout;
     View view;
 
@@ -24,10 +24,10 @@ public class CurrentGameHolder extends RecyclerView.ViewHolder {
         super(itemView);
         //implementing onClickListener
         view = itemView;
-        imageViewChecked = (ImageView) itemView.findViewById(R.id.imageViewChecked);
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-        textView = (TextView) view.findViewById(R.id.textView);
-        teama = (ImageView) view.findViewById(R.id.imageViewTeamA);
-        teamb = (ImageView) view.findViewById(R.id.imageViewTeamB);
+        teama = (TextView) view.findViewById(R.id.textViewTeamA);
+        teamb = (TextView) view.findViewById(R.id.textViewTeamB);
+        logoteama = (ImageView) view.findViewById(R.id.imageViewTeamA);
+        logoteamb = (ImageView) view.findViewById(R.id.imageViewTeamB);
     }
 }

@@ -1,12 +1,12 @@
-package com.netforceinfotech.ibet.dashboard.home.startnewbet.upcominggame;
+package com.netforceinfotech.ibet.live_event;
 
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class UpcomingGameData {
+public class CurrentGameData {
     String matchid, teama, teamb, logoa, logob;
 
-    UpcomingGameData(String matchid, String teama, String teamb, String logoa, String logob) {
+    CurrentGameData(String matchid, String teama, String teamb, String logoa, String logob) {
         this.matchid = matchid;
         this.teama = teama;
         this.teamb = teamb;

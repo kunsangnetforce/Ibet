@@ -1,7 +1,8 @@
-package com.netforceinfotech.ibet.dashboard.home.startnewbet.currentgame;
+package com.netforceinfotech.ibet.live_event;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,22 +34,20 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         inflater = LayoutInflater.from(context);
     }
 
-
+    /*  @Override
+      public int getItemViewType(int position) {
+          if (itemList.get(position).image.isEmpty()) {
+              return SIMPLE_TYPE;
+          } else {
+              return IMAGE_TYPE;
+          }
+      }
+  */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.row_currentgame, parent, false);
+        View view = inflater.inflate(R.layout.row_live_event, parent, false);
         CurrentGameHolder viewHolder = new CurrentGameHolder(view);
-        for (int i = 0; i < itemList.size(); i++) {
-            if (i == 0) {
-                booleanGames.add(true);
-            } else {
-                booleanGames.add(false);
-            }
-            Log.i("looppp", "" + i);
-
-
-        }
         return viewHolder;
 
 
@@ -56,49 +55,33 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-
-
-        if (booleanGames.get(position)) {
-            ((CurrentGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
-        } else {
-            ((CurrentGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
-        }
-        Log.i("ibet_position", "" + position);
-        final CurrentGameHolder currentGameHolder = (CurrentGameHolder) holder;
+        CurrentGameHolder currentGameHolder = (CurrentGameHolder) holder;
         currentGameHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                for (int i = 0; i < itemList.size(); i++) {
-                    if (i == position) {
-                        currentGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
-                        booleanGames.set(position, true);
-                    } else {
-                        currentGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
-                        booleanGames.set(i, false);
-                    }
-                }
-                notifyDataSetChanged();
+                Intent intent = new Intent(context, LiveEventActivity.class);
+                context.startActivity(intent);
             }
         });
-        currentGameHolder.textView.setText(itemList.get(position).teama + " vs " + itemList.get(position).teamb);
-        if (itemList.get(position).logob.length() > 1) {
-            Picasso.with(context)
-                    .load(itemList.get(position).logob)
-                    .placeholder(R.drawable.ic_holder)
-                    .error(R.drawable.ic_error)
-                    .into(currentGameHolder.teamb);
-        } else {
-            currentGameHolder.teamb.setImageResource(R.drawable.ic_error);
-        }
+        currentGameHolder.teama.setText(itemList.get(position).teama);
+        currentGameHolder.teamb.setText(itemList.get(position).teamb);
         if (itemList.get(position).logoa.length() > 1) {
             Picasso.with(context)
                     .load(itemList.get(position).logoa)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
-                    .into(currentGameHolder.teama);
+                    .into(currentGameHolder.logoteama);
         } else {
-            currentGameHolder.teama.setImageResource(R.drawable.ic_error);
+            currentGameHolder.logoteama.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).logob.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).logob)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(currentGameHolder.logoteamb);
+        } else {
+            currentGameHolder.logoteamb.setImageResource(R.drawable.ic_error);
         }
     }
 

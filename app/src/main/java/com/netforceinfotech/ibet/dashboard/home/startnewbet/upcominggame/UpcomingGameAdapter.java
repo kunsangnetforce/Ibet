@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final LayoutInflater inflater;
     private List<UpcomingGameData> itemList;
     private Context context;
-    ArrayList<Boolean> booleanGames=new ArrayList<>();
+    ArrayList<Boolean> booleanGames = new ArrayList<>();
 
     public UpcomingGameAdapter(Context context, List<UpcomingGameData> itemList) {
         this.itemList = itemList;
@@ -52,7 +53,7 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 booleanGames.add(false);
             }
-            Log.i("looppp",""+i);
+            Log.i("looppp", "" + i);
         }
 
         return viewHolder;
@@ -62,10 +63,9 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        if(booleanGames.get(position)){
+        if (booleanGames.get(position)) {
             ((UpcomingGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
-        }
-        else {
+        } else {
             ((UpcomingGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
         }
         Log.i("ibet_position", "" + position);
@@ -87,7 +87,25 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             }
         });
-
+        upcomingGameHolder.textView.setText(itemList.get(position).teama + " vs " + itemList.get(position).teamb);
+        if (itemList.get(position).logob.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).logob)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingGameHolder.teamb);
+        } else {
+            upcomingGameHolder.teamb.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).logoa.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).logoa)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingGameHolder.teama);
+        } else {
+            upcomingGameHolder.teama.setImageResource(R.drawable.ic_error);
+        }
     }
 
     private void showMessage(String s) {
@@ -97,7 +115,7 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return 5;
+        return itemList.size();
 //        return itemList.size();
     }
 }
