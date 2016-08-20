@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class ImageOverlayDrawable extends AppCompatActivity {
     ArrayList<Boolean> enables = new ArrayList<>();
     ArrayList<Boolean> revealed = new ArrayList<>();
     ArrayList<Integer> sameKindCount = new ArrayList<>();
+    private MaterialDialog customdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,25 +55,15 @@ public class ImageOverlayDrawable extends AppCompatActivity {
 
 
         percentageView = (TextView) findViewById(R.id.textview1);
-
         scratchView0 = (WScratchView) findViewById(R.id.scratchView0);
-
         scratchView1 = (WScratchView) findViewById(R.id.scratchView1);
-
         scratchView2 = (WScratchView) findViewById(R.id.scratchView2);
-
         scratchView3 = (WScratchView) findViewById(R.id.scratchView3);
-
         scratchView4 = (WScratchView) findViewById(R.id.scratchView4);
-
         scratchView5 = (WScratchView) findViewById(R.id.scratchView5);
-
         scratchView6 = (WScratchView) findViewById(R.id.scratchView6);
-
         scratchView7 = (WScratchView) findViewById(R.id.scratchView7);
-
         scratchView8 = (WScratchView) findViewById(R.id.scratchView8);
-
         // set drawable to scratchview
         scratchView0.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
         scratchView1.setScratchDrawable(getResources().getDrawable(R.drawable.ic_scratch_bonus));
@@ -1001,10 +993,17 @@ public class ImageOverlayDrawable extends AppCompatActivity {
     }
 
     private void showPopUpMessage(String s) {
-        new MaterialDialog.Builder(this)
-                .title("Bonus")
-                .content(s)
-                .positiveText("OK").show();
+        customdialog = new MaterialDialog.Builder(this)
+                .title(R.string.bonus)
+                .customView(R.layout.custom_dialog, false)
+                .show();
+        Button button = (Button) customdialog.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customdialog.dismiss();
+            }
+        });
     }
 
 
