@@ -14,8 +14,8 @@ import com.netforceinfotech.ibet.R;
 public class CurrentGameHolder extends RecyclerView.ViewHolder {
 
 
-    TextView textViewTitle, textViewCategory, textViewPros;
-    ImageView imageViewChecked;
+    TextView teama, teamb;
+    ImageView logoteama, logoteamb;
     MaterialRippleLayout materialRippleLayout;
     View view;
 
@@ -25,6 +25,9 @@ public class CurrentGameHolder extends RecyclerView.ViewHolder {
         //implementing onClickListener
         view = itemView;
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-
+        teama = (TextView) view.findViewById(R.id.textViewTeamA);
+        teamb = (TextView) view.findViewById(R.id.textViewTeamB);
+        logoteama = (ImageView) view.findViewById(R.id.imageViewTeamA);
+        logoteamb = (ImageView) view.findViewById(R.id.imageViewTeamB);
     }
 }

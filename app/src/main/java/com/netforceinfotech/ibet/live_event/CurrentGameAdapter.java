@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,26 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 context.startActivity(intent);
             }
         });
+        currentGameHolder.teama.setText(itemList.get(position).teama);
+        currentGameHolder.teamb.setText(itemList.get(position).teamb);
+        if (itemList.get(position).logoa.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).logoa)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(currentGameHolder.logoteama);
+        } else {
+            currentGameHolder.logoteama.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).logob.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).logob)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(currentGameHolder.logoteamb);
+        } else {
+            currentGameHolder.logoteamb.setImageResource(R.drawable.ic_error);
+        }
     }
 
     private void showMessage(String s) {
@@ -71,7 +92,7 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return 5;
+        return itemList.size();
 //        return itemList.size();
     }
 }

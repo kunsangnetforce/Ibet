@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -22,6 +23,7 @@ import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +32,8 @@ public class LiveEventsFragment extends Fragment {
 
     Context context;
     ArrayList<CurrentGameData> currentGameDatas = new ArrayList<>();
+    private CurrentGameAdapter currentGameAdapter;
+    LinearLayout linearLayout;
 
     public LiveEventsFragment() {
         // Required empty public constructor
@@ -42,6 +46,7 @@ public class LiveEventsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_live_events, container, false);
         context = getActivity();
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         setupRecyclerView(view);
         getLiveMatch();
         return view;
@@ -59,18 +64,45 @@ public class LiveEventsFragment extends Fragment {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        linearLayout.setVisibility(View.GONE);
                         if (result == null) {
                             showMessage("Somethings wrong");
-                        }
-                        else {
-                            String status=result.get("status").getAsString();
-                            if(status.equalsIgnoreCase("success")){
-                                JsonArray data=result.getAsJsonArray("data");
-                                for(int i=0;i<data.size();i++){
-                                    
+                        } else {
+                            String status = result.get("status").getAsString();
+                            if (status.equalsIgnoreCase("success")) {
+                                JsonArray data = result.getAsJsonArray("data");
+                                for (int i = 0; i < data.size(); i++) {
+
+                                    JsonObject object = data.get(i).getAsJsonObject();
+                                    String matchid = object.get("matchid").getAsString();
+                                    String teama = null;
+                                    if (!object.get("home_teamname").isJsonNull()) {
+                                        teama = object.get("home_teamname").getAsString();
+                                    }
+                                    String teamb = null;
+                                    if (!object.get("away_teamname").isJsonNull()) {
+                                        teamb = object.get("away_teamname").getAsString();
+                                    }
+                                    String logohome_team = "";
+                                    if (!object.get("logohome_team").isJsonNull()) {
+                                        logohome_team = object.get("logohome_team").getAsString();
+                                    }
+
+                                    String awayteam_team = "";
+                                    if (!object.get("logoaway_team").isJsonNull()) {
+                                        awayteam_team = object.get("logoaway_team").getAsString();//dummy
+                                    }
+
+                                    if (!(matchid == null || teama == null || teamb == null)) {
+                                        currentGameDatas.add(new CurrentGameData(matchid, teama, teamb, logohome_team, awayteam_team));
+                                    }
                                 }
+                                currentGameAdapter.notifyDataSetChanged();
+                            } else {
+                                showMessage("json error");
                             }
                         }
+
                     }
                 });
     }
@@ -80,7 +112,7 @@ public class LiveEventsFragment extends Fragment {
     }
 
     private void setupRecyclerView(View view) {
-        CurrentGameAdapter currentGameAdapter = new CurrentGameAdapter(context, null);
+        currentGameAdapter = new CurrentGameAdapter(context, currentGameDatas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(linearLayoutManager);

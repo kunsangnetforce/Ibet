@@ -168,7 +168,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     private void getTeams() {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=team_list
         String url = getResources().getString(R.string.url);
-        url = url + "?opt=team_list";
+        url = url + "/services.php?opt=team_list";
         Log.i("result url", url);
         setHeader();
         Ion.with(context)
@@ -191,10 +191,16 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                                 JsonArray data = result.getAsJsonArray("data");
                                 for (int i = 0; i < data.size(); i++) {
                                     JsonObject object = data.get(i).getAsJsonObject();
-                                    String id = object.get("id").getAsString();
-                                    String name = object.get("name").getAsString();
-                                    String logo = object.get("logo").getAsString();
-                                    teamListDatas.add(new TeamListData(id, name, logo));
+                                    if (!(object.get("id").isJsonNull() || object.get("name").isJsonNull())) {
+                                        String id = object.get("id").getAsString();
+                                        String name = object.get("name").getAsString();
+                                        String logo = "";
+                                        if (!object.get("logo").isJsonNull()) {
+                                            logo = object.get("logo").getAsString();
+                                        }
+
+                                        teamListDatas.add(new TeamListData(id, name, logo));
+                                    }
                                 }
                                 upcomingGameAdapter.notifyDataSetChanged();
                             } else {
