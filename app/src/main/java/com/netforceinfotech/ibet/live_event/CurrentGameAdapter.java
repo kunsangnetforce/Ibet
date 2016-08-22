@@ -67,6 +67,8 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 String teama = itemList.get(position).teama;
                 String teamb = itemList.get(position).teamb;
                 Bundle bundle = new Bundle();
+                Log.i("kunsangadapter",matchid+" "+teamaid+" "+teambid);
+
                 bundle.putString("teamaid", teamaid);
                 bundle.putString("teambid", teambid);
                 bundle.putString("teama", teama);

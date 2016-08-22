@@ -1,8 +1,10 @@
 package com.netforceinfotech.ibet.live_event;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import com.netforceinfotech.ibet.currentbet.CurrentBet;
 import com.netforceinfotech.ibet.currentbet.betarena.live_event.events.EventsFragment;
@@ -13,10 +15,16 @@ import com.netforceinfotech.ibet.solobet.SoloBet;
 
 public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
     int mNumOfTabs;
+    String matchid, teamaid, teambid, teama, teamb;
 
-    public PagerAdapterLiveEvents(FragmentManager fm, int NumOfTabs) {
+    public PagerAdapterLiveEvents(FragmentManager fm, int NumOfTabs, String matchid, String teamaid, String teambid, String teama, String teamb) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
+        this.matchid = matchid;
+        this.teamaid = teamaid;
+        this.teambid = teambid;
+        this.teama = teama;
+        this.teamb = teamb;
     }
 
     @Override
@@ -25,6 +33,14 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 EventsFragment home = new EventsFragment();
+                Bundle bundle = new Bundle();
+                Log.i("kunsangpager", matchid + " " + teamaid + " " + teambid);
+                bundle.putString("matchid", matchid);
+                bundle.putString("teamaid", teamaid);
+                bundle.putString("teambid", teambid);
+                bundle.putString("teama", teama);
+                bundle.putString("teamb", teamb);
+                home.setArguments(bundle);
                 return home;
             case 1:
                 StateFragment currentBet = new StateFragment();

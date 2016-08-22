@@ -34,13 +34,12 @@ public class LiveEvents extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_live_events, container, false);
+        View view = inflater.inflate(R.layout.fragment_live_events, container, false);
         setupTab(view);
         return view;
     }
-    private void setupTab(View view)
-    {
 
+    private void setupTab(View view) {
 
 
         viewPager = (CustomViewPager) view.findViewById(R.id.pager);
@@ -53,17 +52,15 @@ public class LiveEvents extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getChildFragmentManager(), tabLayout.getTabCount());
+        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getChildFragmentManager(), tabLayout.getTabCount(), "", "", "", "", "");
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
-        {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab)
-            {
+            public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
 

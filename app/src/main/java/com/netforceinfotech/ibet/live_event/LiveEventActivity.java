@@ -57,9 +57,8 @@ public class LiveEventActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.stats));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.stand));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-
-        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getSupportFragmentManager(), tabLayout.getTabCount());
+        Log.i("kunsangliveevent", matchid + " " + teamaid + " " + teambid);
+        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getSupportFragmentManager(), tabLayout.getTabCount(), matchid, teamaid, teambid, teamaname, teambname);
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

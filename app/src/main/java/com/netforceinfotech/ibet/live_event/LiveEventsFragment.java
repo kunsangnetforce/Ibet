@@ -94,12 +94,12 @@ public class LiveEventsFragment extends Fragment {
                                     }
                                     String hometeamid = "";
                                     if (!object.get("home_team_id").isJsonNull()) {
-                                        awayteam_team = object.get("home_team_id").getAsString();//dummy
+                                        hometeamid = object.get("home_team_id").getAsString();//dummy
                                     }
                                     //home_team_id  away_team_id
                                     String away_team_id = "";
                                     if (!object.get("away_team_id").isJsonNull()) {
-                                        awayteam_team = object.get("away_team_id").getAsString();//dummy
+                                        away_team_id = object.get("away_team_id").getAsString();//dummy
                                     }
                                     if (!(matchid == null || teama == null || teamb == null)) {
                                         currentGameDatas.add(new CurrentGameData(matchid, teama, teamb, logohome_team, awayteam_team, hometeamid, away_team_id));

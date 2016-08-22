@@ -33,7 +33,7 @@
             android:id="@+id/textViewRemaining"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text1"
+            android:layout_below="@+id/textViewMinute"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="10dp"
             android:gravity="center"

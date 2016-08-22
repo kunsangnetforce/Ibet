@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet.scratchview;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,13 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.netforceinfotech.ibet.R;
+import com.plattysoft.leonids.Particle;
+import com.plattysoft.leonids.ParticleSystem;
+import com.plattysoft.leonids.modifiers.AccelerationModifier;
+import com.plattysoft.leonids.modifiers.ParticleModifier;
 import com.winsontan520.WScratchView;
 
 
 import java.util.ArrayList;
 
-public class ImageOverlayDrawable extends AppCompatActivity {
+import tyrantgit.explosionfield.ExplosionField;
+
+public class ImageOverlayDrawable extends AppCompatActivity implements View.OnClickListener {
 
     WScratchView scratchView0, scratchView1, scratchView2, scratchView3, scratchView4, scratchView5, scratchView6, scratchView7, scratchView8;
     TextView percentageView;
@@ -32,6 +41,10 @@ public class ImageOverlayDrawable extends AppCompatActivity {
     ArrayList<Boolean> revealed = new ArrayList<>();
     ArrayList<Integer> sameKindCount = new ArrayList<>();
     private MaterialDialog customdialog;
+    Button buttonColloect;
+    View view;
+    private ExplosionField mExplosionField;
+    LinearLayout linearLayoutScratch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +61,18 @@ public class ImageOverlayDrawable extends AppCompatActivity {
             sameKindCount.add(0);
         }
         setupToolBar("Scratch Bonus");
+        // updatePercentage(0f);
+        linearLayoutScratch = (LinearLayout) findViewById(R.id.linearLayoutScratch);
+        setupView();
+    }
+
+    private void setupView() {
         dialog = new MaterialDialog.Builder(this)
                 .title("You can Choose Only Three Bonus")
                 .content("Hi")
                 .positiveText("Agree");
 
-
+        buttonColloect = (Button) findViewById(R.id.buttonCollect);
         percentageView = (TextView) findViewById(R.id.textview1);
         scratchView0 = (WScratchView) findViewById(R.id.scratchView0);
         scratchView1 = (WScratchView) findViewById(R.id.scratchView1);
@@ -974,8 +993,11 @@ public class ImageOverlayDrawable extends AppCompatActivity {
                 }
             }
         });
+        view = findViewById(R.id.view);
+        view.bringToFront();
+        mExplosionField = ExplosionField.attach2Window(this);
 
-        // updatePercentage(0f);
+        buttonColloect.setOnClickListener(this);
     }
 
     private void setScratchData() {
@@ -993,17 +1015,28 @@ public class ImageOverlayDrawable extends AppCompatActivity {
     }
 
     private void showPopUpMessage(String s) {
+       /* ParticleSystem particleSystem = new ParticleSystem(this, 100, R.drawable.coin, 800);
+        particleSystem.setSpeedRange(0.1f, 0.25f);
+        particleSystem.oneShot(view, 100);
+        //dialog
+        boolean wrapInScrollView = true;
         customdialog = new MaterialDialog.Builder(this)
-                .title(R.string.bonus)
-                .customView(R.layout.custom_dialog, false)
+                .title(s)
+                .backgroundColor(android.graphics.Color.TRANSPARENT)
+                .customView(R.layout.custom_dialog, wrapInScrollView)
                 .show();
-        Button button = (Button) customdialog.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                customdialog.dismiss();
-            }
-        });
+
+        //animation
+        YoYo.with(Techniques.ZoomIn)
+                .duration(1000)
+                .playOn(customdialog.findViewById(R.id.gif));*/
+        boolean wrapInScrollView = true;
+        customdialog = new MaterialDialog.Builder(this)
+                .title(s)
+                .backgroundColor(android.graphics.Color.TRANSPARENT)
+                .customView(R.layout.custom_dialog, wrapInScrollView)
+                .show();
+
     }
 
 
@@ -1044,5 +1077,14 @@ public class ImageOverlayDrawable extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttonCollect:
+                showPopUpMessage("kunsang");
+                break;
+        }
     }
 }

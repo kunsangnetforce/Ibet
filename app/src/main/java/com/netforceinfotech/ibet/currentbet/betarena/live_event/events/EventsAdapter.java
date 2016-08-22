@@ -71,17 +71,35 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             EventsHolder holder1 = (EventsHolder) holder;
             if (eventsDatas.get(position).namea.trim().length() < 1) {
                 holder1.linearLayouta.setVisibility(View.INVISIBLE);
-                holder1.textViewTime.setText(eventsDatas.get(position).time+"'");
+                holder1.textViewTime.setText(eventsDatas.get(position).time + "'");
+                //goal, penalty, missed_penalty, own-goal, yellowcard, yellowred, redcard, substitution
                 switch (eventsDatas.get(position).event) {
-                    case "red":
-                        holder1.imageViewTypeb.setImageResource(R.drawable.ic_card_red);
+                    case "redcard":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_red_card);
                         break;
-                    case "yellow":
-                        holder1.imageViewTypeb.setImageResource(R.drawable.ic_card_yellow);
+                    case "yellowcard":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_yellow_card);
                         break;
                     case "goal":
                         holder1.imageViewTypeb.setImageResource(R.drawable.ball);
                         break;
+                    case "penalty":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_penalty);
+                        break;
+                    case "missed_penalty":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_missed_penalty);
+                        break;
+                    case "own-goal":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_own_goal);
+                        break;
+                    case "yellowred":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_2nd_yellow_card);
+                        break;
+                    case "substitution":
+                        holder1.imageViewTypeb.setImageResource(R.drawable.ic_substition);
+                        break;
+
+
                 }
                 holder1.textViewNameb.setText(eventsDatas.get(position).nameb);
 
@@ -89,14 +107,29 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 holder1.linearLayoutb.setVisibility(View.INVISIBLE);
                 holder1.textViewTime.setText(eventsDatas.get(position).time);
                 switch (eventsDatas.get(position).event) {
-                    case "red":
-                        holder1.imageViewTypea.setImageResource(R.drawable.ic_card_red);
+                    case "redcard":
+                        holder1.imageViewTypea.setImageResource(R.drawable.icon_red_card);
                         break;
-                    case "yellow":
-                        holder1.imageViewTypea.setImageResource(R.drawable.ic_card_yellow);
+                    case "yellowcard":
+                        holder1.imageViewTypea.setImageResource(R.drawable.icon_yellow_card);
                         break;
                     case "goal":
                         holder1.imageViewTypea.setImageResource(R.drawable.ball);
+                        break;
+                    case "penalty":
+                        holder1.imageViewTypea.setImageResource(R.drawable.icon_penalty);
+                        break;
+                    case "missed_penalty":
+                        holder1.imageViewTypea.setImageResource(R.drawable.icon_missed_penalty);
+                        break;
+                    case "own-goal":
+                        holder1.imageViewTypea.setImageResource(R.drawable.icon_own_goal);
+                        break;
+                    case "yellowred":
+                        holder1.imageViewTypea.setImageResource(R.drawable.icon_2nd_yellow_card);
+                        break;
+                    case "substitution":
+                        holder1.imageViewTypea.setImageResource(R.drawable.ic_substition);
                         break;
                 }
                 holder1.textViewNamea.setText(eventsDatas.get(position).namea);

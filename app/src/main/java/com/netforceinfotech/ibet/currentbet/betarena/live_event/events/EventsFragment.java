@@ -4,12 +4,16 @@ package com.netforceinfotech.ibet.currentbet.betarena.live_event.events;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonArray;
@@ -21,6 +25,7 @@ import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.live_event.CurrentGameData;
 import com.netforceinfotech.ibet.live_event.LiveEventActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -29,10 +34,15 @@ import java.util.ArrayList;
  */
 public class EventsFragment extends Fragment {
 
-
+    LinearLayout linearLayout;
     private Context context;
     ArrayList<EventsData> eventsDatas = new ArrayList<>();
     private EventsAdapter adapter;
+    String teama, teamb, teamaid, teambid, matchid;
+    ImageView imageViewHome, imageViewAway;
+    TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
+    NestedScrollView nestedScrollView;
+    LinearLayout linearLayoutProgress;
 
     public EventsFragment() {
         // Required empty public constructor
@@ -45,8 +55,23 @@ public class EventsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         context = getActivity();
-        setupData();
-        getEvents(LiveEventActivity.matchid, LiveEventActivity.teamaid, LiveEventActivity.teambid);
+        teamaid = this.getArguments().getString("teamaid");
+        teambid = this.getArguments().getString("teambid");
+        matchid = this.getArguments().getString("matchid");
+        teama = this.getArguments().getString("teama");
+        teamb = this.getArguments().getString("teamb");
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamA);
+        imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamB);
+        textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
+        textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
+        textViewTime = (TextView) view.findViewById(R.id.textViewMinute);
+        textViewHomeGoal = (TextView) view.findViewById(R.id.textViewHomeGoal);
+        textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
+        linearLayoutProgress = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
+        nestedScrollView = (NestedScrollView) view.findViewById(R.id.nestedscrollview);
+        Log.i("kunsangeventfr", matchid + " " + teamaid + " " + teambid);
+        getEvents(matchid, teamaid, teambid);
         setupRecycler(view);
         return view;
     }
@@ -70,7 +95,7 @@ public class EventsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void getEvents(String matchid, String teamaid, String teambid) {
+    private void getEvents(String matchid, final String teamaid, String teambid) {
         //https://netforcesales.com/ibet_admin/api/events_by_match_id.php?matchid=614704&home_team_id=1370&away_team_id=1377
         String url = getResources().getString(R.string.url);
         url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid;
@@ -82,6 +107,8 @@ public class EventsFragment extends Fragment {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        nestedScrollView.setVisibility(View.VISIBLE);
+                        linearLayoutProgress.setVisibility(View.GONE);
                         if (result == null) {
                             showMessage("Somethings wrong");
                         } else {
@@ -93,10 +120,59 @@ public class EventsFragment extends Fragment {
                                 String teamb = teamObject.get("aw_teamname").getAsString();
                                 String teamalogo = teamObject.get("hm_teamlogo").getAsString();
                                 String teamblogo = teamObject.get("aw_teamlogo").getAsString();
-                                JsonArray data_event=dataObject.get("data_event").getAsJsonArray();
-                                for(int i=0;i<data_event.size();i++){
-                                    
+                                JsonArray data_event = dataObject.get("data_event").getAsJsonArray();
+                                if (data_event.size() == 0) {
+                                    linearLayout.setVisibility(View.VISIBLE);
+                                } else {
+                                    linearLayout.setVisibility(View.GONE);
                                 }
+                                for (int i = data_event.size() - 1; i >= 0; i--) {
+                                    JsonObject jsonObject = data_event.get(i).getAsJsonObject();
+                                    String team_id = jsonObject.get("team_id").getAsString();
+                                    String teamaName = "", teambName = "";
+                                    if (team_id.equalsIgnoreCase(teamaid)) {
+                                        teamaName = teama;
+                                    } else {
+                                        teambName = teamb;
+                                    }
+                                    String player_name = jsonObject.get("player_name").getAsString();
+                                    String type = jsonObject.get("type").getAsString();
+                                }
+                                JsonArray data_score = dataObject.get("data_score").getAsJsonArray();
+                                JsonObject score_object = data_score.get(0).getAsJsonObject();
+                                String home_score = score_object.get("home_score").getAsString();
+                                String away_score = score_object.get("away_score").getAsString();
+                                String minute = score_object.get("minute").getAsString();
+                                String extra_minute = score_object.get("extra_minute").getAsString();
+                                textViewTeamA.setText(teama);
+                                textViewTeamB.setText(teamb);
+                                textViewHomeGoal.setText(home_score);
+                                textViewAwayGoal.setText(away_score);
+
+                                if (extra_minute.equalsIgnoreCase("0")) {
+                                    textViewTime.setText(minute + "'");
+                                } else {
+                                    textViewTime.setText(minute + "'+" + extra_minute);
+                                }
+                                if (teamalogo.length() > 0) {
+                                    Picasso.with(context)
+                                            .load(teamalogo)
+                                            .placeholder(R.drawable.ic_holder)
+                                            .error(R.drawable.ic_error)
+                                            .into(imageViewHome);
+                                } else {
+                                    imageViewHome.setImageResource(R.drawable.ic_error);
+                                }
+                                if (teamblogo.length() > 0) {
+                                    Picasso.with(context)
+                                            .load(teamblogo)
+                                            .placeholder(R.drawable.ic_holder)
+                                            .error(R.drawable.ic_error)
+                                            .into(imageViewAway);
+                                } else {
+                                    imageViewAway.setImageResource(R.drawable.ic_error);
+                                }
+
                                 adapter.notifyDataSetChanged();
                             } else {
                                 showMessage("json error");

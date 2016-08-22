@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +8,22 @@
     android:focusableInTouchMode="true"
     tools:context=".currentbet.betarena.live_event.events.EventsFragment">
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
+        android:id="@+id/linearLayoutProgress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedscrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,17 +65,18 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/imageViewTeamA"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/italy" />
+                            android:src="@drawable/ic_holder" />
 
                         <TextView
-                            android:textSize="18sp"
+                            android:id="@+id/textViewTeamA"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Italy"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <RelativeLayout
@@ -78,12 +93,11 @@
                             android:gravity="center">
 
                             <TextView
-                                android:id="@+id/text1"
+                                android:id="@+id/textViewMinute"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:gravity="center"
-                                android:text="90"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -91,15 +105,15 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/text1"
+                                android:layout_below="@+id/textViewMinute"
                                 android:layout_centerHorizontal="true"
                                 android:orientation="horizontal">
 
                                 <TextView
+                                    android:id="@+id/textViewHomeGoal"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="3dp"
-                                    android:text="1"
                                     android:textColor="@color/white"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -114,10 +128,10 @@
                                     android:textStyle="bold" />
 
                                 <TextView
+                                    android:id="@+id/textViewAwayGoal"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="3dp"
-                                    android:text="1"
                                     android:textColor="@color/white"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
@@ -162,20 +176,35 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/imageViewTeamB"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/italy" />
+                            android:src="@drawable/ic_holder" />
 
                         <TextView
-                            android:textSize="18sp"
+                            android:id="@+id/textViewTeamB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Italy"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yet to start"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,6 +220,62 @@
                 </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="150">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center">
+
+                    <com.github.lzyzsd.circleprogress.CircleProgress
+                        android:id="@+id/circle_progressA"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        custom:circle_progress="60" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center">
+
+                    <com.github.lzyzsd.circleprogress.CircleProgress
+                        android:id="@+id/circle_progressD"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        custom:circle_progress="20" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center">
+
+                    <com.github.lzyzsd.circleprogress.CircleProgress
+                        android:id="@+id/circle_progressB"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        custom:circle_progress="20" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+
 </FrameLayout>
