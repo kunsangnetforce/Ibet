@@ -12,6 +12,8 @@
         android:background="@drawable/circular_bg_fill_dark"
         android:gravity="center"
         android:text="0'"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp"
+        android:textStyle="bold" />
 
 </LinearLayout>

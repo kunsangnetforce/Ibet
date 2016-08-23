@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,190 +8,432 @@
     android:focusableInTouchMode="true"
     tools:context=".currentbet.betarena.live_event.events.EventsFragment">
 
-    <android.support.v4.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linearLayoutProgress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="90">
+            android:gravity="center">
 
-            <RelativeLayout
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="20"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/gs_stadium" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="170dp"
-                    android:background="@color/overlayColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:weightSum="150">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/italy" />
-
-                        <TextView
-                            android:textSize="18sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Italy"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center">
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:gravity="center">
-
-                            <TextView
-                                android:id="@+id/text1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:gravity="center"
-                                android:text="90"
-                                android:textColor="@color/colorAccent"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/text1"
-                                android:layout_centerHorizontal="true"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="3dp"
-                                    android:text="1"
-                                    android:textColor="@color/white"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="3dp"
-                                    android:text="-"
-                                    android:textColor="@color/white"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="3dp"
-                                    android:text="1"
-                                    android:textColor="@color/white"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                        </RelativeLayout>
-
-                        <at.grabner.circleprogress.CircleProgressView
-                            android:id="@+id/cpvLevel"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="16dp"
-                            CircleProgressView:cpv_autoTextSize="true"
-                            CircleProgressView:cpv_barColor="@color/colorAccent"
-                            CircleProgressView:cpv_barWidth="10dp"
-                            CircleProgressView:cpv_contourColor="#12f4f0f0"
-                            CircleProgressView:cpv_contourSize="0dp"
-                            CircleProgressView:cpv_maxValue="100"
-                            CircleProgressView:cpv_rimColor="@color/colorAccentTransution"
-                            CircleProgressView:cpv_rimWidth="10dp"
-                            CircleProgressView:cpv_seekMode="false"
-                            CircleProgressView:cpv_showTextInSpinningMode="false"
-                            CircleProgressView:cpv_showUnit="true"
-                            CircleProgressView:cpv_spinColor="@color/colorAccent"
-                            CircleProgressView:cpv_textColor="@color/white"
-                            CircleProgressView:cpv_textMode="Text"
-                            CircleProgressView:cpv_textScale="2"
-                            CircleProgressView:cpv_textSize="12sp"
-                            CircleProgressView:cpv_unitColor="@color/white"
-                            CircleProgressView:cpv_unitScale="2"
-                            CircleProgressView:cpv_unitSize="12dp"
-                            CircleProgressView:cpv_value="20" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/italy" />
-
-                        <TextView
-                            android:textSize="18sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Italy"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-                </LinearLayout>
-            </RelativeLayout>
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedscrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayoutVote"
+            android:layout_alignParentTop="true"
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="70">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="90">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler"
+                <RelativeLayout
+
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp">
+                    android:layout_height="0dp"
+                    android:layout_weight="20"
+                    android:gravity="center">
 
-                </android.support.v7.widget.RecyclerView>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/gs_stadium" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:background="@color/overlayColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="16dp"
+                        android:gravity="center"
+                        android:weightSum="150">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageViewTeamA"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_holder" />
+
+                            <TextView
+                                android:id="@+id/textViewTeamA"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/textViewMinute"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:gravity="center"
+                                    android:textColor="@color/colorAccent"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/textViewMinute"
+                                    android:layout_centerHorizontal="true"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/textViewHomeGoal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="3dp"
+                                        android:textColor="@color/white"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="3dp"
+                                        android:text="-"
+                                        android:textColor="@color/white"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/textViewAwayGoal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="3dp"
+                                        android:textColor="@color/white"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                            <at.grabner.circleprogress.CircleProgressView
+                                android:id="@+id/cpvLevel"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginTop="16dp"
+                                CircleProgressView:cpv_autoTextSize="true"
+                                CircleProgressView:cpv_barColor="@color/colorAccent"
+                                CircleProgressView:cpv_barWidth="10dp"
+                                CircleProgressView:cpv_contourColor="#12f4f0f0"
+                                CircleProgressView:cpv_contourSize="0dp"
+                                CircleProgressView:cpv_maxValue="100"
+                                CircleProgressView:cpv_rimColor="@color/colorAccentTransution"
+                                CircleProgressView:cpv_rimWidth="10dp"
+                                CircleProgressView:cpv_seekMode="false"
+                                CircleProgressView:cpv_showTextInSpinningMode="false"
+                                CircleProgressView:cpv_showUnit="true"
+                                CircleProgressView:cpv_spinColor="@color/colorAccent"
+                                CircleProgressView:cpv_textColor="@color/white"
+                                CircleProgressView:cpv_textMode="Text"
+                                CircleProgressView:cpv_textScale="2"
+                                CircleProgressView:cpv_textSize="12sp"
+                                CircleProgressView:cpv_unitColor="@color/white"
+                                CircleProgressView:cpv_unitScale="2"
+                                CircleProgressView:cpv_unitSize="12dp"
+                                CircleProgressView:cpv_value="20" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageViewTeamB"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_holder" />
+
+                            <TextView
+                                android:id="@+id/textViewTeamB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yet to start"
+                        android:textColor="@color/colorAccent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="70">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
 
             </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutVote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:weightSum="150">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewNoVA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="600 votes"
+                    android:textColor="@color/colorText"
+                    android:textSize="12sp" />
+
+                <com.github.lzyzsd.circleprogress.CircleProgress
+                    android:id="@+id/circle_progressA"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    custom:circle_progress="60" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewNoVD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="200 votes"
+                    android:textColor="@color/colorText"
+                    android:textSize="12sp" />
+
+                <com.github.lzyzsd.circleprogress.CircleProgress
+                    android:id="@+id/circle_progressD"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    custom:circle_progress="20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewNoVB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="200 votes"
+                    android:textColor="@color/colorText"
+                    android:textSize="12sp" />
+
+                <com.github.lzyzsd.circleprogress.CircleProgress
+                    android:id="@+id/circle_progressB"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    custom:circle_progress="20" />
+            </LinearLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutVoteButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:visibility="invisible"
+            android:weightSum="150">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="600 votes"
+                    android:textColor="@color/colorText"
+                    android:textSize="12sp"
+                    android:visibility="invisible" />
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    CircleProgressView:mrl_rippleColor="@color/ripple"
+                    CircleProgressView:mrl_rippleOverlay="true">
+
+                    <TextView
+                        android:id="@+id/textViewTeamAVote"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/circular_bg_fill"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="600 votes"
+                    android:textColor="@color/colorText"
+                    android:textSize="12sp"
+                    android:visibility="invisible" />
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    CircleProgressView:mrl_rippleColor="@color/ripple"
+                    CircleProgressView:mrl_rippleOverlay="true">
+
+                    <TextView
+                        android:id="@+id/textViewDrawVote"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/circular_bg_fill"
+                        android:gravity="center"
+                        android:text="x"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="600 votes"
+                    android:textColor="@color/colorText"
+                    android:textSize="12sp"
+                    android:visibility="invisible" />
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    CircleProgressView:mrl_rippleColor="@color/ripple"
+                    CircleProgressView:mrl_rippleOverlay="true">
+
+                    <TextView
+                        android:id="@+id/textViewTeamBVote"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/circular_bg_fill"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>

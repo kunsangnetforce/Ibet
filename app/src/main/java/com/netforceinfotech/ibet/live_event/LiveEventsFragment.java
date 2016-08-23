@@ -84,17 +84,25 @@ public class LiveEventsFragment extends Fragment {
                                         teamb = object.get("away_teamname").getAsString();
                                     }
                                     String logohome_team = "";
-                                    if (!object.get("logohome_team").isJsonNull()) {
-                                        logohome_team = object.get("logohome_team").getAsString();
+                                    if (!object.get("home_teamlogo").isJsonNull()) {
+                                        logohome_team = object.get("home_teamlogo").getAsString();
                                     }
 
                                     String awayteam_team = "";
-                                    if (!object.get("logoaway_team").isJsonNull()) {
-                                        awayteam_team = object.get("logoaway_team").getAsString();//dummy
+                                    if (!object.get("away_teamlogo").isJsonNull()) {
+                                        awayteam_team = object.get("away_teamlogo").getAsString();//dummy
                                     }
-
+                                    String hometeamid = "";
+                                    if (!object.get("home_team_id").isJsonNull()) {
+                                        hometeamid = object.get("home_team_id").getAsString();//dummy
+                                    }
+                                    //home_team_id  away_team_id
+                                    String away_team_id = "";
+                                    if (!object.get("away_team_id").isJsonNull()) {
+                                        away_team_id = object.get("away_team_id").getAsString();//dummy
+                                    }
                                     if (!(matchid == null || teama == null || teamb == null)) {
-                                        currentGameDatas.add(new CurrentGameData(matchid, teama, teamb, logohome_team, awayteam_team));
+                                        currentGameDatas.add(new CurrentGameData(matchid, teama, teamb, logohome_team, awayteam_team, hometeamid, away_team_id));
                                     }
                                 }
                                 currentGameAdapter.notifyDataSetChanged();

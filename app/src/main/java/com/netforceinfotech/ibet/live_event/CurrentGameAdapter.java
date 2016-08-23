@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet.live_event;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +61,20 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, LiveEventActivity.class);
+                String teamaid = itemList.get(position).teamaid;
+                String teambid = itemList.get(position).teambid;
+                String matchid = itemList.get(position).matchid;
+                String teama = itemList.get(position).teama;
+                String teamb = itemList.get(position).teamb;
+                Bundle bundle = new Bundle();
+                Log.i("kunsangadapter",matchid+" "+teamaid+" "+teambid);
+
+                bundle.putString("teamaid", teamaid);
+                bundle.putString("teambid", teambid);
+                bundle.putString("teama", teama);
+                bundle.putString("teamb", teamb);
+                bundle.putString("matchid", matchid);
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });

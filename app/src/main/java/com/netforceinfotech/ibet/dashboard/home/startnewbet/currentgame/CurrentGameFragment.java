@@ -137,13 +137,13 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
                                         teamb = object.get("away_teamname").getAsString();
                                     }
                                     String logohome_team = "";
-                                    if (!object.get("logohome_team").isJsonNull()) {
-                                        logohome_team = object.get("logohome_team").getAsString();
+                                    if (!object.get("home_teamlogo").isJsonNull()) {
+                                        logohome_team = object.get("home_teamlogo").getAsString();
                                     }
 
                                     String awayteam_team = "";
-                                    if (!object.get("logoaway_team").isJsonNull()) {
-                                        awayteam_team = object.get("logoaway_team").getAsString();//dummy
+                                    if (!object.get("away_teamlogo").isJsonNull()) {
+                                        awayteam_team = object.get("away_teamlogo").getAsString();//dummy
                                     }
 
                                     if (!(matchid == null || teama == null || teamb == null)) {

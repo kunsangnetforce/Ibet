@@ -89,7 +89,7 @@
                             android:gravity="center">
 
                             <TextView
-                                android:id="@+id/text1"
+                                android:id="@+id/textViewMinute"
                                 android:layout_width="60dp"
                                 android:layout_height="40dp"
                                 android:gravity="center"
@@ -102,7 +102,7 @@
                                 android:id="@+id/textViewRemaining"
                                 android:layout_width="60dp"
                                 android:layout_height="30dp"
-                                android:layout_below="@+id/text1"
+                                android:layout_below="@+id/textViewMinute"
                                 android:gravity="center"
                                 android:text="25%\nto next level"
                                 android:textColor="@color/white"
