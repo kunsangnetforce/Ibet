@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.Cancellable;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
+import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.currentbet.betarena.live_event.events.EventsData;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,8 +53,26 @@ public class LineUpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_line_up2, container, false);
         context = getActivity();
         initview(view);
+        getLineUp();
         setDummyLineUp();
         return view;
+    }
+
+    private void getLineUp() {
+        //https://api.soccerama.pro/v1.1/matches/738592?api_token=$api_token&include=lineup,homeTeam,awayTeam
+        String url = getResources().getString(R.string.url);
+        // url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid;
+        // url = url + "/events_by_match_id.php?matchid=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
+        Log.i("result url", url);
+        setHeader();
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                    }
+                });
     }
 
     private void setDummyLineUp() {
@@ -227,7 +255,7 @@ public class LineUpFragment extends Fragment {
         for (int i = 0; i < lineUPDatasHome.size(); i++) {
             switch (lineUPDatasHome.get(i).position) {
                 case "GK":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewGKh.setImageDrawable(drawable);
                     textViewGKh.setText(lineUPDatasHome.get(i).name);
@@ -235,7 +263,7 @@ public class LineUpFragment extends Fragment {
                     imageViewGKh.setVisibility(View.VISIBLE);
                     break;
                 case "SW":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewSWh.setImageDrawable(drawable);
                     textViewSWh.setText(lineUPDatasHome.get(i).name);
@@ -243,7 +271,7 @@ public class LineUpFragment extends Fragment {
                     imageViewSWh.setVisibility(View.VISIBLE);
                     break;
                 case "RB":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewRBh.setImageDrawable(drawable);
                     textViewRBh.setText(lineUPDatasHome.get(i).name);
@@ -251,7 +279,7 @@ public class LineUpFragment extends Fragment {
                     imageViewRBh.setVisibility(View.VISIBLE);
                     break;
                 case "LCB":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewLCBh.setImageDrawable(drawable);
                     textViewLCBh.setText(lineUPDatasHome.get(i).name);
@@ -259,7 +287,7 @@ public class LineUpFragment extends Fragment {
                     imageViewLCBh.setVisibility(View.VISIBLE);
                     break;
                 case "RCB":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewRCBh.setImageDrawable(drawable);
                     textViewRCBh.setText(lineUPDatasHome.get(i).name);
@@ -267,7 +295,7 @@ public class LineUpFragment extends Fragment {
                     imageViewRCBh.setVisibility(View.VISIBLE);
                     break;
                 case "LB":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewLBh.setImageDrawable(drawable);
                     textViewLBh.setText(lineUPDatasHome.get(i).name);
@@ -275,7 +303,7 @@ public class LineUpFragment extends Fragment {
                     imageViewLBh.setVisibility(View.VISIBLE);
                     break;
                 case "LWB":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewLWBh.setImageDrawable(drawable);
                     textViewLWBh.setText(lineUPDatasHome.get(i).name);
@@ -283,7 +311,7 @@ public class LineUpFragment extends Fragment {
                     imageViewLWBh.setVisibility(View.VISIBLE);
                     break;
                 case "DM":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewDMh.setImageDrawable(drawable);
                     textViewDMh.setText(lineUPDatasHome.get(i).name);
@@ -291,7 +319,7 @@ public class LineUpFragment extends Fragment {
                     imageViewDMh.setVisibility(View.VISIBLE);
                     break;
                 case "RWB":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewRWBh.setImageDrawable(drawable);
                     textViewRWBh.setText(lineUPDatasHome.get(i).name);
@@ -299,7 +327,7 @@ public class LineUpFragment extends Fragment {
                     imageViewRWBh.setVisibility(View.VISIBLE);
                     break;
                 case "LCM":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewLCMh.setImageDrawable(drawable);
                     textViewLCMh.setText(lineUPDatasHome.get(i).name);
@@ -307,7 +335,7 @@ public class LineUpFragment extends Fragment {
                     imageViewLCMh.setVisibility(View.VISIBLE);
                     break;
                 case "RCM":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewRCMh.setImageDrawable(drawable);
                     textViewRCMh.setText(lineUPDatasHome.get(i).name);
@@ -315,7 +343,7 @@ public class LineUpFragment extends Fragment {
                     imageViewRCMh.setVisibility(View.VISIBLE);
                     break;
                 case "AM":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewAMh.setImageDrawable(drawable);
                     textViewAMh.setText(lineUPDatasHome.get(i).name);
@@ -323,7 +351,7 @@ public class LineUpFragment extends Fragment {
                     imageViewAMh.setVisibility(View.VISIBLE);
                     break;
                 case "LW":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewLWh.setImageDrawable(drawable);
                     textViewLWh.setText(lineUPDatasHome.get(i).name);
@@ -331,7 +359,7 @@ public class LineUpFragment extends Fragment {
                     imageViewLWh.setVisibility(View.VISIBLE);
                     break;
                 case "RW":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewRWh.setImageDrawable(drawable);
                     textViewRWh.setText(lineUPDatasHome.get(i).name);
@@ -339,7 +367,7 @@ public class LineUpFragment extends Fragment {
                     imageViewRWh.setVisibility(View.VISIBLE);
                     break;
                 case "RWF":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewRWFh.setImageDrawable(drawable);
                     textViewGKh.setText(lineUPDatasHome.get(i).name);
@@ -347,7 +375,7 @@ public class LineUpFragment extends Fragment {
                     imageViewRWFh.setVisibility(View.VISIBLE);
                     break;
                 case "LWF":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewLWFh.setImageDrawable(drawable);
                     textViewLWFh.setText(lineUPDatasHome.get(i).name);
@@ -355,7 +383,7 @@ public class LineUpFragment extends Fragment {
                     imageViewLWFh.setVisibility(View.VISIBLE);
                     break;
                 case "CF":
-                    drawable = TextDrawable.builder().beginConfig()                     .textColor(Color.BLACK).endConfig()
+                    drawable = TextDrawable.builder().beginConfig().textColor(Color.BLACK).endConfig()
                             .buildRoundRect(lineUPDatasHome.get(i).number, Color.parseColor("#ffffff"), 40);
                     imageViewCFh.setImageDrawable(drawable);
                     textViewCFh.setText(lineUPDatasHome.get(i).name);
@@ -450,4 +478,43 @@ public class LineUpFragment extends Fragment {
 
     }
 
+    private void setHeader() {
+        final String appkey = getResources().getString(R.string.appkey);
+        Ion.getDefault(context).getHttpClient().insertMiddleware(new AsyncHttpClientMiddleware() {
+            @Override
+            public void onRequest(OnRequestData data) {
+                data.request.setHeader("APPKEY", appkey);
+            }
+
+            @Override
+            public Cancellable getSocket(GetSocketData data) {
+                return null;
+            }
+
+            @Override
+            public boolean exchangeHeaders(OnExchangeHeaderData data) {
+                return false;
+            }
+
+            @Override
+            public void onRequestSent(OnRequestSentData data) {
+
+            }
+
+            @Override
+            public void onHeadersReceived(OnHeadersReceivedDataOnRequestSentData data) {
+
+            }
+
+            @Override
+            public void onBodyDecoder(OnBodyDataOnRequestSentData data) {
+
+            }
+
+            @Override
+            public void onResponseComplete(OnResponseCompleteDataOnRequestSentData data) {
+
+            }
+        });
+    }
 }

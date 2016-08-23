@@ -28,11 +28,12 @@ import com.netforceinfotech.ibet.live_event.LiveEventActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventsFragment extends Fragment {
+public class EventsFragment extends Fragment implements View.OnClickListener {
 
     LinearLayout linearLayout;
     private Context context;
@@ -43,6 +44,8 @@ public class EventsFragment extends Fragment {
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
     NestedScrollView nestedScrollView;
     LinearLayout linearLayoutProgress;
+    LinearLayout linearLayoutVote, linearLayoutVoteButton;
+    TextView textViewTeamAVote, textViewTeamBVote, textViewDrawVote;
 
     public EventsFragment() {
         // Required empty public constructor
@@ -60,6 +63,14 @@ public class EventsFragment extends Fragment {
         matchid = this.getArguments().getString("matchid");
         teama = this.getArguments().getString("teama");
         teamb = this.getArguments().getString("teamb");
+        initView(view);
+        Log.i("kunsangeventfr", matchid + " " + teamaid + " " + teambid);
+        getEvents(matchid, teamaid, teambid);
+        setupRecycler(view);
+        return view;
+    }
+
+    private void initView(View view) {
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamA);
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamB);
@@ -70,10 +81,15 @@ public class EventsFragment extends Fragment {
         textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
         linearLayoutProgress = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
         nestedScrollView = (NestedScrollView) view.findViewById(R.id.nestedscrollview);
-        Log.i("kunsangeventfr", matchid + " " + teamaid + " " + teambid);
-        getEvents(matchid, teamaid, teambid);
-        setupRecycler(view);
-        return view;
+        textViewTeamAVote = (TextView) view.findViewById(R.id.textViewTeamAVote);
+        textViewTeamBVote = (TextView) view.findViewById(R.id.textViewTeamBVote);
+        textViewDrawVote = (TextView) view.findViewById(R.id.textViewDrawVote);
+        linearLayoutVote = (LinearLayout) view.findViewById(R.id.linearLayoutVote);
+        linearLayoutVoteButton = (LinearLayout) view.findViewById(R.id.linearLayoutVoteButton);
+        textViewTeamAVote.setOnClickListener(this);
+        textViewTeamBVote.setOnClickListener(this);
+        textViewDrawVote.setOnClickListener(this);
+
     }
 
     private void setupData() {
@@ -99,6 +115,7 @@ public class EventsFragment extends Fragment {
         //https://netforcesales.com/ibet_admin/api/events_by_match_id.php?matchid=614704&home_team_id=1370&away_team_id=1377
         String url = getResources().getString(R.string.url);
         url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid;
+        // url = url + "/events_by_match_id.php?matchid=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
         Log.i("result url", url);
         setHeader();
         Ion.with(context)
@@ -116,27 +133,48 @@ public class EventsFragment extends Fragment {
                             if (status.equalsIgnoreCase("success")) {
                                 JsonObject dataObject = result.getAsJsonObject("data");
                                 JsonObject teamObject = dataObject.getAsJsonObject("team");
-                                String teama = teamObject.get("hm_teamname").getAsString();
-                                String teamb = teamObject.get("aw_teamname").getAsString();
-                                String teamalogo = teamObject.get("hm_teamlogo").getAsString();
-                                String teamblogo = teamObject.get("aw_teamlogo").getAsString();
+                                String teama = "";
+                                String teamb = "";
+                                String teamalogo = "";
+                                String teamblogo = "";
+                                try {
+                                    teama = teamObject.get("hm_teamname").getAsString();
+                                    teamb = teamObject.get("aw_teamname").getAsString();
+                                    teamalogo = teamObject.get("hm_teamlogo").getAsString();
+                                    teamblogo = teamObject.get("aw_teamlogo").getAsString();
+                                } catch (Exception ex) {
+
+                                }
                                 JsonArray data_event = dataObject.get("data_event").getAsJsonArray();
                                 if (data_event.size() == 0) {
                                     linearLayout.setVisibility(View.VISIBLE);
                                 } else {
                                     linearLayout.setVisibility(View.GONE);
                                 }
-                                for (int i = data_event.size() - 1; i >= 0; i--) {
-                                    JsonObject jsonObject = data_event.get(i).getAsJsonObject();
-                                    String team_id = jsonObject.get("team_id").getAsString();
-                                    String teamaName = "", teambName = "";
-                                    if (team_id.equalsIgnoreCase(teamaid)) {
-                                        teamaName = teama;
-                                    } else {
-                                        teambName = teamb;
+                                if (data_event.size() > 0) {
+                                    for (int i = 0; i < data_event.size(); i++) {
+                                        JsonObject jsonObject = data_event.get(i).getAsJsonObject();
+                                        String team_id = jsonObject.get("team_id").getAsString();
+                                        String teamaName = "", teambName = "";
+                                        String player_name = jsonObject.get("player_name").getAsString();
+                                        if (team_id.equalsIgnoreCase("6722")) {
+                                            teamaName = player_name;
+                                        } else {
+                                            teambName = player_name;
+                                        }
+                                        String type = jsonObject.get("type").getAsString();
+                                        String minute = jsonObject.get("minute").getAsString();
+                                        String extra_min = jsonObject.get("extra_min").getAsString();
+                                        String time = "0";
+                                        if (extra_min.equalsIgnoreCase("0")) {
+                                            time = minute + "'";
+                                        } else {
+                                            time = minute + "'+" + extra_min;
+                                        }
+                                        eventsDatas.add(new EventsData(teamaName, teambName, type, time));
                                     }
-                                    String player_name = jsonObject.get("player_name").getAsString();
-                                    String type = jsonObject.get("type").getAsString();
+                                    Collections.reverse(eventsDatas);
+                                    eventsDatas.add(new EventsData("", "", "", "0"));
                                 }
                                 JsonArray data_score = dataObject.get("data_score").getAsJsonArray();
                                 JsonObject score_object = data_score.get(0).getAsJsonObject();
@@ -225,5 +263,17 @@ public class EventsFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.textViewTeamAVote:
+            case R.id.textViewTeamBVote:
+            case R.id.textViewDrawVote:
+                linearLayoutVote.setVisibility(View.VISIBLE);
+                linearLayoutVoteButton.setVisibility(View.INVISIBLE);
+                break;
+        }
     }
 }
