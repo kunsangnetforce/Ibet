@@ -16,6 +16,7 @@ import com.netforceinfotech.ibet.solobet.SoloBet;
 public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     String matchid, teamaid, teambid, teama, teamb;
+    private Bundle bundle;
 
     public PagerAdapterLiveEvents(FragmentManager fm, int NumOfTabs, String matchid, String teamaid, String teambid, String teama, String teamb) {
         super(fm);
@@ -33,7 +34,7 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 EventsFragment home = new EventsFragment();
-                Bundle bundle = new Bundle();
+                bundle = new Bundle();
                 Log.i("kunsangpager", matchid + " " + teamaid + " " + teambid);
                 bundle.putString("matchid", matchid);
                 bundle.putString("teamaid", teamaid);
@@ -44,6 +45,14 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
                 return home;
             case 1:
                 StateFragment currentBet = new StateFragment();
+                bundle = new Bundle();
+                Log.i("kunsangpager", matchid + " " + teamaid + " " + teambid);
+                bundle.putString("matchid", matchid);
+                bundle.putString("teamaid", teamaid);
+                bundle.putString("teambid", teambid);
+                bundle.putString("teama", teama);
+                bundle.putString("teamb", teamb);
+                currentBet.setArguments(bundle);
                 return currentBet;
             case 2:
                 StandFragment liveEvents = new StandFragment();
