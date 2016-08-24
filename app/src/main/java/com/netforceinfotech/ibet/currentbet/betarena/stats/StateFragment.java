@@ -22,6 +22,7 @@ public class StateFragment extends Fragment {
     Context context;
     private TabLayout tabLayout;
     private int theme;
+    private String teamaid,teambid,teama,teamb,matchid;
 
     public StateFragment() {
         // Required empty public constructor
@@ -34,6 +35,11 @@ public class StateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_state, container, false);
         context = getActivity();
+        teamaid = this.getArguments().getString("teamaid");
+        teambid = this.getArguments().getString("teambid");
+        matchid = this.getArguments().getString("matchid");
+        teama = this.getArguments().getString("teama");
+        teamb = this.getArguments().getString("teamb");
         setupTab(view);
         return view;
     }
@@ -55,7 +61,7 @@ public class StateFragment extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
         final PagerAdapterState adapter = new PagerAdapterState
-                (getChildFragmentManager(), tabLayout.getTabCount());
+                (getChildFragmentManager(), tabLayout.getTabCount(),matchid);
         viewPager.setPagingEnabled(true);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

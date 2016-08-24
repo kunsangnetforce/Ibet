@@ -26,7 +26,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -204,6 +205,8 @@
                                 android:id="@+id/textViewDA41"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:text="cacillas"
                                 android:textColor="@color/white"
                                 android:textSize="12sp"
@@ -868,6 +871,166 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/linearLayoutMA5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="184dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="125">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewMA51"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/imageViewMA51"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewMA52"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/imageViewMA52"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewMA53"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/imageViewMA53"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewMA54"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/imageViewMA54"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewMA55"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:id="@+id/imageViewMA55"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <!--away forward-->
                 <LinearLayout
@@ -1229,6 +1392,7 @@
 
                     </LinearLayout>
                 </LinearLayout>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -1237,11 +1401,13 @@
                 android:layout_weight="50">
 
                 <LinearLayout
+                    android:id="@+id/linearLayoutGKH"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1252,7 +1418,6 @@
 
                         <ImageView
                             android:id="@+id/imageViewGKH"
-
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:background="@drawable/circular_bg_fill"
@@ -1434,6 +1599,7 @@
                                 android:visibility="visible" />
                         </LinearLayout>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -1469,6 +1635,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linearLayoutDH4"
                     android:layout_width="match_parent"
@@ -1628,6 +1795,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linearLayoutDH3"
                     android:layout_width="match_parent"
@@ -1636,7 +1804,7 @@
                     android:layout_marginBottom="112dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:visibility="visible"
+                    android:visibility="invisible"
                     android:weightSum="75">
 
                     <LinearLayout
@@ -1654,7 +1822,6 @@
 
                             <ImageView
                                 android:id="@+id/imageViewDH31"
-
                                 android:layout_width="35dp"
                                 android:layout_height="35dp"
                                 android:background="@drawable/circular_bg_fill"
@@ -1762,7 +1929,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="184dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -1772,7 +1940,7 @@
 
 
                         <ImageView
-                            android:id="@+id/imageViewMH1"
+                            android:id="@+id/imageViewMH11"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:background="@drawable/circular_bg_fill"
@@ -1784,7 +1952,7 @@
                             android:visibility="visible" />
 
                         <TextView
-                            android:id="@+id/textViewMH1"
+                            android:id="@+id/textViewMH11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="cacillas"
@@ -1795,25 +1963,28 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:weightSum="50"
+                    android:id="@+id/linearLayoutMH2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="184dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="50">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="25"
                         android:gravity="center"
                         android:orientation="vertical">
 
 
                         <ImageView
-                            android:id="@+id/imageViewAMh"
-
+                            android:id="@+id/imageViewMH21"
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:background="@drawable/circular_bg_fill"
@@ -1825,7 +1996,7 @@
                             android:visibility="visible" />
 
                         <TextView
-                            android:id="@+id/textViewAMh"
+                            android:id="@+id/textViewMH21"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="cacillas"
@@ -1835,16 +2006,453 @@
                             android:visibility="visible" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH22"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/linearLayoutMH3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="184dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="75">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH31"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH31"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH32"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH33"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH33"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMH4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="184dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH41"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH41"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH42"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH42"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH43"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH43"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH44"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH44"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMH5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="184dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="125">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH51"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH51"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH52"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH52"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH53"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH53"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH54"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH54"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/imageViewMH55"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewMH55"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
                 <!--home forward-->
                 <LinearLayout
+                    android:id="@+id/linearLayoutFH1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="254dp"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1854,7 +2462,7 @@
 
 
                         <ImageView
-                            android:id="@+id/imageViewCFh"
+                            android:id="@+id/imageViewFH11"
 
                             android:layout_width="35dp"
                             android:layout_height="35dp"
@@ -1867,7 +2475,312 @@
                             android:visibility="visible" />
 
                         <TextView
-                            android:id="@+id/textViewCFh"
+                            android:id="@+id/textViewFH11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutFH2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="254dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="50">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH21"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH22"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH22"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutFH3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="254dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="75">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH31"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH31"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH32"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH32"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH33"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH33"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutFH4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="254dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="invisible"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH41"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH41"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH42"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH42"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH43"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH43"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cacillas"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="25"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewFH44"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/textViewFH44"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="cacillas"
