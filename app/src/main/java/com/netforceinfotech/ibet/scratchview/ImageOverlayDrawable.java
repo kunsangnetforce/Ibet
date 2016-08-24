@@ -1036,6 +1036,13 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
                 .backgroundColor(android.graphics.Color.TRANSPARENT)
                 .customView(R.layout.custom_dialog, wrapInScrollView)
                 .show();
+        Button buttonOk = (Button) customdialog.findViewById(R.id.button);
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customdialog.dismiss();
+            }
+        });
 
     }
 

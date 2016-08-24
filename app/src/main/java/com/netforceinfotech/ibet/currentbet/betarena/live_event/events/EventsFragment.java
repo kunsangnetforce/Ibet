@@ -58,11 +58,15 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         context = getActivity();
-        teamaid = this.getArguments().getString("teamaid");
-        teambid = this.getArguments().getString("teambid");
-        matchid = this.getArguments().getString("matchid");
-        teama = this.getArguments().getString("teama");
-        teamb = this.getArguments().getString("teamb");
+        try {
+            teamaid = this.getArguments().getString("teamaid");
+            teambid = this.getArguments().getString("teambid");
+            matchid = this.getArguments().getString("matchid");
+            teama = this.getArguments().getString("teama");
+            teamb = this.getArguments().getString("teamb");
+        } catch (Exception ex) {
+            Log.i("kunsang_exception", "paramenter not yet set");
+        }
         initView(view);
         Log.i("kunsangeventfr", matchid + " " + teamaid + " " + teambid);
         getEvents(matchid, teamaid, teambid);
@@ -129,97 +133,103 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         if (result == null) {
                             showMessage("Somethings wrong");
                         } else {
-                            String status = result.get("status").getAsString();
-                            if (status.equalsIgnoreCase("success")) {
-                                JsonObject dataObject = result.getAsJsonObject("data");
-                                JsonObject teamObject = dataObject.getAsJsonObject("team");
-                                String teama = "";
-                                String teamb = "";
-                                String teamalogo = "";
-                                String teamblogo = "";
-                                try {
-                                    teama = teamObject.get("hm_teamname").getAsString();
-                                    teamb = teamObject.get("aw_teamname").getAsString();
-                                    teamalogo = teamObject.get("hm_teamlogo").getAsString();
-                                    teamblogo = teamObject.get("aw_teamlogo").getAsString();
-                                } catch (Exception ex) {
+                            try {
 
-                                }
-                                JsonArray data_event = dataObject.get("data_event").getAsJsonArray();
-                                if (data_event.size() == 0) {
-                                    linearLayout.setVisibility(View.VISIBLE);
-                                } else {
-                                    linearLayout.setVisibility(View.GONE);
-                                }
-                                if (data_event.size() > 0) {
-                                    for (int i = 0; i < data_event.size(); i++) {
-                                        JsonObject jsonObject = data_event.get(i).getAsJsonObject();
-                                        String team_id = jsonObject.get("team_id").getAsString();
-                                        String teamaName = "", teambName = "";
-                                        String player_name = jsonObject.get("player_name").getAsString();
-                                        if (team_id.equalsIgnoreCase(teamaid)) {
-                                            teamaName = player_name;
-                                        } else {
-                                            teambName = player_name;
-                                        }
-                                        String type = jsonObject.get("type").getAsString();
-                                        String minute = jsonObject.get("minute").getAsString();
-                                        String extra_min = "0";
-                                        if (jsonObject.get("extra_min").isJsonNull()) {
-                                            extra_min = "0";
-                                        } else {
-                                            extra_min = jsonObject.get("extra_min").getAsString();
-                                        }
+                                String status = result.get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    JsonObject dataObject = result.getAsJsonObject("data");
+                                    JsonObject teamObject = dataObject.getAsJsonObject("team");
+                                    String teama = "";
+                                    String teamb = "";
+                                    String teamalogo = "";
+                                    String teamblogo = "";
+                                    try {
+                                        teama = teamObject.get("hm_teamname").getAsString();
+                                        teamb = teamObject.get("aw_teamname").getAsString();
+                                        teamalogo = teamObject.get("hm_teamlogo").getAsString();
+                                        teamblogo = teamObject.get("aw_teamlogo").getAsString();
+                                    } catch (Exception ex) {
 
-                                        String time = "0";
-                                        if (extra_min.equalsIgnoreCase("0")) {
-                                            time = minute + "'";
-                                        } else {
-                                            time = minute + "'+" + extra_min;
-                                        }
-                                        eventsDatas.add(new EventsData(teamaName, teambName, type, time));
                                     }
-                                    Collections.reverse(eventsDatas);
-                                    eventsDatas.add(new EventsData("", "", "", "0"));
-                                }
-                                JsonArray data_score = dataObject.get("data_score").getAsJsonArray();
-                                JsonObject score_object = data_score.get(0).getAsJsonObject();
-                                String home_score = score_object.get("home_score").getAsString();
-                                String away_score = score_object.get("away_score").getAsString();
-                                String minute = score_object.get("minute").getAsString();
-                                String extra_minute = score_object.get("extra_minute").getAsString();
-                                textViewTeamA.setText(teama);
-                                textViewTeamB.setText(teamb);
-                                textViewHomeGoal.setText(home_score);
-                                textViewAwayGoal.setText(away_score);
+                                    JsonArray data_event = dataObject.get("data_event").getAsJsonArray();
+                                    if (data_event.size() == 0) {
+                                        linearLayout.setVisibility(View.VISIBLE);
+                                    } else {
+                                        linearLayout.setVisibility(View.GONE);
+                                    }
+                                    if (data_event.size() > 0) {
+                                        for (int i = 0; i < data_event.size(); i++) {
+                                            JsonObject jsonObject = data_event.get(i).getAsJsonObject();
+                                            String team_id = jsonObject.get("team_id").getAsString();
+                                            String teamaName = "", teambName = "";
+                                            String player_name = jsonObject.get("player_name").getAsString();
+                                            if (team_id.equalsIgnoreCase(teamaid)) {
+                                                teamaName = player_name;
+                                            } else {
+                                                teambName = player_name;
+                                            }
+                                            String type = jsonObject.get("type").getAsString();
+                                            String minute = jsonObject.get("minute").getAsString();
+                                            String extra_min = "0";
+                                            if (jsonObject.get("extra_min").isJsonNull()) {
+                                                extra_min = "0";
+                                            } else {
+                                                extra_min = jsonObject.get("extra_min").getAsString();
+                                            }
 
-                                if (extra_minute.equalsIgnoreCase("0")) {
-                                    textViewTime.setText(minute + "'");
+                                            String time = "0";
+                                            if (extra_min.equalsIgnoreCase("0")) {
+                                                time = minute + "'";
+                                            } else {
+                                                time = minute + "'+" + extra_min;
+                                            }
+                                            eventsDatas.add(new EventsData(teamaName, teambName, type, time));
+                                        }
+                                        Collections.reverse(eventsDatas);
+                                        eventsDatas.add(new EventsData("", "", "", "0"));
+                                    }
+                                    JsonArray data_score = dataObject.get("data_score").getAsJsonArray();
+                                    JsonObject score_object = data_score.get(0).getAsJsonObject();
+                                    String home_score = score_object.get("home_score").getAsString();
+                                    String away_score = score_object.get("away_score").getAsString();
+                                    String minute = score_object.get("minute").getAsString();
+                                    String extra_minute = score_object.get("extra_minute").getAsString();
+                                    textViewTeamA.setText(teama);
+                                    textViewTeamB.setText(teamb);
+                                    textViewHomeGoal.setText(home_score);
+                                    textViewAwayGoal.setText(away_score);
+
+                                    if (extra_minute.equalsIgnoreCase("0")) {
+                                        textViewTime.setText(minute + "'");
+                                    } else {
+                                        textViewTime.setText(minute + "'+" + extra_minute);
+                                    }
+                                    if (teamalogo.length() > 0) {
+                                        Picasso.with(context)
+                                                .load(teamalogo)
+                                                .placeholder(R.drawable.ic_holder)
+                                                .error(R.drawable.ic_error)
+                                                .into(imageViewHome);
+                                    } else {
+                                        imageViewHome.setImageResource(R.drawable.ic_error);
+                                    }
+                                    if (teamblogo.length() > 0) {
+                                        Picasso.with(context)
+                                                .load(teamblogo)
+                                                .placeholder(R.drawable.ic_holder)
+                                                .error(R.drawable.ic_error)
+                                                .into(imageViewAway);
+                                    } else {
+                                        imageViewAway.setImageResource(R.drawable.ic_error);
+                                    }
+
+                                    adapter.notifyDataSetChanged();
                                 } else {
-                                    textViewTime.setText(minute + "'+" + extra_minute);
-                                }
-                                if (teamalogo.length() > 0) {
-                                    Picasso.with(context)
-                                            .load(teamalogo)
-                                            .placeholder(R.drawable.ic_holder)
-                                            .error(R.drawable.ic_error)
-                                            .into(imageViewHome);
-                                } else {
-                                    imageViewHome.setImageResource(R.drawable.ic_error);
-                                }
-                                if (teamblogo.length() > 0) {
-                                    Picasso.with(context)
-                                            .load(teamblogo)
-                                            .placeholder(R.drawable.ic_holder)
-                                            .error(R.drawable.ic_error)
-                                            .into(imageViewAway);
-                                } else {
-                                    imageViewAway.setImageResource(R.drawable.ic_error);
+                                    showMessage("json error");
                                 }
 
-                                adapter.notifyDataSetChanged();
-                            } else {
-                                showMessage("json error");
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
                             }
                         }
 
