@@ -27,6 +27,10 @@ public class PagerAdapterState extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 SummaryFragment home = new SummaryFragment();
+                bundle = new Bundle();
+                Log.i("kunsangpager", matchid);
+                bundle.putString("matchid", matchid);
+                home.setArguments(bundle);
                 return home;
             case 1:
                 LineUpFragment currentBet = new LineUpFragment();

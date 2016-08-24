@@ -55,7 +55,7 @@ public class LiveEventsFragment extends Fragment {
     private void getLiveMatch() {
         //https://netforcesales.com/ibet_admin/api/current_matches.php?todaydate=2016-08-20
         String url = getResources().getString(R.string.url);
-        url = url + "/current_matches.php?todaydate=2016-08-20";
+        url = url + "/current_matches.php";
         Log.i("result url", url);
         setHeader();
         Ion.with(context)

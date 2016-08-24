@@ -16,143 +16,166 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:weightSum="150">
+                android:layout_height="0dp"
+                android:layout_weight="20"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/gs_stadium" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:background="@color/overlayColor" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="50"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="16dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:weightSum="150">
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/italy" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Italy"
-                        android:textColor="@color/white" />
-                </LinearLayout>
+                        android:layout_weight="50"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:gravity="center">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center">
+                        <ImageView
+                            android:id="@+id/imageViewTeamA"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_holder" />
 
                         <TextView
-                            android:id="@+id/textViewMinute"
+                            android:id="@+id/textViewTeamA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="center">
+
+                        <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:gravity="center"
-                            android:text="90"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:layout_centerVertical="true"
+                            android:gravity="center">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/textViewMinute"
+                            <TextView
+                                android:id="@+id/textViewMinute"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/textViewMinute"
+                                android:layout_centerHorizontal="true"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textViewHomeGoal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:textColor="@color/white"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:text="-"
+                                    android:textColor="@color/white"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewAwayGoal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:textColor="@color/white"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <at.grabner.circleprogress.CircleProgressView
+                            android:id="@+id/cpvLevel"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:layout_centerHorizontal="true"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                android:text="1"
-                                android:textColor="@color/white"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                android:text="-"
-                                android:textColor="@color/white"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="3dp"
-                                android:text="1"
-                                android:textColor="@color/white"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="16dp"
+                            CircleProgressView:cpv_autoTextSize="true"
+                            CircleProgressView:cpv_barColor="@color/colorAccent"
+                            CircleProgressView:cpv_barWidth="10dp"
+                            CircleProgressView:cpv_contourColor="#12f4f0f0"
+                            CircleProgressView:cpv_contourSize="0dp"
+                            CircleProgressView:cpv_maxValue="100"
+                            CircleProgressView:cpv_rimColor="@color/colorAccentTransution"
+                            CircleProgressView:cpv_rimWidth="10dp"
+                            CircleProgressView:cpv_seekMode="false"
+                            CircleProgressView:cpv_showTextInSpinningMode="false"
+                            CircleProgressView:cpv_showUnit="true"
+                            CircleProgressView:cpv_spinColor="@color/colorAccent"
+                            CircleProgressView:cpv_textColor="@color/white"
+                            CircleProgressView:cpv_textMode="Text"
+                            CircleProgressView:cpv_textScale="2"
+                            CircleProgressView:cpv_textSize="12sp"
+                            CircleProgressView:cpv_unitColor="@color/white"
+                            CircleProgressView:cpv_unitScale="2"
+                            CircleProgressView:cpv_unitSize="12dp"
+                            CircleProgressView:cpv_value="0" />
                     </RelativeLayout>
 
-                    <at.grabner.circleprogress.CircleProgressView
-                        android:id="@+id/cpvLevel"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="16dp"
-                        CircleProgressView:cpv_autoTextSize="true"
-                        CircleProgressView:cpv_barColor="@color/colorAccent"
-                        CircleProgressView:cpv_barWidth="10dp"
-                        CircleProgressView:cpv_contourColor="#12f4f0f0"
-                        CircleProgressView:cpv_contourSize="0dp"
-                        CircleProgressView:cpv_maxValue="100"
-                        CircleProgressView:cpv_rimColor="@color/colorPrimaryDark"
-                        CircleProgressView:cpv_rimWidth="10dp"
-                        CircleProgressView:cpv_seekMode="false"
-                        CircleProgressView:cpv_showTextInSpinningMode="false"
-                        CircleProgressView:cpv_showUnit="true"
-                        CircleProgressView:cpv_spinColor="@color/colorPrimary"
-                        CircleProgressView:cpv_textColor="@color/white"
-                        CircleProgressView:cpv_textMode="Text"
-                        CircleProgressView:cpv_textScale="2"
-                        CircleProgressView:cpv_textSize="12sp"
-                        CircleProgressView:cpv_unitColor="@color/white"
-                        CircleProgressView:cpv_unitScale="2"
-                        CircleProgressView:cpv_unitSize="12dp"
-                        CircleProgressView:cpv_value="100" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/italy" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Italy"
-                        android:textColor="@color/white" />
+                        android:layout_weight="50"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageViewTeamB"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_holder" />
+
+                        <TextView
+                            android:id="@+id/textViewTeamB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -160,11 +183,29 @@
                 android:layout_margin="6dp"
                 android:background="@color/colorDivider" />
 
+            <LinearLayout
+                android:id="@+id/linearLayoutError"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textViewError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:text="No data"
+                    android:textColor="@color/colorText" />
+            </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayoutStatistic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -178,7 +219,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="150">
+                        android:weightSum="200">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -187,9 +228,9 @@
                             android:gravity="left">
 
                             <TextView
+                                android:id="@+id/textViewTSHome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="12"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -199,7 +240,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="100"
                             android:gravity="center">
 
                             <TextView
@@ -221,9 +262,9 @@
                             android:gravity="right">
 
                             <TextView
+                                android:id="@+id/textViewTSAway"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="15"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -245,12 +286,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressTSHome"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/green"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="12"
+                                app:rcMax="50"
                                 app:rcRadius="0dp"
                                 app:rcReverse="true" />
 
@@ -263,12 +304,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressTSAway"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/blue"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="15"
+                                app:rcMax="50"
                                 app:rcRadius="0dp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -286,7 +327,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="150">
+                        android:weightSum="200">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -295,9 +336,9 @@
                             android:gravity="left">
 
                             <TextView
+                                android:id="@+id/textViewSoTHome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="20"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -307,7 +348,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="100"
                             android:gravity="center">
 
                             <TextView
@@ -329,9 +370,9 @@
                             android:gravity="right">
 
                             <TextView
+                                android:id="@+id/textViewSoTAway"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="34"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -353,12 +394,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressSoTHome"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/green"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="20"
+                                app:rcMax="50"
                                 app:rcRadius="0dp"
                                 app:rcReverse="true" />
 
@@ -371,12 +412,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressSoTAway"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/blue"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="34"
+                                app:rcMax="50"
                                 app:rcRadius="0dp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -394,7 +435,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="150">
+                        android:weightSum="200">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -403,9 +444,9 @@
                             android:gravity="left">
 
                             <TextView
+                                android:id="@+id/textViewFoulsHome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="4"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -415,115 +456,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Shots Off Target"
-                                android:textColor="@color/colorAccent"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:gravity="right">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="7"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:orientation="horizontal"
-                        android:weightSum="100">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
-                            android:layout_weight="50">
-
-                            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp"
-                                CircleProgressView:rcProgressColor="@color/green"
-                                app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="4"
-                                app:rcRadius="0dp"
-                                app:rcReverse="true" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="3dp"
-                            android:layout_weight="50">
-
-                            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp"
-                                CircleProgressView:rcProgressColor="@color/blue"
-                                app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="7"
-                                app:rcRadius="0dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="32dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="150">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:gravity="left">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="3"
-                                android:textColor="@color/white"
-                                android:textSize="16sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="100"
                             android:gravity="center">
 
                             <TextView
@@ -545,9 +478,9 @@
                             android:gravity="right">
 
                             <TextView
+                                android:id="@+id/textViewFoulsAway"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -569,12 +502,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressFoulsHome"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/green"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="3"
+                                app:rcMax="30"
                                 app:rcRadius="0dp"
                                 app:rcReverse="true" />
 
@@ -587,12 +520,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressFoulsAway"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/blue"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="10"
+                                app:rcMax="30"
                                 app:rcRadius="0dp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -610,7 +543,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="150">
+                        android:weightSum="200">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -619,9 +552,9 @@
                             android:gravity="left">
 
                             <TextView
+                                android:id="@+id/textViewCornorsHome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -631,13 +564,14 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="100"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Yellow Cards"
+                                android:gravity="center"
+                                android:text="Cornors"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -652,9 +586,9 @@
                             android:gravity="right">
 
                             <TextView
+                                android:id="@+id/textViewCornorsAway"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -676,12 +610,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressCornorsHome"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/green"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="1"
+                                app:rcMax="40"
                                 app:rcRadius="0dp"
                                 app:rcReverse="true" />
 
@@ -694,12 +628,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressCornorsAway"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/blue"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="0"
+                                app:rcMax="40"
                                 app:rcRadius="0dp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -717,7 +651,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="150">
+                        android:weightSum="200">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -726,9 +660,9 @@
                             android:gravity="left">
 
                             <TextView
+                                android:id="@+id/textViewOSHome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="12"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -738,13 +672,13 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="100"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Total Shots"
+                                android:text="Off side"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -759,9 +693,9 @@
                             android:gravity="right">
 
                             <TextView
+                                android:id="@+id/textViewOSAway"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="15"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -783,12 +717,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressOSHome"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/green"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="12"
+                                app:rcMax="30"
                                 app:rcRadius="0dp"
                                 app:rcReverse="true" />
 
@@ -801,12 +735,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressOSAway"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/blue"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="15"
+                                app:rcMax="30"
                                 app:rcRadius="0dp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -824,7 +758,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="150">
+                        android:weightSum="200">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -833,9 +767,9 @@
                             android:gravity="left">
 
                             <TextView
+                                android:id="@+id/textViewPossesionHome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="12"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -845,13 +779,14 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="100"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Total Shots"
+                                android:gravity="center"
+                                android:text="Possestion"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -866,9 +801,9 @@
                             android:gravity="right">
 
                             <TextView
+                                android:id="@+id/textViewPossesionAway"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="15"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -890,12 +825,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressPossesionHome"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/green"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
                                 app:rcMax="100"
-                                app:rcProgress="12"
                                 app:rcRadius="0dp"
                                 app:rcReverse="true" />
 
@@ -908,12 +843,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressPossesionAway"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/blue"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
                                 app:rcMax="100"
-                                app:rcProgress="15"
                                 app:rcRadius="0dp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -931,7 +866,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="150">
+                        android:weightSum="200">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -940,9 +875,9 @@
                             android:gravity="left">
 
                             <TextView
+                                android:id="@+id/textViewYellowcardHome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="12"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -952,13 +887,14 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="100"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Total Shots"
+                                android:gravity="center"
+                                android:text="Yellow cards"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -973,9 +909,9 @@
                             android:gravity="right">
 
                             <TextView
+                                android:id="@+id/textViewYellowcardAway"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="15"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -997,12 +933,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressYellowcardHome"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/green"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="12"
+                                app:rcMax="20"
                                 app:rcRadius="0dp"
                                 app:rcReverse="true" />
 
@@ -1015,12 +951,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressYellowcardAway"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/blue"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="15"
+                                app:rcMax="20"
                                 app:rcRadius="0dp" />
                         </LinearLayout>
                     </LinearLayout>
@@ -1038,7 +974,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:weightSum="150">
+                        android:weightSum="200">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -1047,9 +983,9 @@
                             android:gravity="left">
 
                             <TextView
+                                android:id="@+id/textViewRedcardHome"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="12"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -1059,13 +995,14 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
+                            android:layout_weight="100"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Total Shots"
+                                android:gravity="center"
+                                android:text="Red cards"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -1080,9 +1017,9 @@
                             android:gravity="right">
 
                             <TextView
+                                android:id="@+id/textViewRedcardAway"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="15"
                                 android:textColor="@color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -1104,12 +1041,12 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressRedcardHome"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/green"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="12"
+                                app:rcMax="10"
                                 app:rcRadius="0dp"
                                 app:rcReverse="true" />
 
@@ -1122,12 +1059,120 @@
                             android:layout_weight="50">
 
                             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressRedcardAway"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 CircleProgressView:rcProgressColor="@color/blue"
                                 app:rcBackgroundColor="@color/colorPrimaryDark"
-                                app:rcMax="100"
-                                app:rcProgress="15"
+                                app:rcMax="10"
+                                app:rcRadius="0dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="32dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="200">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="left">
+
+                            <TextView
+                                android:id="@+id/textViewSavesHome"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="100"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Saves"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="right">
+
+                            <TextView
+                                android:id="@+id/textViewSavesAway"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_weight="50">
+
+                            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressSavesHome"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                CircleProgressView:rcProgressColor="@color/green"
+                                app:rcBackgroundColor="@color/colorPrimaryDark"
+                                app:rcMax="20"
+                                app:rcRadius="0dp"
+                                app:rcReverse="true" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_weight="50">
+
+                            <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                android:id="@+id/progressSavesAway"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                CircleProgressView:rcProgressColor="@color/blue"
+                                app:rcBackgroundColor="@color/colorPrimaryDark"
+                                app:rcMax="20"
                                 app:rcRadius="0dp" />
                         </LinearLayout>
                     </LinearLayout>

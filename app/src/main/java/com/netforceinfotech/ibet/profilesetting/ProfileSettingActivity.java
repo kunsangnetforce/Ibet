@@ -1,23 +1,30 @@
 package com.netforceinfotech.ibet.profilesetting;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
@@ -26,6 +33,7 @@ import com.netforceinfotech.ibet.profilesetting.selectteam.SelectTeamActivity;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -42,14 +50,17 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
     private Uri fileUri;
     private String filePath;
     UserSessionManager userSessionManager;
+    public static ArrayList<String> arrayListTeamids = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_setting);
         context = this;
+        getPermission();
         userSessionManager = new UserSessionManager(context);
         imageViewDP = (ImageView) findViewById(R.id.imageViewDP);
+
         findViewById(R.id.buttonSkip).setOnClickListener(this);
         findViewById(R.id.buttonFavTeam).setOnClickListener(this);
         findViewById(R.id.buttonDone).setOnClickListener(this);
@@ -71,7 +82,8 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                 startActivity(intent);
                 break;
             case R.id.buttonDone:
-                uploadImage();
+                String id = userSessionManager.getCustomerId();
+                uploadImage(id);
                 userSessionManager.setIsFirstTime(false);
                 break;
             case R.id.rippleProPic:
@@ -92,8 +104,42 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private void uploadImage() {
+    private void uploadImage(String id) {
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=update_profile&customer_id=46
+        String url = getResources().getString(R.string.url);
+        String uploadurl = "/services.php?opt=update_profile&customer_id=" + id;
+        String teams = TextUtils.join(",", arrayListTeamids);
+        url = url + uploadurl;
+        Log.i("result_url", url);
+        Log.i("result_url", filePath + "   " + teams);
 
+        Ion.with(context)
+                .load(url)
+                .setMultipartFile("image", "image/*", new File(filePath))
+                .setMultipartParameter("team", teams)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            showMessage("nothing is happening");
+                        } else {
+                            Log.i("result_kunsang", result.toString());
+                            String status = result.get("status").toString();
+                            if (status.equalsIgnoreCase("success")) {
+                                showMessage("Successfully uploaded");
+                                Intent intent = new Intent(context, Dashboard.class);
+                                startActivity(intent);
+                            } else {
+                                showMessage("Failed to upload data");
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void showMessage(String s) {
+        Toast.makeText(ProfileSettingActivity.this, s, Toast.LENGTH_SHORT).show();
     }
 
     private void pickPictureIntent() {
@@ -145,9 +191,17 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
             case PICK_IMAGE:
                 if (resultCode == RESULT_OK) {
                     Uri uri = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(uri, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    filePath = getPath(uri);
                     try {
-                        imageViewDP.setImageBitmap(decodeUri(uri));
-                    } catch (FileNotFoundException e) {
+                        // imageViewDP.setImageBitmap(decodeUri(uri));
+                        Bitmap myBitmap = BitmapFactory.decodeFile(filePath);
+                        imageViewDP.setImageBitmap(myBitmap);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     Log.i("result picture", "picked");
@@ -156,6 +210,26 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public String getPath(Uri uri) {
+        // just some safety built in
+        if (uri == null) {
+            // TODO perform some logging or show user feedback
+            return null;
+        }
+        // try to retrieve the image from the media store first
+        // this will only work for images selected from gallery
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if (cursor != null) {
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        // this is our fallback here
+        return uri.getPath();
     }
 
     private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
@@ -188,8 +262,10 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             String[] permission = {
-                    "android.permission.CAMERA",
-                    "android.permission.WRITE_EXTERNAL_STORAGE"
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+
             };
 
             ActivityCompat.requestPermissions(this,

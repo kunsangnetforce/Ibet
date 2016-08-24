@@ -157,14 +157,20 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                                         String team_id = jsonObject.get("team_id").getAsString();
                                         String teamaName = "", teambName = "";
                                         String player_name = jsonObject.get("player_name").getAsString();
-                                        if (team_id.equalsIgnoreCase("6722")) {
+                                        if (team_id.equalsIgnoreCase(teamaid)) {
                                             teamaName = player_name;
                                         } else {
                                             teambName = player_name;
                                         }
                                         String type = jsonObject.get("type").getAsString();
                                         String minute = jsonObject.get("minute").getAsString();
-                                        String extra_min = jsonObject.get("extra_min").getAsString();
+                                        String extra_min = "0";
+                                        if (jsonObject.get("extra_min").isJsonNull()) {
+                                            extra_min = "0";
+                                        } else {
+                                            extra_min = jsonObject.get("extra_min").getAsString();
+                                        }
+
                                         String time = "0";
                                         if (extra_min.equalsIgnoreCase("0")) {
                                             time = minute + "'";

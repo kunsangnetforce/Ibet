@@ -23,6 +23,7 @@ import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.profilesetting.ProfileSettingActivity;
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListAdapter;
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
 import com.netforceinfotech.ibet.profilesetting.selectteam.selectedteam.SelectTeamAdapter;
@@ -46,6 +47,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_team);
+        selectTeamDatas.clear();
         findViewById(R.id.buttonDone).setOnClickListener(this);
         linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgres);
         linearlayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
@@ -238,6 +240,9 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonDone:
+                for (int i = 0; i < selectTeamDatas.size(); i++) {
+                    ProfileSettingActivity.arrayListTeamids.add(selectTeamDatas.get(i).id);
+                }
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 break;

@@ -92,7 +92,7 @@ public class LineUpFragment extends Fragment {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String url = "https://api.soccerama.pro/v1.1/matches/" + "638713" + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
+        String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
         // url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid;
         // url = url + "/events_by_match_id.php?matchid=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
         Log.i("result url", url);
@@ -109,8 +109,17 @@ public class LineUpFragment extends Fragment {
                             JsonObject homeTeam = result.getAsJsonObject("homeTeam");
                             JsonObject awayTeam = result.getAsJsonObject("awayTeam");
                             JsonObject lineup = result.getAsJsonObject("lineup");
-                            homeTeamLogo = homeTeam.get("logo").getAsString();
-                            awayTeamLogo = awayTeam.get("logo").getAsString();
+                            if (!homeTeam.get("logo").isJsonNull()) {
+                                homeTeamLogo = homeTeam.get("logo").getAsString();
+                            } else {
+                                homeTeamLogo = "";
+                            }
+                            if (!awayTeam.get("logo").isJsonNull()) {
+                                awayTeamLogo = awayTeam.get("logo").getAsString();
+                            } else {
+                                awayTeamLogo = "";
+                            }
+
                             String hometeamid = homeTeam.get("id").getAsString();
                             String awayteamid = awayTeam.get("id").getAsString();
                             JsonArray data = lineup.getAsJsonArray("data");
