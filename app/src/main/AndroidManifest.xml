@@ -109,7 +109,11 @@
                 <category android:name="com.winsontan520.testwscratchview.SAMPLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".live_event.LiveEventActivity"></activity>
+        <activity android:name=".live_event.LiveEventActivity" />
+        <activity android:name=".profilesetting.Tutorial.TutorialActivity"></activity>
+
+        <activity android:name=".profilesetting.Tutorial.DefaultIntro"></activity>
+
     </application>
 
 </manifest>
