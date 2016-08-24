@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +33,10 @@ public class SummaryFragment extends Fragment {
     RoundCornerProgressBar progressbarTSA, progressbarSoTA, progressbarFoulA, progressbarOSA, progressbarCornorA, progressbarPossesionA, progressbarYCA, progressbarRCA, progressbarSaveA;
     LinearLayout linearLayoutStatistic, linearLayoutError;
     TextView textViewError;
+
+    ImageView imageViewHome, imageViewAway;
+    TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
+
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -50,6 +56,13 @@ public class SummaryFragment extends Fragment {
     }
 
     private void initview(View view) {
+        imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamA);
+        imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamB);
+        textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
+        textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
+        textViewTime = (TextView) view.findViewById(R.id.textViewMinute);
+        textViewHomeGoal = (TextView) view.findViewById(R.id.textViewHomeGoal);
+        textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
         linearLayoutError = (LinearLayout) view.findViewById(R.id.linearLayoutError);
         linearLayoutStatistic = (LinearLayout) view.findViewById(R.id.linearLayoutStatistic);
         textViewError = (TextView) view.findViewById(R.id.textViewError);
@@ -103,9 +116,10 @@ public class SummaryFragment extends Fragment {
     }
 
     private void getStatistic(String matchid) {
+        //https://api.soccerama.pro/v1.1/statistics/match/698884?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=match,team
         //https://api.soccerama.pro/v1.1/statistics/match/690006?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP
         String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
-        String url = "https://api.soccerama.pro/v1.1/statistics/match/" + matchid + "?api_token=" + token;
+        String url = "https://api.soccerama.pro/v1.1/statistics/match/" + matchid + "?api_token=" + token + "&include=match,team";
         Log.i("result url", url);
         setHeader();
         Ion.with(context)
@@ -119,78 +133,126 @@ public class SummaryFragment extends Fragment {
                             linearLayoutStatistic.setVisibility(View.GONE);
                             textViewError.setText("Connection error");
                         } else {
-                            if (result.get("error").isJsonNull()) {
-                                linearLayoutError.setVisibility(View.GONE);
-                                linearLayoutStatistic.setVisibility(View.VISIBLE);
-                                JsonObject home = result.getAsJsonObject("home");
-                                JsonObject away = result.getAsJsonObject("away");
+                            try {
 
-                                String shots_on_goalh = home.get("shots_on_goal").getAsString();
-                                String shots_totalh = home.get("shots_total").getAsString();
-                                String fouls_totalh = home.get("fouls_total").getAsString();
-                                String corners_totalh = home.get("corners_total").getAsString();
-                                String offsides_totalh = home.get("offsides_total").getAsString();
-                                String possesionh = home.get("possesion").getAsString();
-                                String yellowcardsh = home.get("yellowcards").getAsString();
-                                String redcardsh = home.get("redcards").getAsString();
-                                String savesh = home.get("saves").getAsString();
-
-                                textViewTSH.setText(shots_totalh);
-                                textViewSoTH.setText(shots_on_goalh);
-                                textViewFoulH.setText(fouls_totalh);
-                                textViewOSH.setText(offsides_totalh);
-                                textViewCornorH.setText(corners_totalh);
-                                textViewPossesionH.setText(possesionh);
-                                textViewYCH.setText(yellowcardsh);
-                                textViewRCH.setText(redcardsh);
-                                textViewSaveH.setText(savesh);
-
-                                progressbarTSH.setProgress(Float.parseFloat(shots_totalh));
-                                progressbarSoTH.setProgress(Float.parseFloat(shots_on_goalh));
-                                progressbarFoulH.setProgress(Float.parseFloat(fouls_totalh));
-                                progressbarOSH.setProgress(Float.parseFloat(offsides_totalh));
-                                progressbarCornorH.setProgress(Float.parseFloat(corners_totalh));
-                                progressbarPossesionH.setProgress(Float.parseFloat(possesionh));
-                                progressbarYCH.setProgress(Float.parseFloat(yellowcardsh));
-                                progressbarRCH.setProgress(Float.parseFloat(redcardsh));
-                                progressbarSaveH.setProgress(Float.parseFloat(savesh));
-
-                                String shots_on_goala = away.get("shots_on_goal").getAsString();
-                                String shots_totala = away.get("shots_total").getAsString();
-                                String fouls_totala = away.get("fouls_total").getAsString();
-                                String corners_totala = away.get("corners_total").getAsString();
-                                String offsides_totala = away.get("offsides_total").getAsString();
-                                String possesiona = away.get("possesion").getAsString();
-                                String yellowcardsa = away.get("yellowcards").getAsString();
-                                String redcardsa = away.get("redcards").getAsString();
-                                String savesa = away.get("saves").getAsString();
-                                textViewTSA.setText(shots_totala);
-                                textViewSoTA.setText(shots_on_goala);
-                                textViewFoulA.setText(fouls_totalh);
-                                textViewOSA.setText(offsides_totala);
-                                textViewCornorA.setText(corners_totalh);
-                                textViewPossesionA.setText(possesiona);
-                                textViewYCA.setText(yellowcardsh);
-                                textViewRCA.setText(redcardsa);
-                                textViewSaveA.setText(savesa);
-
-                                progressbarTSA.setProgress(Float.parseFloat(shots_totala));
-                                progressbarSoTA.setProgress(Float.parseFloat(shots_on_goala));
-                                progressbarFoulA.setProgress(Float.parseFloat(fouls_totala));
-                                progressbarOSA.setProgress(Float.parseFloat(offsides_totala));
-                                progressbarCornorA.setProgress(Float.parseFloat(corners_totala));
-                                progressbarPossesionA.setProgress(Float.parseFloat(possesiona));
-                                progressbarYCA.setProgress(Float.parseFloat(yellowcardsa));
-                                progressbarRCA.setProgress(Float.parseFloat(redcardsa));
-                                progressbarSaveA.setProgress(Float.parseFloat(savesa));
+                                if (result.get("error").isJsonNull()) {
+                                    linearLayoutError.setVisibility(View.GONE);
+                                    linearLayoutStatistic.setVisibility(View.VISIBLE);
+                                    JsonObject home = result.getAsJsonObject("home");
+                                    JsonObject away = result.getAsJsonObject("away");
+                                    JsonObject hometeam = home.getAsJsonObject("team");
+                                    JsonObject awayteam = away.getAsJsonObject("team");
+                                    JsonObject match = home.getAsJsonObject("match");
+                                    String minute = "";
+                                    if (!match.get("minute").isJsonNull()) {
+                                        minute = match.get("minute").getAsString();
+                                    }
+                                    String extra_minute = "";
+                                    if (!match.get("minute").isJsonNull()) {
+                                        extra_minute = match.get("minute").getAsString();
+                                    }
+                                    String hometeamlogo = "";
+                                    String awayteamlogo = "";
+                                    if (!hometeam.get("logo").isJsonNull()) {
+                                        hometeamlogo = hometeam.get("logo").getAsString();
+                                    }
+                                    if (!awayteam.get("logo").isJsonNull()) {
+                                        awayteamlogo = hometeam.get("logo").getAsString();
+                                    }
 
 
-                            } else {
-                                linearLayoutError.setVisibility(View.VISIBLE);
-                                linearLayoutStatistic.setVisibility(View.GONE);
-                                textViewError.setText(result.get("error").getAsString());
-                                //showMessage(result.get("error").getAsString());
+                                    String shots_on_goalh = home.get("shots_on_goal").getAsString();
+                                    String shots_totalh = home.get("shots_total").getAsString();
+                                    String fouls_totalh = home.get("fouls_total").getAsString();
+                                    String corners_totalh = home.get("corners_total").getAsString();
+                                    String offsides_totalh = home.get("offsides_total").getAsString();
+                                    String possesionh = home.get("possesion").getAsString();
+                                    String yellowcardsh = home.get("yellowcards").getAsString();
+                                    String redcardsh = home.get("redcards").getAsString();
+                                    String savesh = home.get("saves").getAsString();
+
+                                    textViewTSH.setText(shots_totalh);
+                                    textViewSoTH.setText(shots_on_goalh);
+                                    textViewFoulH.setText(fouls_totalh);
+                                    textViewOSH.setText(offsides_totalh);
+                                    textViewCornorH.setText(corners_totalh);
+                                    textViewPossesionH.setText(possesionh);
+                                    textViewYCH.setText(yellowcardsh);
+                                    textViewRCH.setText(redcardsh);
+                                    textViewSaveH.setText(savesh);
+
+                                    progressbarTSH.setProgress(Float.parseFloat(shots_totalh));
+                                    progressbarSoTH.setProgress(Float.parseFloat(shots_on_goalh));
+                                    progressbarFoulH.setProgress(Float.parseFloat(fouls_totalh));
+                                    progressbarOSH.setProgress(Float.parseFloat(offsides_totalh));
+                                    progressbarCornorH.setProgress(Float.parseFloat(corners_totalh));
+                                    progressbarPossesionH.setProgress(Float.parseFloat(possesionh));
+                                    progressbarYCH.setProgress(Float.parseFloat(yellowcardsh));
+                                    progressbarRCH.setProgress(Float.parseFloat(redcardsh));
+                                    progressbarSaveH.setProgress(Float.parseFloat(savesh));
+
+                                    String shots_on_goala = away.get("shots_on_goal").getAsString();
+                                    String shots_totala = away.get("shots_total").getAsString();
+                                    String fouls_totala = away.get("fouls_total").getAsString();
+                                    String corners_totala = away.get("corners_total").getAsString();
+                                    String offsides_totala = away.get("offsides_total").getAsString();
+                                    String possesiona = away.get("possesion").getAsString();
+                                    String yellowcardsa = away.get("yellowcards").getAsString();
+                                    String redcardsa = away.get("redcards").getAsString();
+                                    String savesa = away.get("saves").getAsString();
+                                    textViewTSA.setText(shots_totala);
+                                    textViewSoTA.setText(shots_on_goala);
+                                    textViewFoulA.setText(fouls_totalh);
+                                    textViewOSA.setText(offsides_totala);
+                                    textViewCornorA.setText(corners_totalh);
+                                    textViewPossesionA.setText(possesiona);
+                                    textViewYCA.setText(yellowcardsh);
+                                    textViewRCA.setText(redcardsa);
+                                    textViewSaveA.setText(savesa);
+
+                                    progressbarTSA.setProgress(Float.parseFloat(shots_totala));
+                                    progressbarSoTA.setProgress(Float.parseFloat(shots_on_goala));
+                                    progressbarFoulA.setProgress(Float.parseFloat(fouls_totala));
+                                    progressbarOSA.setProgress(Float.parseFloat(offsides_totala));
+                                    progressbarCornorA.setProgress(Float.parseFloat(corners_totala));
+                                    progressbarPossesionA.setProgress(Float.parseFloat(possesiona));
+                                    progressbarYCA.setProgress(Float.parseFloat(yellowcardsa));
+                                    progressbarRCA.setProgress(Float.parseFloat(redcardsa));
+                                    progressbarSaveA.setProgress(Float.parseFloat(savesa));
+                                    if (extra_minute.equalsIgnoreCase("0")) {
+                                        textViewTime.setText(minute + "'");
+                                    } else {
+                                        textViewTime.setText(minute + "'+" + extra_minute);
+                                    }
+                                    if (hometeamlogo.length() > 0) {
+                                        Picasso.with(context)
+                                                .load(hometeamlogo)
+                                                .placeholder(R.drawable.ic_holder)
+                                                .error(R.drawable.ic_error)
+                                                .into(imageViewHome);
+                                    } else {
+                                        imageViewHome.setImageResource(R.drawable.ic_error);
+                                    }
+                                    if (awayteamlogo.length() > 0) {
+                                        Picasso.with(context)
+                                                .load(awayteamlogo)
+                                                .placeholder(R.drawable.ic_holder)
+                                                .error(R.drawable.ic_error)
+                                                .into(imageViewAway);
+                                    } else {
+                                        imageViewAway.setImageResource(R.drawable.ic_error);
+                                    }
+
+                                } else {
+                                    linearLayoutError.setVisibility(View.VISIBLE);
+                                    linearLayoutStatistic.setVisibility(View.GONE);
+                                    textViewError.setText(result.get("error").getAsString());
+                                    //showMessage(result.get("error").getAsString());
+                                }
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
                             }
+
                         }
                     }
                 });
