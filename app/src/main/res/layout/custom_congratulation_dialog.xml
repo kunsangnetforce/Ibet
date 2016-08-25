@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/root"
+    >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/congratulation_txt"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/green"
+        android:textStyle="bold"
+        android:textSize="22dp"
+
+        />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dailog_text"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/red"
+        android:layout_below="@+id/textView1"
+        android:textStyle="bold"
+        />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:src="@drawable/coins"
+        android:layout_below="@+id/textView2"
+
+         />
+
+
+    <Button
+
+        android:id="@+id/got_it_buttton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_below="@+id/gif"
+        />
+
+
+</RelativeLayout>

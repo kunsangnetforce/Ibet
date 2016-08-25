@@ -86,6 +86,8 @@
     <string name="top">Top</string>
     <string name="create_bet">Create Bet</string>
     <string name="got_it">Got it</string>
+    <string name="dailog_text">You Got 100 Coins</string>
+    <string name="congratulation_txt">Congratulation</string>
     <string name="create_bet_txt">If all checkboxes are off. By default all users can view and join the bet</string>
     <string name="title_activity_scratch">ScratchActivity</string>
     <string name="lorem">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</string>
@@ -93,4 +95,12 @@
     <string name="appkey">12334ddfdfdf</string>
     <string name="url">https://netforcesales.com/ibet_admin/api</string>
     <string name="urlsearch">https://netforcesales.com/ibet_admin/api/search_team.php</string>
+
+
+    <!-- Input demo slide -->
+    <string name="slide_input_title">Slide: Input Demo</string>
+    <string name="slide_input_description">This slide demonstrates how input is saved over orientation and slide changes.</string>
+    <string name="slide_input_edittext">Type something here.</string>
+    <string name="slide_input_checkbox">Check something</string>
+
 </resources>

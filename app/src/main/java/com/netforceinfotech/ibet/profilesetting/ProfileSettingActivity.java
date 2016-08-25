@@ -28,6 +28,7 @@ import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.profilesetting.Tutorial.TutorialActivity;
 import com.netforceinfotech.ibet.profilesetting.selectteam.SelectTeamActivity;
 
 import java.io.File;
@@ -53,7 +54,8 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
     public static ArrayList<String> arrayListTeamids = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_setting);
         context = this;
@@ -72,10 +74,13 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonSkip:
-                userSessionManager.setIsFirstTime(false);
+              /*  userSessionManager.setIsFirstTime(false);
                 intent = new Intent(context, Dashboard.class);
                 startActivity(intent);
-                finish();
+                finish();*/
+                intent = new Intent(context, TutorialActivity.class);
+                startActivity(intent);
+
                 break;
             case R.id.buttonFavTeam:
                 intent = new Intent(context, SelectTeamActivity.class);
