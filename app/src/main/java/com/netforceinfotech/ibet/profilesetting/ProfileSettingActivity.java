@@ -28,6 +28,7 @@ import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.profilesetting.Tutorial.DefaultIntro;
 import com.netforceinfotech.ibet.profilesetting.Tutorial.TutorialActivity;
 import com.netforceinfotech.ibet.profilesetting.selectteam.SelectTeamActivity;
 
@@ -78,8 +79,9 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                 intent = new Intent(context, Dashboard.class);
                 startActivity(intent);
                 finish();*/
-                intent = new Intent(context, TutorialActivity.class);
+                intent = new Intent(context, DefaultIntro.class);
                 startActivity(intent);
+
 
                 break;
             case R.id.buttonFavTeam:

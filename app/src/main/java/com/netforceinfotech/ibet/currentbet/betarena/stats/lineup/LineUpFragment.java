@@ -88,7 +88,7 @@ public class LineUpFragment extends Fragment {
         }
         initview(view);
         getLineUp(matchid);
-        //  setDummyLineUp();
+        //    setDummyLineUp();
         return view;
     }
 
@@ -939,29 +939,33 @@ public class LineUpFragment extends Fragment {
     }
 
     private void setDummyLineUp() {
-        lineUPDatasHome.add(new LineUPData("GK", "1", "Lopez"));
-        lineUPDatasHome.add(new LineUPData("RB", "2", "Carvajal"));
-        lineUPDatasHome.add(new LineUPData("RCB", "3", "Ramos"));
-        lineUPDatasHome.add(new LineUPData("LCB", "4", "Pepe"));
-        lineUPDatasHome.add(new LineUPData("LB", "5", "Marcelo"));
-        lineUPDatasHome.add(new LineUPData("LCM", "6", "Modric"));
-        lineUPDatasHome.add(new LineUPData("RCM", "8", "Kroos"));
-        lineUPDatasHome.add(new LineUPData("AM", "40", "Rodriguez"));
-        lineUPDatasHome.add(new LineUPData("LW", "7", "Ronaldo"));
-        lineUPDatasHome.add(new LineUPData("RW", "11", "Bale"));
-        lineUPDatasHome.add(new LineUPData("CF", "9", "Benzema"));
+        //case "Goalkeeper":"Midfielder": "Defender":"Forward"
+        scrollView.setVisibility(View.VISIBLE);
+        lineUPDatasAway.add(new LineUPData("Goalkeeper", "", ""));
+        lineUPDatasAway.add(new LineUPData("Defender", "", ""));
+        lineUPDatasAway.add(new LineUPData("Defender", "", ""));
+        lineUPDatasAway.add(new LineUPData("Defender", "", ""));
+        lineUPDatasAway.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasAway.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasAway.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasAway.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasAway.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasAway.add(new LineUPData("Defender", "", ""));
+        lineUPDatasAway.add(new LineUPData("Forward", "", ""));
 
-        lineUPDatasAway.add(new LineUPData("GK", "1", "V.Valdes"));
-        lineUPDatasAway.add(new LineUPData("RB", "2", "Alves"));
-        lineUPDatasAway.add(new LineUPData("RCB", "3", "Masherano"));
-        lineUPDatasAway.add(new LineUPData("LCB", "4", "Pique"));
-        lineUPDatasAway.add(new LineUPData("LB", "5", "Alba"));
-        lineUPDatasAway.add(new LineUPData("LCM", "6", "Iniesta"));
-        lineUPDatasAway.add(new LineUPData("RCM", "8", "Fabregas"));
-        lineUPDatasAway.add(new LineUPData("AM", "40", "Busquests"));
-        lineUPDatasAway.add(new LineUPData("LW", "7", "Sanches"));
-        lineUPDatasAway.add(new LineUPData("RW", "11", "Neymar"));
-        lineUPDatasAway.add(new LineUPData("CF", "9", "Messi"));
+        lineUPDatasHome.add(new LineUPData("Goalkeeper", "", ""));
+        lineUPDatasHome.add(new LineUPData("Defender", "", ""));
+        lineUPDatasHome.add(new LineUPData("Defender", "", ""));
+        lineUPDatasHome.add(new LineUPData("Defender", "", ""));
+        lineUPDatasHome.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasHome.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasHome.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasHome.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasHome.add(new LineUPData("Midfielder", "", ""));
+        lineUPDatasHome.add(new LineUPData("Defender", "", ""));
+        lineUPDatasHome.add(new LineUPData("Forward", "", ""));
+        initLineUp(lineUPDatasHome, lineUPDatasAway);
+
     }
 
 

@@ -73,4 +73,7 @@ dependencies {
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
     compile 'com.cleveroad:slidingtutorial:0.9.5'
     compile 'com.github.paolorotolo:appintro:4.0.0'
+    compile 'com.github.orangegangsters:swipy:1.2.3@aar'
+    compile 'dev.dworks.libs:volleyplus:+'
+
 }

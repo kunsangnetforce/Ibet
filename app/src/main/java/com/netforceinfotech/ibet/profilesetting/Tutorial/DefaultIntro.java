@@ -51,14 +51,21 @@ public final class DefaultIntro extends BaseIntro {
 
         showPopUp("");
 
-       // loadMainActivity();
+        // loadMainActivity();
     }
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        loadMainActivity();
-        Toast.makeText(getApplicationContext(), getString(R.string.skip), Toast.LENGTH_SHORT).show();
+       /* loadMainActivity();
+        Toast.makeText(getApplicationContext(), getString(R.string.skip), Toast.LENGTH_SHORT).show();*/
+
+
+        mExplosionField = ExplosionField.attach2Window(this);
+
+        mExplosionField.expandExplosionBound(200, 300);
+
+        showPopUp("");
     }
 
     public void getStarted(View v) {
@@ -82,16 +89,14 @@ public final class DefaultIntro extends BaseIntro {
 
         mExplosionField.expandExplosionBound(200, 300);
 
-         icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.ic_coins);
+        icon = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_coins);
 
-     //   mExplosionField.explode(icon,null,0,5000);
+        //   mExplosionField.explode(icon,null,0,5000);
         addListener(dailog.findViewById(R.id.root));
 
-        b.setOnClickListener(new View.OnClickListener()
-        {
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 mExplosionField.explode(view);
 
                 dailog.dismiss();
@@ -99,18 +104,14 @@ public final class DefaultIntro extends BaseIntro {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
-                        
                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                         finish();
                         overridePendingTransition(0, 0);
                     }
-                }, 1000);
+                }, 800);
             }
         });
         dailog.show();
-
-
 
 
     }

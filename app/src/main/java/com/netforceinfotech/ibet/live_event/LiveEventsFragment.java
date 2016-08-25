@@ -13,14 +13,25 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -34,6 +45,7 @@ public class LiveEventsFragment extends Fragment {
     ArrayList<CurrentGameData> currentGameDatas = new ArrayList<>();
     private CurrentGameAdapter currentGameAdapter;
     LinearLayout linearLayout;
+    private SwipyRefreshLayout mSwipyRefreshLayout;
 
     public LiveEventsFragment() {
         // Required empty public constructor
@@ -47,15 +59,108 @@ public class LiveEventsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_live_events, container, false);
         context = getActivity();
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                getLiveMatch1();
+            }
+        });
         setupRecyclerView(view);
-        getLiveMatch();
+        getLiveMatch1();
         return view;
     }
 
+    private void getLiveMatch1() {
+        String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
+        String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
+                url,
+                null,
+                createMyReqSuccessListener(),
+                createMyReqErrorListener());
+
+        queue.add(myReq);
+    }
+
+    private Response.Listener<JSONObject> createMyReqSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                mSwipyRefreshLayout.setRefreshing(false);
+                linearLayout.setVisibility(View.GONE);
+                JsonParser jsonParser = new JsonParser();
+                JsonObject result = (JsonObject) jsonParser.parse(response.toString());
+                try {
+                    Log.i("kunsang_result", result.toString());
+                    try {
+                        JsonArray data = result.getAsJsonArray("data");
+                        if (data.size() == 0) {
+                            showMessage("No match available");
+                        } else {
+                            for (int i = 0; i < data.size(); i++) {
+                                JsonObject jsonObject = data.get(i).getAsJsonObject();
+                                String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "";
+                                if (!(jsonObject.get("id").isJsonNull() || jsonObject.get("home_team_id").isJsonNull() || jsonObject.get("away_team_id").isJsonNull())) {
+                                    matchid = jsonObject.get("id").getAsString();
+                                    home_team_id = jsonObject.get("home_team_id").getAsString();
+                                    away_team_id = jsonObject.get("away_team_id").getAsString();
+                                    JsonObject homeTeam, awayTeam;
+                                    if (!(jsonObject.get("homeTeam").isJsonNull() || jsonObject.get("awayTeam").isJsonNull())) {
+                                        homeTeam = jsonObject.getAsJsonObject("homeTeam");
+                                        awayTeam = jsonObject.getAsJsonObject("awayTeam");
+                                        home_team_name = homeTeam.get("name").getAsString();
+                                        away_team_name = awayTeam.get("name").getAsString();
+                                        if (!(homeTeam.get("logo").isJsonNull())) {
+                                            home_team_logo = homeTeam.get("logo").getAsString();
+                                        }
+                                        if (!(awayTeam.get("logo").isJsonNull())) {
+                                            away_team_logo = awayTeam.get("logo").getAsString();
+                                        }
+
+                                    }
+                                    //luug
+                                    currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id));
+                                }
+
+                            }
+                            currentGameAdapter.notifyDataSetChanged();
+
+                        }
+                    } catch (Exception ex) {
+                        showMessage("Error occur while fetching data");
+                        ex.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+
+                }
+            }
+        };
+    }
+
+
+    private Response.ErrorListener createMyReqErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                mSwipyRefreshLayout.setRefreshing(false);
+                linearLayout.setVisibility(View.GONE);
+                error.printStackTrace();
+            }
+        };
+    }
+
     private void getLiveMatch() {
-        //https://netforcesales.com/ibet_admin/api/current_matches.php?todaydate=2016-08-20
-        String url = getResources().getString(R.string.url);
-        url = url + "/current_matches.php";
+        //https://api.soccerama.pro/v1.1/livescore?api_token=__YOURTOKEN__
+        //String url = getResources().getString(R.string.url);
+        //url = url + "/current_matches.php";
+        String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
+        String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
+
         Log.i("result url", url);
         setHeader();
         Ion.with(context)
@@ -64,11 +169,12 @@ public class LiveEventsFragment extends Fragment {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        mSwipyRefreshLayout.setRefreshing(false);
                         linearLayout.setVisibility(View.GONE);
                         if (result == null) {
                             showMessage("Somethings wrong");
                         } else {
-                            String status = result.get("status").getAsString();
+                          /*  String status = result.get("status").getAsString();
                             if (status.equalsIgnoreCase("success")) {
                                 JsonArray data = result.getAsJsonArray("data");
                                 for (int i = 0; i < data.size(); i++) {
@@ -108,6 +214,42 @@ public class LiveEventsFragment extends Fragment {
                                 currentGameAdapter.notifyDataSetChanged();
                             } else {
                                 showMessage("json error");
+                            }*/
+                            try {
+                                JsonArray data = result.getAsJsonArray("data");
+                                if (data.size() == 0) {
+                                    showMessage("No match available");
+                                } else {
+                                    for (int i = 0; i < data.size(); i++) {
+                                        JsonObject jsonObject = data.get(i).getAsJsonObject();
+                                        String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "";
+                                        if (!(jsonObject.get("id").isJsonNull() || jsonObject.get("home_team_id").isJsonNull() || jsonObject.get("away_team_id").isJsonNull())) {
+                                            matchid = jsonObject.get("id").getAsString();
+                                            home_team_id = jsonObject.get("home_team_id").getAsString();
+                                            away_team_id = jsonObject.get("away_team_id").getAsString();
+                                            JsonObject homeTeam, awayTeam;
+                                            if (!(jsonObject.get("homeTeam").isJsonNull() || jsonObject.get("awayTeam").isJsonNull())) {
+                                                homeTeam = jsonObject.getAsJsonObject("homeTeam");
+                                                awayTeam = jsonObject.getAsJsonObject("awayTeam");
+                                                home_team_name = homeTeam.get("name").getAsString();
+                                                away_team_name = awayTeam.get("name").getAsString();
+                                                if (!(homeTeam.get("logo").isJsonNull())) {
+                                                    home_team_logo = homeTeam.get("logo").getAsString();
+                                                }
+                                                if (!(awayTeam.get("logo").isJsonNull())) {
+                                                    away_team_logo = awayTeam.get("logo").getAsString();
+                                                }
+
+                                            }
+                                            //luug
+                                            currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id));
+                                        }
+
+                                    }
+                                }
+                            } catch (Exception ex) {
+                                showMessage("Error occur while fetching data");
+                                ex.printStackTrace();
                             }
                         }
 
