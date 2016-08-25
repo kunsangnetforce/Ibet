@@ -15,14 +15,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.live_event.CurrentGameData;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -87,15 +98,32 @@ public class LineUpFragment extends Fragment {
             Log.i("kunsang exception", "parameter not yet set");
         }
         initview(view);
-        getLineUp(matchid);
+        getLineUp1(matchid);
         //    setDummyLineUp();
         return view;
+    }
+
+    private void getLineUp1(String matchid) {
+        UserSessionManager userSessionManager = new UserSessionManager(context);
+        String token = userSessionManager.getApitoken();
+        String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
+        Log.i("kunsangurl", url);
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
+                url,
+                null,
+                createMyReqSuccessListener(),
+                createMyReqErrorListener());
+
+        queue.add(myReq);
     }
 
     private void getLineUp(String matchid) {
         //https://api.soccerama.pro/v1.1/matches/690006?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=lineup,homeTeam,awayTeam
         String query = "$";
-        String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
+        UserSessionManager userSessionManager = new UserSessionManager(context);
+        String token = userSessionManager.getApitoken();
 
         try {
             query = URLEncoder.encode(query, "UTF-8");
@@ -1243,4 +1271,82 @@ public class LineUpFragment extends Fragment {
             }
         });
     }
+
+    private Response.Listener<JSONObject> createMyReqSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("resultKunsang",response.toString());
+                JsonParser jsonParser = new JsonParser();
+                JsonObject result = (JsonObject) jsonParser.parse(response.toString());
+                try {
+                    JsonObject homeTeam = result.getAsJsonObject("homeTeam");
+                    JsonObject awayTeam = result.getAsJsonObject("awayTeam");
+                    JsonObject lineup = result.getAsJsonObject("lineup");
+                    if (!homeTeam.get("logo").isJsonNull()) {
+                        homeTeamLogo = homeTeam.get("logo").getAsString();
+                    } else {
+                        homeTeamLogo = "";
+                    }
+                    if (!awayTeam.get("logo").isJsonNull()) {
+                        awayTeamLogo = awayTeam.get("logo").getAsString();
+                    } else {
+                        awayTeamLogo = "";
+                    }
+
+                    String hometeamid = homeTeam.get("id").getAsString();
+                    String awayteamid = awayTeam.get("id").getAsString();
+                    JsonArray data = lineup.getAsJsonArray("data");
+                    if (data.size() == 0) {
+                        textViewError.setText("line up not available");
+                        linearLayoutError.setVisibility(View.VISIBLE);
+                        scrollView.setVisibility(View.GONE);
+                    } else {
+                        linearLayoutError.setVisibility(View.GONE);
+                        scrollView.setVisibility(View.VISIBLE);
+                        for (int i = 0; i < data.size(); i++) {
+                            JsonObject jsonObject = data.get(i).getAsJsonObject();
+                            String team_id = jsonObject.get("team_id").getAsString();
+                            String player_name = "";
+                            if (jsonObject.get("player_name").isJsonNull()) {
+                                player_name = "";
+                            } else {
+                                player_name = jsonObject.get("player_name").getAsString();
+                            }
+                            String position = "";
+                            if (jsonObject.get("position").isJsonNull()) {
+                                position = "SUB";
+                            } else {
+                                position = jsonObject.get("position").getAsString();
+                            }
+                            String type = jsonObject.get("type").getAsString();
+                            String shirt_number = jsonObject.get("shirt_number").getAsString();
+                            if (type.equalsIgnoreCase("selection") && !position.equalsIgnoreCase("SUB")) {
+                                if (team_id.equalsIgnoreCase(hometeamid)) {
+                                    lineUPDatasHome.add(new LineUPData(position, shirt_number, player_name));
+                                } else {
+                                    lineUPDatasAway.add(new LineUPData(position, shirt_number, player_name));
+                                }
+                            }
+                        }
+                        initLineUp(lineUPDatasHome, lineUPDatasAway);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+    }
+
+
+    private Response.ErrorListener createMyReqErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+            }
+        };
+    }
+
 }

@@ -42,7 +42,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (eventsDatas.get(position).nameb.trim().length() < 1 && eventsDatas.get(position).namea.trim().length() < 1) {
+        if (eventsDatas.get(position).team.trim().length() < 1) {
             return START;
         } else {
             return NORMAL;
@@ -69,70 +69,108 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (position != eventsDatas.size() - 1) {
             EventsHolder holder1 = (EventsHolder) holder;
-            if (eventsDatas.get(position).namea.trim().length() < 1) {
+            if (eventsDatas.get(position).team.trim().equalsIgnoreCase("b")) {
                 holder1.linearLayouta.setVisibility(View.INVISIBLE);
                 holder1.textViewTime.setText(eventsDatas.get(position).time + "'");
                 //goal, penalty, missed_penalty, own-goal, yellowcard, yellowred, redcard, substitution
-                switch (eventsDatas.get(position).event) {
+                switch (eventsDatas.get(position).type) {
                     case "redcard":
+                        holder1.linearLayoutb1.setVisibility(View.GONE);
                         holder1.imageViewTypeb.setImageResource(R.drawable.icon_red_card);
+                        holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "yellowcard":
+                        holder1.linearLayoutb1.setVisibility(View.GONE);
                         holder1.imageViewTypeb.setImageResource(R.drawable.icon_yellow_card);
+                        holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "goal":
+                        holder1.linearLayoutb1.setVisibility(View.GONE);
                         holder1.imageViewTypeb.setImageResource(R.drawable.ball);
+                        holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "penalty":
+                        holder1.linearLayoutb1.setVisibility(View.GONE);
                         holder1.imageViewTypeb.setImageResource(R.drawable.icon_penalty);
+                        holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "missed_penalty":
+                        holder1.linearLayoutb1.setVisibility(View.GONE);
                         holder1.imageViewTypeb.setImageResource(R.drawable.icon_missed_penalty);
+                        holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "own-goal":
+                        holder1.linearLayoutb1.setVisibility(View.GONE);
                         holder1.imageViewTypeb.setImageResource(R.drawable.icon_own_goal);
+                        holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "yellowred":
+                        holder1.linearLayoutb1.setVisibility(View.GONE);
                         holder1.imageViewTypeb.setImageResource(R.drawable.icon_2nd_yellow_card);
+                        holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "substitution":
-                        holder1.imageViewTypeb.setImageResource(R.drawable.ic_substition);
+                        holder1.linearLayoutb1.setVisibility(View.VISIBLE);
+                        holder1.imageViewTypeb.setImageResource(R.drawable.ic_in);
+                        holder1.textViewNameb.setText(eventsDatas.get(position).in);
+
+                        holder1.imageViewTypeb1.setImageResource(R.drawable.ic_out);
+                        holder1.textViewNameb1.setText(eventsDatas.get(position).out);
                         break;
 
 
                 }
-                holder1.textViewNameb.setText(eventsDatas.get(position).nameb);
+
 
             } else {
                 holder1.linearLayoutb.setVisibility(View.INVISIBLE);
                 holder1.textViewTime.setText(eventsDatas.get(position).time);
-                switch (eventsDatas.get(position).event) {
+                switch (eventsDatas.get(position).type) {
                     case "redcard":
+                        holder1.linearLayouta1.setVisibility(View.GONE);
                         holder1.imageViewTypea.setImageResource(R.drawable.icon_red_card);
+                        holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "yellowcard":
+                        holder1.linearLayouta1.setVisibility(View.GONE);
                         holder1.imageViewTypea.setImageResource(R.drawable.icon_yellow_card);
+                        holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "goal":
+                        holder1.linearLayouta1.setVisibility(View.GONE);
                         holder1.imageViewTypea.setImageResource(R.drawable.ball);
+                        holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "penalty":
+                        holder1.linearLayouta1.setVisibility(View.GONE);
                         holder1.imageViewTypea.setImageResource(R.drawable.icon_penalty);
+                        holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "missed_penalty":
+                        holder1.linearLayouta1.setVisibility(View.GONE);
                         holder1.imageViewTypea.setImageResource(R.drawable.icon_missed_penalty);
+                        holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "own-goal":
+                        holder1.linearLayouta1.setVisibility(View.GONE);
                         holder1.imageViewTypea.setImageResource(R.drawable.icon_own_goal);
+                        holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "yellowred":
+                        holder1.linearLayouta1.setVisibility(View.GONE);
                         holder1.imageViewTypea.setImageResource(R.drawable.icon_2nd_yellow_card);
+                        holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "substitution":
-                        holder1.imageViewTypea.setImageResource(R.drawable.ic_substition);
+                        holder1.linearLayouta1.setVisibility(View.VISIBLE);
+                        holder1.imageViewTypea.setImageResource(R.drawable.ic_in);
+                        holder1.textViewNamea.setText(eventsDatas.get(position).in);
+                        holder1.imageViewTypea1.setImageResource(R.drawable.ic_out);
+                        holder1.textViewNamea1.setText(eventsDatas.get(position).out);
+
+
                         break;
                 }
-                holder1.textViewNamea.setText(eventsDatas.get(position).namea);
             }
         }
     }

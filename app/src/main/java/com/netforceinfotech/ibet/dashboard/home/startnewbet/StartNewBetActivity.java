@@ -17,8 +17,7 @@ import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.PagerAdapterDashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
-public class StartNewBetActivity extends AppCompatActivity
-{
+public class StartNewBetActivity extends AppCompatActivity {
     TabLayout tabLayout;
     Toolbar toolbar;
     UserSessionManager userSessionManager;
@@ -27,69 +26,48 @@ public class StartNewBetActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_vew_bet);
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
         userSessionManager = new UserSessionManager(getApplicationContext());
         theme = userSessionManager.getTheme();
-
         window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
 
+        if (theme == 0) {
 
-        if(theme == 0)
-        {
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
             }
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
             }
-        }
-        else if (theme == 4)
-        {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+        } else if (theme == 4) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
             }
@@ -119,8 +97,7 @@ public class StartNewBetActivity extends AppCompatActivity
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
 
@@ -129,9 +106,7 @@ public class StartNewBetActivity extends AppCompatActivity
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme1));
 
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
 
@@ -140,9 +115,7 @@ public class StartNewBetActivity extends AppCompatActivity
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme2));
 
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
@@ -150,9 +123,7 @@ public class StartNewBetActivity extends AppCompatActivity
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme3));
 
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
 
@@ -160,9 +131,7 @@ public class StartNewBetActivity extends AppCompatActivity
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme4));
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme4));
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
 
@@ -171,7 +140,6 @@ public class StartNewBetActivity extends AppCompatActivity
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme5));
 
         }
-
 
 
         final PagerAdapterNewBet adapter = new PagerAdapterNewBet

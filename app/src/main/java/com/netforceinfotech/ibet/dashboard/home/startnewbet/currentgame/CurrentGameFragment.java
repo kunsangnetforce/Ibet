@@ -88,7 +88,8 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
     }
 
     private void getLiveMatch1() {
-        String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
+        UserSessionManager userSessionManager = new UserSessionManager(context);
+        String token = userSessionManager.getApitoken();
         String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
 
         RequestQueue queue = Volley.newRequestQueue(context);

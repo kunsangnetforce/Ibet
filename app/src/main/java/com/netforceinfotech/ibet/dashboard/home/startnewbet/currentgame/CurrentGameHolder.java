@@ -24,8 +24,8 @@ public class CurrentGameHolder extends RecyclerView.ViewHolder {
         super(itemView);
         //implementing onClickListener
         view = itemView;
-        textView= (TextView) view.findViewById(R.id.textViewTeamA);
-        textView= (TextView) view.findViewById(R.id.textViewTeamB);
+        textViewTeamA= (TextView) view.findViewById(R.id.textViewTeamA);
+        textViewTeamB= (TextView) view.findViewById(R.id.textViewTeamB);
         imageViewChecked = (ImageView) itemView.findViewById(R.id.imageViewChecked);
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
         textView = (TextView) view.findViewById(R.id.textView);

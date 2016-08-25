@@ -87,6 +87,8 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             }
         });
+        upcomingGameHolder.textViewTeamA.setText(itemList.get(position).teama);
+        upcomingGameHolder.textViewTeamB.setText(itemList.get(position).teamb);
         upcomingGameHolder.textView.setText(itemList.get(position).teama + " vs " + itemList.get(position).teamb);
         if (itemList.get(position).logob.length() > 1) {
             Picasso.with(context)

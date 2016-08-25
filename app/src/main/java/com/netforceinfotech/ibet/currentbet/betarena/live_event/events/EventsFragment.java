@@ -23,8 +23,6 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.live_event.CurrentGameData;
-import com.netforceinfotech.ibet.live_event.LiveEventActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -97,12 +95,12 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setupData() {
-        eventsDatas.add(new EventsData("neymar", "", "goal", "76"));
+        /*eventsDatas.add(new EventsData("neymar", "", "goal", "76"));
         eventsDatas.add(new EventsData("", "bale", "goal", "55"));
         eventsDatas.add(new EventsData("masherano", "", "yellow", "34"));
         eventsDatas.add(new EventsData("Pique", "", "red", "12"));
         eventsDatas.add(new EventsData("", "Ronaldo", "goal", "6"));
-        eventsDatas.add(new EventsData("", "", "", "0"));
+        eventsDatas.add(new EventsData("", "", "", "0"));*/
 
     }
 
@@ -144,12 +142,30 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                                     String teamalogo = "";
                                     String teamblogo = "";
                                     try {
-                                        teama = teamObject.get("hm_teamname").getAsString();
-                                        teamb = teamObject.get("aw_teamname").getAsString();
-                                        teamalogo = teamObject.get("hm_teamlogo").getAsString();
-                                        teamblogo = teamObject.get("aw_teamlogo").getAsString();
-                                    } catch (Exception ex) {
+                                        if (teamObject.get("hm_teamname").isJsonNull()) {
+                                            teama = "";
+                                        } else {
+                                            teama = teamObject.get("hm_teamname").getAsString();
+                                        }
+                                        if (teamObject.get("aw_teamname").isJsonNull()) {
+                                            teamb = "";
+                                        } else {
+                                            teamb = teamObject.get("aw_teamname").getAsString();
+                                        }
+                                        if (teamObject.get("hm_teamlogo").isJsonNull()) {
+                                            teamalogo = "";
+                                        } else {
+                                            teamalogo = teamObject.get("hm_teamlogo").getAsString();
+                                        }
+                                        if (teamObject.get("aw_teamlogo").isJsonNull()) {
+                                            teamblogo = "";
+                                        } else {
+                                            teamblogo = teamObject.get("aw_teamlogo").getAsString();
+                                        }
 
+
+                                    } catch (Exception ex) {
+                                        ex.printStackTrace();
                                     }
                                     JsonArray data_event = dataObject.get("data_event").getAsJsonArray();
                                     if (data_event.size() == 0) {
@@ -162,13 +178,23 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                                             JsonObject jsonObject = data_event.get(i).getAsJsonObject();
                                             String team_id = jsonObject.get("team_id").getAsString();
                                             String teamaName = "", teambName = "";
-                                            String player_name = jsonObject.get("player_name").getAsString();
-                                            if (team_id.equalsIgnoreCase(teamaid)) {
-                                                teamaName = player_name;
-                                            } else {
-                                                teambName = player_name;
-                                            }
                                             String type = jsonObject.get("type").getAsString();
+                                            String player_name = "";
+                                            String player_in_name = "", player_out_name = "";
+                                            if (type.equalsIgnoreCase("substitution")) {
+                                                player_in_name = jsonObject.get("player_in_name").getAsString();
+                                                player_out_name = jsonObject.get("player_out_name").getAsString();
+
+                                            } else {
+                                                player_name = jsonObject.get("player_name").getAsString();
+                                            }
+
+                                            String team;
+                                            if (team_id.equalsIgnoreCase(teamaid)) {
+                                                team = "a";
+                                            } else {
+                                                team = "b";
+                                            }
                                             String minute = jsonObject.get("minute").getAsString();
                                             String extra_min = "0";
                                             if (jsonObject.get("extra_min").isJsonNull()) {
@@ -182,11 +208,13 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                                                 time = minute + "'";
                                             } else {
                                                 time = minute + "'+" + extra_min;
+                                                time = minute + "'+" + extra_min;
                                             }
-                                            eventsDatas.add(new EventsData(teamaName, teambName, type, time));
+                                            //EventsData(String name, String type, String id, String event, String time, String in, String out) {
+                                            eventsDatas.add(new EventsData(player_name, type, team_id, time, player_in_name, player_out_name, team));
                                         }
                                         Collections.reverse(eventsDatas);
-                                        eventsDatas.add(new EventsData("", "", "", "0"));
+                                        eventsDatas.add(new EventsData("", "", "", "0", "", "", ""));
                                     }
                                     JsonArray data_score = dataObject.get("data_score").getAsJsonArray();
                                     JsonObject score_object = data_score.get(0).getAsJsonObject();

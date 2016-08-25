@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.datetimepicker.date.DatePickerDialog;
+import com.android.datetimepicker.time.RadialPickerLayout;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,25 +30,31 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LiveEventsFragment extends Fragment {
+public class LiveEventsFragment extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     Context context;
     ArrayList<CurrentGameData> currentGameDatas = new ArrayList<>();
     private CurrentGameAdapter currentGameAdapter;
     LinearLayout linearLayout;
     private SwipyRefreshLayout mSwipyRefreshLayout;
+    Button buttonDate;
 
     public LiveEventsFragment() {
         // Required empty public constructor
@@ -59,6 +68,8 @@ public class LiveEventsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_live_events, container, false);
         context = getActivity();
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        buttonDate = (Button) view.findViewById(R.id.buttondate);
+        buttonDate.setOnClickListener(this);
         mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
         mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
@@ -72,7 +83,8 @@ public class LiveEventsFragment extends Fragment {
     }
 
     private void getLiveMatch1() {
-        String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
+        UserSessionManager userSessionManager = new UserSessionManager(context);
+        String token = userSessionManager.getApitoken();
         String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
 
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -307,5 +319,79 @@ public class LiveEventsFragment extends Fragment {
 
             }
         });
+    }
+
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
+        String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
+        String minuteString = minute < 10 ? "0" + minute : "" + minute;
+        String secondString = second < 10 ? "0" + second : "" + second;
+        String time = "You picked the following time: " + hourString + "h" + minuteString + "m" + secondString + "s";
+        buttonDate.setText(time);
+    }
+
+
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = "You picked the following date: " + dayOfMonth + "/" + (++monthOfYear) + "/" + year;
+        Date date2 = new Date();
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date2 = date_format.parse(year + "-" + monthOfYear + "-" + dayOfMonth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("date======" + date2.toString());
+
+        String day_txt = date2.toString().substring(0, 3);
+
+        String month_txt = date2.toString().substring(4, 7);
+        String formattedMonth = "";
+        if (monthOfYear <= 9) {
+            formattedMonth = "0" + monthOfYear;
+        } else {
+            formattedMonth = "" + monthOfYear;
+        }
+        buttonDate.setText(day_txt + " " + dayOfMonth + " " + month_txt);
+        getMatchBydate(year + "-" + formattedMonth + "-" + dayOfMonth);
+        Log.i("kunsang_date", year + "-" + monthOfYear + "-" + dayOfMonth);
+
+    }
+
+    private void getMatchBydate(String date) {
+        try{
+            currentGameDatas.clear();
+            currentGameAdapter.notifyDataSetChanged();
+        }catch (Exception ex){
+
+        }
+        UserSessionManager userSessionManager = new UserSessionManager(context);
+        //https://api.soccerama.pro/v1.1/livescore/date/{date}?api_token=__YOURTOKEN__
+        String token = userSessionManager.getApitoken();
+        //String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
+        String url = "https://api.soccerama.pro/v1.1/livescore/date/" + date + "?api_token=" + token + "&include=homeTeam,awayTeam";
+        Log.i("result_kunsang", url);
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
+                url,
+                null,
+                createMyReqSuccessListener(),
+                createMyReqErrorListener());
+
+        queue.add(myReq);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttondate:
+
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog.newInstance(this, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)).show(getActivity().getFragmentManager(), "datePicker");
+
+
+                break;
+
+        }
     }
 }

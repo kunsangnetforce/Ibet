@@ -13,7 +13,7 @@ import com.netforceinfotech.ibet.R;
  */
 public class UpcomingGameHolder extends RecyclerView.ViewHolder {
 
-    TextView textView;
+    TextView textView,textViewTeamA,textViewTeamB;
     ImageView imageViewChecked, teama, teamb;
     MaterialRippleLayout materialRippleLayout;
     View view;
@@ -23,6 +23,8 @@ public class UpcomingGameHolder extends RecyclerView.ViewHolder {
         super(itemView);
         //implementing onClickListener
         view = itemView;
+        textViewTeamA= (TextView) view.findViewById(R.id.textViewTeamA);
+        textViewTeamB= (TextView) view.findViewById(R.id.textViewTeamB);
         imageViewChecked = (ImageView) itemView.findViewById(R.id.imageViewChecked);
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
         textView = (TextView) view.findViewById(R.id.textView);

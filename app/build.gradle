@@ -44,6 +44,7 @@ dependencies {
     }
     compile project(':wscratchview-library2')
 
+
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'cn.pedant.sweetalert:library:1.3'
     compile 'com.afollestad.material-dialogs:commons:0.9.0.0'
@@ -75,5 +76,6 @@ dependencies {
     compile 'com.github.paolorotolo:appintro:4.0.0'
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
     compile 'dev.dworks.libs:volleyplus:+'
+    compile 'com.github.citux:datetimepicker:0.2.0'
 
 }

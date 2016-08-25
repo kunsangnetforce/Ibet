@@ -16,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -55,8 +56,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
     public static ArrayList<String> arrayListTeamids = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_setting);
         context = this;
@@ -69,6 +69,20 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         findViewById(R.id.buttonDone).setOnClickListener(this);
         findViewById(R.id.imageViewDP).setOnClickListener(this);
         findViewById(R.id.rippleText).setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -119,10 +133,16 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         url = url + uploadurl;
         Log.i("result_url", url);
         Log.i("result_url", filePath + "   " + teams);
+        File file = null;
+        if (filePath == null || filePath.length() == 0) {
+
+        } else {
+            file = new File(filePath);
+        }
 
         Ion.with(context)
                 .load(url)
-                .setMultipartFile("image", "image/*", new File(filePath))
+                .setMultipartFile("image", "image/*", file)
                 .setMultipartParameter("team", teams)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -132,7 +152,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                             showMessage("nothing is happening");
                         } else {
                             Log.i("result_kunsang", result.toString());
-                            String status = result.get("status").toString();
+                            String status = result.get("status").getAsString();
                             if (status.equalsIgnoreCase("success")) {
                                 showMessage("Successfully uploaded");
                                 Intent intent = new Intent(context, Dashboard.class);

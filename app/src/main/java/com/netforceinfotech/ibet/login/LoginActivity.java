@@ -19,6 +19,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonArray;
@@ -77,10 +78,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         if (profile != null) {
-            Intent intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
+            LoginManager.getInstance().logOut();
+           /* Intent intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
             startActivity(intent);
             finish();
-            overridePendingTransition(R.anim.enter, R.anim.exit);
+            overridePendingTransition(R.anim.enter, R.anim.exit);*/
         }
 
 
@@ -201,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //https://netforcesales.com/ibet_admin/api/services.php?opt=register&email=kunwangyal15@yahoo.com&fb_token=qwerty1&name=Kunsang%20Wangyal&facebook=1&fb_id=1sdfasdf232324&device_id=asdf23232322&reg_id=asdfasdf232324
         String url = getResources().getString(R.string.url);
         String device_id = getDeviceId();
-        fbName=fbName.replace(" ", "%20");
+        fbName = fbName.replace(" ", "%20");
         url = url + "/services.php?opt=register&email=" + email + "&fb_token=" + fbToken + "&name=" + fbName + "&fb_id=" + fbId + "&device_id=" + device_id + "&reg_id=asdfasdf232324";
         Log.i("result url", url);
         setHeader();
@@ -215,18 +217,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             showMessage("nothings is here");
                         } else {
                             Log.i("kunsang_test_login", result.toString());
-                            String status=result.get("status").getAsString().toLowerCase();
-                            if(status.equalsIgnoreCase("success")){
-                                JsonArray data=result.getAsJsonArray("data");
-                                JsonObject object=data.get(0).getAsJsonObject();
-                                String customer_id=object.get("customer_id").getAsString();
+                            String status = result.get("status").getAsString().toLowerCase();
+                            if (status.equalsIgnoreCase("success")) {
+                                JsonArray data = result.getAsJsonArray("data");
+                                JsonObject object = data.get(0).getAsJsonObject();
+                                String api_token = result.get("api_token").getAsString();
+                                String customer_id = object.get("customer_id").getAsString();
                                 userSessionManager.setCustomerId(customer_id);
-                                if(userSessionManager.getIsFirstTime()){
-                                    intent=new Intent(context,ProfileSettingActivity.class);
+                                userSessionManager.setApitoken(api_token);
+                                if (userSessionManager.getIsFirstTime()) {
+                                    intent = new Intent(context, ProfileSettingActivity.class);
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.enter, R.anim.exit);
-                                }
-                                else {
+                                } else {
                                     intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
                                     startActivity(intent);
                                     finish();

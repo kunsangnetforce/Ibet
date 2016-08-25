@@ -22,6 +22,7 @@ public class UserSessionManager {
 
     private static final String MUTEALL = "muteall";
     private static final String CUSTOMER_ID = "customer_id";
+    private static final String APITOKEN = "api_token";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -145,5 +146,15 @@ public class UserSessionManager {
     public String getCustomerId() {
 
         return pref.getString(CUSTOMER_ID, "");
+    }
+
+    public void setApitoken(String customer_id) {
+        editor.putString(APITOKEN, customer_id);
+        editor.commit();
+    }
+
+    public String getApitoken() {
+
+        return pref.getString(APITOKEN, "");
     }
 }

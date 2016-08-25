@@ -134,8 +134,16 @@ public class SummaryFragment extends Fragment {
                             textViewError.setText("Connection error");
                         } else {
                             try {
+                                try {
+                                    if (!result.get("error").isJsonNull()) {
+                                        linearLayoutError.setVisibility(View.VISIBLE);
+                                        linearLayoutStatistic.setVisibility(View.GONE);
+                                        textViewError.setText(result.get("error").getAsString());
+                                    }
+                                } catch (Exception ex) {
 
-                                if (result.get("error").isJsonNull()) {
+                                }
+                                try {
                                     linearLayoutError.setVisibility(View.GONE);
                                     linearLayoutStatistic.setVisibility(View.VISIBLE);
                                     JsonObject home = result.getAsJsonObject("home");
@@ -243,10 +251,8 @@ public class SummaryFragment extends Fragment {
                                         imageViewAway.setImageResource(R.drawable.ic_error);
                                     }
 
-                                } else {
-                                    linearLayoutError.setVisibility(View.VISIBLE);
-                                    linearLayoutStatistic.setVisibility(View.GONE);
-                                    textViewError.setText(result.get("error").getAsString());
+                                } catch (Exception ex) {
+
                                     //showMessage(result.get("error").getAsString());
                                 }
                             } catch (Exception ex) {
