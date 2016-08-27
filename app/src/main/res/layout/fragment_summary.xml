@@ -8,6 +8,7 @@
     tools:context="com.netforceinfotech.ibet.currentbet.betarena.stats.summary.SummaryFragment">
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -191,23 +192,6 @@
                 android:layout_height="0.25dp"
                 android:layout_margin="6dp"
                 android:background="@color/colorDivider" />
-
-            <LinearLayout
-                android:id="@+id/linearLayoutError"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/textViewError"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:text="No data"
-                    android:textColor="@color/colorText" />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayoutStatistic"
@@ -1191,4 +1175,19 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <TextView
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Stats available" />
+
+    </LinearLayout>
 </FrameLayout>

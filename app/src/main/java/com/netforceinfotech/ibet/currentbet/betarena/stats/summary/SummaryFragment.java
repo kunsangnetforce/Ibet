@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +32,9 @@ public class SummaryFragment extends Fragment {
     TextView textViewTSA, textViewSoTA, textViewFoulA, textViewOSA, textViewCornorA, textViewPossesionA, textViewYCA, textViewRCA, textViewSaveA;
     RoundCornerProgressBar progressbarTSH, progressbarSoTH, progressbarFoulH, progressbarOSH, progressbarCornorH, progressbarPossesionH, progressbarYCH, progressbarRCH, progressbarSaveH;
     RoundCornerProgressBar progressbarTSA, progressbarSoTA, progressbarFoulA, progressbarOSA, progressbarCornorA, progressbarPossesionA, progressbarYCA, progressbarRCA, progressbarSaveA;
-    LinearLayout linearLayoutStatistic, linearLayoutError;
-    TextView textViewError, textViewGoal;
+    LinearLayout linearLayout;
+    ScrollView scrollView;
+    TextView  textViewGoal;
 
     ImageView imageViewHome, imageViewAway;
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
@@ -64,9 +66,9 @@ public class SummaryFragment extends Fragment {
         textViewTime = (TextView) view.findViewById(R.id.textViewMinute);
         textViewHomeGoal = (TextView) view.findViewById(R.id.textViewHomeGoal);
         textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
-        linearLayoutError = (LinearLayout) view.findViewById(R.id.linearLayoutError);
-        linearLayoutStatistic = (LinearLayout) view.findViewById(R.id.linearLayoutStatistic);
-        textViewError = (TextView) view.findViewById(R.id.textViewError);
+        scrollView= (ScrollView) view.findViewById(R.id.scrollView);
+        linearLayout= (LinearLayout) view.findViewById(R.id.linearLayout);
+
         initHome(view);
         initAway(view);
     }
@@ -130,23 +132,22 @@ public class SummaryFragment extends Fragment {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result == null) {
-                            linearLayoutError.setVisibility(View.VISIBLE);
-                            linearLayoutStatistic.setVisibility(View.GONE);
-                            textViewError.setText("Connection error");
+                            linearLayout.setVisibility(View.VISIBLE);
+                            scrollView.setVisibility(View.GONE);
+
                         } else {
                             try {
                                 try {
                                     if (!result.get("error").isJsonNull()) {
-                                        linearLayoutError.setVisibility(View.VISIBLE);
-                                        linearLayoutStatistic.setVisibility(View.GONE);
-                                        textViewError.setText(result.get("error").getAsString());
+                                        linearLayout.setVisibility(View.VISIBLE);
+                                        scrollView.setVisibility(View.GONE);
                                     }
                                 } catch (Exception ex) {
 
                                 }
                                 try {
-                                    linearLayoutError.setVisibility(View.GONE);
-                                    linearLayoutStatistic.setVisibility(View.VISIBLE);
+                                    linearLayout.setVisibility(View.GONE);
+                                    scrollView.setVisibility(View.VISIBLE);
                                     JsonObject home = result.getAsJsonObject("home");
                                     JsonObject away = result.getAsJsonObject("away");
                                     JsonObject hometeam = home.getAsJsonObject("team");
@@ -268,10 +269,13 @@ public class SummaryFragment extends Fragment {
                                     }
 
                                 } catch (Exception ex) {
-
+                                    linearLayout.setVisibility(View.VISIBLE);
+                                    scrollView.setVisibility(View.GONE);
                                     //showMessage(result.get("error").getAsString());
                                 }
                             } catch (Exception ex) {
+                                linearLayout.setVisibility(View.VISIBLE);
+                                scrollView.setVisibility(View.GONE);
                                 ex.printStackTrace();
                             }
 

@@ -248,8 +248,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
                                     String minute = score_object.get("minute").getAsString();
                                     String extra_minute = score_object.get("extra_minute").getAsString();
-                                    textViewTeamA.setText(teamb);
-                                    textViewTeamB.setText(teama);
+                                    textViewTeamA.setText(teama);
+                                    textViewTeamB.setText(teamb);
                                     textViewHomeGoal.setText(home_score);
                                     textViewAwayGoal.setText(away_score);
 
