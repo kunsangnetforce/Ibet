@@ -66,8 +66,7 @@ public class LineUpFragment extends Fragment {
     TextView textViewMA11, textViewMA21, textViewMA22, textViewMA31, textViewMA32, textViewMA33, textViewMA41, textViewMA42, textViewMA43, textViewMA44, textViewMA51, textViewMA52, textViewMA53, textViewMA54, textViewMA55;
     TextView textViewFH11, textViewFH21, textViewFH22, textViewFH31, textViewFH32, textViewFH33, textViewFH41, textViewFH42, textViewFH43, textViewFH44;
     TextView textViewFA11, textViewFA21, textViewFA22, textViewFA31, textViewFA32, textViewFA33, textViewFA41, textViewFA42, textViewFA43, textViewFA44;
-    private String homeTeamLogo = "";
-    private String awayTeamLogo = "";
+    private String homeTeamLogo = "",awayTeamLogo="";
 
     ArrayList<LineUPData> arrayListHomeDefender = new ArrayList<>();
     ArrayList<LineUPData> arrayListAwayDefender = new ArrayList<>();
@@ -95,7 +94,6 @@ public class LineUpFragment extends Fragment {
         try {
             matchid = this.getArguments().getString("matchid");
         } catch (Exception ex) {
-            Log.i("kunsang exception", "parameter not yet set");
         }
         initview(view);
         getLineUp1(matchid);
@@ -107,9 +105,8 @@ public class LineUpFragment extends Fragment {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String token = userSessionManager.getApitoken();
         String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
-        Log.i("kunsangurl", url);
         RequestQueue queue = Volley.newRequestQueue(context);
-
+        Log.i("url", url);
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
                 url,
                 null,
@@ -133,7 +130,6 @@ public class LineUpFragment extends Fragment {
         String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
         // url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid;
         // url = url + "/events_by_match_id.php?matchid=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
-        Log.i("result url", url);
         setHeader();
         Ion.with(context)
                 .load(url)
@@ -147,7 +143,6 @@ public class LineUpFragment extends Fragment {
                         } else {
                             try {
 
-
                                 JsonObject homeTeam = result.getAsJsonObject("homeTeam");
                                 JsonObject awayTeam = result.getAsJsonObject("awayTeam");
                                 JsonObject lineup = result.getAsJsonObject("lineup");
@@ -157,9 +152,9 @@ public class LineUpFragment extends Fragment {
                                     homeTeamLogo = "";
                                 }
                                 if (!awayTeam.get("logo").isJsonNull()) {
-                                    awayTeamLogo = awayTeam.get("logo").getAsString();
+                                    homeTeamLogo = awayTeam.get("logo").getAsString();
                                 } else {
-                                    awayTeamLogo = "";
+                                    homeTeamLogo = "";
                                 }
 
                                 String hometeamid = homeTeam.get("id").getAsString();
@@ -170,6 +165,7 @@ public class LineUpFragment extends Fragment {
                                     linearLayoutError.setVisibility(View.VISIBLE);
                                     scrollView.setVisibility(View.GONE);
                                 } else {
+
                                     linearLayoutError.setVisibility(View.GONE);
                                     scrollView.setVisibility(View.VISIBLE);
                                     for (int i = 0; i < data.size(); i++) {
@@ -224,14 +220,33 @@ public class LineUpFragment extends Fragment {
                     }
                     break;
                 case "Defender":
+                case "CD-L":
+                case "CD-R":
+                case "LB":
+                case "RB":
+                case "CD":
                     arrayListHomeDefender.add(lineUPDatasHome.get(i));
                     countHD++;
                     break;
                 case "Midfielder":
+                case "CM":
+                case "CM-L":
+                case "CM-R":
+                case "LM":
+                case "AM":
+                case "RM":
+                case "AM-L":
+                case "AM-R":
+
                     arrayListHomeMid.add(lineUPDatasHome.get(i));
                     countHM++;
                     break;
                 case "Forward":
+                case "LF":
+                case "RF":
+                case "CF-L":
+                case "CF-R":
+
                     arrayListHomeForward.add(lineUPDatasHome.get(i));
                     countHF++;
                     break;
@@ -241,7 +256,7 @@ public class LineUpFragment extends Fragment {
             switch (lineUPDatasAway.get(i).position) {
                 case "Goalkeeper":
                     textViewGKA.setText(lineUPDatasAway.get(i).name);
-                    if (awayTeamLogo.length() > 0) {
+                    if (homeTeamLogo.length() > 0) {
                         Picasso.with(context)
                                 .load(awayTeamLogo)
                                 .placeholder(R.drawable.ic_holder)
@@ -252,21 +267,40 @@ public class LineUpFragment extends Fragment {
                     }
                     break;
                 case "Defender":
+                case "CD-L":
+                case "CD-R":
+                case "LB":
+                case "RB":
+                case "CD":
                     arrayListAwayDefender.add(lineUPDatasAway.get(i));
                     countAD++;
                     break;
                 case "Midfielder":
+                case "CM":
+                case "CM-L":
+                case "CM-R":
+                case "LM":
+                case "AM":
+                case "RM":
+                case "AM-L":
+                case "AM-R":
                     arrayListAwayMid.add(lineUPDatasAway.get(i));
                     countAM++;
                     break;
                 case "Forward":
+                case "LF":
+                case "RF":
+                case "CF-L":
+                case "CF-R":
                     arrayListAwayForward.add(lineUPDatasAway.get(i));
                     countAF++;
                     break;
             }
         }
+//****************************************************************************
+        switch (countHD)
 
-        switch (countHD) {
+        {
             case 3:
                 linearLayoutDH3.setVisibility(View.VISIBLE);
                 textViewDH31.setText(arrayListHomeDefender.get(0).name);
@@ -371,9 +405,12 @@ public class LineUpFragment extends Fragment {
 
                 }
                 break;
+
         }
 
-        switch (countHM) {
+        switch (countHM)
+
+        {
             case 1:
                 linearLayoutMH1.setVisibility(View.VISIBLE);
                 textViewMH11.setText(arrayListHomeMid.get(0).name);
@@ -475,7 +512,7 @@ public class LineUpFragment extends Fragment {
                 textViewMH52.setText(arrayListHomeMid.get(1).name);
                 textViewMH53.setText(arrayListHomeMid.get(2).name);
                 textViewMH54.setText(arrayListHomeMid.get(3).name);
-                textViewMH54.setText(arrayListHomeMid.get(4).name);
+                textViewMH55.setText(arrayListHomeMid.get(4).name);
                 if (homeTeamLogo.length() > 0) {
                     Picasso.with(context)
                             .load(homeTeamLogo)
@@ -512,7 +549,10 @@ public class LineUpFragment extends Fragment {
                 }
                 break;
         }
-        switch (countHF) {
+
+        switch (countHF)
+
+        {
             case 1:
                 linearLayoutFH1.setVisibility(View.VISIBLE);
                 textViewFH11.setText(arrayListHomeForward.get(0).name);
@@ -552,7 +592,7 @@ public class LineUpFragment extends Fragment {
                 linearLayoutFH3.setVisibility(View.VISIBLE);
                 textViewFH31.setText(arrayListHomeForward.get(0).name);
                 textViewFH32.setText(arrayListHomeForward.get(1).name);
-                textViewFH33.setText(arrayListHomeForward.get(3).name);
+                textViewFH33.setText(arrayListHomeForward.get(2).name);
                 if (homeTeamLogo.length() > 0) {
                     Picasso.with(context)
                             .load(homeTeamLogo)
@@ -611,8 +651,14 @@ public class LineUpFragment extends Fragment {
                 }
 
                 break;
+
         }
-        switch (countAD) {
+
+        //******************************************************************************//
+
+        switch (countAD)
+
+        {
             case 3:
                 linearLayoutDA3.setVisibility(View.VISIBLE);
                 textViewDA31.setText(arrayListAwayDefender.get(0).name);
@@ -719,7 +765,10 @@ public class LineUpFragment extends Fragment {
                 break;
 
         }
-        switch (countAM) {
+
+        switch (countAM)
+
+        {
             case 1:
                 linearLayoutMA1.setVisibility(View.VISIBLE);
                 textViewMA11.setText(arrayListAwayMid.get(0).name);
@@ -821,7 +870,7 @@ public class LineUpFragment extends Fragment {
                 textViewMA52.setText(arrayListAwayMid.get(1).name);
                 textViewMA53.setText(arrayListAwayMid.get(2).name);
                 textViewMA54.setText(arrayListAwayMid.get(3).name);
-                textViewMA54.setText(arrayListAwayMid.get(4).name);
+                textViewMA55.setText(arrayListAwayMid.get(4).name);
                 if (awayTeamLogo.length() > 0) {
                     Picasso.with(context)
                             .load(awayTeamLogo)
@@ -858,7 +907,10 @@ public class LineUpFragment extends Fragment {
                 }
                 break;
         }
-        switch (countAF) {
+
+        switch (countAF)
+
+        {
             case 1:
                 linearLayoutFA1.setVisibility(View.VISIBLE);
                 textViewFA11.setText(arrayListAwayForward.get(0).name);
@@ -1276,7 +1328,6 @@ public class LineUpFragment extends Fragment {
         return new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i("resultKunsang",response.toString());
                 JsonParser jsonParser = new JsonParser();
                 JsonObject result = (JsonObject) jsonParser.parse(response.toString());
                 try {
@@ -1284,6 +1335,7 @@ public class LineUpFragment extends Fragment {
                     JsonObject awayTeam = result.getAsJsonObject("awayTeam");
                     JsonObject lineup = result.getAsJsonObject("lineup");
                     if (!homeTeam.get("logo").isJsonNull()) {
+
                         homeTeamLogo = homeTeam.get("logo").getAsString();
                     } else {
                         homeTeamLogo = "";
@@ -1305,6 +1357,7 @@ public class LineUpFragment extends Fragment {
                         linearLayoutError.setVisibility(View.GONE);
                         scrollView.setVisibility(View.VISIBLE);
                         for (int i = 0; i < data.size(); i++) {
+
                             JsonObject jsonObject = data.get(i).getAsJsonObject();
                             String team_id = jsonObject.get("team_id").getAsString();
                             String player_name = "";
@@ -1318,10 +1371,11 @@ public class LineUpFragment extends Fragment {
                                 position = "SUB";
                             } else {
                                 position = jsonObject.get("position").getAsString();
+                                Log.i("kunsangposition", team_id + "" + i + position);
                             }
                             String type = jsonObject.get("type").getAsString();
                             String shirt_number = jsonObject.get("shirt_number").getAsString();
-                            if (type.equalsIgnoreCase("selection") && !position.equalsIgnoreCase("SUB")) {
+                            if (type.equalsIgnoreCase("selection")) {
                                 if (team_id.equalsIgnoreCase(hometeamid)) {
                                     lineUPDatasHome.add(new LineUPData(position, shirt_number, player_name));
                                 } else {

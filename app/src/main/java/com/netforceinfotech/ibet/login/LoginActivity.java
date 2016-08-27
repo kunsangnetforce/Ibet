@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private UserSessionManager userSessionManager;
     Context context;
     RelativeLayout relative_login;
+    LinearLayout linearLayoutProgress;
 
 
     @Override
@@ -62,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         AppEventsLogger.activateApp(getApplication());
         setContentView(R.layout.activity_login);
         context = this;
+        linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgress);
         userSessionManager = new UserSessionManager(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         findViewById(R.id.textViewRegister).setOnClickListener(this);
@@ -207,12 +210,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         url = url + "/services.php?opt=register&email=" + email + "&fb_token=" + fbToken + "&name=" + fbName + "&fb_id=" + fbId + "&device_id=" + device_id + "&reg_id=asdfasdf232324";
         Log.i("result url", url);
         setHeader();
+        linearLayoutProgress.setVisibility(View.VISIBLE);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        linearLayoutProgress.setVisibility(View.GONE);
                         if (result == null) {
                             showMessage("nothings is here");
                         } else {

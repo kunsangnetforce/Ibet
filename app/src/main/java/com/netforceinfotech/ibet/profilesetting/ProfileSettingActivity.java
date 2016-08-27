@@ -19,12 +19,23 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.MultiPartRequest;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Dashboard;
@@ -54,6 +65,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
     private String filePath;
     UserSessionManager userSessionManager;
     public static ArrayList<String> arrayListTeamids = new ArrayList<>();
+    LinearLayout linearLayoutProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +81,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         findViewById(R.id.buttonDone).setOnClickListener(this);
         findViewById(R.id.imageViewDP).setOnClickListener(this);
         findViewById(R.id.rippleText).setOnClickListener(this);
+        linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgress);
     }
 
     @Override
@@ -103,8 +116,9 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                 startActivity(intent);
                 break;
             case R.id.buttonDone:
+                linearLayoutProgress.setVisibility(View.VISIBLE);
                 String id = userSessionManager.getCustomerId();
-                uploadImage(id);
+                uploadImage1(id);
                 userSessionManager.setIsFirstTime(false);
                 break;
             case R.id.rippleProPic:
@@ -125,6 +139,50 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         }
     }
 
+    private void uploadImage1(String id) {
+        String url = getResources().getString(R.string.url);
+        String uploadurl = "/services.php?opt=update_profile&customer_id=" + id;
+        String teams = TextUtils.join(",", arrayListTeamids);
+        url = url + uploadurl;
+        Log.i("result_url", url);
+        Log.i("result_url", filePath + "   " + teams);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        SimpleMultiPartRequest request = new SimpleMultiPartRequest(
+                url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                linearLayoutProgress.setVisibility(View.GONE);
+                Log.i("result_multi", response);
+                JsonParser jsonParser = new JsonParser();
+                try {
+                    JsonObject jsonObject = jsonParser.parse(response).getAsJsonObject();
+                    if (jsonObject.get("status").getAsString().equalsIgnoreCase("success")) {
+                        showMessage("Successfully uploaded");
+                        Intent intent = new Intent(context, TutorialActivity.class);
+                        startActivity(intent);
+                    } else {
+                        showMessage("failed to upload");
+                    }
+                } catch (Exception ex) {
+                    showMessage("Something went wrong");
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("result_multi", "error");
+                error.printStackTrace();
+                showMessage("something went wrong");
+
+            }
+        });
+        request.addFile("image", filePath);
+        request.addMultipartParam("team", "text/plain", teams);
+        queue.add(request);
+
+    }
+
     private void uploadImage(String id) {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=update_profile&customer_id=46
         String url = getResources().getString(R.string.url);
@@ -139,7 +197,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         } else {
             file = new File(filePath);
         }
-
+        setHeader();
         Ion.with(context)
                 .load(url)
                 .setMultipartFile("image", "image/*", file)
@@ -340,5 +398,45 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         }
 
         return mediaFile;
+    }
+
+    private void setHeader() {
+        final String appkey = getResources().getString(R.string.appkey);
+        Ion.getDefault(context).getHttpClient().insertMiddleware(new AsyncHttpClientMiddleware() {
+            @Override
+            public void onRequest(OnRequestData data) {
+                data.request.setHeader("APPKEY", appkey);
+            }
+
+            @Override
+            public Cancellable getSocket(GetSocketData data) {
+                return null;
+            }
+
+            @Override
+            public boolean exchangeHeaders(OnExchangeHeaderData data) {
+                return false;
+            }
+
+            @Override
+            public void onRequestSent(OnRequestSentData data) {
+
+            }
+
+            @Override
+            public void onHeadersReceived(OnHeadersReceivedDataOnRequestSentData data) {
+
+            }
+
+            @Override
+            public void onBodyDecoder(OnBodyDataOnRequestSentData data) {
+
+            }
+
+            @Override
+            public void onResponseComplete(OnResponseCompleteDataOnRequestSentData data) {
+
+            }
+        });
     }
 }

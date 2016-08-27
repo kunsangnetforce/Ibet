@@ -88,7 +88,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
 
         RequestQueue queue = Volley.newRequestQueue(context);
-
+        Log.i("result_url",url);
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
                 url,
                 null,
@@ -358,10 +358,10 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     }
 
     private void getMatchBydate(String date) {
-        try{
+        try {
             currentGameDatas.clear();
             currentGameAdapter.notifyDataSetChanged();
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
         UserSessionManager userSessionManager = new UserSessionManager(context);

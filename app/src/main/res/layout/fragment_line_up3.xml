@@ -27,16 +27,23 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ibet_stadium"
-            android:orientation="vertical">
+            android:layout_height="640dp">
 
-            <RelativeLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:layout_weight="50">
+                android:layout_height="640dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ibet_stadium" />
+            <View
+                android:background="@color/transulation"
+                android:layout_width="match_parent"
+                android:layout_height="640dp"/>
+            <RelativeLayout
+                android:id="@+id/away"
+                android:layout_width="match_parent"
+                android:layout_height="320dp">
 
                 <!--away goal kepper-->
                 <LinearLayout
@@ -1484,9 +1491,10 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/home"
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
-                android:layout_weight="50">
+                android:layout_below="@+id/away">
 
                 <LinearLayout
                     android:id="@+id/linearLayoutGKH"
@@ -2956,6 +2964,6 @@
                 </LinearLayout>
             </RelativeLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 </LinearLayout>

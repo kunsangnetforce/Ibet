@@ -44,6 +44,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     LinearLayout linearLayoutProgress;
     LinearLayout linearLayoutVote, linearLayoutVoteButton;
     TextView textViewTeamAVote, textViewTeamBVote, textViewDrawVote;
+    TextView textViewGoal;
 
     public EventsFragment() {
         // Required empty public constructor
@@ -73,9 +74,10 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        textViewGoal = (TextView) view.findViewById(R.id.textViewGoal);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
-        imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamA);
-        imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamB);
+        imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamB);
+        imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
         textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
         textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
         textViewTime = (TextView) view.findViewById(R.id.textViewMinute);
@@ -182,8 +184,17 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                                             String player_name = "";
                                             String player_in_name = "", player_out_name = "";
                                             if (type.equalsIgnoreCase("substitution")) {
-                                                player_in_name = jsonObject.get("player_in_name").getAsString();
-                                                player_out_name = jsonObject.get("player_out_name").getAsString();
+                                                try {
+                                                    player_in_name = jsonObject.get("player_in_name").getAsString();
+                                                } catch (Exception ex) {
+                                                    player_in_name = "not known";
+                                                }
+                                                try {
+                                                    player_out_name = jsonObject.get("player_out_name").getAsString();
+                                                } catch (Exception ex) {
+                                                    player_out_name = "not known";
+                                                }
+
 
                                             } else {
                                                 player_name = jsonObject.get("player_name").getAsString();
@@ -218,12 +229,27 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                                     }
                                     JsonArray data_score = dataObject.get("data_score").getAsJsonArray();
                                     JsonObject score_object = data_score.get(0).getAsJsonObject();
+                                    //status: "FT",
+                                    String matchstatus;
                                     String home_score = score_object.get("home_score").getAsString();
                                     String away_score = score_object.get("away_score").getAsString();
+                                    try {
+                                        matchstatus = score_object.get("status").getAsString();
+                                        if (matchstatus.equalsIgnoreCase("FT")) {
+                                            String goal = score_object.get("ft_score").getAsString();
+                                            textViewGoal.setText(goal);
+                                        } else {
+                                            textViewGoal.setText(home_score + "-" + away_score);
+                                        }
+                                    } catch (Exception ex) {
+
+
+                                    }
+
                                     String minute = score_object.get("minute").getAsString();
                                     String extra_minute = score_object.get("extra_minute").getAsString();
-                                    textViewTeamA.setText(teama);
-                                    textViewTeamB.setText(teamb);
+                                    textViewTeamA.setText(teamb);
+                                    textViewTeamB.setText(teama);
                                     textViewHomeGoal.setText(home_score);
                                     textViewAwayGoal.setText(away_score);
 
@@ -257,6 +283,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                                 }
 
                             } catch (Exception ex) {
+                                Log.i("kunsangException", "error");
                                 ex.printStackTrace();
                             }
                         }

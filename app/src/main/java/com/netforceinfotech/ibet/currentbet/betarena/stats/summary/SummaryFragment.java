@@ -32,7 +32,7 @@ public class SummaryFragment extends Fragment {
     RoundCornerProgressBar progressbarTSH, progressbarSoTH, progressbarFoulH, progressbarOSH, progressbarCornorH, progressbarPossesionH, progressbarYCH, progressbarRCH, progressbarSaveH;
     RoundCornerProgressBar progressbarTSA, progressbarSoTA, progressbarFoulA, progressbarOSA, progressbarCornorA, progressbarPossesionA, progressbarYCA, progressbarRCA, progressbarSaveA;
     LinearLayout linearLayoutStatistic, linearLayoutError;
-    TextView textViewError;
+    TextView textViewError, textViewGoal;
 
     ImageView imageViewHome, imageViewAway;
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
@@ -56,6 +56,7 @@ public class SummaryFragment extends Fragment {
     }
 
     private void initview(View view) {
+        textViewGoal = (TextView) view.findViewById(R.id.textViewGoal);
         imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamA);
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamB);
         textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
@@ -115,7 +116,7 @@ public class SummaryFragment extends Fragment {
         progressbarSaveH = (RoundCornerProgressBar) view.findViewById(R.id.progressSavesHome);
     }
 
-    private void getStatistic(String matchid) {
+    private void getStatistic(final String matchid) {
         //https://api.soccerama.pro/v1.1/statistics/match/698884?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=match,team
         //https://api.soccerama.pro/v1.1/statistics/match/690006?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP
         String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
@@ -151,13 +152,28 @@ public class SummaryFragment extends Fragment {
                                     JsonObject hometeam = home.getAsJsonObject("team");
                                     JsonObject awayteam = away.getAsJsonObject("team");
                                     JsonObject match = home.getAsJsonObject("match");
-                                    String minute = "";
+                                    String goalhome = match.get("home_score").getAsString();
+                                    String away_score = match.get("away_score").getAsString();
+                                    String minute = "", goal = "";
+                                    try {
+                                        String ftstatus = match.get("status").getAsString();
+                                        if (ftstatus.equalsIgnoreCase("ft")) {
+                                            goal = match.get("ft_score").getAsString();
+                                        } else {
+                                            goal = goalhome + "-" + away_score;
+                                        }
+
+                                    } catch (Exception ex) {
+
+                                    }
+                                    textViewGoal.setText(goal);
+
                                     if (!match.get("minute").isJsonNull()) {
                                         minute = match.get("minute").getAsString();
                                     }
                                     String extra_minute = "";
-                                    if (!match.get("minute").isJsonNull()) {
-                                        extra_minute = match.get("minute").getAsString();
+                                    if (!match.get("extra_minute").isJsonNull()) {
+                                        extra_minute = match.get("extra_minute").getAsString();
                                     }
                                     String hometeamlogo = "";
                                     String awayteamlogo = "";
@@ -165,7 +181,7 @@ public class SummaryFragment extends Fragment {
                                         hometeamlogo = hometeam.get("logo").getAsString();
                                     }
                                     if (!awayteam.get("logo").isJsonNull()) {
-                                        awayteamlogo = hometeam.get("logo").getAsString();
+                                        awayteamlogo = awayteam.get("logo").getAsString();
                                     }
 
 
@@ -210,11 +226,11 @@ public class SummaryFragment extends Fragment {
                                     String savesa = away.get("saves").getAsString();
                                     textViewTSA.setText(shots_totala);
                                     textViewSoTA.setText(shots_on_goala);
-                                    textViewFoulA.setText(fouls_totalh);
+                                    textViewFoulA.setText(fouls_totala);
                                     textViewOSA.setText(offsides_totala);
-                                    textViewCornorA.setText(corners_totalh);
+                                    textViewCornorA.setText(corners_totala);
                                     textViewPossesionA.setText(possesiona);
-                                    textViewYCA.setText(yellowcardsh);
+                                    textViewYCA.setText(yellowcardsa);
                                     textViewRCA.setText(redcardsa);
                                     textViewSaveA.setText(savesa);
 
