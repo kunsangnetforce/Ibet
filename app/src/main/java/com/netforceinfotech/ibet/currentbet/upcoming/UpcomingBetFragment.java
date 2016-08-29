@@ -106,15 +106,15 @@ public class UpcomingBetFragment extends Fragment
         {
 
         }
-        upcomingBetDatas.add(new UpcomingBetData("Tea", "imageurl"));
-        upcomingBetDatas.add(new UpcomingBetData("Dried Fruit", "imageurl"));
-        upcomingBetDatas.add(new UpcomingBetData("Nut Mixed", "imageurl"));
-        upcomingBetDatas.add(new UpcomingBetData("Tea", "imageurl"));
-        upcomingBetDatas.add(new UpcomingBetData("Dried Fruit", "imageurl"));
-        upcomingBetDatas.add(new UpcomingBetData("Nut Mixed", "imageurl"));
-        upcomingBetDatas.add(new UpcomingBetData("Tea", "imageurl"));
-        upcomingBetDatas.add(new UpcomingBetData("Dried Fruit", "imageurl"));
-        upcomingBetDatas.add(new UpcomingBetData("Nut Mixed", "imageurl"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        upcomingBetDatas.add(new UpcomingBetData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
 
     }
 }

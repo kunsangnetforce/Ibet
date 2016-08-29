@@ -207,7 +207,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String url = getResources().getString(R.string.url);
         String device_id = getDeviceId();
         fbName = fbName.replace(" ", "%20");
-        url = url + "/services.php?opt=register&email=" + email + "&fb_token=" + fbToken + "&name=" + fbName + "&fb_id=" + fbId + "&device_id=" + device_id + "&reg_id=asdfasdf232324";
+        url = url + "/services.php?opt=register&email=" + email + "&fb_token=" + fbToken + "&name=" + fbName + "&fb_id=" + fbId + "&device_id=" + device_id + "&reg_id=asdfasdf232324&login_mode=1&facebook=1";
         Log.i("result url", url);
         setHeader();
         linearLayoutProgress.setVisibility(View.VISIBLE);

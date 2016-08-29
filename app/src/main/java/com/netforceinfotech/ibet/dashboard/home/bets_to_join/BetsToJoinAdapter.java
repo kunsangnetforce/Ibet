@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.DetailBetToJoin;
 import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.WhoWillWinActivity;
+import com.netforceinfotech.ibet.dashboard.home.detail_finished_bet.DetailFinishedBet;
+import com.netforceinfotech.ibet.dashboard.home.finsihed_bet.FinishedBetHolder;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -57,24 +60,66 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.i("ibet_position", "" + position);
         BetsToJoinHolder betsToJoinHolder = (BetsToJoinHolder) holder;
-        ((BetsToJoinHolder) holder).textViewDetail.setOnClickListener(new View.OnClickListener() {
+        betsToJoinHolder.textViewBetStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailBetToJoin.class);
                 context.startActivity(intent);
-                ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
+                ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
-        betsToJoinHolder.button.setOnClickListener(new View.OnClickListener() {
+        betsToJoinHolder.textViewDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-         Intent intent = new Intent(context, WhoWillWinActivity.class);
+                Intent intent = new Intent(context, DetailBetToJoin.class);
                 context.startActivity(intent);
-                ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
-
+                ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
+        if (itemList.get(position).userdp.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).userdp)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(betsToJoinHolder.imageViewDp);
+        } else {
+            betsToJoinHolder.imageViewDp.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).selectedteamlogo.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).selectedteamlogo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(betsToJoinHolder.imageViewSelectedTeamLogo);
+        } else {
+            betsToJoinHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).teamalogo.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).teamalogo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(betsToJoinHolder.imageViewTeamA);
+        } else {
+            betsToJoinHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).teamblogo.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).teamblogo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(betsToJoinHolder.imageViewTeamB);
+        } else {
+            betsToJoinHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
+        }
 
+        betsToJoinHolder.textViewName.setText(itemList.get(position).name);
+        betsToJoinHolder.textViewSelectedName.setText(itemList.get(position).selectedteamname);
+        betsToJoinHolder.textViewNumberOfParticipants.setText(itemList.get(position).numberparticipant);
+        betsToJoinHolder.textViewNumberPost.setText(itemList.get(position).numberpost);
+        betsToJoinHolder.textViewTeamA.setText(itemList.get(position).teamaname);
+        betsToJoinHolder.textViewTeamB.setText(itemList.get(position).teambname);
+      //  betsToJoinHolder.textViewBetStatus.setText(itemList.get(position).betstatus);
     }
 
     private void showMessage(String s) {
@@ -84,7 +129,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return 10;
+        return itemList.size();
 //        return itemList.size();
     }
 }

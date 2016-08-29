@@ -34,28 +34,25 @@ public class FinsihedBet extends Fragment {
     int theme;
 
 
-    public FinsihedBet()
-    {
+    public FinsihedBet() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_finsihed_bet, container, false);
-        context=getActivity();
+        context = getActivity();
         setupRecyclerView(view);
         return view;
     }
 
-    private void setupRecyclerView(View view)
-    {
+    private void setupRecyclerView(View view) {
           /*
         *  recyclerView_Same = (RecyclerView) findViewById(R.id.recyclerFeatured);
         layoutManagerSame = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -75,28 +72,24 @@ public class FinsihedBet extends Fragment {
         adapter.notifyDataSetChanged();
 
 
-
     }
-    private void setupFinsihedDatas()
-    {
-        try
-        {
+
+    private void setupFinsihedDatas() {
+        try {
             FinsihedDatas.clear();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
-        FinsihedDatas.add(new FinsihedData("Tea", "imageurl"));
-        FinsihedDatas.add(new FinsihedData("Dried Fruit", "imageurl"));
-        FinsihedDatas.add(new FinsihedData("Nut Mixed", "imageurl"));
-        FinsihedDatas.add(new FinsihedData("Tea", "imageurl"));
-        FinsihedDatas.add(new FinsihedData("Dried Fruit", "imageurl"));
-        FinsihedDatas.add(new FinsihedData("Nut Mixed", "imageurl"));
-        FinsihedDatas.add(new FinsihedData("Tea", "imageurl"));
-        FinsihedDatas.add(new FinsihedData("Dried Fruit", "imageurl"));
-        FinsihedDatas.add(new FinsihedData("Nut Mixed", "imageurl"));
-
+        //String name, selectedteamlogo, selectedteamname, numberparticipant, numberpost, time, teamalogo, teamblogo, teamaname, teambname, betstatus, betid;
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
     }
 
 

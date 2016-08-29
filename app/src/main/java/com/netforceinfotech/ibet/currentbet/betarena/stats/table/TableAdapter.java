@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.currentbet.betarena.EnterBetArenaActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,6 +53,8 @@ public class TableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        TableHolder tableHolder = (TableHolder) holder;
+        tableHolder.imageView.setImageResource(R.drawable.ic_error);
 
     }
 

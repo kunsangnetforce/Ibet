@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.detail_finished_bet.DetailBetData;
-import com.netforceinfotech.ibet.dashboard.home.detail_finished_bet.DetailBetHolder;
 
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<com.netforceinfotech.ibet.dashboard.home.detail_finished_bet.DetailBetData> itemList;
+    private List<DetailBetData> itemList;
     private Context context;
 
     public DetailBetAdapter(Context context, List<DetailBetData> itemList) {
@@ -32,15 +30,7 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         inflater = LayoutInflater.from(context);
     }
 
-    /*  @Override
-      public int getItemViewType(int position) {
-          if (itemList.get(position).image.isEmpty()) {
-              return SIMPLE_TYPE;
-          } else {
-              return IMAGE_TYPE;
-          }
-      }
-  */
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -54,6 +44,8 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.i("ibet_position", "" + position);
+        DetailBetHolder detailBetHolder = (DetailBetHolder) holder;
+        detailBetHolder.imageView.setImageResource(R.drawable.ic_error);
 
     }
 

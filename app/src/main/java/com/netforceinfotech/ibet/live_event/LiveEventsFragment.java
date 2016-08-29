@@ -35,6 +35,7 @@ import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListDa
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -88,7 +89,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
 
         RequestQueue queue = Volley.newRequestQueue(context);
-        Log.i("result_url",url);
+        Log.i("result_url", url);
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
                 url,
                 null,
@@ -104,33 +105,32 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
             public void onResponse(JSONObject response) {
                 mSwipyRefreshLayout.setRefreshing(false);
                 linearLayout.setVisibility(View.GONE);
-                JsonParser jsonParser = new JsonParser();
-                JsonObject result = (JsonObject) jsonParser.parse(response.toString());
+
                 try {
-                    Log.i("kunsang_result", result.toString());
+                    Log.i("kunsang_result", response.toString());
                     try {
-                        JsonArray data = result.getAsJsonArray("data");
-                        if (data.size() == 0) {
+                        JSONArray data = response.getJSONArray("data");
+                        if (data.length() == 0) {
                             showMessage("No match available");
                         } else {
-                            for (int i = 0; i < data.size(); i++) {
-                                JsonObject jsonObject = data.get(i).getAsJsonObject();
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject jsonObject = data.getJSONObject(i);
                                 String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "";
-                                if (!(jsonObject.get("id").isJsonNull() || jsonObject.get("home_team_id").isJsonNull() || jsonObject.get("away_team_id").isJsonNull())) {
-                                    matchid = jsonObject.get("id").getAsString();
-                                    home_team_id = jsonObject.get("home_team_id").getAsString();
-                                    away_team_id = jsonObject.get("away_team_id").getAsString();
-                                    JsonObject homeTeam, awayTeam;
-                                    if (!(jsonObject.get("homeTeam").isJsonNull() || jsonObject.get("awayTeam").isJsonNull())) {
-                                        homeTeam = jsonObject.getAsJsonObject("homeTeam");
-                                        awayTeam = jsonObject.getAsJsonObject("awayTeam");
-                                        home_team_name = homeTeam.get("name").getAsString();
-                                        away_team_name = awayTeam.get("name").getAsString();
-                                        if (!(homeTeam.get("logo").isJsonNull())) {
-                                            home_team_logo = homeTeam.get("logo").getAsString();
+                                if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
+                                    matchid = jsonObject.getString("id");
+                                    home_team_id = jsonObject.getString("home_team_id");
+                                    away_team_id = jsonObject.getString("away_team_id");
+                                    JSONObject homeTeam, awayTeam;
+                                    if (!(jsonObject.get("homeTeam") == null || jsonObject.get("awayTeam") == null)) {
+                                        homeTeam = jsonObject.getJSONObject("homeTeam");
+                                        awayTeam = jsonObject.getJSONObject("awayTeam");
+                                        home_team_name = homeTeam.getString("name");
+                                        away_team_name = awayTeam.getString("name");
+                                        if (!(homeTeam.get("logo") == null)) {
+                                            home_team_logo = homeTeam.getString("logo");
                                         }
-                                        if (!(awayTeam.get("logo").isJsonNull())) {
-                                            away_team_logo = awayTeam.get("logo").getAsString();
+                                        if (!(awayTeam.get("logo") == null)) {
+                                            away_team_logo = awayTeam.getString("logo");
                                         }
 
                                     }
