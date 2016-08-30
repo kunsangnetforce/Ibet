@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,45 +77,44 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 switch (eventsDatas.get(position).type) {
                     case "redcard":
                         holder1.linearLayoutb1.setVisibility(View.GONE);
-                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_red_card);
+                        Picasso.with(context).load(R.drawable.icon_red_card).into(holder1.imageViewTypeb);
                         holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "yellowcard":
                         holder1.linearLayoutb1.setVisibility(View.GONE);
-                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_yellow_card);
+                        Picasso.with(context).load(R.drawable.icon_yellow_card).into(holder1.imageViewTypeb);
                         holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "goal":
                         holder1.linearLayoutb1.setVisibility(View.GONE);
-                        holder1.imageViewTypeb.setImageResource(R.drawable.ball);
+                        Picasso.with(context).load(R.drawable.ball).into(holder1.imageViewTypeb);
                         holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "penalty":
                         holder1.linearLayoutb1.setVisibility(View.GONE);
-                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_penalty);
+                        Picasso.with(context).load(R.drawable.icon_penalty).into(holder1.imageViewTypeb);
                         holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "missed_penalty":
                         holder1.linearLayoutb1.setVisibility(View.GONE);
-                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_missed_penalty);
+                        Picasso.with(context).load(R.drawable.icon_missed_penalty).into(holder1.imageViewTypeb);
                         holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "own-goal":
                         holder1.linearLayoutb1.setVisibility(View.GONE);
-                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_own_goal);
+                        Picasso.with(context).load(R.drawable.icon_own_goal).into(holder1.imageViewTypeb);
                         holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "yellowred":
                         holder1.linearLayoutb1.setVisibility(View.GONE);
-                        holder1.imageViewTypeb.setImageResource(R.drawable.icon_2nd_yellow_card);
+                        Picasso.with(context).load(R.drawable.icon_2nd_yellow_card).into(holder1.imageViewTypeb);
                         holder1.textViewNameb.setText(eventsDatas.get(position).name);
                         break;
                     case "substitution":
                         holder1.linearLayoutb1.setVisibility(View.VISIBLE);
-                        holder1.imageViewTypeb.setImageResource(R.drawable.ic_in);
+                        Picasso.with(context).load(R.drawable.ic_in).into(holder1.imageViewTypeb);
                         holder1.textViewNameb.setText(eventsDatas.get(position).in);
-
-                        holder1.imageViewTypeb1.setImageResource(R.drawable.ic_out);
+                        Picasso.with(context).load(R.drawable.ic_out).into(holder1.imageViewTypeb1);
                         holder1.textViewNameb1.setText(eventsDatas.get(position).out);
                         break;
 
@@ -127,45 +127,45 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 holder1.textViewTime.setText(eventsDatas.get(position).time);
                 switch (eventsDatas.get(position).type) {
                     case "redcard":
+                        Picasso.with(context).load(R.drawable.icon_red_card).into(holder1.imageViewTypea);
                         holder1.linearLayouta1.setVisibility(View.GONE);
-                        holder1.imageViewTypea.setImageResource(R.drawable.icon_red_card);
                         holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "yellowcard":
                         holder1.linearLayouta1.setVisibility(View.GONE);
-                        holder1.imageViewTypea.setImageResource(R.drawable.icon_yellow_card);
+                        Picasso.with(context).load(R.drawable.icon_yellow_card).into(holder1.imageViewTypea);
                         holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "goal":
                         holder1.linearLayouta1.setVisibility(View.GONE);
-                        holder1.imageViewTypea.setImageResource(R.drawable.ball);
+                        Picasso.with(context).load(R.drawable.ball).into(holder1.imageViewTypea);
                         holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "penalty":
                         holder1.linearLayouta1.setVisibility(View.GONE);
-                        holder1.imageViewTypea.setImageResource(R.drawable.icon_penalty);
+                        Picasso.with(context).load(R.drawable.icon_penalty).into(holder1.imageViewTypea);
                         holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "missed_penalty":
                         holder1.linearLayouta1.setVisibility(View.GONE);
-                        holder1.imageViewTypea.setImageResource(R.drawable.icon_missed_penalty);
+                        Picasso.with(context).load(R.drawable.icon_missed_penalty).into(holder1.imageViewTypea);
                         holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "own-goal":
                         holder1.linearLayouta1.setVisibility(View.GONE);
-                        holder1.imageViewTypea.setImageResource(R.drawable.icon_own_goal);
+                        Picasso.with(context).load(R.drawable.icon_own_goal).into(holder1.imageViewTypea);
                         holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "yellowred":
                         holder1.linearLayouta1.setVisibility(View.GONE);
-                        holder1.imageViewTypea.setImageResource(R.drawable.icon_2nd_yellow_card);
+                        Picasso.with(context).load(R.drawable.icon_2nd_yellow_card).into(holder1.imageViewTypea);
                         holder1.textViewNamea.setText(eventsDatas.get(position).name);
                         break;
                     case "substitution":
                         holder1.linearLayouta1.setVisibility(View.VISIBLE);
-                        holder1.imageViewTypea.setImageResource(R.drawable.ic_in);
+                        Picasso.with(context).load(R.drawable.ic_in).into(holder1.imageViewTypea);
                         holder1.textViewNamea.setText(eventsDatas.get(position).in);
-                        holder1.imageViewTypea1.setImageResource(R.drawable.ic_out);
+                        Picasso.with(context).load(R.drawable.ic_out).into(holder1.imageViewTypea1);
                         holder1.textViewNamea1.setText(eventsDatas.get(position).out);
 
 
