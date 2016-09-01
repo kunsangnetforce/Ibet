@@ -23,261 +23,267 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nestedscrollview"
+        <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+            android:id="@+id/swipyrefreshlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayoutVote"
-            android:layout_alignParentTop="true"
-            android:visibility="visible">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nestedscrollview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="90">
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:visibility="visible">
 
-                <RelativeLayout
-
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="20"
-                    android:gravity="center">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="90">
 
-                    <ImageView
+                    <RelativeLayout
+
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/gs_stadium" />
+                        android:layout_height="0dp"
+                        android:layout_weight="20"
+                        android:gravity="center">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="170dp"
-                        android:background="@color/overlayColor" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="170dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/gs_stadium" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textViewMatchStatus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textColor="@color/colorAccent" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="170dp"
+                            android:background="@color/overlayColor" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
+                            android:layout_margin="10dp"
                             android:gravity="center"
-                            android:weightSum="150">
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textViewMatchStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textColor="@color/colorAccent" />
 
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="50"
+                                android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:orientation="vertical">
+                                android:weightSum="150">
 
-                                <ImageView
-                                    android:id="@+id/imageViewTeamA"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/ic_holder" />
-
-                                <TextView
-                                    android:id="@+id/textViewTeamA"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="50"
                                     android:gravity="center"
-                                    android:textColor="@color/white"
-                                    android:textSize="18sp" />
-                            </LinearLayout>
+                                    android:orientation="vertical">
 
-                            <RelativeLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="50"
-                                android:gravity="center">
+                                    <ImageView
+                                        android:id="@+id/imageViewTeamA"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:scaleType="fitCenter"
+                                        android:src="@drawable/ic_holder" />
 
-
-                                <com.bcgdv.asia.lib.ticktock.TickTockView
-                                    android:id="@+id/tickTockView"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginTop="16dp"
-                                    app:tickCircleDuration="minute"
-                                    app:tickDotRadius="6dp"
-                                    app:tickEmptyRingColor="@color/colorAccentTransution"
-                                    app:tickFillRingColor="@color/colorAccent"
-                                    app:tickMoveCounterClockwise="false"
-                                    app:tickRingThickness="3dp" />
-
-                                <at.grabner.circleprogress.CircleProgressView
-                                    android:id="@+id/cpvLevel"
-                                    android:layout_width="100dp"
-                                    android:layout_height="100dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginTop="16dp"
-                                    android:visibility="gone"
-                                    app:cpv_autoTextSize="true"
-                                    app:cpv_barColor="@color/colorAccent"
-                                    app:cpv_barWidth="10dp"
-                                    app:cpv_contourColor="#12f4f0f0"
-                                    app:cpv_contourSize="0dp"
-                                    app:cpv_maxValue="90"
-                                    app:cpv_rimColor="@color/colorAccentTransution"
-                                    app:cpv_rimWidth="10dp"
-                                    app:cpv_seekMode="false"
-                                    app:cpv_showTextInSpinningMode="false"
-                                    app:cpv_showUnit="true"
-                                    app:cpv_spinColor="@color/colorAccent"
-                                    app:cpv_textColor="@color/white"
-                                    app:cpv_textMode="Text"
-                                    app:cpv_textScale="2"
-                                    app:cpv_textSize="12sp"
-                                    app:cpv_unitColor="@color/white"
-                                    app:cpv_unitScale="2"
-                                    app:cpv_unitSize="12dp"
-                                    app:cpv_value="0" />
+                                    <TextView
+                                        android:id="@+id/textViewTeamA"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:textColor="@color/white"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
 
                                 <RelativeLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_centerVertical="true"
+                                    android:layout_weight="50"
                                     android:gravity="center">
 
-                                    <TextView
-                                        android:id="@+id/textViewMinute"
+
+                                    <com.bcgdv.asia.lib.ticktock.TickTockView
+                                        android:id="@+id/tickTockView"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginTop="16dp"
+                                        app:tickCircleDuration="minute"
+                                        app:tickDotRadius="6dp"
+                                        app:tickEmptyRingColor="@color/colorAccentTransution"
+                                        app:tickFillRingColor="@color/colorAccent"
+                                        app:tickMoveCounterClockwise="false"
+                                        app:tickRingThickness="3dp" />
+
+                                    <at.grabner.circleprogress.CircleProgressView
+                                        android:id="@+id/cpvLevel"
+                                        android:layout_width="100dp"
+                                        android:layout_height="100dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginTop="16dp"
+                                        android:visibility="gone"
+                                        app:cpv_autoTextSize="true"
+                                        app:cpv_barColor="@color/colorAccent"
+                                        app:cpv_barWidth="10dp"
+                                        app:cpv_contourColor="#12f4f0f0"
+                                        app:cpv_contourSize="0dp"
+                                        app:cpv_maxValue="90"
+                                        app:cpv_rimColor="@color/colorAccentTransution"
+                                        app:cpv_rimWidth="10dp"
+                                        app:cpv_seekMode="false"
+                                        app:cpv_showTextInSpinningMode="false"
+                                        app:cpv_showUnit="true"
+                                        app:cpv_spinColor="@color/colorAccent"
+                                        app:cpv_textColor="@color/white"
+                                        app:cpv_textMode="Text"
+                                        app:cpv_textScale="2"
+                                        app:cpv_textSize="12sp"
+                                        app:cpv_unitColor="@color/white"
+                                        app:cpv_unitScale="2"
+                                        app:cpv_unitSize="12dp"
+                                        app:cpv_value="0" />
+
+                                    <RelativeLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerHorizontal="true"
-                                        android:gravity="center"
-                                        android:textColor="@color/colorAccent"
-                                        android:textSize="14sp"
-                                        android:textStyle="bold" />
-
-                                    <TextView
-                                        android:id="@+id/textViewGoal"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/textViewMinute"
-                                        android:textColor="@color/colorText"
-                                        android:textSize="18sp" />
-
-                                    <LinearLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/textViewMinute"
-                                        android:layout_centerHorizontal="true"
-                                        android:orientation="horizontal"
-                                        android:visibility="gone">
+                                        android:layout_centerVertical="true"
+                                        android:gravity="center">
 
                                         <TextView
-                                            android:id="@+id/textViewHomeGoal"
+                                            android:id="@+id/textViewMinute"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_margin="3dp"
-                                            android:textColor="@color/white"
-                                            android:textSize="18sp"
+                                            android:layout_centerHorizontal="true"
+                                            android:gravity="center"
+                                            android:textColor="@color/colorAccent"
+                                            android:textSize="14sp"
                                             android:textStyle="bold" />
 
                                         <TextView
+                                            android:id="@+id/textViewGoal"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_margin="3dp"
-                                            android:text="-"
-                                            android:textColor="@color/white"
-                                            android:textSize="18sp"
-                                            android:textStyle="bold" />
+                                            android:layout_below="@+id/textViewMinute"
+                                            android:textColor="@color/colorText"
+                                            android:textSize="18sp" />
 
-                                        <TextView
-                                            android:id="@+id/textViewAwayGoal"
+                                        <LinearLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_margin="3dp"
-                                            android:textColor="@color/white"
-                                            android:textSize="18sp"
-                                            android:textStyle="bold" />
-                                    </LinearLayout>
+                                            android:layout_below="@+id/textViewMinute"
+                                            android:layout_centerHorizontal="true"
+                                            android:orientation="horizontal"
+                                            android:visibility="gone">
 
+                                            <TextView
+                                                android:id="@+id/textViewHomeGoal"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_margin="3dp"
+                                                android:textColor="@color/white"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_margin="3dp"
+                                                android:text="-"
+                                                android:textColor="@color/white"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+
+                                            <TextView
+                                                android:id="@+id/textViewAwayGoal"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_margin="3dp"
+                                                android:textColor="@color/white"
+                                                android:textSize="18sp"
+                                                android:textStyle="bold" />
+                                        </LinearLayout>
+
+                                    </RelativeLayout>
                                 </RelativeLayout>
-                            </RelativeLayout>
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="50"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:id="@+id/imageViewTeamB"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/ic_holder" />
-
-                                <TextView
-                                    android:id="@+id/textViewTeamB"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="50"
                                     android:gravity="center"
-                                    android:textColor="@color/white"
-                                    android:textSize="18sp" />
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/imageViewTeamB"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:scaleType="fitCenter"
+                                        android:src="@drawable/ic_holder" />
+
+                                    <TextView
+                                        android:id="@+id/textViewTeamB"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:textColor="@color/white"
+                                        android:textSize="18sp" />
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-                </RelativeLayout>
+                    </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/textViewYetTostart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Data not available"
-                        android:textColor="@color/colorAccent" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="70">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler"
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:visibility="gone">
 
-                    </android.support.v7.widget.RecyclerView>
+                        <TextView
+                            android:id="@+id/textViewYetTostart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Data not available"
+                            android:textColor="@color/colorAccent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="70">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp">
+
+                        </android.support.v7.widget.RecyclerView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+            </android.support.v4.widget.NestedScrollView>
+        </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
         <LinearLayout
             android:id="@+id/linearLayoutVote"
@@ -370,7 +376,7 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:weightSum="150">
 
             <LinearLayout

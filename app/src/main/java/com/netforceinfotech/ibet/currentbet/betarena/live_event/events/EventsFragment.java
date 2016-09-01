@@ -4,7 +4,7 @@ package com.netforceinfotech.ibet.currentbet.betarena.live_event.events;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.BoolRes;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +27,8 @@ import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -36,9 +38,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
 import at.grabner.circleprogress.CircleProgressView;
 
@@ -46,7 +45,7 @@ import at.grabner.circleprogress.CircleProgressView;
  * A simple {@link Fragment} subclass.
  */
 public class EventsFragment extends Fragment implements View.OnClickListener {
-
+    final Handler handler = new Handler();
     LinearLayout linearLayout;
     private Context context;
     ArrayList<EventsData> eventsDatas = new ArrayList<>();
@@ -65,6 +64,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     TextView textViewMatchStatus;
     CircleProgressView cpvLevel;
     TickTockView tickTockView;
+    SwipyRefreshLayout swipeRefreshLayout;
+    private boolean firsttime = true;
 
     public EventsFragment() {
         // Required empty public constructor
@@ -94,6 +95,13 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        swipeRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                getEvents(matchid, teamaid, teambid);
+            }
+        });
         tickTockView = (TickTockView) view.findViewById(R.id.tickTockView);
         cpvLevel = (CircleProgressView) view.findViewById(R.id.cpvLevel);
         textViewMatchStatus = (TextView) view.findViewById(R.id.textViewMatchStatus);
@@ -116,30 +124,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         textViewTeamAVote.setOnClickListener(this);
         textViewTeamBVote.setOnClickListener(this);
         textViewDrawVote.setOnClickListener(this);
-        final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
-
-        Calendar date = Calendar.getInstance();
-        long t = date.getTimeInMillis();
-        Date afterAddingTenMins = new Date(t + (10 * ONE_MINUTE_IN_MILLIS));
-        date.setTime(afterAddingTenMins);
-        tickTockView.start(date);
-        tickTockView.setOnTickListener(new TickTockView.OnTickListener() {
-            @Override
-            public String getText(long timeRemainingInMillis) {
-                return null;
-            }
-        });
     }
 
-    private void setupData() {
-        /*eventsDatas.add(new EventsData("neymar", "", "goal", "76"));
-        eventsDatas.add(new EventsData("", "bale", "goal", "55"));
-        eventsDatas.add(new EventsData("masherano", "", "yellow", "34"));
-        eventsDatas.add(new EventsData("Pique", "", "red", "12"));
-        eventsDatas.add(new EventsData("", "Ronaldo", "goal", "6"));
-        eventsDatas.add(new EventsData("", "", "", "0"));*/
-
-    }
 
     private void setupRecycler(View view) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
@@ -151,6 +137,13 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getEvents(String matchid, final String teamaid, String teambid) {
+        try {
+            eventsDatas.clear();
+        } catch (Exception ex) {
+
+        }
+
+
         //https://netforcesales.com/ibet_admin/api/events_by_match_id.php?matchid=614704&home_team_id=1370&away_team_id=1377
         //https://netforcesales.com/ibet_admin/api/events_by_match_id.php?matchid=735681&home_team_id=127&away_team_id=174&login_mode=1
         UserSessionManager userSessionManager = new UserSessionManager(context);
@@ -168,6 +161,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                     public void onCompleted(Exception e, JsonObject result) {
                         nestedScrollView.setVisibility(View.VISIBLE);
                         linearLayoutProgress.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                         if (result == null) {
                             showMessage("Somethings wrong");
                         } else {
@@ -272,7 +266,6 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                             time = minute + "'";
                         } else {
                             time = minute + "'+" + extra_min;
-                            time = minute + "'+" + extra_min;
                         }
                         //EventsData(String name, String type, String id, String event, String time, String in, String out) {
                         eventsDatas.add(new EventsData(player_name, type, team_id, time, player_in_name, player_out_name, team));
@@ -317,52 +310,130 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         setupTimeThread(starting_date, starting_time);
                         break;
                     case "LIVE":
-                        setupProgressThread(minute, extra_minute);
+                        if (firsttime) {
+                            tickTockView.start(Calendar.getInstance());
+                            firsttime = !firsttime;
+                        }
+                        setupProgressThread(minute, extra_minute, 5000);
                         textViewMatchStatus.setText("LIVE");
                         break;
                     case "HT":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
+                        setupProgressThread(minute, extra_minute, 60000);
                         textViewMatchStatus.setText("HALF TIME");
                         break;
                     case "FT":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("FULL TIME");
                         break;
                     case "ET":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
+                        setupProgressThread(minute, extra_minute, 60000);
                         cpvLevel.setMaxValue(120);
                         textViewMatchStatus.setText("EXTRA TIME");
                         break;
                     case "PEN_LIVE":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
+                        setupProgressThread(minute, extra_minute, 5000);
                         textViewMatchStatus.setText("PENALTY SHOOTOUT");
                         break;
                     case "AET":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         cpvLevel.setMaxValue(120);
                         textViewMatchStatus.setText("FISHED AFTER EXTRA TIME");
                         break;
                     case "BREAK":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
+                        setupProgressThread(minute, extra_minute, 60000);
                         cpvLevel.setMaxValue(120);
                         textViewMatchStatus.setText("Match finished, waiting for extra time to start");
                         break;
                     case "FT_PEN":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("Full-Time after penalties");
                         break;
                     case "CANCL":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("Cancelled");
                         break;
                     case "POSTP":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("PostPhoned");
                         break;
                     case "INT":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("Interrupted");
                         break;
                     case "ABAN":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("Abandoned");
                         break;
                     case "SUSP":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("Suspended");
                         break;
                     case "AWARDED":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("Awarded");
                         break;
                     case "DELAY":
+                        try {
+                            tickTockView.stop();
+                        } catch (Exception ex) {
+
+                        }
                         textViewMatchStatus.setText("Delayed");
                         break;
                 }
@@ -389,24 +460,23 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                 } else {
                     imageViewAway.setImageResource(R.drawable.ic_error);
                 }
-
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             } else {
                 showMessage("json error");
             }
             if (matchstatus.equalsIgnoreCase("NS")) {
                 if (login_mode.equalsIgnoreCase("0")) {
-                    linearLayoutVoteButton.setVisibility(View.GONE);
+                    linearLayoutVoteButton.setVisibility(View.INVISIBLE);
                     linearLayoutVote.setVisibility(View.VISIBLE);
                 } else if (login_mode.equalsIgnoreCase("1") && voted.equalsIgnoreCase("1")) {
-                    linearLayoutVoteButton.setVisibility(View.GONE);
+                    linearLayoutVoteButton.setVisibility(View.INVISIBLE);
                     linearLayoutVote.setVisibility(View.VISIBLE);
                 } else {
                     linearLayoutVoteButton.setVisibility(View.VISIBLE);
-                    linearLayoutVote.setVisibility(View.GONE);
+                    linearLayoutVote.setVisibility(View.INVISIBLE);
                 }
             } else {
-                linearLayoutVoteButton.setVisibility(View.GONE);
+                linearLayoutVoteButton.setVisibility(View.INVISIBLE);
                 linearLayoutVote.setVisibility(View.VISIBLE);
             }
         } catch (Exception ex) {
@@ -415,8 +485,14 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void setupProgressThread(String minute, String extra_minute) {
-
+    private void setupProgressThread(String minute, String extra_minute, int i) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+                getEvents(matchid, teamaid, teambid);
+            }
+        }, i);
     }
 
     private void setupTimeThread(String starting_date, String starting_time) {
