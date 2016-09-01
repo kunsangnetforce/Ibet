@@ -179,15 +179,14 @@
                     android:textSize="14sp" />
 
                 <LinearLayout
+                    android:padding="3dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:background="@drawable/roundcornor"
                     android:gravity="center"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:weightSum="130">
+                    android:weightSum="115">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -200,25 +199,25 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:weightSum="95">
+                            android:weightSum="100">
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="40"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="30"
                                 android:gravity="center">
 
                                 <ImageView
                                     android:id="@+id/imageViewTeamA"
-                                    android:layout_width="40dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="40dp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="60"
-                                android:gravity="center">
+                                android:gravity="left">
 
                                 <TextView
                                     android:id="@+id/textViewTeamA"
@@ -236,12 +235,12 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="25"
+                        android:layout_weight="15"
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
                             android:src="@drawable/ball" />
                     </LinearLayout>
 
@@ -260,9 +259,9 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="40dp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="60"
-                                android:gravity="center">
+                                android:gravity="right">
 
                                 <TextView
                                     android:id="@+id/textViewTeamB"
@@ -275,13 +274,13 @@
 
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_height="40dp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="40"
                                 android:gravity="center">
 
                                 <ImageView
                                     android:id="@+id/imageViewTeamB"
-                                    android:layout_width="40dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="30dp" />
                             </LinearLayout>
 

@@ -1,7 +1,7 @@
 package com.netforceinfotech.ibet.currentbet.livebet;
 
 /**
- * Created by Gowtham Chandrasekar on 31-07-2015.
+ * Created by Netforce on 8/30/2016.
  */
 public class LiveBetData {
     String userdp, name, selectedteamlogo, selectedteamname, numberparticipant, numberpost, time, teamalogo, teamblogo, teamaname, teambname, betstatus, betid;

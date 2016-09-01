@@ -11,12 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
-
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
-
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +30,8 @@ public class LiveBetFragment extends Fragment {
     UserSessionManager userSessionManager;
     int theme;
     FrameLayout livebet;
-
+    private ExpandableListView expListView;
+    HashMap<String, List<LiveBetData>> listDataChild = new HashMap<String, List<LiveBetData>>();
 
     public LiveBetFragment() {
         // Required empty public constructor
@@ -46,10 +48,13 @@ public class LiveBetFragment extends Fragment {
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
         setupRecyclerView(view);
+        setupRecyclerView(view);
+        setupliveBetDatas();
         return view;
 
 
     }
+
 
     private void setupRecyclerView(View view) {
 

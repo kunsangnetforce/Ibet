@@ -3,7 +3,6 @@ package com.netforceinfotech.ibet.currentbet.livebet;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +12,6 @@ import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.currentbet.betarena.EnterBetArenaActivity;
-import com.netforceinfotech.ibet.dashboard.home.bets_to_join.BetsToJoinHolder;
-import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.DetailBetToJoin;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

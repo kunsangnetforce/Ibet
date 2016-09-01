@@ -158,7 +158,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                     JsonObject jsonObject = jsonParser.parse(response).getAsJsonObject();
                     if (jsonObject.get("status").getAsString().equalsIgnoreCase("success")) {
                         showMessage("Successfully uploaded");
-                        Intent intent = new Intent(context, TutorialActivity.class);
+                        Intent intent = new Intent(context, DefaultIntro.class);
                         startActivity(intent);
                     } else {
                         showMessage("failed to upload");

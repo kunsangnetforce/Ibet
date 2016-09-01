@@ -4,9 +4,9 @@ package com.netforceinfotech.ibet.live_event;
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
 public class CurrentGameData {
-    String matchid, teama, teamb, logoa, logob, teamaid, teambid, competition_name, compition_id;
+    public String matchid, teama, teamb, logoa, logob, teamaid, teambid, competition_name, compition_id;
 
-    CurrentGameData(String matchid, String teama, String teamb, String logoa, String logob, String teamaid, String teambid, String compition_id, String competition_name) {
+    public CurrentGameData(String matchid, String teama, String teamb, String logoa, String logob, String teamaid, String teambid, String compition_id, String competition_name) {
         this.matchid = matchid;
         this.teama = teama;
         this.teamb = teamb;

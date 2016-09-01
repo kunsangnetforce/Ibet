@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -24,16 +26,18 @@ import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
-import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
+import com.netforceinfotech.ibet.live_event.expandcurrentgame.ExpandChildData;
+import com.netforceinfotech.ibet.live_event.expandcurrentgame.ExpandHeaderData;
+import com.netforceinfotech.ibet.live_event.expandcurrentgame.ExpandableListAdapter;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,7 +47,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +61,12 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     LinearLayout linearLayout;
     private SwipyRefreshLayout mSwipyRefreshLayout;
     Button buttonDate;
+    private ExpandableListAdapter listAdapter;
+    ArrayList<ExpandHeaderData> expandHeaderDatas = new ArrayList<>();
+    HashMap<String, List<CurrentGameData>> listDataChild = new HashMap<String, List<CurrentGameData>>();
+    LinearLayout linearLayoutNoMatch;
+    private ExpandableListView expListView;
+    ImageView imageViewNoMatch;
 
     public LiveEventsFragment() {
         // Required empty public constructor
@@ -68,7 +79,10 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_live_events, container, false);
         context = getActivity();
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
+        linearLayoutNoMatch = (LinearLayout) view.findViewById(R.id.linearLayoutNoLiveMatches);
+        imageViewNoMatch = (ImageView) view.findViewById(R.id.imageViewNoLiveMatch);
+        Picasso.with(context).load(R.drawable.gs_stadium).into(imageViewNoMatch);
         buttonDate = (Button) view.findViewById(R.id.buttondate);
         buttonDate.setOnClickListener(this);
         mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
@@ -76,18 +90,31 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
                 currentGameDatas.clear();
+                expandHeaderDatas.clear();
+                listDataChild.clear();
                 getLiveMatch1();
             }
         });
-        setupRecyclerView(view);
-        getLiveMatch1();
+        setupExpandableView(view);
+        view.findViewById(R.id.buttonLive).setOnClickListener(this);
+        // getLiveMatch1();
         return view;
     }
 
     private void getLiveMatch1() {
+        try {
+            expandHeaderDatas.clear();
+            listDataChild.clear();
+            currentGameDatas.clear();
+            //  currentGameAdapter.notifyDataSetChanged();
+        } catch (Exception ex) {
+
+        }
+        linearLayout.setVisibility(View.VISIBLE);
+        mSwipyRefreshLayout.setVisibility(View.GONE);
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String token = userSessionManager.getApitoken();
-        String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam,competition";
+        String url = "https://api.soccerama.pro/v1.1/livescore/now?api_token=" + token + "&include=homeTeam,awayTeam,competition";
 
         RequestQueue queue = Volley.newRequestQueue(context);
         Log.i("result_url", url);
@@ -105,6 +132,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
             @Override
             public void onResponse(JSONObject response) {
                 mSwipyRefreshLayout.setRefreshing(false);
+                mSwipyRefreshLayout.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.GONE);
 
                 try {
@@ -112,8 +140,10 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                     try {
                         JSONArray data = response.getJSONArray("data");
                         if (data.length() == 0) {
+                            linearLayoutNoMatch.setVisibility(View.VISIBLE);
                             showMessage("No match available");
                         } else {
+                            linearLayoutNoMatch.setVisibility(View.GONE);
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject jsonObject = data.getJSONObject(i);
                                 String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
@@ -144,7 +174,9 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                                 }
 
                             }
-                            currentGameAdapter.notifyDataSetChanged();
+                            setupExpandableData(currentGameDatas);
+
+                            //    currentGameAdapter.notifyDataSetChanged();
 
                         }
                     } catch (Exception ex) {
@@ -159,12 +191,36 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         };
     }
 
+    private void setupExpandableData(ArrayList<CurrentGameData> currentGameDatas) {
+        for (CurrentGameData currentGameData : currentGameDatas) {
+            String key = currentGameData.compition_id;
+            if (!listDataChild.containsKey(key)) {
+                List<CurrentGameData> list = new ArrayList<>();
+                list.add(currentGameData);
+                expandHeaderDatas.add(new ExpandHeaderData(currentGameData.compition_id, currentGameData.competition_name));
+                listDataChild.put(currentGameData.compition_id, list);
+            } else {
+                listDataChild.get(currentGameData.compition_id).add(currentGameData);
+            }
+        }
+        for (String id : listDataChild.keySet()) {
+            String value = listDataChild.get(id).size() + "";
+            Log.i("kunsang_count", id + " : " + value);
+
+
+        }
+        listAdapter.notifyDataSetChanged();
+
+    }
+
 
     private Response.ErrorListener createMyReqErrorListener() {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                showMessage("Check internet connection");
                 mSwipyRefreshLayout.setRefreshing(false);
+                mSwipyRefreshLayout.setVisibility(View.VISIBLE);
                 linearLayout.setVisibility(View.GONE);
                 error.printStackTrace();
             }
@@ -176,7 +232,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         //String url = getResources().getString(R.string.url);
         //url = url + "/current_matches.php";
         String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
-        String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
+        String url = "https://api.soccerama.pro/v1.1/livescore/url?api_token=" + token + "&include=homeTeam,awayTeam";
 
         Log.i("result url", url);
         setHeader();
@@ -279,12 +335,19 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void setupRecyclerView(View view) {
-        currentGameAdapter = new CurrentGameAdapter(context, currentGameDatas);
+    private void setupExpandableView(View view) {
+       /* currentGameAdapter = new CurrentGameAdapter(context, currentGameDatas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(currentGameAdapter);
+        recyclerView.setAdapter(currentGameAdapter);*/
+        expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
+
+        // preparing list data
+        getLiveMatch1();
+        listAdapter = new ExpandableListAdapter(context, expandHeaderDatas, listDataChild);
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
     }
 
     private void setHeader() {
@@ -365,8 +428,10 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
 
     private void getMatchBydate(String date) {
         try {
+            expandHeaderDatas.clear();
+            listDataChild.clear();
             currentGameDatas.clear();
-            currentGameAdapter.notifyDataSetChanged();
+            //  currentGameAdapter.notifyDataSetChanged();
         } catch (Exception ex) {
 
         }
@@ -374,7 +439,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         //https://api.soccerama.pro/v1.1/livescore/date/{date}?api_token=__YOURTOKEN__
         String token = userSessionManager.getApitoken();
         //String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
-        String url = "https://api.soccerama.pro/v1.1/livescore/date/" + date + "?api_token=" + token + "&include=homeTeam,awayTeam";
+        String url = "https://api.soccerama.pro/v1.1/livescore/date/" + date + "?api_token=" + token + "&include=homeTeam,awayTeam,competition";
         Log.i("result_kunsang", url);
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -395,7 +460,8 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                 Calendar now = Calendar.getInstance();
                 DatePickerDialog.newInstance(this, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)).show(getActivity().getFragmentManager(), "datePicker");
 
-
+            case R.id.buttonLive:
+                getLiveMatch1();
                 break;
 
         }

@@ -34,7 +34,7 @@ public class SummaryFragment extends Fragment {
     RoundCornerProgressBar progressbarTSA, progressbarSoTA, progressbarFoulA, progressbarOSA, progressbarCornorA, progressbarPossesionA, progressbarYCA, progressbarRCA, progressbarSaveA;
     LinearLayout linearLayout;
     ScrollView scrollView;
-    TextView  textViewGoal;
+    TextView textViewGoal;
 
     ImageView imageViewHome, imageViewAway;
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
@@ -59,15 +59,15 @@ public class SummaryFragment extends Fragment {
 
     private void initview(View view) {
         textViewGoal = (TextView) view.findViewById(R.id.textViewGoal);
-        imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamA);
-        imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamB);
+        imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamB);
+        imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
         textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
         textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
         textViewTime = (TextView) view.findViewById(R.id.textViewMinute);
         textViewHomeGoal = (TextView) view.findViewById(R.id.textViewHomeGoal);
         textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
-        scrollView= (ScrollView) view.findViewById(R.id.scrollView);
-        linearLayout= (LinearLayout) view.findViewById(R.id.linearLayout);
+        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
 
         initHome(view);
         initAway(view);
@@ -178,12 +178,21 @@ public class SummaryFragment extends Fragment {
                                     }
                                     String hometeamlogo = "";
                                     String awayteamlogo = "";
+                                    String hometeamname = "", awayteamname = "";
                                     if (!hometeam.get("logo").isJsonNull()) {
                                         hometeamlogo = hometeam.get("logo").getAsString();
                                     }
                                     if (!awayteam.get("logo").isJsonNull()) {
                                         awayteamlogo = awayteam.get("logo").getAsString();
                                     }
+                                    if (!hometeam.get("name").isJsonNull()) {
+                                        hometeamname = hometeam.get("name").getAsString();
+                                    }
+                                    if (!awayteam.get("name").isJsonNull()) {
+                                        awayteamname = awayteam.get("name").getAsString();
+                                    }
+                                    textViewTeamA.setText(hometeamname);
+                                    textViewTeamB.setText(awayteamname);
 
 
                                     String shots_on_goalh = home.get("shots_on_goal").getAsString();

@@ -1,7 +1,6 @@
 package com.netforceinfotech.ibet.solobet.Single;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.currentbet.betarena.EnterBetArenaActivity;
-import com.netforceinfotech.ibet.currentbet.livebet.LiveBetData;
-import com.netforceinfotech.ibet.currentbet.livebet.LiveBetHolder;
 
 import java.util.List;
 
