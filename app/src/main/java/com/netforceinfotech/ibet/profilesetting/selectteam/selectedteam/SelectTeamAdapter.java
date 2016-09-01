@@ -66,7 +66,7 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (SelectTeamActivity.selectTeamDatas.size() < 1) {
                     SelectTeamActivity.linearLayoutSelectedTeams.setVisibility(View.GONE);
                 }
-                SelectTeamActivity.upcomingGameAdapter.notifyDataSetChanged();
+                SelectTeamActivity.listAdapter.notifyDataSetChanged();
             }
         });
     }

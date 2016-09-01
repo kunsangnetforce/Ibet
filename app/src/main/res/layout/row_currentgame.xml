@@ -31,14 +31,14 @@
                     android:id="@+id/imageViewTeamA"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/italy" />
+                    />
 
                 <ImageView
                     android:id="@+id/imageViewTeamB"
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/italy" />
+                     />
             </LinearLayout>
 
             <LinearLayout

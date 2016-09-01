@@ -21,9 +21,9 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/italy" />
+                android:layout_height="50dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,8 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="36"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp"
-                 />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -61,8 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="+43"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp"
-                />
+                android:textSize="12sp" />
 
 
         </LinearLayout>
@@ -78,8 +76,7 @@
                 android:layout_height="wrap_content"
                 android:text="+91"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp"
-                 />
+                android:textSize="12sp" />
 
         </LinearLayout>
 

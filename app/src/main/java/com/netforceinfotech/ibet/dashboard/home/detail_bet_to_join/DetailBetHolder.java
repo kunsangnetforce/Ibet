@@ -16,12 +16,13 @@ public class DetailBetHolder extends RecyclerView.ViewHolder {
 
     Button buttonClose;
     View view;
-
+    ImageView imageView;
 
     public DetailBetHolder(View itemView) {
         super(itemView);
         //implementing onClickListener
         view = itemView;
+        imageView= (ImageView) view.findViewById(R.id.imageView);
 
     }
 }

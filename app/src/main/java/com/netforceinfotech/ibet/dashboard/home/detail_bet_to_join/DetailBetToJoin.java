@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     private DetailBetAdapter adapter;
     ArrayList<DetailBetData> detailBetDatas = new ArrayList<>();
     private Toolbar toolbar;
+    ImageView imageViewTeamA, imageViewTeamB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,10 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         context = this;
         findViewById(R.id.buttonJoin).setOnClickListener(this);
         findViewById(R.id.buttonCancel).setOnClickListener(this);
+        imageViewTeamA = (ImageView) findViewById(R.id.imageViewTeamA);
+        imageViewTeamB = (ImageView) findViewById(R.id.imageViewTeamB);
+        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
+        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
         setupRecyclerView();
         setupToolBar("Germany vs Italy");
 

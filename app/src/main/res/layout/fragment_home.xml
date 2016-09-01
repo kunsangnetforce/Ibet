@@ -175,9 +175,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -197,6 +197,7 @@
                         app:rcProgress="0"
                         app:rcRadius="5dp"
                         app:rcReverse="true" />
+
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="85dp"
@@ -206,9 +207,9 @@
                     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                         android:layout_width="90dp"
                         android:layout_height="17dp"
-                        android:layout_marginTop="2dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="199dp"
+                        android:layout_marginTop="2dp"
                         app:rcBackgroundColor="#0a4273"
                         app:rcMax="100"
                         app:rcProgress="43"
@@ -217,12 +218,13 @@
                         app:rcReverse="false" />
 
                     <ImageView
-                        android:layout_marginTop="8dp"
                         android:layout_width="40dp"
                         android:layout_height="85dp"
                         android:layout_marginLeft="277dp"
+                        android:layout_marginTop="8dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/red_thumb" />
+
                     <at.grabner.circleprogress.CircleProgressView
                         android:id="@+id/cpvstatus"
                         android:layout_width="90dp"
@@ -267,11 +269,11 @@
                     android:textStyle="bold" />
 
                 <com.balysv.materialripple.MaterialRippleLayout
-                    app:mrl_rippleOverlay="true"
-                    app:mrl_rippleColor="@color/ripple"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    app:mrl_rippleColor="@color/ripple"
+                    app:mrl_rippleOverlay="true">
 
                     <Button
                         android:id="@+id/buttonStartnewBet"

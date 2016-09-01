@@ -56,7 +56,6 @@
                                 android:id="@+id/imageViewTeamA"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:src="@drawable/italy"
                                 app:civ_border_color="#43000000"
                                 app:civ_border_width="12dp" />
                         </LinearLayout>
@@ -72,7 +71,6 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/italy"
                                 app:civ_border_color="#43000000"
                                 app:civ_border_width="12dp" />
 

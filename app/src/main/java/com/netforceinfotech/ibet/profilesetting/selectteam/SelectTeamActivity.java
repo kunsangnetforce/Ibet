@@ -1,8 +1,8 @@
 package com.netforceinfotech.ibet.profilesetting.selectteam;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,9 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -23,17 +30,27 @@ import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.profilesetting.ProfileSettingActivity;
+import com.netforceinfotech.ibet.profilesetting.selectteam.expandteam.ExpandHeaderData;
+import com.netforceinfotech.ibet.profilesetting.selectteam.expandteam.ExpandableListAdapter;
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListAdapter;
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
 import com.netforceinfotech.ibet.profilesetting.selectteam.selectedteam.SelectTeamAdapter;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class SelectTeamActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
+public class SelectTeamActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListAdapter.clickListner {
 
     Context context;
     ArrayList<TeamListData> teamListDatas = new ArrayList<>();
+    ArrayList<TeamListData> teamListDatas1 = new ArrayList<>();
     private Toolbar toolbar;
     public static TeamListAdapter upcomingGameAdapter;
     LinearLayout linearLayoutProgress;
@@ -42,12 +59,20 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     public static ArrayList<TeamListData> selectTeamDatas = new ArrayList<>();
     public static SelectTeamAdapter selectTeamAdapter;
     private MaterialSearchView searchView;
+    ExpandableListView expListView;
+    public static ExpandableListAdapter listAdapter;
+    ArrayList<ExpandHeaderData> expandHeaderDatas = new ArrayList<>();
+    HashMap<ExpandHeaderData, List<TeamListData>> expandChildDatas = new HashMap<>();
+    ArrayList<String> competitionIds = new ArrayList<>();
+    LinearLayout linearLayoutSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_team);
+        setContentView(R.layout.activity_select_team1);
         selectTeamDatas.clear();
+        linearLayoutSearch = (LinearLayout) findViewById(R.id.linearLayoutSearch);
+        linearLayoutSearch.setVisibility(View.GONE);
         findViewById(R.id.buttonDone).setOnClickListener(this);
         linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgres);
         linearlayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
@@ -57,8 +82,25 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         setSearchView();
         setupToolBar("Select Team");
         setupSelectedRecyler();
+        setupExpandable();
         setupRecycler();
         getTeams();
+    }
+
+    private void getTeams1() {
+        UserSessionManager userSessionManager = new UserSessionManager(context);
+        String token = userSessionManager.getApitoken();
+        String url = "https://api.soccerama.pro/v1.1/competitions?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=currentSeason";
+        Log.i("kunsangresult", url);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        Log.i("result_url", url);
+        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
+                url,
+                null,
+                createMyReqSuccessListener(),
+                createMyReqErrorListener());
+
+        queue.add(myReq);
     }
 
     @Override
@@ -68,6 +110,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         searchView.setMenuItem(item);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -81,6 +124,18 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void setupRecycler() {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        //prepareListData();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        upcomingGameAdapter = new TeamListAdapter(context, teamListDatas1);
+        // setting list adapter
+        recyclerView.setAdapter(upcomingGameAdapter);
+
+    }
+
     private void setSearchView() {
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
@@ -89,6 +144,9 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 //Do some magic
                 linearLayoutTeams.setVisibility(View.GONE);
                 linearLayoutProgress.setVisibility(View.VISIBLE);
+                linearLayoutTeams.setVisibility(View.GONE);
+                teamListDatas1.clear();
+                upcomingGameAdapter.notifyDataSetChanged();
                 getTeam(query);
                 searchView.setHint(query);
                 View view = SelectTeamActivity.this.getCurrentFocus();
@@ -103,6 +161,8 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
             public boolean onQueryTextChange(String newText) {
                 //Do some magic
                 if (newText.length() > 2) {
+                    teamListDatas1.clear();
+                    upcomingGameAdapter.notifyDataSetChanged();
                     linearLayoutTeams.setVisibility(View.GONE);
                     linearLayoutProgress.setVisibility(View.VISIBLE);
                     getTeam(newText);
@@ -121,11 +181,9 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onSearchViewClosed() {
                 //Do some magic
-                linearLayoutTeams.setVisibility(View.GONE);
-                linearLayoutProgress.setVisibility(View.VISIBLE);
-                getTeams();
-                teamListDatas.clear();
-                upcomingGameAdapter.notifyDataSetChanged();
+                linearLayoutSearch.setVisibility(View.GONE);
+                linearLayoutTeams.setVisibility(View.VISIBLE);
+
 
             }
         });
@@ -144,8 +202,8 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                     public void onCompleted(Exception e, JsonObject result) {
                         linearLayoutProgress.setVisibility(View.GONE);
                         linearlayoutMain.setVisibility(View.VISIBLE);
-                        linearLayoutTeams.setVisibility(View.VISIBLE);
-                        teamListDatas.clear();
+                        linearLayoutSearch.setVisibility(View.VISIBLE);
+                        teamListDatas1.clear();
                         upcomingGameAdapter.notifyDataSetChanged();
                         if (result == null) {
                             showMessage("nothings is here");
@@ -159,7 +217,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                                     String id = object.get("id").getAsString();
                                     String name = object.get("name").getAsString();
                                     String logo = object.get("logo").getAsString();
-                                    teamListDatas.add(new TeamListData(id, name, logo));
+                                    teamListDatas1.add(new TeamListData(id, name, logo, "", ""));
                                 }
                                 upcomingGameAdapter.notifyDataSetChanged();
                             } else {
@@ -169,14 +227,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
 
                     }
                 });
-    }
-
-    private void setupSelectedRecyler() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerSelected);
-        selectTeamAdapter = new SelectTeamAdapter(context, selectTeamDatas);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(selectTeamAdapter);
     }
 
     private void getTeams() {
@@ -194,8 +244,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                         linearLayoutProgress.setVisibility(View.GONE);
                         linearlayoutMain.setVisibility(View.VISIBLE);
                         linearLayoutTeams.setVisibility(View.VISIBLE);
-                        teamListDatas.clear();
-                        upcomingGameAdapter.notifyDataSetChanged();
+
                         if (result == null) {
                             showMessage("nothings is here");
                         } else {
@@ -208,15 +257,22 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                                     if (!(object.get("id").isJsonNull() || object.get("name").isJsonNull())) {
                                         String id = object.get("id").getAsString();
                                         String name = object.get("name").getAsString();
+                                        String competition_id = object.get("competition_id").getAsString();
+                                        String competition_name = object.get("comptition_name").getAsString();
                                         String logo = "";
                                         if (!object.get("logo").isJsonNull()) {
                                             logo = object.get("logo").getAsString();
                                         }
-
-                                        teamListDatas.add(new TeamListData(id, name, logo));
+                                        competitionIds.add(competition_id);
+                                        teamListDatas.add(new TeamListData(id, name, logo, competition_id, competition_name));
                                     }
                                 }
-                                upcomingGameAdapter.notifyDataSetChanged();
+                                HashSet<String> hashSet = new HashSet<String>();
+                                hashSet.addAll(competitionIds);
+                                competitionIds.clear();
+                                competitionIds.addAll(hashSet);
+                                setupExpandableData();
+                                //  upcomingGameAdapter.notifyDataSetChanged();
                             } else {
                                 showMessage("Something's wrong");
                             }
@@ -225,6 +281,86 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                     }
                 });
     }
+
+    private void setupExpandableData() {
+        expandHeaderDatas.clear();
+        expandChildDatas.clear();
+        for (int i = 0; i < competitionIds.size(); i++) {
+            expandHeaderDatas.add(new ExpandHeaderData(competitionIds.get(i), "dummy" + i));
+        }
+
+        for (int i = 0; i < expandHeaderDatas.size(); i++) {
+            String competitionName = "";
+            ArrayList<TeamListData> expandChildData = new ArrayList<>();
+            for (int j = 0; j < teamListDatas.size(); j++) {
+                Log.i("kunsangstring", expandHeaderDatas.get(i).id + "####### " + teamListDatas.get(i).compid);
+                if (expandHeaderDatas.get(i).id.equalsIgnoreCase(teamListDatas.get(j).compid)) {
+                    competitionName = teamListDatas.get(j).compName;
+                    //expandChildDatas.put(expandHeaderDatas.get(j).name,new ArrayList<ExpandChildData(teamListDatas.get(i).id,teamListDatas.get(i).name,teamListDatas.get(i).logo );
+                    Log.i("kunsangloop", i + "  " + j);
+                    expandChildData.add(new TeamListData(teamListDatas.get(j).id, teamListDatas.get(j).name, teamListDatas.get(j).logo, teamListDatas.get(j).compid, teamListDatas.get(j).compName));
+                }
+            }
+            if (!(competitionName.length() > 0)) {
+                competitionName = "No name";
+            }
+            expandHeaderDatas.set(i, new ExpandHeaderData(competitionIds.get(i), competitionName));
+            expandChildDatas.put(expandHeaderDatas.get(i), expandChildData);
+        }
+
+        listAdapter.notifyDataSetChanged();
+    }
+
+    private void setupSelectedRecyler() {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerSelected);
+        selectTeamAdapter = new SelectTeamAdapter(context, selectTeamDatas);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(selectTeamAdapter);
+    }
+
+    private Response.Listener<JSONObject> createMyReqSuccessListener() {
+        return new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                linearLayoutProgress.setVisibility(View.GONE);
+                linearlayoutMain.setVisibility(View.VISIBLE);
+                linearLayoutTeams.setVisibility(View.VISIBLE);
+                Log.i("kunsangresult", response.toString());
+                try {
+                    JSONArray data = response.getJSONArray("data");
+                    for (int i = 0; i <= data.length(); i++) {
+                        JSONObject jsonObject = data.getJSONObject(i);
+                        String name = jsonObject.getString("name");
+                        String id = jsonObject.getString("id");
+                        expandHeaderDatas.add(new ExpandHeaderData(id, name));
+                        ArrayList<TeamListData> expandChildData = new ArrayList<>();
+                        expandChildDatas.put(expandHeaderDatas.get(i), expandChildData);
+                    }
+
+                    listAdapter.notifyDataSetChanged();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    showMessage("Error fetching data");
+                }
+            }
+        };
+    }
+
+
+    private Response.ErrorListener createMyReqErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                linearLayoutProgress.setVisibility(View.GONE);
+                linearlayoutMain.setVisibility(View.VISIBLE);
+                linearLayoutTeams.setVisibility(View.VISIBLE);
+                error.printStackTrace();
+
+            }
+        };
+    }
+
 
     private void showMessage(String s) {
         Toast.makeText(SelectTeamActivity.this, s, Toast.LENGTH_SHORT).show();
@@ -240,12 +376,14 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    private void setupRecycler() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        upcomingGameAdapter = new TeamListAdapter(context, teamListDatas);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(upcomingGameAdapter);
+    private void setupExpandable() {
+        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        //prepareListData();
+        listAdapter = new ExpandableListAdapter(context, expandHeaderDatas, expandChildDatas);
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+        listAdapter.setClickListner(this);
+
     }
 
     @Override
@@ -299,5 +437,9 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+    }
+
+    @Override
+    public void itemClicked(View view, int groupview, int childview) {
     }
 }

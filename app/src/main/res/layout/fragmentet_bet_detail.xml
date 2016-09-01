@@ -51,10 +51,10 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/imageViewTeamA"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/italy" />
+                        android:scaleType="fitCenter" />
 
                 </LinearLayout>
 
@@ -80,10 +80,10 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/imageViewTeamB"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/italy" />
+                        android:scaleType="fitCenter" />
 
                 </LinearLayout>
             </LinearLayout>

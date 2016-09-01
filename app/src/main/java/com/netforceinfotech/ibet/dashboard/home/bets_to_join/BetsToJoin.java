@@ -60,15 +60,15 @@ public class BetsToJoin extends Fragment {
         } catch (Exception ex) {
 
         }
-        betsToJoinDatas.add(new BetsToJoinData("Tea", "imageurl"));
-        betsToJoinDatas.add(new BetsToJoinData("Dried Fruit", "imageurl"));
-        betsToJoinDatas.add(new BetsToJoinData("Nut Mixed", "imageurl"));
-        betsToJoinDatas.add(new BetsToJoinData("Tea", "imageurl"));
-        betsToJoinDatas.add(new BetsToJoinData("Dried Fruit", "imageurl"));
-        betsToJoinDatas.add(new BetsToJoinData("Nut Mixed", "imageurl"));
-        betsToJoinDatas.add(new BetsToJoinData("Tea", "imageurl"));
-        betsToJoinDatas.add(new BetsToJoinData("Dried Fruit", "imageurl"));
-        betsToJoinDatas.add(new BetsToJoinData("Nut Mixed", "imageurl"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
+        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
 
     }
 }

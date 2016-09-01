@@ -9,18 +9,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.netforceinfotech.ibet.login.LoginActivity;
+import com.squareup.picasso.Picasso;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        imageView = (ImageView) findViewById(R.id.splash);
+        Picasso.with(getApplicationContext()).load(R.drawable.splash).into(imageView);
+        FirebaseInstanceId.getInstance().getToken();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

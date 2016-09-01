@@ -89,7 +89,7 @@ public final class DefaultIntro extends BaseIntro {
 
         mExplosionField.expandExplosionBound(200, 300);
 
-        icon = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_coins);
+        icon = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.coin);
 
         //   mExplosionField.explode(icon,null,0,5000);
         addListener(dailog.findViewById(R.id.root));

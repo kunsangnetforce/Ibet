@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.currentbet.betarena.EnterBetArenaActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -61,6 +62,50 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         });
 
+        if (itemList.get(position).userdp.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).userdp)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewDp);
+        } else {
+            upcomingBetHolder.imageViewDp.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).selectedteamlogo.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).selectedteamlogo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewSelectedTeamLogo);
+        } else {
+            upcomingBetHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).teamalogo.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).teamalogo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewTeamA);
+        } else {
+            upcomingBetHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
+        }
+        if (itemList.get(position).teamblogo.length() > 1) {
+            Picasso.with(context)
+                    .load(itemList.get(position).teamblogo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewTeamB);
+        } else {
+            upcomingBetHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
+        }
+
+        upcomingBetHolder.textViewName.setText(itemList.get(position).name);
+        upcomingBetHolder.textViewSelectedName.setText(itemList.get(position).selectedteamname);
+        upcomingBetHolder.textViewNumberOfParticipants.setText(itemList.get(position).numberparticipant);
+        upcomingBetHolder.textViewNumberPost.setText(itemList.get(position).numberpost);
+        upcomingBetHolder.textViewTeamA.setText(itemList.get(position).teamaname);
+        upcomingBetHolder.textViewTeamB.setText(itemList.get(position).teambname);
+
 
     }
 
@@ -71,7 +116,7 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        return 5;
-//        return itemList.size();
+//        return 5;
+        return itemList.size();
     }
 }

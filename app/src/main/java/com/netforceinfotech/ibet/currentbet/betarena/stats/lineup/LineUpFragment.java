@@ -66,7 +66,7 @@ public class LineUpFragment extends Fragment {
     TextView textViewMA11, textViewMA21, textViewMA22, textViewMA31, textViewMA32, textViewMA33, textViewMA41, textViewMA42, textViewMA43, textViewMA44, textViewMA51, textViewMA52, textViewMA53, textViewMA54, textViewMA55;
     TextView textViewFH11, textViewFH21, textViewFH22, textViewFH31, textViewFH32, textViewFH33, textViewFH41, textViewFH42, textViewFH43, textViewFH44;
     TextView textViewFA11, textViewFA21, textViewFA22, textViewFA31, textViewFA32, textViewFA33, textViewFA41, textViewFA42, textViewFA43, textViewFA44;
-    private String homeTeamLogo = "",awayTeamLogo="";
+    private String homeTeamLogo = "", awayTeamLogo = "";
 
     ArrayList<LineUPData> arrayListHomeDefender = new ArrayList<>();
     ArrayList<LineUPData> arrayListAwayDefender = new ArrayList<>();
@@ -196,6 +196,8 @@ public class LineUpFragment extends Fragment {
                                     initLineUp(lineUPDatasHome, lineUPDatasAway);
                                 }
                             } catch (Exception ex) {
+                                linearLayoutError.setVisibility(View.VISIBLE);
+                                scrollView.setVisibility(View.GONE);
                                 ex.printStackTrace();
                             }
                         }
@@ -1386,6 +1388,8 @@ public class LineUpFragment extends Fragment {
                         initLineUp(lineUPDatasHome, lineUPDatasAway);
                     }
                 } catch (Exception ex) {
+                    linearLayoutError.setVisibility(View.VISIBLE);
+                    scrollView.setVisibility(View.GONE);
                     ex.printStackTrace();
                 }
             }
@@ -1397,7 +1401,8 @@ public class LineUpFragment extends Fragment {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                linearLayoutError.setVisibility(View.VISIBLE);
+                scrollView.setVisibility(View.GONE);
                 error.printStackTrace();
             }
         };

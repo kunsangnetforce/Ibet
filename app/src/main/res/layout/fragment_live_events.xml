@@ -7,7 +7,7 @@
     tools:context=".live_event.LiveEvents">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutProgress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
@@ -23,27 +23,68 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttondate"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:background="@color/colorAccent"
-            android:text="Select Date"
-            android:textColor="@color/colorText" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonLive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:background="@color/colorAccent"
+                android:text="Live Match"
+                android:textColor="@color/colorText" />
+
+            <Button
+                android:id="@+id/buttondate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:background="@color/colorAccent"
+                android:text="Select Date"
+                android:textColor="@color/colorText" />
+        </LinearLayout>
 
         <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
             android:id="@+id/swipyrefreshlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srl_direction="bottom">
+            app:srl_direction="top">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler"
+            <ExpandableListView
+                android:id="@+id/lvExp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+                android:layout_height="match_parent"
+                android:groupIndicator="@null" />
 
         </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutNoLiveMatches"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageViewNoLiveMatch"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="NO MATCHES AVAILABLE"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </FrameLayout>
