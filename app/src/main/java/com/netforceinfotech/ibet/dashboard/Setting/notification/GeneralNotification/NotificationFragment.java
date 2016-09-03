@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.notification.GeneralNotification;
+package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,11 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.LinearLayout;
 
 import com.netforceinfotech.ibet.R;

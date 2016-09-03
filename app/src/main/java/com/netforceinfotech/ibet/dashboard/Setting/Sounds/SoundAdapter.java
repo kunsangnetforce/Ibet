@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.Sounds;
+package com.netforceinfotech.ibet.dashboard.setting.sounds;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;

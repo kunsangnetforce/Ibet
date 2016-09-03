@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification;
+package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.Soundlist.SoundlistActivity;
+import com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.soundlist.SoundlistActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;

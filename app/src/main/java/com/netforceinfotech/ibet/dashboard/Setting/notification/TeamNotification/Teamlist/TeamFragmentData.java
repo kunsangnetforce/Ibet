@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.Teamlist;
+package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.teamlist;
 
 /**
  * Created by John on 8/3/2016.

@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.Feedback;
+package com.netforceinfotech.ibet.dashboard.setting.feedback;
 
 import android.os.Build;
 import android.os.Bundle;

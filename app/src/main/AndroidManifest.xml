@@ -59,49 +59,49 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name=".dashboard.Chart.highest.HighestTabActivity"
+            android:name=".dashboard.chart.highest.HighestTabActivity"
             android:label="@string/title_activity_chart_tab"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".dashboard.Setting.notification.TeamNotification.Soundlist.SoundlistActivity"
+            android:name=".dashboard.setting.notification.teamNotification.soundlist.SoundlistActivity"
             android:label="@string/title_activity_soundlist"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".dashboard.Setting.Feedback.FeedbackActivity"
+            android:name=".dashboard.setting.feedback.FeedbackActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".dashboard.Setting.notification.TeamNotification.Teamlist.TeamlistActivity"
+            android:name=".dashboard.setting.notification.teamNotification.teamlist.TeamlistActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".dashboard.Purchase.PurchaseActivity"
+            android:name=".dashboard.purchase.PurchaseActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Chart.RichestRank.RichestTabActivity"
+            android:name=".dashboard.chart.richestrank.RichestTabActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Setting.Odds.OddsActivity"
+            android:name=".dashboard.setting.odds.OddsActivity"
             android:label="@string/title_activity_odds"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".dashboard.Setting.notification.GeneralNotification.GeneralNotificationActivity"
+            android:name=".dashboard.setting.notification.generalNotification.GeneralNotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Setting.notification.TeamNotification.TeamNotificationActivity"
+            android:name=".dashboard.setting.notification.teamNotification.TeamNotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Setting.language.LanguageActivity"
+            android:name=".dashboard.setting.language.LanguageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Setting.Theme.ThemeActivity"
+            android:name=".dashboard.setting.theme.ThemeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.Setting.Sounds.SoundActivity"
+            android:name=".dashboard.setting.sounds.SoundActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".dashboard.Setting.Theme.ThemeColor.ThemeColorActivity" />
+        <activity android:name=".dashboard.setting.theme.themeColor.ThemeColorActivity" />
         <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
         <activity android:name=".live_event.stand.TheArenaActivity" />
         <activity android:name=".live_event.stand.StandActivity" />
@@ -116,9 +116,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".live_event.LiveEventActivity" />
-        <activity android:name=".profilesetting.Tutorial.TutorialActivity"></activity>
+        <activity android:name=".profilesetting.tutorial.TutorialActivity"></activity>
 
-        <activity android:name=".profilesetting.Tutorial.DefaultIntro"></activity>
+        <activity android:name=".profilesetting.tutorial.DefaultIntro"></activity>
         <service
             android:name=".general.firebasegcm.MyFirebaseIDService">
             <intent-filter>

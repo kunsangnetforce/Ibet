@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet.currentbet.betarena.live_event.events;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if (eventsDatas.get(position).team.trim().length() < 1) {
+        if ((eventsDatas.size()-1)==position) {
             return START;
         } else {
             return NORMAL;
@@ -68,6 +69,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        holder.setIsRecyclable(false);
         if (position != eventsDatas.size() - 1) {
             EventsHolder holder1 = (EventsHolder) holder;
             if (eventsDatas.get(position).team.trim().equalsIgnoreCase("b")) {
@@ -121,7 +123,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 }
 
-
+                Log.i("kunsangdata", eventsDatas.get(position).time + ":" + eventsDatas.get(position).name + ":" + eventsDatas.get(position).in + ":" + eventsDatas.get(position).out + ":" + eventsDatas.get(position).type);
             } else {
                 holder1.linearLayoutb.setVisibility(View.INVISIBLE);
                 holder1.textViewTime.setText(eventsDatas.get(position).time);
@@ -167,12 +169,14 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         holder1.textViewNamea.setText(eventsDatas.get(position).in);
                         Picasso.with(context).load(R.drawable.ic_out).into(holder1.imageViewTypea1);
                         holder1.textViewNamea1.setText(eventsDatas.get(position).out);
-
-
                         break;
                 }
+                Log.i("kunsangdata", eventsDatas.get(position).time + ":" + eventsDatas.get(position).name + ":" + eventsDatas.get(position).in + ":" + eventsDatas.get(position).out + ":" + eventsDatas.get(position).type);
             }
+        } else {
+
         }
+
     }
 
     private void showMessage(String s) {

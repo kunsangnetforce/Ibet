@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Chart.highest;
+package com.netforceinfotech.ibet.dashboard.chart.highest;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -10,11 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Chart.highest.PagerAdapterCharttab;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 public class HighestTabActivity extends AppCompatActivity

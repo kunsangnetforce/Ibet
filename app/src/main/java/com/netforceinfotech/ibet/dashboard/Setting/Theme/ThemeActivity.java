@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.Theme;
+package com.netforceinfotech.ibet.dashboard.setting.theme;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +12,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Setting.Theme.ThemeColor.ThemeColorActivity;
+import com.netforceinfotech.ibet.dashboard.setting.theme.themeColor.ThemeColorActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.io.File;

@@ -134,11 +134,13 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         adapter = new EventsAdapter(context, eventsDatas);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
     }
 
     private void getEvents(String matchid, final String teamaid, String teambid) {
         try {
             eventsDatas.clear();
+            adapter.notifyDataSetChanged();
         } catch (Exception ex) {
 
         }
@@ -269,9 +271,11 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         }
                         //EventsData(String name, String type, String id, String event, String time, String in, String out) {
                         eventsDatas.add(new EventsData(player_name, type, team_id, time, player_in_name, player_out_name, team));
+
                     }
                     Collections.reverse(eventsDatas);
                     eventsDatas.add(new EventsData("", "", "", "0", "", "", ""));
+                    adapter.notifyDataSetChanged();
                 }
                 JsonArray data_score = dataObject.get("data_score").getAsJsonArray();
                 JsonObject score_object = data_score.get(0).getAsJsonObject();
@@ -460,7 +464,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                 } else {
                     imageViewAway.setImageResource(R.drawable.ic_error);
                 }
-                adapter.notifyItemRangeChanged(0, adapter.getItemCount());
+
+                //adapter.notifyItemRangeChanged(0, adapter.getItemCount());
             } else {
                 showMessage("json error");
             }

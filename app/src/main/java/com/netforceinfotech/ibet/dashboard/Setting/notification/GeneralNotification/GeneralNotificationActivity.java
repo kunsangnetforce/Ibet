@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.notification.GeneralNotification;
+package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification;
 
 import android.os.Build;
 import android.support.design.widget.TabLayout;
@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;

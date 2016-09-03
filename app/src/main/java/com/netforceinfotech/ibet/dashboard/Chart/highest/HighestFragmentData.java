@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Chart.highest;
+package com.netforceinfotech.ibet.dashboard.chart.highest;
 
 /**1
  * Created by asdf on 7/21/2016.

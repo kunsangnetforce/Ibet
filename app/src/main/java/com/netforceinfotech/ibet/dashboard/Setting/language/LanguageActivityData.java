@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.language;
+package com.netforceinfotech.ibet.dashboard.setting.language;
 
 /**
  * Created by asdf on 7/21/2016.

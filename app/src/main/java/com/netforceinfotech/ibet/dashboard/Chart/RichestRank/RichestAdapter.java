@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Chart.RichestRank;
+package com.netforceinfotech.ibet.dashboard.chart.richestrank;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

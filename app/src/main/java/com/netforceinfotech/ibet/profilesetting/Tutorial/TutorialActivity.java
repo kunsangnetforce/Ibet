@@ -1,7 +1,6 @@
-package com.netforceinfotech.ibet.profilesetting.Tutorial;
+package com.netforceinfotech.ibet.profilesetting.tutorial;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;

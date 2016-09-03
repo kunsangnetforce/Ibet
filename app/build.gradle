@@ -23,6 +23,11 @@ android {
             assets.srcDirs = ['src/main/assets', 'src/main/assets/']
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 repositories {
@@ -80,6 +85,6 @@ dependencies {
     compile 'com.bcgdv.asia.lib:ticktock:1.2'
     compile 'com.google.firebase:firebase-core:9.4.0'
     compile 'com.google.firebase:firebase-messaging:9.4.0'
-
+    compile 'com.google.firebase:firebase-database:9.4.0'
 }
 apply plugin: 'com.google.gms.google-services'
