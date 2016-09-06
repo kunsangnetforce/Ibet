@@ -1,15 +1,12 @@
-package com.netforceinfotech.ibet.currentbet.betarena.thearena;
+package com.netforceinfotech.ibet.live_event.thearena;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.netforceinfotech.ibet.currentbet.betarena.betdetail.BetDetailFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.live_event.LiveEventFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.stats.StateFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.thearena.all.AllFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.thearena.friend.FriendFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.thearena.top.TopFragment;
+import com.netforceinfotech.ibet.live_event.thearena.all.AllFragment;
+import com.netforceinfotech.ibet.live_event.thearena.friend.FriendFragment;
+import com.netforceinfotech.ibet.live_event.thearena.top.TopFragment;
 
 /**
  * Created by Netforce on 8/1/2016.

@@ -92,6 +92,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                 currentGameDatas.clear();
                 expandHeaderDatas.clear();
                 listDataChild.clear();
+                buttonDate.setText("Select Date");
                 getLiveMatch1();
             }
         });
@@ -106,6 +107,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
             expandHeaderDatas.clear();
             listDataChild.clear();
             currentGameDatas.clear();
+            listAdapter.notifyDataSetChanged();
             //  currentGameAdapter.notifyDataSetChanged();
         } catch (Exception ex) {
 
@@ -431,6 +433,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
             expandHeaderDatas.clear();
             listDataChild.clear();
             currentGameDatas.clear();
+            listAdapter.notifyDataSetChanged();
             //  currentGameAdapter.notifyDataSetChanged();
         } catch (Exception ex) {
 

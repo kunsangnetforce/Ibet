@@ -41,12 +41,12 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     ArrayList<Boolean> enables = new ArrayList<>();
     ArrayList<Boolean> revealed = new ArrayList<>();
     ArrayList<Integer> sameKindCount = new ArrayList<>();
-    private MaterialDialog customdialog;
     Button buttonColloect;
     View view;
     private ExplosionField mExplosionField;
     LinearLayout linearLayoutScratch;
     private GifImageView gif;
+    private MaterialDialog customdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1030,6 +1030,22 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
                 .setAcceleration(0.00005f, 90)
                 .emit(findViewById(R.id.emiter_top_left), 8);
         gif.setVisibility(View.VISIBLE);
+
+        boolean wrapInScrollView = true;
+        customdialog = new MaterialDialog.Builder(this)
+                .customView(R.layout.custom_dialog, wrapInScrollView).show();
+        Button button = (Button) customdialog.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customdialog.dismiss();
+                new ParticleSystem(ImageOverlayDrawable.this, 100, R.drawable.confeti2, 5000)
+                        .setSpeedRange(0.1f, 0.25f)
+                        .oneShot(view, 900);
+
+            }
+        });
+
     }
 
 
@@ -1044,12 +1060,6 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
         getSupportActionBar().setTitle(teams);
 
 
-    }
-
-    protected void updatePercentage(float percentage) {
-        mPercentage = percentage;
-        String percentage2decimal = String.format("%.2f", percentage) + " %";
-        //percentageView.setText(percentage2decimal);
     }
 
 

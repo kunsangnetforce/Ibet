@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.currentbet.betarena.thearena.top;
+package com.netforceinfotech.ibet.live_event.thearena.top;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

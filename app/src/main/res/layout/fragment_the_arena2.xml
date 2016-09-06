@@ -2,14 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.netforceinfotech.ibet.live_event.stand.TheArenaFragment">
+    tools:context=".currentbet.betarena.stand.TheStandFragment">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context="com.netforceinfotech.ibet.live_event.stand.TheArenaActivity">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -87,7 +86,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Welcome to Arena"
+                            android:text="Welcome to Stand"
                             android:textColor="@color/colorAccent"
                             android:textSize="24sp" />
                     </LinearLayout>

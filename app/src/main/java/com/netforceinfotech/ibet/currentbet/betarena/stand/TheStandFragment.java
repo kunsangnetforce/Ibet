@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.live_event.stand;
+package com.netforceinfotech.ibet.currentbet.betarena.stand;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.netforceinfotech.ibet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TheArenaFragment extends Fragment {
+public class TheStandFragment extends Fragment {
 
 
-    public TheArenaFragment() {
+    public TheStandFragment() {
         // Required empty public constructor
     }
 

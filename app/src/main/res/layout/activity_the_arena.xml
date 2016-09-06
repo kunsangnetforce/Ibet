@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.netforceinfotech.ibet.live_event.stand.TheArenaActivity">
+    tools:context=".currentbet.betarena.stand.TheArenaActivity"
+    >
 
     <FrameLayout
         android:id="@+id/toolbar_container"
