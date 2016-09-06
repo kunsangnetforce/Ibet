@@ -1,7 +1,6 @@
-package com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification;
+package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,11 +14,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.Teamlist.TeamlistActivity;
+import com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.teamlist.TeamlistActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;

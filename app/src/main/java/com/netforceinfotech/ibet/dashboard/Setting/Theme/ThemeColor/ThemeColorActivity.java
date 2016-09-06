@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.Theme.ThemeColor;
+package com.netforceinfotech.ibet.dashboard.setting.theme.themeColor;
 
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;

@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.currentbet.betarena.thearena.top;
+package com.netforceinfotech.ibet.live_event.thearena.top;
 
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.

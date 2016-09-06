@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Chart.RichestRank;
+package com.netforceinfotech.ibet.dashboard.chart.richestrank;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

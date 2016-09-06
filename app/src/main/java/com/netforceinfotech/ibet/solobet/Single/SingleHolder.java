@@ -1,11 +1,8 @@
-package com.netforceinfotech.ibet.solobet.Single;
+package com.netforceinfotech.ibet.solobet.single;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
-import com.netforceinfotech.ibet.R;
 
 /**
  * Created by John on 8/8/2016.

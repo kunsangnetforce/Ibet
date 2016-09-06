@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.Soundlist;
+package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.soundlist;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.Teamlist.TeamFragmentData;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.live_event.stand;
+package com.netforceinfotech.ibet.currentbet.betarena.stand;
 
 
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.netforceinfotech.ibet.R;
 import com.squareup.picasso.Picasso;
@@ -25,8 +24,7 @@ public class StandFragment extends Fragment implements View.OnClickListener {
     CircleImageView circleImageViewTeamA, circleImageViewTeamB;
     Button buttonNeutral;
     Context context;
-    private TheArenaFragment theArenaFragment;
-    CircleImageView imageViewTeamA,imageViewTeamB;
+    private TheStandFragment theStandFragment;
     private String tagName;
 
     public StandFragment() {
@@ -40,10 +38,6 @@ public class StandFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stand, container, false);
         context = getActivity();
-        imageViewTeamA= (CircleImageView) view.findViewById(R.id.imageViewTeamA);
-        imageViewTeamB= (CircleImageView) view.findViewById(R.id.imageViewTeamB);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
         initView(view);
         return view;
     }
@@ -51,6 +45,8 @@ public class StandFragment extends Fragment implements View.OnClickListener {
     private void initView(View view) {
         circleImageViewTeamA = (CircleImageView) view.findViewById(R.id.imageViewTeamA);
         circleImageViewTeamB = (CircleImageView) view.findViewById(R.id.imageViewTeamB);
+        Picasso.with(context).load(R.drawable.ic_error).into(circleImageViewTeamA);
+        Picasso.with(context).load(R.drawable.ic_error).into(circleImageViewTeamB);
         buttonNeutral = (Button) view.findViewById(R.id.buttonNeutral);
         circleImageViewTeamA.setOnClickListener(this);
         circleImageViewTeamB.setOnClickListener(this);
@@ -63,7 +59,7 @@ public class StandFragment extends Fragment implements View.OnClickListener {
             case R.id.buttonNeutral:
             case R.id.imageViewTeamA:
             case R.id.imageViewTeamB:
-                startActivity(new Intent(context, StandActivity.class));
+                startActivity(new Intent(context, TheArenaActivity.class));
                 //   setupArenaFragment();
                 break;
         }
@@ -76,9 +72,9 @@ public class StandFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setupArenaFragment() {
-        theArenaFragment = new TheArenaFragment();
-        tagName = theArenaFragment.getClass().getName();
-        replaceFragment(theArenaFragment, tagName);
+        theStandFragment = new TheStandFragment();
+        tagName = theStandFragment.getClass().getName();
+        replaceFragment(theStandFragment, tagName);
 
     }
 }

@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Chart.RichestRank;
+package com.netforceinfotech.ibet.dashboard.chart.richestrank;
 
 /**
  * Created by John on 7/25/2016.

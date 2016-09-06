@@ -1,19 +1,14 @@
-package com.netforceinfotech.ibet.currentbet.betarena.thearena.top;
+package com.netforceinfotech.ibet.live_event.thearena.top;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.DetailBetToJoin;
-import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.WhoWillWinActivity;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.profilesetting.Tutorial;
+package com.netforceinfotech.ibet.profilesetting.tutorial;
 
 import android.content.Intent;
 

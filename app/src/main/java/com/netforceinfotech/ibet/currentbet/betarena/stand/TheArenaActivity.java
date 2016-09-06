@@ -1,7 +1,7 @@
-package com.netforceinfotech.ibet.live_event.stand;
+package com.netforceinfotech.ibet.currentbet.betarena.stand;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 

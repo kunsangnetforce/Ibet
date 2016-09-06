@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.solobet.Single;
+package com.netforceinfotech.ibet.solobet.single;
 
 /**
  * Created by John on 8/8/2016.

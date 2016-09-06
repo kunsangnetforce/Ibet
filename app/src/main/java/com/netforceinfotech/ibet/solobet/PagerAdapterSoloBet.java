@@ -4,9 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.netforceinfotech.ibet.currentbet.livebet.LiveBetFragment;
-import com.netforceinfotech.ibet.currentbet.upcoming.UpcomingBetFragment;
-import com.netforceinfotech.ibet.solobet.Single.SingleFragment;
+import com.netforceinfotech.ibet.solobet.single.SingleFragment;
 
 /**
  * Created by John on 8/8/2016.

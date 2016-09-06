@@ -26,6 +26,7 @@ import com.winsontan520.WScratchView;
 
 import java.util.ArrayList;
 
+import pl.droidsonroids.gif.GifImageView;
 import tyrantgit.explosionfield.ExplosionField;
 
 public class ImageOverlayDrawable extends AppCompatActivity implements View.OnClickListener {
@@ -40,11 +41,12 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     ArrayList<Boolean> enables = new ArrayList<>();
     ArrayList<Boolean> revealed = new ArrayList<>();
     ArrayList<Integer> sameKindCount = new ArrayList<>();
-    private MaterialDialog customdialog;
     Button buttonColloect;
     View view;
     private ExplosionField mExplosionField;
     LinearLayout linearLayoutScratch;
+    private GifImageView gif;
+    private MaterialDialog customdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     }
 
     private void setupView() {
+        gif = (GifImageView) findViewById(R.id.gif);
         dialog = new MaterialDialog.Builder(this)
                 .title("You can Choose Only Three Bonus")
                 .content("Hi")
@@ -1015,32 +1018,31 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     }
 
     private void showPopUpMessage(String s) {
-       /* ParticleSystem particleSystem = new ParticleSystem(this, 100, R.drawable.coin, 800);
-        particleSystem.setSpeedRange(0.1f, 0.25f);
-        particleSystem.oneShot(view, 100);
-        //dialog
-        boolean wrapInScrollView = true;
-        customdialog = new MaterialDialog.Builder(this)
-                .title(s)
-                .backgroundColor(android.graphics.Color.TRANSPARENT)
-                .customView(R.layout.custom_dialog, wrapInScrollView)
-                .show();
+        new ParticleSystem(this, 80, R.drawable.confeti2, 10000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 180, 180)
+                .setRotationSpeed(144)
+                .setAcceleration(0.00005f, 90)
+                .emit(findViewById(R.id.emiter_top_right), 8);
 
-        //animation
-        YoYo.with(Techniques.ZoomIn)
-                .duration(1000)
-                .playOn(customdialog.findViewById(R.id.gif));*/
+        new ParticleSystem(this, 80, R.drawable.confeti3, 10000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
+                .setRotationSpeed(144)
+                .setAcceleration(0.00005f, 90)
+                .emit(findViewById(R.id.emiter_top_left), 8);
+        gif.setVisibility(View.VISIBLE);
+
         boolean wrapInScrollView = true;
         customdialog = new MaterialDialog.Builder(this)
-                .title(s)
-                .backgroundColor(android.graphics.Color.TRANSPARENT)
-                .customView(R.layout.custom_dialog, wrapInScrollView)
-                .show();
-        Button buttonOk = (Button) customdialog.findViewById(R.id.button);
-        buttonOk.setOnClickListener(new View.OnClickListener() {
+                .customView(R.layout.custom_dialog, wrapInScrollView).show();
+        Button button = (Button) customdialog.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 customdialog.dismiss();
+                new ParticleSystem(ImageOverlayDrawable.this, 100, R.drawable.confeti2, 5000)
+                        .setSpeedRange(0.1f, 0.25f)
+                        .oneShot(view, 900);
+
             }
         });
 
@@ -1058,12 +1060,6 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
         getSupportActionBar().setTitle(teams);
 
 
-    }
-
-    protected void updatePercentage(float percentage) {
-        mPercentage = percentage;
-        String percentage2decimal = String.format("%.2f", percentage) + " %";
-        //percentageView.setText(percentage2decimal);
     }
 
 

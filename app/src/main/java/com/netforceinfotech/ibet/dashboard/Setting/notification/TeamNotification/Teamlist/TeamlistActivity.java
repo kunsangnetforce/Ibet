@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.notification.TeamNotification.Teamlist;
+package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.teamlist;
 
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
@@ -10,12 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.Chart.highest.HighestAdapter;
-import com.netforceinfotech.ibet.dashboard.Chart.highest.HighestFragmentData;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;

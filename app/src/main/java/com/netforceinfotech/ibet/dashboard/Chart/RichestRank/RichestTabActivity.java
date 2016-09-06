@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Chart.RichestRank;
+package com.netforceinfotech.ibet.dashboard.chart.richestrank;
 
 import android.os.Build;
 import android.support.design.widget.TabLayout;

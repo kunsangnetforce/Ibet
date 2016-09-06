@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.language;
+package com.netforceinfotech.ibet.dashboard.setting.language;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;

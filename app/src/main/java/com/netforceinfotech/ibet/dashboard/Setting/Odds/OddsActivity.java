@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.Odds;
+package com.netforceinfotech.ibet.dashboard.setting.odds;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;

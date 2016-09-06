@@ -1,10 +1,8 @@
-package com.netforceinfotech.ibet.dashboard.Chart.highest;
+package com.netforceinfotech.ibet.dashboard.chart.highest;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import com.netforceinfotech.ibet.dashboard.Chart.highest.HighestFragment;
 
 /**
  * Created by asdf on 7/20/2016.

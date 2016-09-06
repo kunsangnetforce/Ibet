@@ -1,32 +1,19 @@
-package com.netforceinfotech.ibet.live_event.stand;
+package com.netforceinfotech.ibet.currentbet.betarena.stand;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.PagerAdapter;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.general.WrapContentViewPager;
-import com.netforceinfotech.ibet.live_event.thearena.PagerAdapterBetTheArena;
-import com.squareup.picasso.Picasso;
 
-import at.grabner.circleprogress.CircleProgressView;
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class StandActivity extends AppCompatActivity implements View.OnClickListener {
+public class StandActivity extends AppCompatActivity  implements View.OnClickListener{
 
 
     WrapContentViewPager viewPager;
@@ -34,11 +21,9 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
 
     CoordinatorLayout coordinatorLayout;
     UserSessionManager userSessionManager;
-    int theme;
-    private TheArenaFragment theArenaFragment;
-    CircleImageView imageViewTeamA, imageViewTeamB;
+    int theme ;
+    private TheStandFragment theStandFragment;
     private String tagName;
-    private Toolbar toolbar;
 
 
     @Override
@@ -48,27 +33,18 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
 
 
         context = getApplicationContext();
-        imageViewTeamA = (CircleImageView) findViewById(R.id.imageViewTeamA);
-        imageViewTeamB = (CircleImageView) findViewById(R.id.imageViewTeamB);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
+
         userSessionManager = new UserSessionManager(getApplicationContext());
         theme = userSessionManager.getTheme();
-        setupToolBar("Stand");
+
+
         setupTab();
     }
 
-    private void setupToolBar(String title) {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String teams = title;
-        getSupportActionBar().setTitle(teams);
 
-    }
 
-    private void setupTab() {
+    private void setupTab()
+    {
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
 
@@ -81,25 +57,36 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         tabLayout.addTab(tabLayout.newTab().setText(R.string.friends));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        if (theme == 0) {
+        if(theme == 0)
+        {
             //coordinatorLayout.setBackgroundResource(R.drawable.background_theme5);
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme1);
 
-        } else if (theme == 1) {
+        }
+        else if(theme == 1)
+        {
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme2);
 
-        } else if (theme == 2) {
+        }
+
+        else if(theme == 2)
+        {
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme3);
 
-        } else if (theme == 3) {
+        }
+        else if(theme == 3)
+        {
 
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme4);
 
 
-        } else if (theme == 4) {
+        }
+
+        else if(theme == 4)
+        {
 
 
             coordinatorLayout.setBackgroundResource(R.drawable.background_theme5);
@@ -107,17 +94,15 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
 
         }
 
-        final PagerAdapterBetTheArena adapter = new PagerAdapterBetTheArena
-                (getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setPagingEnabled(false);
-        viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab)
+            {
                 viewPager.setCurrentItem(tab.getPosition());
 
             }
@@ -137,8 +122,10 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View view)
+    {
+        switch (view.getId())
+        {
             case R.id.buttonStartnewBet:
                 //go to new bet
                 Intent intent = new Intent(context, StartNewBetActivity.class);
@@ -146,17 +133,5 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 }

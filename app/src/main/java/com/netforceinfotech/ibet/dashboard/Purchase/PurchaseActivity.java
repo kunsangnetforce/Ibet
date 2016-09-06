@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Purchase;
+package com.netforceinfotech.ibet.dashboard.purchase;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

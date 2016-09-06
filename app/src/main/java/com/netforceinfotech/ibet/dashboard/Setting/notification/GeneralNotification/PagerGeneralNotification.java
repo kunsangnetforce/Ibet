@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.notification.GeneralNotification;
+package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

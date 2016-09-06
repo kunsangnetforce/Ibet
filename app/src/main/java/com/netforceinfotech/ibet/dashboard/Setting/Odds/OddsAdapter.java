@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.Setting.Odds;
+package com.netforceinfotech.ibet.dashboard.setting.odds;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
