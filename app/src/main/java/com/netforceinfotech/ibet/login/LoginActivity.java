@@ -203,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     };
 
-    private void login(String fbToken, String fbName, String fbId, String reg_id, String email) {
+    private void login(String fbToken, String fbName, final String fbId, String reg_id, String email) {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=register&email=kunwangyal15@yahoo.com&fb_token=qwerty1&name=Kunsang%20Wangyal&facebook=1&fb_id=1sdfasdf232324&device_id=asdf23232322&reg_id=asdfasdf232324
         String url = getResources().getString(R.string.url);
         String device_id = getDeviceId();
@@ -225,6 +225,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.i("kunsang_test_login", result.toString());
                             String status = result.get("status").getAsString().toLowerCase();
                             if (status.equalsIgnoreCase("success")) {
+                                String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
+                                userSessionManager.setProfilePic(imageURL);
                                 userSessionManager.setLoginMode("1");
                                 JsonArray data = result.getAsJsonArray("data");
                                 JsonObject object = data.get(0).getAsJsonObject();

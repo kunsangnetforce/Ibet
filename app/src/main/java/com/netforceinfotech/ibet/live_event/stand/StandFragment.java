@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,11 @@ public class StandFragment extends Fragment implements View.OnClickListener {
     Button buttonNeutral;
     Context context;
     private TheArenaFragment theArenaFragment;
-    CircleImageView imageViewTeamA,imageViewTeamB;
+    CircleImageView imageViewTeamA, imageViewTeamB;
     private String tagName;
+    private String teamaid, teambid, teama, teamb, matchid;
+    private Intent intent;
+    private Bundle bundle;
 
     public StandFragment() {
         // Required empty public constructor
@@ -40,8 +44,18 @@ public class StandFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stand, container, false);
         context = getActivity();
-        imageViewTeamA= (CircleImageView) view.findViewById(R.id.imageViewTeamA);
-        imageViewTeamB= (CircleImageView) view.findViewById(R.id.imageViewTeamB);
+        try {
+            teamaid = this.getArguments().getString("teamaid");
+            teambid = this.getArguments().getString("teambid");
+            matchid = this.getArguments().getString("matchid");
+            teama = this.getArguments().getString("teama");
+            teamb = this.getArguments().getString("teamb");
+        } catch (Exception ex) {
+            Log.i("kunsang_exception", "paramenter not set");
+        }
+        bundle = new Bundle();
+        imageViewTeamA = (CircleImageView) view.findViewById(R.id.imageViewTeamA);
+        imageViewTeamB = (CircleImageView) view.findViewById(R.id.imageViewTeamB);
         Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
         Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
         initView(view);
@@ -61,9 +75,37 @@ public class StandFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonNeutral:
+                intent = new Intent(context, StandActivity.class);
+                bundle.putString("teama", teama);
+                bundle.putString("teamb", teamb);
+                bundle.putString("teamaid", teamaid);
+                bundle.putString("teambid", teambid);
+                bundle.putString("matchid", matchid);
+                bundle.putString("team", "nuetral");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
             case R.id.imageViewTeamA:
+                intent = new Intent(context, StandActivity.class);
+                bundle.putString("teama", teama);
+                bundle.putString("teamb", teamb);
+                bundle.putString("teamaid", teamaid);
+                bundle.putString("teambid", teambid);
+                bundle.putString("matchid", matchid);
+                bundle.putString("team", "home");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
             case R.id.imageViewTeamB:
-                startActivity(new Intent(context, StandActivity.class));
+                intent = new Intent(context, StandActivity.class);
+                bundle.putString("teama", teama);
+                bundle.putString("teamb", teamb);
+                bundle.putString("teamaid", teamaid);
+                bundle.putString("teambid", teambid);
+                bundle.putString("matchid", matchid);
+                bundle.putString("team", "away");
+                intent.putExtras(bundle);
+                startActivity(intent);
                 //   setupArenaFragment();
                 break;
         }

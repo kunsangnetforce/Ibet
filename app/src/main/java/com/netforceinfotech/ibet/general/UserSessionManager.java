@@ -24,6 +24,7 @@ public class UserSessionManager {
     private static final String CUSTOMER_ID = "customer_id";
     private static final String APITOKEN = "api_token";
     private static final String LOGINMODE = "loginmode";
+    private static final String PROFILEPIC = "profilepic";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -165,6 +166,15 @@ public class UserSessionManager {
 
     public void setLoginMode(String loginMode) {
         editor.putString(LOGINMODE, loginMode);
+        editor.commit();
+    }
+
+    public String getProfilePic() {
+        return pref.getString(PROFILEPIC, "");
+    }
+
+    public void setProfilePic(String loginMode) {
+        editor.putString(PROFILEPIC, loginMode);
         editor.commit();
     }
 

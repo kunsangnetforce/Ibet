@@ -53,6 +53,14 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
                 return currentBet;
             case 2:
                 StandFragment liveEvents = new StandFragment();
+                bundle = new Bundle();
+                Log.i("kunsangpager", matchid + " " + teamaid + " " + teambid);
+                bundle.putString("matchid", matchid);
+                bundle.putString("teamaid", teamaid);
+                bundle.putString("teambid", teambid);
+                bundle.putString("teama", teama);
+                bundle.putString("teamb", teamb);
+                liveEvents.setArguments(bundle);
                 return liveEvents;
 
             default:
