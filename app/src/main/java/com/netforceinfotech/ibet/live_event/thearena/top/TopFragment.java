@@ -35,7 +35,8 @@ public class TopFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        TopAdapter adapter=new TopAdapter(getActivity(),null);
+        linearLayoutManager.setReverseLayout(true);
+        TopAdapter adapter = new TopAdapter(getActivity(), null);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }

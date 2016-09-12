@@ -8,12 +8,13 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/linearLayoutNoComment"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/linearLayoutNoComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -56,6 +57,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/linearLayoutProgres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
