@@ -12,14 +12,27 @@ public class AllData {
     String dislike;
     String like;
     String message;
-    AllData(String imageurl, String name, Long timestamp, String comment, String share, String dislike, String like, String message){
-        this.imageurl=imageurl;
-        this.name=name;
-        this.timestamp=timestamp;
-        this.comment=comment;
-        this.share=share;
-        this.dislike=dislike;
-        this.like=like;
-        this.message=message;
+    String key;
+
+    AllData(String imageurl, String name, Long timestamp, String comment, String share, String dislike, String like, String message, String key) {
+        this.imageurl = imageurl;
+        this.name = name;
+        this.timestamp = timestamp;
+        this.comment = comment;
+        this.share = share;
+        this.dislike = dislike;
+        this.like = like;
+        this.message = message;
+        this.key=key;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof AllData)) {
+            return false;
+        }
+
+        AllData that = (AllData) obj;
+        return this.key.equals(that.key);
     }
 }

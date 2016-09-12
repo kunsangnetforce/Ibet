@@ -19,18 +19,21 @@ public class LiveEventActivity extends AppCompatActivity {
 
     private CustomViewPager viewPager;
     private Toolbar toolbar;
-    public static String teamaname, teambname, teamaid, teambid, matchid;
+    public static String teamaname, teambname, teamaid, teambid, matchid, logoa, logob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_event);
         Bundle bundle = getIntent().getExtras();
-        teamaname = bundle.get("teama").toString();
-        teambname = bundle.get("teamb").toString();
-        teamaid = bundle.get("teamaid").toString();
-        teambid = bundle.get("teambid").toString();
-        matchid = bundle.get("matchid").toString();
+        teamaname = bundle.getString("teama");
+        teambname = bundle.getString("teamb");
+        teamaid = bundle.getString("teamaid");
+        teambid = bundle.getString("teambid");
+        matchid = bundle.getString("matchid");
+        logoa = bundle.getString("logoa");
+        logob = bundle.getString("logob");
+
         setupToolBar(teamaname + " vs " + teambname);
         setupTab();
     }
@@ -58,7 +61,7 @@ public class LiveEventActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.stand));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         Log.i("kunsangliveevent", matchid + " " + teamaid + " " + teambid);
-        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getSupportFragmentManager(), tabLayout.getTabCount(), matchid, teamaid, teambid, teamaname, teambname);
+        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getSupportFragmentManager(), tabLayout.getTabCount(), matchid, teamaid, teambid, teamaname, teambname,logoa,logob);
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
