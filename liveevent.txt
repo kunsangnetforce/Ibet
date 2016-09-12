@@ -3,10 +3,10 @@ status: "Success",
 message: "Hit Successfully",
 data: {
 team: {
-hm_teamid: "256",
+hm_id: "256",
 hm_teamname: "Moreirense",
 hm_teamlogo: "https://soccerama.pro/images/teams/POR/256.png",
-aw_teamid: "273",
+aw_id: "273",
 aw_teamname: "Feirense",
 aw_teamlogo: "https://soccerama.pro/images/teams/POR/273.png"
 },
@@ -165,7 +165,7 @@ minute: 84,
 extra_min: null,
 type: "substitution",
 player_in_id: 23271,
-player_in_name: "D. Ramírez",
+player_in_name: "D. Ramï¿½rez",
 player_out_id: 10747,
 player_out_name: "Roberto"
 },

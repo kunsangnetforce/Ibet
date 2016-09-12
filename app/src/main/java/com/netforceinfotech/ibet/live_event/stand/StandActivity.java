@@ -61,15 +61,10 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         userSessionManager = new UserSessionManager(context);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         editText = (EditText) findViewById(R.id.editText);
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayoutProgres);
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedscrollview);
-        imageViewTeamA = (CircleImageView)
-
-                findViewById(R.id.imageViewTeamA);
-
-        imageViewTeamB = (CircleImageView)
-
-                findViewById(R.id.imageViewTeamB);
+        imageViewTeamA = (CircleImageView) findViewById(R.id.imageViewTeamA);
+        imageViewTeamB = (CircleImageView) findViewById(R.id.imageViewTeamB);
 
         nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
@@ -95,14 +90,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         );
 
 
-        root = FirebaseDatabase.getInstance().
-
-                getReference()
-
-                .
-
-                        getRoot();
-
+        root = FirebaseDatabase.getInstance().getReference().getRoot();
         Bundle bundle = getIntent().getExtras();
         try
 

@@ -74,7 +74,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         linearLayoutSearch = (LinearLayout) findViewById(R.id.linearLayoutSearch);
         linearLayoutSearch.setVisibility(View.GONE);
         findViewById(R.id.buttonDone).setOnClickListener(this);
-        linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgres);
+        linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayout);
         linearlayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
         linearLayoutSelectedTeams = (LinearLayout) findViewById(R.id.linearLayoutSelectedTeams);
         linearLayoutTeams = (LinearLayout) findViewById(R.id.linearLayoutTeams);

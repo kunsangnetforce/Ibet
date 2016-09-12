@@ -138,13 +138,6 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getEvents(String matchid, final String teamaid, String teambid) {
-        try {
-            eventsDatas.clear();
-            adapter.notifyDataSetChanged();
-        } catch (Exception ex) {
-
-        }
-
 
         //https://netforcesales.com/ibet_admin/api/events_by_match_id.php?matchid=614704&home_team_id=1370&away_team_id=1377
         //https://netforcesales.com/ibet_admin/api/events_by_match_id.php?matchid=735681&home_team_id=127&away_team_id=174&login_mode=1
@@ -227,6 +220,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                 if (data_event.size() > 0) {
                     for (int i = 0; i < data_event.size(); i++) {
                         JsonObject jsonObject = data_event.get(i).getAsJsonObject();
+                        String id = jsonObject.get("id").getAsString();
                         String team_id = jsonObject.get("team_id").getAsString();
                         String teamaName = "", teambName = "";
                         String type = jsonObject.get("type").getAsString();
@@ -261,6 +255,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                             extra_min = "0";
                         } else {
                             extra_min = jsonObject.get("extra_min").getAsString();
+
+                            extra_min = "0";
                         }
 
                         String time = "0";
@@ -269,12 +265,19 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } else {
                             time = minute + "'+" + extra_min;
                         }
-                        //EventsData(String name, String type, String id, String event, String time, String in, String out) {
-                        eventsDatas.add(new EventsData(player_name, type, team_id, time, player_in_name, player_out_name, team));
+                        //   EventsData(String name, String type, String teamid, String min, String extra, String in, String out, String team, String id) {
+                        EventsData eventsData = new EventsData(player_name, type, team_id, minute, extra_min, player_in_name, player_out_name, team, id);
+                        if (!eventsDatas.contains(eventsData)) {
+                            eventsDatas.add(eventsData);
+                        }
 
                     }
+                    EventsData eventsData0 = new EventsData("", "", "", "0", "", "", "", "", "12");
+                    if (!eventsDatas.contains(eventsData0)) {
+                        eventsDatas.add(eventsData0);
+                    }
+                    Collections.sort(eventsDatas);
                     Collections.reverse(eventsDatas);
-                    eventsDatas.add(new EventsData("", "", "", "0", "", "", ""));
                     adapter.notifyDataSetChanged();
                 }
                 JsonArray data_score = dataObject.get("data_score").getAsJsonArray();

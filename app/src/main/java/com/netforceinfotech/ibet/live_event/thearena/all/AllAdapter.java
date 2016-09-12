@@ -2,6 +2,8 @@ package com.netforceinfotech.ibet.live_event.thearena.all;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.live_event.thearena.comments_comment.CommentComments;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -155,6 +158,22 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _like.updateChildren(map);
+            }
+        });
+        ((AllHolder) holder).imageViewMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CommentComments.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("matchid", matchid);
+                bundle.putString("team", team);
+                bundle.putString("commentkey", itemList.get(position).key);
+                bundle.putString("comment", itemList.get(position).comment);
+                bundle.putString("dislikecount", itemList.get(position).dislike);
+                bundle.putString("likecount", itemList.get(position).like);
+                bundle.putLong("timestamp", itemList.get(position).timestamp);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
     }

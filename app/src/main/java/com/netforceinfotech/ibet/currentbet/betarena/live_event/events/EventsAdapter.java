@@ -44,7 +44,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        if ((eventsDatas.size()-1)==position) {
+        if ((eventsDatas.size() - 1) == position) {
             return START;
         } else {
             return NORMAL;
@@ -74,7 +74,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             EventsHolder holder1 = (EventsHolder) holder;
             if (eventsDatas.get(position).team.trim().equalsIgnoreCase("b")) {
                 holder1.linearLayouta.setVisibility(View.INVISIBLE);
-                holder1.textViewTime.setText(eventsDatas.get(position).time + "'");
+                holder1.textViewTime.setText(eventsDatas.get(position).stringTime + "'");
                 //goal, penalty, missed_penalty, own-goal, yellowcard, yellowred, redcard, substitution
                 switch (eventsDatas.get(position).type) {
                     case "redcard":
@@ -126,7 +126,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 Log.i("kunsangdata", eventsDatas.get(position).time + ":" + eventsDatas.get(position).name + ":" + eventsDatas.get(position).in + ":" + eventsDatas.get(position).out + ":" + eventsDatas.get(position).type);
             } else {
                 holder1.linearLayoutb.setVisibility(View.INVISIBLE);
-                holder1.textViewTime.setText(eventsDatas.get(position).time);
+                holder1.textViewTime.setText(eventsDatas.get(position).stringTime);
                 switch (eventsDatas.get(position).type) {
                     case "redcard":
                         Picasso.with(context).load(R.drawable.icon_red_card).into(holder1.imageViewTypea);
