@@ -16,6 +16,7 @@ public class AllHolder extends RecyclerView.ViewHolder {
 
 
     CircleImageView circleImageView;
+    ImageView imageViewShare,imageViewLike,imageViewDislike,imageViewMessage;
     TextView textViewName,textViewDate,textViewTime,textViewComment,textViewSC,textViewDC,textViewLC,textViewCC;
     View view;
 
@@ -33,5 +34,9 @@ public class AllHolder extends RecyclerView.ViewHolder {
         textViewDC= (TextView) view.findViewById(R.id.textViewDC);
         textViewLC= (TextView) view.findViewById(R.id.textViewLC);
         textViewCC= (TextView) view.findViewById(R.id.textViewCC);
+        imageViewDislike= (ImageView) view.findViewById(R.id.imageViewDislike);
+        imageViewLike= (ImageView) view.findViewById(R.id.imageViewLike);
+        imageViewShare= (ImageView) view.findViewById(R.id.imageViewShare);
+        imageViewMessage= (ImageView) view.findViewById(R.id.imageViewMessage);
     }
 }

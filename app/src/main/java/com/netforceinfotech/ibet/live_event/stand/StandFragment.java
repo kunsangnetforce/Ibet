@@ -29,7 +29,7 @@ public class StandFragment extends Fragment implements View.OnClickListener {
     private TheArenaFragment theArenaFragment;
     CircleImageView imageViewTeamA, imageViewTeamB;
     private String tagName;
-    private String teamaid, teambid, teama, teamb, matchid;
+    private String teamaid, teambid, teama, teamb, matchid, logoa, logob;
     private Intent intent;
     private Bundle bundle;
 
@@ -50,14 +50,17 @@ public class StandFragment extends Fragment implements View.OnClickListener {
             matchid = this.getArguments().getString("matchid");
             teama = this.getArguments().getString("teama");
             teamb = this.getArguments().getString("teamb");
+            logoa = this.getArguments().getString("logoa");
+            logob = this.getArguments().getString("logob");
+
         } catch (Exception ex) {
             Log.i("kunsang_exception", "paramenter not set");
         }
         bundle = new Bundle();
         imageViewTeamA = (CircleImageView) view.findViewById(R.id.imageViewTeamA);
         imageViewTeamB = (CircleImageView) view.findViewById(R.id.imageViewTeamB);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
+        Picasso.with(context).load(logoa).error(R.drawable.ic_error).into(imageViewTeamA);
+        Picasso.with(context).load(logob).error(R.drawable.ic_error).into(imageViewTeamB);
         initView(view);
         return view;
     }
@@ -82,6 +85,8 @@ public class StandFragment extends Fragment implements View.OnClickListener {
                 bundle.putString("teambid", teambid);
                 bundle.putString("matchid", matchid);
                 bundle.putString("team", "nuetral");
+                bundle.putString("logoa",logoa);
+                bundle.putString("logob",logob);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -93,6 +98,8 @@ public class StandFragment extends Fragment implements View.OnClickListener {
                 bundle.putString("teambid", teambid);
                 bundle.putString("matchid", matchid);
                 bundle.putString("team", "home");
+                bundle.putString("logoa",logoa);
+                bundle.putString("logob",logob);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -104,6 +111,8 @@ public class StandFragment extends Fragment implements View.OnClickListener {
                 bundle.putString("teambid", teambid);
                 bundle.putString("matchid", matchid);
                 bundle.putString("team", "away");
+                bundle.putString("logoa",logoa);
+                bundle.putString("logob",logob);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 //   setupArenaFragment();

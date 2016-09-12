@@ -14,13 +14,15 @@ import com.netforceinfotech.ibet.live_event.thearena.top.TopFragment;
  */
 public class PagerAdapterBetTheArena extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    String team, teama, teamb, teamaid, teambid, matchid;
+    String team, teama, teamb, teamaid, teambid, matchid, logoa, logob;
     private Bundle bundle;
 
-    public PagerAdapterBetTheArena(FragmentManager fm, int NumOfTabs, String team, String teama, String teamb, String teamaid, String teambid, String matchid) {
+    public PagerAdapterBetTheArena(FragmentManager fm, int NumOfTabs, String team, String teama, String teamb, String teamaid, String teambid, String matchid, String logoa, String logob) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.team = team;
+        this.logoa = logoa;
+        this.logob = logob;
         this.teama = teama;
         this.teamb = teamb;
         this.teamaid = teamaid;
@@ -41,6 +43,8 @@ public class PagerAdapterBetTheArena extends FragmentStatePagerAdapter {
                 bundle.putString("teama", teama);
                 bundle.putString("teamb", teamb);
                 bundle.putString("team", team);
+                bundle.putString("logoa",logoa);
+                bundle.putString("logob",logob);
                 home.setArguments(bundle);
                 return home;
             case 1:
@@ -51,7 +55,10 @@ public class PagerAdapterBetTheArena extends FragmentStatePagerAdapter {
                 bundle.putString("teama", teama);
                 bundle.putString("teamb", teamb);
                 bundle.putString("team", team);
+                bundle.putString("logoa",logoa);
+                bundle.putString("logob",logob);
                 currentBet.setArguments(bundle);
+
                 return currentBet;
             case 2:
                 FriendFragment betDetailFragment = new FriendFragment();
@@ -61,6 +68,8 @@ public class PagerAdapterBetTheArena extends FragmentStatePagerAdapter {
                 bundle.putString("teama", teama);
                 bundle.putString("teamb", teamb);
                 bundle.putString("team", team);
+                bundle.putString("logoa",logoa);
+                bundle.putString("logob",logob);
                 betDetailFragment.setArguments(bundle);
                 return betDetailFragment;
             default:

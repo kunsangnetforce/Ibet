@@ -52,7 +52,7 @@ public class LiveEvents extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
 
-        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getChildFragmentManager(), tabLayout.getTabCount(), "", "", "", "", "");
+        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getChildFragmentManager(), tabLayout.getTabCount(), "", "", "", "", "","","");
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

@@ -101,6 +101,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 String matchid = currentGameData.matchid;
                 String teama = currentGameData.teama;
                 String teamb = currentGameData.teamb;
+                String logoa=currentGameData.logoa;
+                String logob=currentGameData.logob;
                 Bundle bundle = new Bundle();
                 Log.i("kunsangadapter", matchid + " " + teamaid + " " + teambid);
 
@@ -109,6 +111,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 bundle.putString("teama", teama);
                 bundle.putString("teamb", teamb);
                 bundle.putString("matchid", matchid);
+                bundle.putString("logoa",logoa);
+                bundle.putString("logob",logob);
                 intent.putExtras(bundle);
                 _context.startActivity(intent);
             }

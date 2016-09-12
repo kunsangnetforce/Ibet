@@ -12,10 +12,10 @@ import com.netforceinfotech.ibet.live_event.stand.StandFragment;
 
 public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    String matchid, teamaid, teambid, teama, teamb;
+    String matchid, teamaid, teambid, teama, teamb, logoa, logob;
     private Bundle bundle;
 
-    public PagerAdapterLiveEvents(FragmentManager fm, int NumOfTabs, String matchid, String teamaid, String teambid, String teama, String teamb) {
+    public PagerAdapterLiveEvents(FragmentManager fm, int NumOfTabs, String matchid, String teamaid, String teambid, String teama, String teamb, String logoa, String logob) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.matchid = matchid;
@@ -23,6 +23,8 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
         this.teambid = teambid;
         this.teama = teama;
         this.teamb = teamb;
+        this.logoa = logoa;
+        this.logob = logob;
     }
 
     @Override
@@ -38,6 +40,8 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
                 bundle.putString("teambid", teambid);
                 bundle.putString("teama", teama);
                 bundle.putString("teamb", teamb);
+                bundle.putString("logoa", logoa);
+                bundle.putString("logob", logob);
                 home.setArguments(bundle);
                 return home;
             case 1:
@@ -49,6 +53,8 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
                 bundle.putString("teambid", teambid);
                 bundle.putString("teama", teama);
                 bundle.putString("teamb", teamb);
+                bundle.putString("logoa", logoa);
+                bundle.putString("logob", logob);
                 currentBet.setArguments(bundle);
                 return currentBet;
             case 2:
@@ -60,6 +66,8 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
                 bundle.putString("teambid", teambid);
                 bundle.putString("teama", teama);
                 bundle.putString("teamb", teamb);
+                bundle.putString("logoa", logoa);
+                bundle.putString("logob", logob);
                 liveEvents.setArguments(bundle);
                 return liveEvents;
 

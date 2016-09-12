@@ -8,15 +8,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -25,8 +22,6 @@ import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
-import com.netforceinfotech.ibet.general.WrapContentViewPager;
-import com.netforceinfotech.ibet.live_event.CurrentGameData;
 import com.netforceinfotech.ibet.live_event.thearena.PagerAdapterBetTheArena;
 import com.netforceinfotech.ibet.live_event.thearena.all.AllFragment;
 import com.squareup.picasso.Picasso;
@@ -47,7 +42,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
     CircleImageView imageViewTeamA, imageViewTeamB;
     private String tagName;
     private Toolbar toolbar;
-    String teama, teamb, teamaid, teambid, team, matchid;
+    String teama, teamb, teamaid, teambid, team, matchid, logoa, logob;
     private DatabaseReference root, _matchid, _team;
     private String userid;
     NestedScrollView nestedScrollView;
@@ -55,19 +50,27 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
     private boolean nestedbottom = false;
     private InputMethodManager imm;
     private int tabposition = 0;
+    public static LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stand);
-
-
         context = getApplicationContext();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         userSessionManager = new UserSessionManager(context);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         editText = (EditText) findViewById(R.id.editText);
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayoutProgres);
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedscrollview);
+        imageViewTeamA = (CircleImageView)
+
+                findViewById(R.id.imageViewTeamA);
+
+        imageViewTeamB = (CircleImageView)
+
+                findViewById(R.id.imageViewTeamB);
+
         nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
@@ -76,36 +79,34 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
                 nestedbottom = false;
                 if (diff == 0) {
                     // do stuff
-                    showMessage("end");
+
                 }
             }
         });
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    if (!nestedbottom) {
-                        nestedScrollView.post(new Runnable()
+                                              @Override
+                                              public void onFocusChange(View v, boolean hasFocus) {
+                                                  if (hasFocus) {
+                                                      nestedbottom = !nestedbottom;
+                                                  }
+                                              }
+                                          }
 
-                        {
-                            public void run() {
-                                nestedScrollView.fullScroll(View.FOCUS_DOWN);
-                            }
-                        });
-                        nestedbottom = !nestedbottom;
-                        editText.requestFocus();
-                    }
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "lost the focus", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        );
 
 
-        root = FirebaseDatabase.getInstance().getReference().getRoot();
+        root = FirebaseDatabase.getInstance().
+
+                getReference()
+
+                .
+
+                        getRoot();
+
         Bundle bundle = getIntent().getExtras();
-        try {
+        try
+
+        {
             userid = userSessionManager.getCustomerId();
             team = bundle.getString("team");
             teama = bundle.getString("teama");
@@ -113,18 +114,32 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
             teamaid = bundle.getString("teamaid");
             teambid = bundle.getString("teambid");
             matchid = bundle.getString("matchid");
-        } catch (Exception ex) {
+            logoa = bundle.getString("logoa");
+            logob = bundle.getString("logob");
+        } catch (
+                Exception ex
+                )
+
+        {
             ex.printStackTrace();
 
         }
+        try {
+            Picasso.with(context).load(logoa).error(R.drawable.ic_error).into(imageViewTeamA);
+        } catch (Exception ex) {
+
+        }
+        try {
+            Picasso.with(context).load(logob).error(R.drawable.ic_error).into(imageViewTeamB);
+        } catch (Exception ex) {
+
+        }
+
         findViewById(R.id.imageViewSend).setOnClickListener(this);
-        imageViewTeamA = (CircleImageView) findViewById(R.id.imageViewTeamA);
-        imageViewTeamB = (CircleImageView) findViewById(R.id.imageViewTeamB);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
         theme = userSessionManager.getTheme();
         setupToolBar(teama + " vs " + teamb);
         setupTab();
+
     }
 
     private void showMessage(String s) {
@@ -180,7 +195,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         }
 
         final PagerAdapterBetTheArena adapter = new PagerAdapterBetTheArena
-                (getSupportFragmentManager(), tabLayout.getTabCount(), team, teama, teamb, teamaid, teambid, matchid);
+                (getSupportFragmentManager(), tabLayout.getTabCount(), team, teama, teamb, teamaid, teambid, matchid, logoa, logob);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
 
