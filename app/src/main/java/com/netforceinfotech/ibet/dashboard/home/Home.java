@@ -10,17 +10,20 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.LruCache;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.general.WrapContentViewPager;
+import com.netforceinfotech.ibet.login.LoginActivity;
 import com.squareup.picasso.Picasso;
 
 import at.grabner.circleprogress.CircleProgressView;
@@ -41,7 +44,10 @@ public class Home extends Fragment implements View.OnClickListener {
     UserSessionManager userSessionManager;
     int theme;
     private LruCache<String, Bitmap> mMemoryCache;
-
+    String loginmode;
+    LinearLayout linearLayout;
+    NestedScrollView nestedScrollView;
+    private Intent intent;
 
     public Home() {
         // Required empty public constructor
@@ -73,8 +79,23 @@ public class Home extends Fragment implements View.OnClickListener {
         };
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
+        loginmode = userSessionManager.getLoginMode();
+        initView(view);
+        setupTab(view);
+        return view;
+    }
 
-
+    private void initView(View view) {
+        nestedScrollView = (NestedScrollView) view.findViewById(R.id.nestedscrollview);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        view.findViewById(R.id.buttonLogin).setOnClickListener(Home.this);
+        if (loginmode.equalsIgnoreCase("0")) {
+            linearLayout.setVisibility(View.VISIBLE);
+            nestedScrollView.setVisibility(View.GONE);
+        } else {
+            linearLayout.setVisibility(View.GONE);
+            nestedScrollView.setVisibility(View.VISIBLE);
+        }
         circleImageViewDp = (CircleImageView) view.findViewById(R.id.circleImageViewDp);
         circleProgressViewStatus = (CircleProgressView) view.findViewById(R.id.cpvstatus);
         circleProgressViewLevel = (CircleProgressView) view.findViewById(R.id.cpvLevel);
@@ -93,7 +114,6 @@ public class Home extends Fragment implements View.OnClickListener {
         });
         circleProgressViewLevel.setValueAnimated(88f, 1500);
         circleProgressViewStatus.setValueAnimated(35f, 1500);
-        UserSessionManager userSessionManager = new UserSessionManager(context);
         String fbId = userSessionManager.getFBID();
         Log.i("ibet_fbid", fbId);
         String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
@@ -102,8 +122,7 @@ public class Home extends Fragment implements View.OnClickListener {
                 .placeholder(R.drawable.david)
                 .error(R.drawable.david)
                 .into(circleImageViewDp);
-        setupTab(view);
-        return view;
+
     }
 
     public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
@@ -196,8 +215,13 @@ public class Home extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.buttonStartnewBet:
                 //go to new bet
-                Intent intent = new Intent(context, StartNewBetActivity.class);
+                intent = new Intent(context, StartNewBetActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.buttonLogin:
+                intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
                 break;
         }
     }

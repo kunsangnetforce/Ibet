@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Context context;
     RelativeLayout relative_login;
     LinearLayout linearLayoutProgress;
+    private String TAG = "MyFirebaseIIDService";
 
 
     @Override
@@ -79,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonFacebook.registerCallback(mCallbackManager, mCallBack);
         profile = Profile.getCurrentProfile();
 
-
         if (profile != null) {
             LoginManager.getInstance().logOut();
            /* Intent intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
@@ -87,8 +87,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             finish();
             overridePendingTransition(R.anim.enter, R.anim.exit);*/
         }
+        sendRegId();
+    }
+
+    private void sendRegId() {
+        String url = getResources().getString(R.string.url);
+        String pushurl = "/push_notification.php?user_id=" + userSessionManager.getCustomerId() + "&regid=" + userSessionManager.getRegId();
+
+        Ion.with(getApplicationContext())
+                .load(url + pushurl)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        if (result == null) {
+                            Log.i(TAG, "not sending");
+                            userSessionManager.setGCMRegistered(false);
+                        } else {
+                            Log.i(TAG, "successfully registered");
+
+                        }
 
 
+                    }
+                });
     }
 
     @Override
@@ -208,7 +231,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String url = getResources().getString(R.string.url);
         String device_id = getDeviceId();
         fbName = fbName.replace(" ", "%20");
-        url = url + "/services.php?opt=register&email=" + email + "&fb_token=" + fbToken + "&name=" + fbName + "&fb_id=" + fbId + "&device_id=" + device_id + "&reg_id=asdfasdf232324&login_mode=1&facebook=1";
+        url = url + "/services.php?opt=register&email=" + email + "&fb_token=" + fbToken + "&name=" + fbName + "&fb_id=" + fbId + "&device_id=" + device_id + "&reg_id=" + userSessionManager.getRegId() + "&login_mode=1&facebook=1";
         Log.i("result url", url);
         setHeader();
         linearLayoutProgress.setVisibility(View.VISIBLE);

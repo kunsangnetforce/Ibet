@@ -17,39 +17,36 @@ import com.netforceinfotech.ibet.general.UserSessionManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment
-{
+public class DashboardFragment extends Fragment {
 
 
     UserSessionManager userSessionManager;
     int theme;
+    String loginmode;
     public static TabLayout tabLayout;
 
-    public DashboardFragment()
-    {
+    public DashboardFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
-
-        View view= inflater.inflate(R.layout.fragment_dashboard, container, false);
+        loginmode = userSessionManager.getLoginMode();
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         setupTab(view);
 
 
         return view;
     }
-    private void setupTab(View view)
-    {
-         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
-        if(theme == 0)
-        {
+    private void setupTab(View view) {
+
+        if (theme == 0) {
 
 
             tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme1));
@@ -57,37 +54,28 @@ public class DashboardFragment extends Fragment
             tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme1));
 
 
-
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
             tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme2));
             tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
             tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.red));
 
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
             tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme3));
             tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme3));
             tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme3));
 
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
             tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme4));
             tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme4));
             tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme4));
 
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
 
             tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
             tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
@@ -126,8 +114,7 @@ public class DashboardFragment extends Fragment
 
             }
         });*/
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
-        {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -143,5 +130,9 @@ public class DashboardFragment extends Fragment
 
             }
         });
+        if (loginmode.equalsIgnoreCase("0")) {
+            viewPager.setCurrentItem(2);
+        }
+
     }
 }

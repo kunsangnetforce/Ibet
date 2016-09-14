@@ -1,13 +1,25 @@
 package com.netforceinfotech.ibet.general.firebasegcm;
+
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.profilesetting.ProfileSettingActivity;
 
 
 public class MyFirebaseIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIIDService";
+    UserSessionManager userSessionManager;
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of
@@ -19,6 +31,7 @@ public class MyFirebaseIDService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        userSessionManager = new UserSessionManager(getApplicationContext());
         Log.i(TAG, "Refreshed token: " + refreshedToken);
 
         // If you want to send messages to this application instance or
@@ -30,7 +43,7 @@ public class MyFirebaseIDService extends FirebaseInstanceIdService {
 
     /**
      * Persist token to third-party servers.
-     *
+     * <p>
      * Modify this method to associate the user's FCM InstanceID token with any server-side account
      * maintained by your application.
      *
@@ -38,5 +51,41 @@ public class MyFirebaseIDService extends FirebaseInstanceIdService {
      */
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
+        //https://netforcesales.com/ibet_admin/api/push_notification.php?user_id=83&regid=614704
+        String url = getResources().getString(R.string.url);
+        String pushurl = "/push_notification.php?user_id=" + userSessionManager.getCustomerId() + "&regid=" + token;
+        userSessionManager.setRegId(token);
+        userSessionManager.setGCMRegistered(false);
+      /*  if (userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
+            return;
+        }
+        Ion.with(getApplicationContext())
+                .load(url + pushurl)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        if (result == null) {
+                            Log.i(TAG, "not sending");
+                            userSessionManager.setGCMRegistered(false);
+                        } else {
+
+                            String status = result.get("status").getAsString().toLowerCase();
+                            if (status.equalsIgnoreCase("success")) {
+                                Log.i(TAG, "successfully registered");
+                                userSessionManager.setGCMRegistered(true);
+                            } else {
+                                userSessionManager.setGCMRegistered(false);
+                                Log.i(TAG, "successfully registered");
+                            }
+                        }
+
+                    }
+                });*/
+    }
+
+    private void showMessage(String s) {
+        Toast.makeText(MyFirebaseIDService.this, s, Toast.LENGTH_SHORT).show();
     }
 }

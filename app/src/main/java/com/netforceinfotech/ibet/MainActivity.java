@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imageView = (ImageView) findViewById(R.id.splash);
         Picasso.with(getApplicationContext()).load(R.drawable.splash).into(imageView);
-        FirebaseInstanceId.getInstance().getToken();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

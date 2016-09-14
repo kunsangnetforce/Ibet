@@ -150,7 +150,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     awayfancount = dataSnapshot.getChildrenCount();
-                    textViewAwayFan.setText(""+awayfancount);
+                    textViewAwayFan.setText("" + awayfancount);
                 }
 
                 @Override
@@ -160,7 +160,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
             });
         } catch (Exception ex) {
             awayfancount = 0l;
-            textViewAwayFan.setText(""+awayfancount);
+            textViewAwayFan.setText("" + awayfancount);
         }
 
         try {
@@ -169,7 +169,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     homefancount = dataSnapshot.getChildrenCount();
-                    textViewHomeFan.setText(""+homefancount);
+                    textViewHomeFan.setText("" + homefancount);
                 }
 
                 @Override
@@ -179,7 +179,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
             });
         } catch (Exception ex) {
             homefancount = 0l;
-            textViewHomeFan.setText(""+homefancount);
+            textViewHomeFan.setText("" + homefancount);
         }
 
 

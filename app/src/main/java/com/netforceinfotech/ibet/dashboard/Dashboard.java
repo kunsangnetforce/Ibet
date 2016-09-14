@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +42,7 @@ import com.netforceinfotech.ibet.dashboard.chart.ChartFragment;
 import com.netforceinfotech.ibet.dashboard.profile.ProfileFragment;
 import com.netforceinfotech.ibet.dashboard.setting.SettingFragment;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.login.LoginActivity;
 import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
 import com.squareup.picasso.Picasso;
 
@@ -63,6 +65,8 @@ Dashboard extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Window window;
     RelativeLayout header_background;
+    String loginmode;
+    private Menu menu;
 
 
     @Override
@@ -73,7 +77,8 @@ Dashboard extends AppCompatActivity {
 
         userSessionManager = new UserSessionManager(getApplicationContext());
 
-        theme = userSessionManager.getTheme();
+
+        loginmode = userSessionManager.getLoginMode();
 
         setupToolBar("Ibet");
 
@@ -261,11 +266,9 @@ Dashboard extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-
         header_background = (RelativeLayout) findViewById(R.id.header_relative);
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-
+        setupNavigationView();
         if (theme == 0) {
 
             toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
@@ -303,43 +306,42 @@ Dashboard extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
                 //Checking if the item is in checked state or not, if not make it in checked state
-                if (menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
+                menuItem.setChecked(true);
 
                 //Closing drawer on item click
                 drawerLayout.closeDrawers();
 
                 //Check to see which item was being clicked and perform appropriate action
-                switch (menuItem.getItemId()) {
+                switch (menuItem.getTitle().toString()) {
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.home:
+                    case "Home":
                         setupDashboardFragment();
                         return true;
 
-                    case R.id.profile:
+                    case "Profile":
                         setupProfileFragment();
                         return true;
-                    case R.id.chart:
+                    case "Chart":
                         setupChartFragment();
                         return true;
-                    case R.id.store:
+                    case "Store":
                         Intent intent = new Intent(getApplicationContext(), PurchaseActivity.class);
                         startActivity(intent);
                         return true;
-                    case R.id.setting:
+                    case "Setting":
                         setupSettingFragment();
                         return true;
-                    case R.id.tutorial:
+                    case "Tutorial":
                         Toast.makeText(getApplicationContext(), "Tutotial screen to be shown... yet to implment", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.share:
+                    case "Share":
                         shareData();
                         return true;
-                    case R.id.rateus:
+                    case "Rate us":
                         Toast.makeText(getApplicationContext(), "App url... yet to implement", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.logout:
+                    case "Log out":
 
                         LoginManager.getInstance().logOut();
                         intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -348,10 +350,17 @@ Dashboard extends AppCompatActivity {
 
                         return true;
 
-                    case R.id.bonus:
+                    case "Scratch bonus":
 
                         Intent bonus = new Intent(Dashboard.this, ImageOverlayDrawable.class);
                         startActivity(bonus);
+
+                        return true;
+                    case "Login":
+
+                        Intent login = new Intent(Dashboard.this, LoginActivity.class);
+                        startActivity(login);
+                        finish();
 
                         return true;
                     default:
@@ -378,6 +387,31 @@ Dashboard extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
+    }
+
+    private void setupNavigationView() {
+        menu = navigationView.getMenu();
+        if (loginmode.equalsIgnoreCase("0")) {
+            menu.add("Home").setIcon(R.drawable.ic_home);
+            menu.add("Setting").setIcon(R.drawable.ic_setting);
+            menu.add("Tutorial").setIcon(R.drawable.ic_clipboard);
+            menu.add("Share").setIcon(R.drawable.ic_share);
+            menu.add("Rate us").setIcon(R.drawable.ic_rateus);
+            menu.add("Login").setIcon(R.drawable.ic_logout);
+
+        } else {
+            menu.add("Home").setIcon(R.drawable.ic_home);
+            menu.add("Profile").setIcon(R.drawable.ic_profile_setting);
+            menu.add("Chart").setIcon(R.drawable.ic_chart);
+            menu.add("Store").setIcon(R.drawable.ic_cart);
+            menu.add("Setting").setIcon(R.drawable.ic_setting);
+            menu.add("Tutorial").setIcon(R.drawable.ic_clipboard);
+            menu.add("Share").setIcon(R.drawable.ic_share);
+            menu.add("Rate us").setIcon(R.drawable.ic_rateus);
+            menu.add("Logout").setIcon(R.drawable.ic_logout);
+            menu.add("Scratch bonus").setIcon(R.drawable.ic_scratch);
+        }
+        menu.setGroupCheckable(0, true, false);
     }
 
     private void replaceFragment(Fragment newFragment, String tag) {

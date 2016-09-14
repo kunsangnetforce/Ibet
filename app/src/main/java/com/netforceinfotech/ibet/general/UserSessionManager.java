@@ -25,6 +25,7 @@ public class UserSessionManager {
     private static final String APITOKEN = "api_token";
     private static final String LOGINMODE = "loginmode";
     private static final String PROFILEPIC = "profilepic";
+    private static final String REGREG = "regreg";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -179,4 +180,12 @@ public class UserSessionManager {
     }
 
 
+    public void setGCMRegistered(boolean b) {
+        editor.putBoolean(REGREG, b);
+        editor.commit();
+    }
+
+    public boolean getGCMRegistered() {
+        return pref.getBoolean(REGREG, false);
+    }
 }

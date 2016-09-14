@@ -1,31 +1,37 @@
 package com.netforceinfotech.ibet.solobet;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.currentbet.PagerAdapterCurrentBet;
 import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.login.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SoloBet extends Fragment
-{
-
-
+public class SoloBet extends Fragment implements View.OnClickListener {
+    RelativeLayout relativeLayout;
+    LinearLayout linearLayout;
     private TabLayout tabLayout;
     private UserSessionManager userSessionManager;
     private int theme;
+    String loinmode;
+    private Context context;
 
-    public SoloBet()
-    {
+    public SoloBet() {
         // Required empty public constructor
     }
 
@@ -34,15 +40,30 @@ public class SoloBet extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_solo_bet, container, false);
-        userSessionManager = new UserSessionManager(getActivity());
+        context = getActivity();
+        userSessionManager = new UserSessionManager(context);
+        loinmode = userSessionManager.getLoginMode();
         theme = userSessionManager.getTheme();
+        initView(view);
         setupTab(view);
         return view;
 
     }
 
-    private void setupTab(View view)
-    {
+    private void initView(View view) {
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        view.findViewById(R.id.buttonLogin).setOnClickListener(SoloBet.this);
+        if (loinmode.equalsIgnoreCase("0")) {
+            linearLayout.setVisibility(View.VISIBLE);
+            relativeLayout.setVisibility(View.GONE);
+        } else {
+            linearLayout.setVisibility(View.GONE);
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setupTab(View view) {
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
        /* if (theme == 0) {
@@ -129,5 +150,16 @@ public class SoloBet extends Fragment
 
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttonLogin:
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+                break;
+        }
     }
 }

@@ -6,12 +6,29 @@
     tools:context=".currentbet.CurrentBet">
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linearLayoutLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:text="Login"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/currentbet_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:id="@+id/currentbet_layout"
-        >
+        android:orientation="vertical">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
@@ -28,10 +45,10 @@
 
         <com.netforceinfotech.ibet.general.CustomViewPager
             android:id="@+id/pager"
-            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary"
 
             />
     </LinearLayout>
