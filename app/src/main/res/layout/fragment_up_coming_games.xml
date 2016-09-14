@@ -7,7 +7,7 @@
     tools:context=".dashboard.home.startnewbet.upcominggame.UpComingGamesFragment">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutInput"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">

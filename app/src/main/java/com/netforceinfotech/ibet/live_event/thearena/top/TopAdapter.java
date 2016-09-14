@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,6 +52,20 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        TopHolder topHolder = (TopHolder) holder;
+        TopData topData = itemList.get(position);
+        try {
+            Picasso.with(context).load(topData.imageurl).error(R.drawable.ic_error).into(topHolder.circleImageView);
+        } catch (Exception ex) {
+            Picasso.with(context).load(R.drawable.ic_error).into(topHolder.circleImageView);
+        }
+        topHolder.textViewCC.setText(topData.message);
+        topHolder.textViewSC.setText(topData.share);
+        topHolder.textViewDC.setText(topData.dislike);
+        topHolder.textViewLC.setText(topData.like);
+        topHolder.textViewComment.setText(topData.comment);
+        topHolder.textViewDate.setText(Util.getDateCurrentTimeZone(topData.timestamp));
+        topHolder.textViewTime.setText(Util.getDateCurrentTimeZone(topData.timestamp));
 
     }
 
@@ -60,7 +76,7 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 10;
+        return itemList.size();
 //        return itemList.size();
     }
 }

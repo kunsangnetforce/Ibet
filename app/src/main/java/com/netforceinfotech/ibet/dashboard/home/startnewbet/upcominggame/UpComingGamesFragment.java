@@ -55,7 +55,7 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_up_coming_games, container, false);
         context = getActivity();
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutInput);
         buttonNext = (Button) view.findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(this);
         userSessionManager = new UserSessionManager(getActivity());

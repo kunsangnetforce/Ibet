@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -33,8 +32,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.net.ssl.SSLContext;
 
@@ -65,7 +62,7 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_current_game, container, false);
         context = getActivity();
         Ion.getDefault(getActivity()).getConscryptMiddleware().enable(false);
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutInput);
         buttonNext = (Button) view.findViewById(R.id.buttonNext);
         buttonNext.setOnClickListener(this);
         userSessionManager = new UserSessionManager(getActivity());

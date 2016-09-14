@@ -102,5 +102,6 @@
     <string name="slide_input_description">This slide demonstrates how input is saved over orientation and slide changes.</string>
     <string name="slide_input_edittext">Type something here.</string>
     <string name="slide_input_checkbox">Check something</string>
+    <string name="shareitwith">Share it with</string>
 
 </resources>

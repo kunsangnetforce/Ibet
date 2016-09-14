@@ -20,7 +20,7 @@
             android:weightSum="110">
 
             <LinearLayout
-                android:id="@+id/linearLayoutProgres"
+                android:id="@+id/linearLayoutInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"

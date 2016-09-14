@@ -25,11 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.live_event.stand.StandActivity;
-import com.netforceinfotech.ibet.live_event.thearena.top.TopAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -61,8 +59,9 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
     Map<String, Object> map_all, map_matchid, map_team, map_comment, map_teamdetail;
     private static String tempKey;
     public static RecyclerView recyclerView;
-    LinearLayout linearLayout;
+    LinearLayout linearLayout, linearLayoutProgress;
     RelativeLayout relativeLayout;
+    private DatabaseReference _homeFan, _awayFan;
 
     public AllFragment() {
         // Required empty public constructor
@@ -75,7 +74,8 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all, container, false);
         context = getActivity();
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutInput);
+        linearLayoutProgress = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
         relativeLayout.setVisibility(View.GONE);
         userSessionManager = new UserSessionManager(context);
@@ -106,9 +106,44 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
     }
 
     private void setupFirebaseReferences() {
-        StandActivity.linearLayout.setVisibility(View.GONE);
+        StandActivity.linearLayoutInput.setVisibility(View.GONE);
         linearLayout.setVisibility(View.VISIBLE);
         _root = FirebaseDatabase.getInstance().getReference();
+        if (team.equalsIgnoreCase("home")) {
+            try {
+                _awayFan = _root.child("all").child(matchid).child("away").child("fan");
+                _awayFan.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.i("fancount_away", dataSnapshot.getChildrenCount() + "");
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("fancount_away", "0");
+            }
+        } else {
+            try {
+                _homeFan = _root.child("all").child(matchid).child("away").child("fan");
+                _homeFan.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.i("fancount_home", dataSnapshot.getChildrenCount() + "");
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            } catch (Exception ex) {
+                Log.i("fancount_home", "0");
+            }
+        }
         _root.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -130,17 +165,57 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
                                             _team.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    linearLayoutProgress.setVisibility(View.GONE);
                                                     if (dataSnapshot.child("comments").exists()) {
                                                         _comment = _team.child("comments");
                                                         Log.i(TAG, "comments exist");
                                                         _comment.addChildEventListener(AllFragment.this);
                                                         linearLayout.setVisibility(View.GONE);
                                                         relativeLayout.setVisibility(View.VISIBLE);
-                                                        StandActivity.linearLayout.setVisibility(View.VISIBLE);
+                                                        StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+
+                                                        StandActivity.chatloaded = true;
 
                                                     } else {
                                                         _team.updateChildren(map_teamdetail);
                                                         _team.addChildEventListener(AllFragment.this);
+                                                    }
+                                                    if (dataSnapshot.child("fan").exists()) {
+                                                        if (team.equalsIgnoreCase("home")) {
+                                                            _homeFan = _team.child("fan");
+                                                            Map<String, Object> map = new HashMap<String, Object>();
+                                                            map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
+                                                            _homeFan.updateChildren(map);
+                                                            _homeFan.addValueEventListener(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                    Long fancount = dataSnapshot.getChildrenCount();
+                                                                    Log.i("fancount", fancount + "");
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                                }
+                                                            });
+                                                        } else {
+                                                            _awayFan = _team.child("fan");
+                                                            Map<String, Object> map = new HashMap<String, Object>();
+                                                            map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
+                                                            _awayFan.updateChildren(map);
+                                                            _awayFan.addValueEventListener(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                    Long fancount = dataSnapshot.getChildrenCount();
+                                                                    Log.i("fancount", fancount + "");
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                                }
+                                                            });
+                                                        }
                                                     }
                                                 }
 
@@ -266,8 +341,9 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
                 map1.put("share", "");
                 map1.put("comments", "");
                 map1.put("like", "");
+                map1.put("message", "");
                 map1.put("dislike", "");
-                map1.put("fan", "");
+                map1.put("count", "");
 
                 editText.setText("");
 
@@ -278,6 +354,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        linearLayoutProgress.setVisibility(View.GONE);
         if (dataSnapshot.getKey().equalsIgnoreCase("all")) {
             _all = _root.child("all");
             _all.updateChildren(map_matchid);
@@ -295,7 +372,9 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         } else if (dataSnapshot.getKey().equalsIgnoreCase("comments")) {
             _comment = _team.child("comments");
             relativeLayout.setVisibility(View.VISIBLE);
-            StandActivity.linearLayout.setVisibility(View.VISIBLE);
+            StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+            StandActivity.chatloaded = true;
+            linearLayout.setVisibility(View.GONE);
             _comment.addChildEventListener(AllFragment.this);
         } else {
             appendChatConversation(dataSnapshot);
@@ -350,6 +429,8 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("name", userSessionManager.getName());
         map1.put("message", chat_message);
+        map1.put("comments", "");
+        map1.put("count", 0);
         map1.put("timestamp", ServerValue.TIMESTAMP);
         map1.put("image", userSessionManager.getProfilePic());
         message_root.updateChildren(map1);
