@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.netforceinfotech.ibet.util.Util;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -61,8 +62,8 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         final DatabaseReference _key = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(itemList.get(position).key);
         final CCHolder CCHolder = (CCHolder) holder;
         CCHolder.textViewName.setText(itemList.get(position).name);
-        CCHolder.textViewDate.setText("22-7-2016");
-        CCHolder.textViewTime.setText("23:11:02");
+        CCHolder.textViewDate.setText(Util.getDateCurrentTimeZone(itemList.get(position).timestamp));
+        CCHolder.textViewTime.setText(Util.getTimeCurrentTimeZone(itemList.get(position).timestamp));
         CCHolder.textViewComment.setText(itemList.get(position).comment);
         try {
             Picasso.with(context).load(itemList.get(position).imageurl).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(CCHolder.circleImageView);

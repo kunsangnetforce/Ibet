@@ -14,15 +14,20 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.live_event.thearena.PagerAdapterBetTheArena;
+import com.netforceinfotech.ibet.live_event.thearena.all.AllAdapter;
 import com.netforceinfotech.ibet.live_event.thearena.all.AllFragment;
 import com.squareup.picasso.Picasso;
 
@@ -50,7 +55,11 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
     private boolean nestedbottom = false;
     private InputMethodManager imm;
     private int tabposition = 0;
-    public static LinearLayout linearLayout;
+    public static LinearLayout linearLayoutInput;
+    public static boolean chatloaded = false;
+    DatabaseReference _homefans, _awayfans;
+    Long homefancount, awayfancount;
+    TextView textViewHomeFan, textViewAwayFan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +70,12 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         userSessionManager = new UserSessionManager(context);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         editText = (EditText) findViewById(R.id.editText);
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        linearLayoutInput = (LinearLayout) findViewById(R.id.linearLayoutInput);
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedscrollview);
         imageViewTeamA = (CircleImageView) findViewById(R.id.imageViewTeamA);
         imageViewTeamB = (CircleImageView) findViewById(R.id.imageViewTeamB);
+        textViewAwayFan = (TextView) findViewById(R.id.textViewAwayFan);
+        textViewHomeFan = (TextView) findViewById(R.id.textViewHomeFan);
 
         nestedScrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
@@ -127,6 +138,50 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         theme = userSessionManager.getTheme();
         setupToolBar(teama + " vs " + teamb);
         setupTab();
+        setUpFirebase();
+
+    }
+
+    private void setUpFirebase() {
+
+        try {
+            _awayfans = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child("away").child("fan");
+            _awayfans.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    awayfancount = dataSnapshot.getChildrenCount();
+                    textViewAwayFan.setText(""+awayfancount);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception ex) {
+            awayfancount = 0l;
+            textViewAwayFan.setText(""+awayfancount);
+        }
+
+        try {
+            _homefans = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child("home").child("fan");
+            _homefans.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    homefancount = dataSnapshot.getChildrenCount();
+                    textViewHomeFan.setText(""+homefancount);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception ex) {
+            homefancount = 0l;
+            textViewHomeFan.setText(""+homefancount);
+        }
+
 
     }
 
@@ -153,7 +208,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.all));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.top));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.friends));
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.friends));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         if (theme == 0) {
@@ -195,6 +250,13 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
             public void onTabSelected(TabLayout.Tab tab) {
                 tabposition = tab.getPosition();
                 viewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 1) {
+                    linearLayoutInput.setVisibility(View.GONE);
+                } else {
+                    if (chatloaded) {
+                        linearLayoutInput.setVisibility(View.VISIBLE);
+                    }
+                }
 
             }
 
@@ -255,5 +317,15 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
                 return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AllAdapter.SHARE_INTENT) {
+            if (resultCode == RESULT_OK) {
+
+            }
+        }
+
     }
 }

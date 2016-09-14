@@ -106,7 +106,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         cpvLevel = (CircleProgressView) view.findViewById(R.id.cpvLevel);
         textViewMatchStatus = (TextView) view.findViewById(R.id.textViewMatchStatus);
         textViewGoal = (TextView) view.findViewById(R.id.textViewGoal);
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutInput);
         imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamB);
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
         textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);

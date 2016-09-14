@@ -59,7 +59,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
     Map<String, Object> map_all, map_matchid, map_team, map_comment, map_teamdetail;
     private static String tempKey;
     public static RecyclerView recyclerView;
-    LinearLayout linearLayout;
+    LinearLayout linearLayout, linearLayoutProgress;
     RelativeLayout relativeLayout;
     private DatabaseReference _homeFan, _awayFan;
 
@@ -74,7 +74,8 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all, container, false);
         context = getActivity();
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutInput);
+        linearLayoutProgress = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
         relativeLayout.setVisibility(View.GONE);
         userSessionManager = new UserSessionManager(context);
@@ -105,7 +106,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
     }
 
     private void setupFirebaseReferences() {
-        StandActivity.linearLayout.setVisibility(View.GONE);
+        StandActivity.linearLayoutInput.setVisibility(View.GONE);
         linearLayout.setVisibility(View.VISIBLE);
         _root = FirebaseDatabase.getInstance().getReference();
         if (team.equalsIgnoreCase("home")) {
@@ -164,13 +165,16 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
                                             _team.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    linearLayoutProgress.setVisibility(View.GONE);
                                                     if (dataSnapshot.child("comments").exists()) {
                                                         _comment = _team.child("comments");
                                                         Log.i(TAG, "comments exist");
                                                         _comment.addChildEventListener(AllFragment.this);
                                                         linearLayout.setVisibility(View.GONE);
                                                         relativeLayout.setVisibility(View.VISIBLE);
-                                                        StandActivity.linearLayout.setVisibility(View.VISIBLE);
+                                                        StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+
+                                                        StandActivity.chatloaded = true;
 
                                                     } else {
                                                         _team.updateChildren(map_teamdetail);
@@ -339,7 +343,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
                 map1.put("like", "");
                 map1.put("message", "");
                 map1.put("dislike", "");
-                map1.put("fan", "");
+                map1.put("count", "");
 
                 editText.setText("");
 
@@ -350,6 +354,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+        linearLayoutProgress.setVisibility(View.GONE);
         if (dataSnapshot.getKey().equalsIgnoreCase("all")) {
             _all = _root.child("all");
             _all.updateChildren(map_matchid);
@@ -367,7 +372,8 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         } else if (dataSnapshot.getKey().equalsIgnoreCase("comments")) {
             _comment = _team.child("comments");
             relativeLayout.setVisibility(View.VISIBLE);
-            StandActivity.linearLayout.setVisibility(View.VISIBLE);
+            StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+            StandActivity.chatloaded = true;
             linearLayout.setVisibility(View.GONE);
             _comment.addChildEventListener(AllFragment.this);
         } else {
@@ -423,7 +429,8 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         Map<String, Object> map1 = new HashMap<String, Object>();
         map1.put("name", userSessionManager.getName());
         map1.put("message", chat_message);
-        map1.put("comments","");
+        map1.put("comments", "");
+        map1.put("count", 0);
         map1.put("timestamp", ServerValue.TIMESTAMP);
         map1.put("image", userSessionManager.getProfilePic());
         message_root.updateChildren(map1);

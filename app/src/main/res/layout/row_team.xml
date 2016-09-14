@@ -32,7 +32,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
+                    android:id="@+id/linearLayoutInput"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -54,8 +54,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="16dp"
-                    android:layout_toEndOf="@+id/linearLayout"
-                    android:layout_toRightOf="@+id/linearLayout"
+                    android:layout_toEndOf="@+id/linearLayoutInput"
+                    android:layout_toRightOf="@+id/linearLayoutInput"
                     android:text="@string/germany_vs_italy"
                     android:textColor="@color/colorText" />
 
