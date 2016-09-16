@@ -50,7 +50,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     private Context context;
     ArrayList<EventsData> eventsDatas = new ArrayList<>();
     private EventsAdapter adapter;
-    String teama, teamb, teamaid, teambid, matchid;
+    String home_name, away_name, home_id, away_id, match_id;
     ImageView imageViewHome, imageViewAway;
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
     NestedScrollView nestedScrollView;
@@ -79,17 +79,17 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         context = getActivity();
         try {
-            teamaid = this.getArguments().getString("teamaid");
-            teambid = this.getArguments().getString("teambid");
-            matchid = this.getArguments().getString("matchid");
-            teama = this.getArguments().getString("teama");
-            teamb = this.getArguments().getString("teamb");
+            home_id = this.getArguments().getString("home_id");
+            away_id = this.getArguments().getString("away_id");
+            match_id = this.getArguments().getString("match_id");
+            home_name = this.getArguments().getString("home_name");
+            away_name = this.getArguments().getString("away_name");
         } catch (Exception ex) {
             Log.i("kunsang_exception", "paramenter not yet set");
         }
         initView(view);
-        Log.i("kunsangeventfr", matchid + " " + teamaid + " " + teambid);
-        getEvents(matchid, teamaid, teambid);
+        Log.i("kunsangeventfr", match_id + " " + home_id + " " + away_id);
+        getEvents(match_id, home_id, away_id);
         setupRecycler(view);
         return view;
     }
@@ -99,7 +99,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                getEvents(matchid, teamaid, teambid);
+                getEvents(match_id, home_id, away_id);
             }
         });
         tickTockView = (TickTockView) view.findViewById(R.id.tickTockView);
@@ -144,8 +144,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         login_mode = userSessionManager.getLoginMode();
         String url = getResources().getString(R.string.url);
-        url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode;
-        // url = url + "/events_by_match_id.php?matchid=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
+        url = url + "/events_by_match_id.php?match_id=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode;
+        // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
         Log.i("result url", url);
         setHeader();
         Ion.with(context)
@@ -244,7 +244,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         }
 
                         String team;
-                        if (team_id.equalsIgnoreCase(teamaid)) {
+                        if (team_id.equalsIgnoreCase(home_id)) {
                             team = "a";
                         } else {
                             team = "b";
@@ -498,7 +498,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
             @Override
             public void run() {
                 //Do something after 100ms
-                getEvents(matchid, teamaid, teambid);
+                getEvents(match_id, home_id, away_id);
             }
         }, i);
     }
@@ -527,7 +527,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
             public void onFinish() {
                 textViewMatchStatus.setText("Live!");
-                getEvents(matchid, teamaid, teambid);
+                getEvents(match_id, home_id, away_id);
             }
 
         }.start();
@@ -591,10 +591,10 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
         switch (view.getId()) {
             case R.id.textViewTeamAVote:
-                vote("teama");
+                vote("home_name");
                 break;
             case R.id.textViewTeamBVote:
-                vote("teamb");
+                vote("away_name");
                 break;
             case R.id.textViewDrawVote:
                 vote("draw");
@@ -610,7 +610,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String url = getResources().getString(R.string.url);
         String user_id = userSessionManager.getCustomerId();
-        url = url + "/votes_by_match.php?match_id=" + matchid + "&user_id=" + user_id + "&vote=" + team;
+        url = url + "/votes_by_match.php?match_id=" + match_id + "&user_id=" + user_id + "&vote=" + team;
         Log.i("result url", url);
         setHeader();
         Ion.with(context)

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".live_event.LiveEventsFragment">
+    tools:context=".live_event_main.LiveEventsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"

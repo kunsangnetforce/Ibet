@@ -1,5 +1,6 @@
 package com.netforceinfotech.ibet.currentbet.betarena;
 
+import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.currentbet.PagerAdapterCurrentBet;
@@ -22,16 +24,41 @@ public class EnterBetArenaActivity extends AppCompatActivity {
     private UserSessionManager userSessionManager;
     private int theme;
     Toolbar toolbar;
+    String home_name, away_name, home_logo, away_logo, home_id, away_id, bet_id, match_id;
     public static TextView title;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_bet_arena);
+        context = this;
         userSessionManager = new UserSessionManager(this);
         theme = userSessionManager.getTheme();
+        Bundle bundle = getIntent().getExtras();
+        try {
+            home_id = bundle.getString("home_id");
+            away_id = bundle.getString("away_id");
+            home_logo = bundle.getString("home_logo");
+            away_logo = bundle.getString("away_logo");
+            home_name = bundle.getString("home_name");
+            away_name = bundle.getString("away_name");
+            bet_id=bundle.getString("bet_id");
+            match_id=bundle.getString("match_id");
+        } catch (Exception ex) {
+            showMessage("Bundle error");
+        }
+        try {
+
+        } catch (Exception ex) {
+
+        }
         setupToolBar("Ibet");
         setupTab();
+    }
+
+    private void showMessage(String s) {
+        Toast.makeText(EnterBetArenaActivity.this, s, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -97,7 +124,7 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);
         final PagerAdapterBetArena adapter = new PagerAdapterBetArena
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+                (getSupportFragmentManager(), tabLayout.getTabCount(),bet_id,match_id,home_id,away_id,home_name,away_name,home_logo,away_id);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

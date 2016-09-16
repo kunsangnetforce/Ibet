@@ -1,5 +1,6 @@
 package com.netforceinfotech.ibet.dashboard.home.create_bet;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,14 +16,20 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.SearchFriendActivity;
+import com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.SearchFriendData;
 
-public class CreateBet extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class CreateBet extends AppCompatActivity implements View.OnClickListener {
 
     Toolbar toolbar;
     ImageView setting_list1, setting_list2, setting_list3;
     private MaterialDialog dailog;
     TextView textViewRemaining;
     EditText editText;
+    TextView friendslist;
+    public static ArrayList<SearchFriendData> frindids = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +37,32 @@ public class CreateBet extends AppCompatActivity {
         setContentView(R.layout.activity_create_bet);
         setupToolBar("Create Bet");
         setuplayout();
+        findViewById(R.id.buttoncreatebet).setOnClickListener(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String frindstring = "";
+        for (int i = 0; i < frindids.size(); i++) {
+            if (i == 0) {
+                frindstring = frindids.get(i).name;
+            } else {
+                frindstring += "," + frindids.get(i).name;
+            }
+        }
+        friendslist.setText(frindstring);
     }
 
     private void setuplayout() {
         editText = (EditText) findViewById(R.id.editText);
         textViewRemaining = (TextView) findViewById(R.id.textViewRemaing);
+        friendslist = (TextView) findViewById(R.id.textViewListofFriends);
         setting_list1 = (ImageView) findViewById(R.id.canViewJoin);
-
         setting_list2 = (ImageView) findViewById(R.id.canView);
-
         setting_list3 = (ImageView) findViewById(R.id.cantView);
-
+        findViewById(R.id.buttonInviteFriend).setOnClickListener(this);
         boolean wrapInScrollView = true;
 
 
@@ -132,4 +153,19 @@ public class CreateBet extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.buttonInviteFriend:
+                startActivity(new Intent(CreateBet.this, SearchFriendActivity.class));
+                break;
+            case R.id.buttoncreatebet:
+                createbet();
+                break;
+        }
+    }
+
+    private void createbet() {
+        //https://netforcesales.com/ibet_admin/api/create_bet.php?match_id=647654&participants=4&comments=5&home_team_id=1150&away_team_id=1232&bet_amount=5&bet_status=win&&bet_match_date=2016-09-15&bet_option=0&bet_options_to_user=0&user_id=136&bet_remarks=test
+    }
 }

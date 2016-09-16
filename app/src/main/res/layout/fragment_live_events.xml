@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".live_event.LiveEvents">
+    tools:context=".live_event_main.LiveEvents">
 
     <LinearLayout
         android:id="@+id/linearLayoutProgress"

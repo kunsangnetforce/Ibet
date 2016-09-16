@@ -42,6 +42,7 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         for (int i = 0; i < itemList.size(); i++) {
             if (i == 0) {
                 booleanGames.add(true);
+                CurrentGameFragment.matchid = itemList.get(i).matchid;
             } else {
                 booleanGames.add(false);
             }
@@ -73,6 +74,12 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     if (i == position) {
                         currentGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
                         booleanGames.set(position, true);
+                        CurrentGameFragment.matchid = itemList.get(position).matchid;
+                        CurrentGameFragment.teamalogo=itemList.get(position).logoa;
+                        CurrentGameFragment.teamblogo=itemList.get(position).logob;
+                        CurrentGameFragment.teamaname=itemList.get(position).teama;
+                        CurrentGameFragment.teambname=itemList.get(position).teamb;
+
                     } else {
                         currentGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
                         booleanGames.set(i, false);

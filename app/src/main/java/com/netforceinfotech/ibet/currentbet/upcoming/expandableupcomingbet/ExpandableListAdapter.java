@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.live_event.CurrentGameData;
-import com.netforceinfotech.ibet.live_event.LiveEventActivity;
+import com.netforceinfotech.ibet.live_event_main.CurrentGameData;
+import com.netforceinfotech.ibet.live_event_main.LiveEventActivity;
 import com.squareup.picasso.Picasso;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {

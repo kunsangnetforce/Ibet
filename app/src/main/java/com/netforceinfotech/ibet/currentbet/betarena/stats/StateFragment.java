@@ -23,7 +23,7 @@ public class StateFragment extends Fragment {
     Context context;
     private TabLayout tabLayout;
     private int theme;
-    private String teamaid, teambid, teama, teamb, matchid;
+    private String home_id, away_id, home_name, away_name, match_id;
 
     public StateFragment() {
         // Required empty public constructor
@@ -37,11 +37,11 @@ public class StateFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_state, container, false);
         context = getActivity();
         try {
-            teamaid = this.getArguments().getString("teamaid");
-            teambid = this.getArguments().getString("teambid");
-            matchid = this.getArguments().getString("matchid");
-            teama = this.getArguments().getString("teama");
-            teamb = this.getArguments().getString("teamb");
+            home_id = this.getArguments().getString("home_id");
+            away_id = this.getArguments().getString("away_id");
+            match_id = this.getArguments().getString("match_id");
+            home_name = this.getArguments().getString("home_name");
+            away_name = this.getArguments().getString("away_name");
         } catch (Exception ex) {
             Log.i("kunsang_exception", "paramenter not set");
         }
@@ -66,7 +66,7 @@ public class StateFragment extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
         final PagerAdapterState adapter = new PagerAdapterState
-                (getChildFragmentManager(), tabLayout.getTabCount(), matchid);
+                (getChildFragmentManager(), tabLayout.getTabCount(), match_id, home_id, away_id);
         viewPager.setPagingEnabled(true);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

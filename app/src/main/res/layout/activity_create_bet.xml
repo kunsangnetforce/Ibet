@@ -32,7 +32,7 @@
 
 
             <Button
-                android:id="@+id/mute_image"
+                android:id="@+id/buttonInviteFriend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/contact_background"
@@ -43,6 +43,29 @@
                 android:textAllCaps="false"
                 android:textSize="16dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonInviteFriend"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Friends:"
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textViewListofFriends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="kunsang,choephel"
+                    android:textColor="@color/colorText"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -286,7 +309,7 @@
 
         <Button
 
-            android:id="@+id/button_add_notifiaction"
+            android:id="@+id/buttoncreatebet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"

@@ -19,6 +19,7 @@ public class LiveEventFragment extends Fragment {
 
     private TabLayout tabLayout;
     private int theme = 0;
+    String home_id, away_id, match_id, bet_id, home_name, away_name, home_logo, away_logo;
 
     public LiveEventFragment() {
         // Required empty public constructor
@@ -30,6 +31,20 @@ public class LiveEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_live_event, container, false);
+        try {
+            // teamaid = this.getArguments().getString("teamaid");
+            home_id = this.getArguments().getString("home_id");
+            away_id = this.getArguments().getString("away_id");
+            home_name = this.getArguments().getString("home_name");
+            away_name = this.getArguments().getString("away_name");
+            home_logo = this.getArguments().getString("home_logo");
+            away_logo = this.getArguments().getString("away_logo");
+            bet_id = this.getArguments().getString("bet_id");
+            match_id = this.getArguments().getString("match_id");
+
+        } catch (Exception ex) {
+
+        }
         setupTab(view);
         return view;
     }
@@ -81,11 +96,10 @@ public class LiveEventFragment extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
         final PagerAdapterLiveEvent adapter = new PagerAdapterLiveEvent
-                (getChildFragmentManager(), tabLayout.getTabCount());
+                (getChildFragmentManager(), tabLayout.getTabCount(),bet_id,match_id,home_id,away_id,home_name,away_name,home_logo,away_logo);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

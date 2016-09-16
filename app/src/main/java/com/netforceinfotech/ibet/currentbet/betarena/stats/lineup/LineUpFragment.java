@@ -30,7 +30,6 @@ import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
-import com.netforceinfotech.ibet.live_event.CurrentGameData;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -78,7 +77,7 @@ public class LineUpFragment extends Fragment {
     LinearLayout linearLayoutError;
     ScrollView scrollView;
     TextView textViewError;
-    private String matchid;
+    private String match_id;
 
     public LineUpFragment() {
         // Required empty public constructor
@@ -92,11 +91,11 @@ public class LineUpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_line_up3, container, false);
         context = getActivity();
         try {
-            matchid = this.getArguments().getString("matchid");
+            match_id = this.getArguments().getString("match_id");
         } catch (Exception ex) {
         }
         initview(view);
-        getLineUp1(matchid);
+        getLineUp1(match_id);
         //    setDummyLineUp();
         return view;
     }
@@ -128,8 +127,8 @@ public class LineUpFragment extends Fragment {
             e.printStackTrace();
         }
         String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
-        // url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid;
-        // url = url + "/events_by_match_id.php?matchid=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
+        // url = url + "/events_by_match_id.php?match_id=" + match_id + "&home_team_id=" + teamaid + "&away_team_id=" + teambid;
+        // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
         setHeader();
         Ion.with(context)
                 .load(url)

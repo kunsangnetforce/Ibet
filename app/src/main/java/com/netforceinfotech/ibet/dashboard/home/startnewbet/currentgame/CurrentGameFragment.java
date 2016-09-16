@@ -4,6 +4,7 @@ package com.netforceinfotech.ibet.dashboard.home.startnewbet.currentgame;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +14,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -51,6 +57,11 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
     LinearLayout linearLayout;
     Button buttonNext;
     int theme;
+    public static String matchid = "";
+    TextView textViewBetamount;
+    private EditText editTextPopupBetAmount;
+    private String betamountString;
+    public static String teamaname, teambname, teamalogo, teamblogo;
 
     public CurrentGameFragment() {
         // Required empty public constructor
@@ -64,6 +75,7 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
         Ion.getDefault(getActivity()).getConscryptMiddleware().enable(false);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutInput);
         buttonNext = (Button) view.findViewById(R.id.buttonNext);
+        textViewBetamount = (TextView) view.findViewById(R.id.textViewBetamount);
         buttonNext.setOnClickListener(this);
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
@@ -194,8 +206,16 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
         switch (view.getId()) {
             case R.id.buttonNext:
                 Intent intent = new Intent(context, WhoWillWinActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("matchid", matchid);
+                bundle.putString("teamaname", teamaname);
+                bundle.putString("teambname", teambname);
+                bundle.putString("teamalogo", teamalogo);
+                bundle.putString("teamblogo", teamblogo);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
+
         }
     }
 

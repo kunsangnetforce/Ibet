@@ -24,6 +24,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -101,7 +102,7 @@
         <activity android:name=".dashboard.setting.theme.themeColor.ThemeColorActivity" />
         <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
         <activity android:name=".currentbet.betarena.stand.TheArenaActivity" />
-        <activity android:name=".live_event.stand.TheArenaActivity" />
+        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.TheArenaActivity" />
         <activity android:name=".currentbet.betarena.stand.StandActivity" />
         <activity android:name=".dashboard.home.create_bet.CreateBet" />
         <activity
@@ -113,7 +114,7 @@
                 <category android:name="com.winsontan520.testwscratchview.SAMPLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".live_event.LiveEventActivity" />
+        <activity android:name=".live_event_main.LiveEventActivity" />
         <activity android:name=".profilesetting.tutorial.TutorialActivity" />
         <activity android:name=".profilesetting.tutorial.DefaultIntro" />
 
@@ -123,7 +124,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".live_event.stand.StandActivity" />
+        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.StandActivity" />
 
         <service android:name=".general.firebasegcm.MyFirebaseMessagingService">
             <intent-filter>
@@ -132,7 +133,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".live_event.thearena.comments_comment.CommentComments"></activity>
+        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.thearena.comments_comment.CommentComments" />
+        <activity android:name=".dashboard.home.create_bet.searchfriend.SearchFriendActivity"></activity>
     </application>
 
 </manifest>

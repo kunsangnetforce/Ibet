@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.netforceinfotech.ibet.currentbet.CurrentBet;
 import com.netforceinfotech.ibet.dashboard.home.Home;
-import com.netforceinfotech.ibet.live_event.LiveEventsFragment;
+import com.netforceinfotech.ibet.live_event_main.LiveEventsFragment;
 import com.netforceinfotech.ibet.solobet.SoloBet;
 
 public class PagerAdapterDashboard extends FragmentStatePagerAdapter {
