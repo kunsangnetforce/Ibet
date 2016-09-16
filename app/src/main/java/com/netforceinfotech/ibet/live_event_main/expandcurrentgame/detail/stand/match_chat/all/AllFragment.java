@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.all;
+package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.all;
 
 
 import android.content.Context;
@@ -38,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AllFragment extends Fragment implements View.OnClickListener, ChildEventListener {
     private static final String TAG = "kunsang_firebase";
     static Context context;
-    String teamaid, teambid, teama, teamb, team, matchid, logoa, logob;
+    String home_id, away_id, home_name, away_name, team, match_id, home_logo, away_logo;
     EditText editText;
     CircleImageView imageViewSend;
     ArrayList<AllData> allDatas = new ArrayList<>();
@@ -84,15 +84,15 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         imageViewSend.setOnClickListener(this);
 
         try {
-            teamaid = this.getArguments().getString("teamaid");
-            teambid = this.getArguments().getString("teambid");
-            matchid = this.getArguments().getString("matchid");
-            teama = this.getArguments().getString("teama");
-            teamb = this.getArguments().getString("teamb");
+            home_id = this.getArguments().getString("home_id");
+            away_id = this.getArguments().getString("away_id");
+            match_id = this.getArguments().getString("match_id");
+            home_name = this.getArguments().getString("home_name");
+            away_name = this.getArguments().getString("away_name");
             team = this.getArguments().getString("team");
 
-            logoa = this.getArguments().getString("logoa");
-            logob = this.getArguments().getString("logob");
+            home_logo = this.getArguments().getString("home_logo");
+            away_logo = this.getArguments().getString("away_logo");
             linearLayoutNoComment = (LinearLayout) view.findViewById(R.id.linearLayoutNoComment);
             profileimage = userSessionManager.getProfilePic();
             setupHashMap();
@@ -111,7 +111,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         _root = FirebaseDatabase.getInstance().getReference();
         if (team.equalsIgnoreCase("home")) {
             try {
-                _awayFan = _root.child("all").child(matchid).child("away").child("fan");
+                _awayFan = _root.child("all").child(match_id).child("away").child("fan");
                 _awayFan.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -128,7 +128,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
             }
         } else {
             try {
-                _homeFan = _root.child("all").child(matchid).child("away").child("fan");
+                _homeFan = _root.child("all").child(match_id).child("away").child("fan");
                 _homeFan.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -153,9 +153,9 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
                     _all.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child(matchid).exists()) {
-                                Log.i(TAG, "matchid exist");
-                                _matchid = _all.child(matchid);
+                            if (dataSnapshot.child(match_id).exists()) {
+                                Log.i(TAG, "match_id exist");
+                                _matchid = _all.child(match_id);
                                 _matchid.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -264,24 +264,24 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         map_all.put("all", "");
 
         map_matchid = new HashMap<>();
-        map_matchid.put(matchid, "");
+        map_matchid.put(match_id, "");
 
         map_team = new HashMap<>();
         map_team.put(team, "");
 
         if (team.equalsIgnoreCase("home")) {
             map_teamdetail = new HashMap<>();
-            map_teamdetail.put("id", teamaid);
-            map_teamdetail.put("name", teama);
-            map_teamdetail.put("logo", logoa);
+            map_teamdetail.put("id", home_id);
+            map_teamdetail.put("name", home_name);
+            map_teamdetail.put("logo", home_logo);
             map_teamdetail.put("comments", "");
             map_teamdetail.put("fan", "");
 
         } else if (team.equalsIgnoreCase("away")) {
             map_teamdetail = new HashMap<>();
-            map_teamdetail.put("id", teambid);
-            map_teamdetail.put("name", teamb);
-            map_teamdetail.put("logo", logob);
+            map_teamdetail.put("id", away_id);
+            map_teamdetail.put("name", away_name);
+            map_teamdetail.put("logo", away_logo);
             map_teamdetail.put("comments", "");
             map_teamdetail.put("fan", "");
 
@@ -302,7 +302,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
     public void setupRecycler(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        adapter = new AllAdapter(getActivity(), allDatas, matchid, team);
+        adapter = new AllAdapter(getActivity(), allDatas, match_id, team);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -359,8 +359,8 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
             _all = _root.child("all");
             _all.updateChildren(map_matchid);
             _all.addChildEventListener(AllFragment.this);
-        } else if (dataSnapshot.getKey().equalsIgnoreCase(matchid)) {
-            _matchid = _all.child(matchid);
+        } else if (dataSnapshot.getKey().equalsIgnoreCase(match_id)) {
+            _matchid = _all.child(match_id);
             _matchid.updateChildren(map_team);
             _matchid.addChildEventListener(AllFragment.this);
         } else if (dataSnapshot.getKey().equalsIgnoreCase(team)) {

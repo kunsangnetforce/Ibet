@@ -1,9 +1,9 @@
-package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.top;
+package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.all;
 
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class TopData {
+public class AllData {
     String imageurl;
     String name;
     Long timestamp;
@@ -14,7 +14,7 @@ public class TopData {
     String message;
     String key;
 
-    TopData(String imageurl, String name, Long timestamp, String comment, String share, String dislike, String like, String message, String key) {
+    AllData(String imageurl, String name, Long timestamp, String comment, String share, String dislike, String like, String message, String key) {
         this.imageurl = imageurl;
         this.name = name;
         this.timestamp = timestamp;
@@ -28,11 +28,11 @@ public class TopData {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof TopData)) {
+        if (!(obj instanceof AllData)) {
             return false;
         }
 
-        TopData that = (TopData) obj;
+        AllData that = (AllData) obj;
         return this.key.equals(that.key);
     }
 }

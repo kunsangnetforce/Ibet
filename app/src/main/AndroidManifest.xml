@@ -101,9 +101,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".dashboard.setting.theme.themeColor.ThemeColorActivity" />
         <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
-        <activity android:name=".currentbet.betarena.stand.TheArenaActivity" />
-        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.TheArenaActivity" />
-        <activity android:name=".currentbet.betarena.stand.StandActivity" />
+        <activity android:name=".currentbet.betarena.thearena.TheArenaActivity" />
+        <activity android:name=".currentbet.betarena.thearena.StandActivity" />
         <activity android:name=".dashboard.home.create_bet.CreateBet" />
         <activity
             android:name=".scratchview.ImageOverlayDrawable"
@@ -133,7 +132,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.thearena.comments_comment.CommentComments" />
+        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
         <activity android:name=".dashboard.home.create_bet.searchfriend.SearchFriendActivity"></activity>
     </application>
 

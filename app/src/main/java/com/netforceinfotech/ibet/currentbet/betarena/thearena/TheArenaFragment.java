@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.currentbet.betarena.stand;
+package com.netforceinfotech.ibet.currentbet.betarena.thearena;
 
 
 import android.content.Context;
@@ -19,15 +19,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StandFragment extends Fragment implements View.OnClickListener {
+public class TheArenaFragment extends Fragment implements View.OnClickListener {
 
     CircleImageView circleImageViewTeamA, circleImageViewTeamB;
     Button buttonNeutral;
     Context context;
-    private TheStandFragment theStandFragment;
     private String tagName;
 
-    public StandFragment() {
+    public TheArenaFragment() {
         // Required empty public constructor
     }
 
@@ -69,12 +68,5 @@ public class StandFragment extends Fragment implements View.OnClickListener {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, newFragment, tag);
         transaction.commit();
-    }
-
-    private void setupArenaFragment() {
-        theStandFragment = new TheStandFragment();
-        tagName = theStandFragment.getClass().getName();
-        replaceFragment(theStandFragment, tagName);
-
     }
 }

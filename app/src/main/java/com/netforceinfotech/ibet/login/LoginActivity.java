@@ -120,6 +120,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.buttonGuest:
                 userSessionManager.setLoginMode("0");
+                userSessionManager.setToken("");
+                userSessionManager.setEmail("");
+                userSessionManager.setFBID("");
+                userSessionManager.setProfilePic("no");
+                userSessionManager.setCustomerId("");
+                userSessionManager.setName("User");
                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);

@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.all;
+package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.all;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -144,7 +144,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         login_mode = userSessionManager.getLoginMode();
         String url = getResources().getString(R.string.url);
-        url = url + "/events_by_match_id.php?match_id=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode;
+        url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode;
         // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
         Log.i("result url", url);
         setHeader();

@@ -52,8 +52,8 @@ public class SummaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_summary, container, false);
         context = getActivity();
         initview(view);
-        String matchid = this.getArguments().getString("matchid");
-        getStatistic(matchid);
+        String match_id = this.getArguments().getString("match_id");
+        getStatistic(match_id);
         return view;
     }
 

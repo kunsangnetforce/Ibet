@@ -25,7 +25,6 @@ public class StandFragment extends Fragment implements View.OnClickListener {
     CircleImageView circleImageViewTeamA, circleImageViewTeamB;
     Button buttonNeutral;
     Context context;
-    private TheArenaFragment theArenaFragment;
     CircleImageView imageViewTeamA, imageViewTeamB;
     private String tagName;
     private String home_id, away_id, home_name, away_name, match_id, home_logo, away_logo;
@@ -125,10 +124,5 @@ public class StandFragment extends Fragment implements View.OnClickListener {
         transaction.commit();
     }
 
-    private void setupArenaFragment() {
-        theArenaFragment = new TheArenaFragment();
-        tagName = theArenaFragment.getClass().getName();
-        replaceFragment(theArenaFragment, tagName);
 
-    }
 }

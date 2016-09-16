@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.netforceinfotech.ibet.currentbet.betarena.betdetail.BetDetailFragment;
 import com.netforceinfotech.ibet.currentbet.betarena.live_event.LiveEventFragment;
-import com.netforceinfotech.ibet.currentbet.betarena.stand.StandFragment;
+import com.netforceinfotech.ibet.currentbet.betarena.thearena.TheArenaFragment;
 import com.netforceinfotech.ibet.currentbet.betarena.stats.StateFragment;
 
 /**
@@ -73,7 +73,7 @@ public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
                 betDetailFragment.setArguments(bundle);
                 return betDetailFragment;
             case 3:
-                StandFragment theArenaFragment = new StandFragment();
+                TheArenaFragment theArenaFragment = new TheArenaFragment();
                 bundle.putString("bet_id", bet_id);
                 bundle.putString("match_id", bet_id);
                 bundle.putString("home_id", bet_id);

@@ -26,9 +26,9 @@ import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
-import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.PagerAdapterBetTheArena;
-import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.all.AllAdapter;
-import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.all.AllFragment;
+import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.PagerAdapterMainChat;
+import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.all.AllAdapter;
+import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.all.AllFragment;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,11 +43,10 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
     CoordinatorLayout coordinatorLayout;
     UserSessionManager userSessionManager;
     int theme;
-    private TheArenaFragment theArenaFragment;
     CircleImageView imageViewTeamA, imageViewTeamB;
     private String tagName;
     private Toolbar toolbar;
-    String teama, teamb, teamaid, teambid, team, matchid, logoa, logob;
+    String home_name, away_name, home_id, away_id, team, match_id, home_logo, away_logo;
     private DatabaseReference root, _matchid, _team;
     private String userid;
     NestedScrollView nestedScrollView;
@@ -108,13 +107,13 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         {
             userid = userSessionManager.getCustomerId();
             team = bundle.getString("team");
-            teama = bundle.getString("teama");
-            teamb = bundle.getString("teamb");
-            teamaid = bundle.getString("teamaid");
-            teambid = bundle.getString("teambid");
-            matchid = bundle.getString("matchid");
-            logoa = bundle.getString("logoa");
-            logob = bundle.getString("logob");
+            home_name = bundle.getString("home_name");
+            away_name = bundle.getString("away_name");
+            home_id = bundle.getString("home_id");
+            away_id = bundle.getString("away_id");
+            match_id = bundle.getString("match_id");
+            home_logo = bundle.getString("home_logo");
+            away_logo = bundle.getString("away_logo");
         } catch (
                 Exception ex
                 )
@@ -124,19 +123,19 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
 
         }
         try {
-            Picasso.with(context).load(logoa).error(R.drawable.ic_error).into(imageViewTeamA);
+            Picasso.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
         } catch (Exception ex) {
 
         }
         try {
-            Picasso.with(context).load(logob).error(R.drawable.ic_error).into(imageViewTeamB);
+            Picasso.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         } catch (Exception ex) {
 
         }
 
         findViewById(R.id.imageViewSend).setOnClickListener(this);
         theme = userSessionManager.getTheme();
-        setupToolBar(teama + " vs " + teamb);
+        setupToolBar(home_name + " vs " + away_name);
         setupTab();
         setUpFirebase();
 
@@ -145,7 +144,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
     private void setUpFirebase() {
 
         try {
-            _awayfans = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child("away").child("fan");
+            _awayfans = FirebaseDatabase.getInstance().getReference().child("all").child(match_id).child("away").child("fan");
             _awayfans.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -164,7 +163,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         }
 
         try {
-            _homefans = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child("home").child("fan");
+            _homefans = FirebaseDatabase.getInstance().getReference().child("all").child(match_id).child("home").child("fan");
             _homefans.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -237,8 +236,8 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
 
         }
 
-        final PagerAdapterBetTheArena adapter = new PagerAdapterBetTheArena
-                (getSupportFragmentManager(), tabLayout.getTabCount(), team, teama, teamb, teamaid, teambid, matchid, logoa, logob);
+        final PagerAdapterMainChat adapter = new PagerAdapterMainChat
+                (getSupportFragmentManager(), tabLayout.getTabCount(), team, home_name, away_name, home_id, away_id, match_id, home_logo, away_logo);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
 

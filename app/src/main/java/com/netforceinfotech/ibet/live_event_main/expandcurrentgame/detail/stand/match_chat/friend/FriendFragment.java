@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand;
+package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.friend;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.netforceinfotech.ibet.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TheArenaFragment extends Fragment {
+public class FriendFragment extends Fragment {
 
 
-    public TheArenaFragment() {
+    public FriendFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class TheArenaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_the_arena2, container, false);
+        return inflater.inflate(R.layout.fragment_friend, container, false);
     }
 
 }

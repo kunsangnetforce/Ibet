@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.currentbet.betarena.stand;
+package com.netforceinfotech.ibet.currentbet.betarena.thearena;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +22,6 @@ public class StandActivity extends AppCompatActivity  implements View.OnClickLis
     CoordinatorLayout coordinatorLayout;
     UserSessionManager userSessionManager;
     int theme ;
-    private TheStandFragment theStandFragment;
     private String tagName;
 
 

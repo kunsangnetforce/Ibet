@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.all;
+package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.all;
 
 
 import android.content.Context;
@@ -21,7 +21,7 @@ import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
-import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.comments_comment.CommentComments;
+import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             likeclicked.add(false);
             dislikeclicked.add(false);
         }
-        Log.i("sizekunsang",shareclicked.size()+"");
+        Log.i("sizekunsang", shareclicked.size() + "");
         View view = inflater.inflate(R.layout.row_chat, parent, false);
         AllHolder viewHolder = new AllHolder(view);
         return viewHolder;
@@ -246,7 +246,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Log.i("kunsangvalue", itemList.get(position).like + ":" + itemList.get(position).dislike);
                 Intent intent = new Intent(context, CommentComments.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("matchid", matchid);
+                bundle.putString("match_id", matchid);
                 bundle.putString("team", team);
                 bundle.putString("commentkey", itemList.get(position).key);
                 bundle.putString("comment", itemList.get(position).comment);
@@ -266,7 +266,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _share.updateChildren(map);
                 shareData(itemList.get(position).comment, itemList.get(position).name);
-                shareclicked.set(position,true);
+                shareclicked.set(position, true);
             }
         });
         allHolder.imageViewDislike.setOnClickListener(new View.OnClickListener() {
@@ -275,7 +275,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _dislike.updateChildren(map);
-                dislikeclicked.set(position,true);
+                dislikeclicked.set(position, true);
             }
         });
         allHolder.imageViewLike.setOnClickListener(new View.OnClickListener() {
@@ -284,7 +284,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _like.updateChildren(map);
-                likeclicked.set(position,true);
+                likeclicked.set(position, true);
             }
         });
 
@@ -325,7 +325,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                showMessage("something is wrong");
+
             }
         });
     }

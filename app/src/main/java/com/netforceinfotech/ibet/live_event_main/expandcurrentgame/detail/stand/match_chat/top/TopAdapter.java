@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.top;
+package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.top;
 
 
 import android.content.Context;

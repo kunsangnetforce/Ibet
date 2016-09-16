@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.thearena.top;
+package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.top;
 
 
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +32,7 @@ public class TopFragment extends Fragment {
     RelativeLayout relativeLayout;
     LinearLayout linearLayoutProgress, linearLayoutNoComment;
     DatabaseReference _root, _comments;
-    String teamaid, teambid, teama, teamb, team, matchid, logoa, logob, profileimage;
+    String home_id, away_id, home_name, away_name, team, match_id, home_logo, away_logo, profileimage;
     UserSessionManager userSessionManager;
     Context context;
     ArrayList<TopData> topDatas = new ArrayList<>();
@@ -55,15 +56,15 @@ public class TopFragment extends Fragment {
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
         try {
-            teamaid = this.getArguments().getString("teamaid");
-            teambid = this.getArguments().getString("teambid");
-            matchid = this.getArguments().getString("matchid");
-            teama = this.getArguments().getString("teama");
-            teamb = this.getArguments().getString("teamb");
+            home_id = this.getArguments().getString("home_id");
+            away_id = this.getArguments().getString("away_id");
+            match_id = this.getArguments().getString("match_id");
+            home_name = this.getArguments().getString("home_name");
+            away_name = this.getArguments().getString("away_name");
             team = this.getArguments().getString("team");
 
-            logoa = this.getArguments().getString("logoa");
-            logob = this.getArguments().getString("logob");
+            home_logo = this.getArguments().getString("home_logo");
+            away_logo = this.getArguments().getString("away_logo");
             profileimage = userSessionManager.getProfilePic();
 
         } catch (Exception ex) {
@@ -77,41 +78,56 @@ public class TopFragment extends Fragment {
 
     private void setupFirebase() {
         _root = FirebaseDatabase.getInstance().getReference();
-        _comments = _root.child("all").child(matchid).child(team).child("comments");
-        // My top posts by number of stars
+        try {
+            linearLayoutNoComment.setVisibility(View.GONE);
+            linearLayoutProgress.setVisibility(View.GONE);
+            _comments = _root.child("all").child(match_id).child(team).child("comments");
+            // My top posts by number of stars
 
-        Query myTopPostsQuery = _comments.orderByChild("count").limitToLast(4);
-        myTopPostsQuery.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                linearLayoutProgress.setVisibility(View.GONE);
-                relativeLayout.setVisibility(View.VISIBLE);
-                //   Log.i("sizekunsang1",dataSnapshot.getChildrenCount()+"");
-                appendChatConversation(dataSnapshot);
-            }
+            Query myTopPostsQuery = _comments.orderByChild("count").limitToLast(4);
+            myTopPostsQuery.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    linearLayoutProgress.setVisibility(View.GONE);
+                    relativeLayout.setVisibility(View.VISIBLE);
+                    //   Log.i("sizekunsang1",dataSnapshot.getChildrenCount()+"");
+                    appendChatConversation(dataSnapshot);
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
 
-            }
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
 
-            }
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
 
-            }
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
 
-            }
-            // TODO: implement the ChildEventListener methods as documented above
-            // ...
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+                // TODO: implement the ChildEventListener methods as documented above
+                // ...
+            });
+
+        } catch (Exception ex) {
+            showMessage("Something went wrong");
+            Log.i("kunsang_test", "something went wrong");
+            ex.printStackTrace();
+
+        }
+    }
+
+    private void showMessage(String s) {
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
     private void initView(View view) {
@@ -151,6 +167,6 @@ public class TopFragment extends Fragment {
         adapter.notifyDataSetChanged();
         recyclerView.smoothScrollToPosition(topDatas.size());
         Log.i("sizekunsang1", stringComment);
-
+        adapter.notifyDataSetChanged();
     }
 }
