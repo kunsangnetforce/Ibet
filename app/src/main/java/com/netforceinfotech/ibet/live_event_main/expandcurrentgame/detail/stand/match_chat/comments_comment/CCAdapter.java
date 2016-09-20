@@ -27,16 +27,18 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final LayoutInflater inflater;
     private List<CCData> itemList;
     private Context context;
-    String team, matchid;
+    String team, matchid, bet_id, from;
     UserSessionManager userSessionManager;
 
 
-    public CCAdapter(Context context, List<CCData> itemList, String matchid, String team) {
+    public CCAdapter(Context context, List<CCData> itemList, String matchid, String team, String bet_id, String from) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.matchid = matchid;
         this.team = team;
+        this.bet_id = bet_id;
+        this.from = from;
         userSessionManager = new UserSessionManager(context);
     }
 
@@ -53,7 +55,12 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final DatabaseReference _key = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(itemList.get(position).key);
+        final DatabaseReference _key;
+        if (from.equalsIgnoreCase("all")) {
+            _key = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(itemList.get(position).key);
+        } else {
+            _key = FirebaseDatabase.getInstance().getReference().child("bet").child(bet_id).child(team).child("comments").child(itemList.get(position).key);
+        }
         final CCHolder CCHolder = (CCHolder) holder;
         CCHolder.textViewName.setText(itemList.get(position).name);
         CCHolder.textViewDate.setText(Util.getDateCurrentTimeZone(itemList.get(position).timestamp));

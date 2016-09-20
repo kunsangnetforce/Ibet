@@ -40,14 +40,20 @@
             android:text="@string/muteallnotification"
             android:textColor="@color/white" />
 
+        <CheckBox
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <ImageView
-            android:id="@+id/mute_image"
+            android:id="@+id/imageViewMute"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:background="@drawable/teamnotifibox_icon"
             android:padding="5dp"
-            android:src="@drawable/teammute_whiteicon" />
+            android:src="@drawable/ic_volume_mute" />
 
     </RelativeLayout>
 

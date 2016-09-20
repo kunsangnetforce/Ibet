@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet.scratchview;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +26,13 @@ import com.plattysoft.leonids.modifiers.ParticleModifier;
 import com.winsontan520.WScratchView;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import pl.droidsonroids.gif.GifImageView;
 import tyrantgit.explosionfield.ExplosionField;
@@ -47,6 +55,11 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     LinearLayout linearLayoutScratch;
     private GifImageView gif;
     private MaterialDialog customdialog;
+    private ParticleSystem confetti_top_right;
+    private ParticleSystem confetti_top_left;
+    private ParticleSystem confetti;
+    RelativeLayout relativeLayoutCounter;
+    TextView textViewCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +82,9 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     }
 
     private void setupView() {
+        textViewCounter = (TextView) findViewById(R.id.textViewCounter);
+        relativeLayoutCounter = (RelativeLayout) findViewById(R.id.relativeLayoutCounter);
+        relativeLayoutCounter.setVisibility(View.GONE);
         gif = (GifImageView) findViewById(R.id.gif);
         dialog = new MaterialDialog.Builder(this)
                 .title("You can Choose Only Three Bonus")
@@ -1018,17 +1034,18 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     }
 
     private void showPopUpMessage(String s) {
-        new ParticleSystem(this, 80, R.drawable.confeti2, 10000)
+        buttonColloect.setVisibility(View.VISIBLE);
+        confetti_top_right = new ParticleSystem(this, 80, R.drawable.confeti2, 10000)
                 .setSpeedModuleAndAngleRange(0f, 0.3f, 180, 180)
                 .setRotationSpeed(144)
-                .setAcceleration(0.00005f, 90)
-                .emit(findViewById(R.id.emiter_top_right), 8);
+                .setAcceleration(0.00005f, 90);
+        confetti_top_right.emit(findViewById(R.id.emiter_top_right), 8);
 
-        new ParticleSystem(this, 80, R.drawable.confeti3, 10000)
+        confetti_top_left = new ParticleSystem(this, 80, R.drawable.confeti3, 10000)
                 .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
                 .setRotationSpeed(144)
-                .setAcceleration(0.00005f, 90)
-                .emit(findViewById(R.id.emiter_top_left), 8);
+                .setAcceleration(0.00005f, 90);
+        confetti_top_left.emit(findViewById(R.id.emiter_top_left), 8);
         gif.setVisibility(View.VISIBLE);
 
         boolean wrapInScrollView = true;
@@ -1039,9 +1056,9 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
             @Override
             public void onClick(View view) {
                 customdialog.dismiss();
-                new ParticleSystem(ImageOverlayDrawable.this, 100, R.drawable.confeti2, 5000)
-                        .setSpeedRange(0.1f, 0.25f)
-                        .oneShot(view, 900);
+                confetti = new ParticleSystem(ImageOverlayDrawable.this, 100, R.drawable.confeti2, 5000)
+                        .setSpeedRange(0.1f, 0.25f);
+                confetti.oneShot(view, 900);
 
             }
         });
@@ -1086,8 +1103,56 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonCollect:
-                showPopUpMessage("kunsang");
+                //   showPopUpMessage("kunsang");
+                confetti.stopEmitting();
+                confetti_top_left.stopEmitting();
+                confetti_top_right.stopEmitting();
+                gif.setVisibility(View.GONE);
+                relativeLayoutCounter.setVisibility(View.VISIBLE);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DATE, 1);
+                setupTimeThread(dateFormat.format(cal.getTime()));
                 break;
         }
     }
+
+    private void setupTimeThread(String starting_date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateNow = Calendar.getInstance().getTime();
+        Date myDate = null;
+        try {
+            myDate = simpleDateFormat.parse(starting_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long milliseconds = (myDate.getTime() - dateNow.getTime());
+        new CountDownTimer(milliseconds, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                textViewCounter.setText("" + getFormatedTime(millisUntilFinished));
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                textViewCounter.setText("Live!");
+
+            }
+
+        }.start();
+    }
+
+    private String getFormatedTime(long millisUntilFinished) {
+        long seconds = millisUntilFinished / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        String time = hours % 24 + " : " + minutes % 60 + " : " + seconds % 60;
+        return time;
+    }
+
 }

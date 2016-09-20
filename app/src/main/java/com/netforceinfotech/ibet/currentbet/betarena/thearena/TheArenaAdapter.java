@@ -40,16 +40,17 @@ public class TheArenaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final LayoutInflater inflater;
     private List<TheArenaData> itemList;
     private Context context;
-    String team, bet_id;
+    String team, bet_id, match_id;
     UserSessionManager userSessionManager;
     ArrayList<Boolean> shareclicked = new ArrayList<>();
     ArrayList<Boolean> likeclicked = new ArrayList<>();
     ArrayList<Boolean> dislikeclicked = new ArrayList<>();
 
 
-    public TheArenaAdapter(Context context, List<TheArenaData> itemList, String bet_id, String team) {
+    public TheArenaAdapter(Context context, List<TheArenaData> itemList, String match_id, String bet_id, String team) {
         this.itemList = itemList;
         this.context = context;
+        this.match_id = match_id;
         inflater = LayoutInflater.from(context);
         this.bet_id = bet_id;
         this.team = team;
@@ -83,7 +84,7 @@ public class TheArenaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final DatabaseReference _key = FirebaseDatabase.getInstance().getReference().child("all").child(bet_id).child(team).child("comments").child(itemList.get(position).key);
+        final DatabaseReference _key = FirebaseDatabase.getInstance().getReference().child("bet").child(bet_id).child(team).child("comments").child(itemList.get(position).key);
         final DatabaseReference _share = _key.child("share");
         final DatabaseReference _like = _key.child("like");
         final DatabaseReference _dislike = _key.child("dislike");
@@ -246,8 +247,10 @@ public class TheArenaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 Log.i("kunsangvalue", itemList.get(position).like + ":" + itemList.get(position).dislike);
                 Intent intent = new Intent(context, CommentComments.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("match_id", bet_id);
+                bundle.putString("match_id", match_id);
+                bundle.putString("bet_id", bet_id);
                 bundle.putString("team", team);
+                bundle.putString("from", "bet");
                 bundle.putString("commentkey", itemList.get(position).key);
                 bundle.putString("comment", itemList.get(position).comment);
                 bundle.putString("dislikecount", itemList.get(position).dislike);
@@ -311,7 +314,7 @@ public class TheArenaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void runTransaction(int position) {
-        DatabaseReference _count = FirebaseDatabase.getInstance().getReference().child("all").child(bet_id).child(team).child("comments").child(itemList.get(position).key).child("count");
+        DatabaseReference _count = FirebaseDatabase.getInstance().getReference().child("bet").child(bet_id).child(team).child("comments").child(itemList.get(position).key).child("count");
         _count.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData currentData) {

@@ -1,5 +1,6 @@
 package com.netforceinfotech.ibet.dashboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +48,8 @@ import com.netforceinfotech.ibet.login.LoginActivity;
 import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class
 Dashboard extends AppCompatActivity {
 
@@ -67,6 +71,9 @@ Dashboard extends AppCompatActivity {
     RelativeLayout header_background;
     String loginmode;
     private Menu menu;
+    CircleImageView imageViewProfilePic;
+    TextView textViewName;
+    Context context;
 
 
     @Override
@@ -74,7 +81,7 @@ Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dashboard);
-
+        context = this;
         userSessionManager = new UserSessionManager(getApplicationContext());
 
 
@@ -129,131 +136,20 @@ Dashboard extends AppCompatActivity {
         String id = userSessionManager.getFBID();
         imageURL = "https://graph.facebook.com/" + id + "/picture?type=large";
         // setupNavigation(imageURL);
+        setupNavigationHeader();
 
 
     }
 
-    private void setupNavigation(String imageURL) {
+    private void setupNavigationHeader() {
+        imageViewProfilePic = (CircleImageView)navigationView.getHeaderView(0).findViewById(R.id.imageViewProfilePic);
+        textViewName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.textViewName);
+        if (!userSessionManager.getLoginMode().equals("0")) {
+            Log.i("picturekunsang", userSessionManager.getProfilePic());
+            Picasso.with(context).load(userSessionManager.getProfilePic()).error(R.drawable.ic_error).into(imageViewProfilePic);
+            textViewName.setText(userSessionManager.getName());
+        }
 
-        PrimaryDrawerItem home = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.home).withIcon(R.drawable.ic_home).withSelectedIcon(R.drawable.ic_home_white);
-        PrimaryDrawerItem profile = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.profile).withIcon(R.drawable.ic_account).withSelectedIcon(R.drawable.ic_account_white);
-        PrimaryDrawerItem chart = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.chart).withIcon(R.drawable.ic_chart).withSelectedIcon(R.drawable.ic_chart_white);
-        PrimaryDrawerItem setting = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.setting).withIcon(R.drawable.ic_setting).withSelectedIcon(R.drawable.ic_settings_white);
-        PrimaryDrawerItem store = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.store).withIcon(R.drawable.ic_cart).withSelectedIcon(R.drawable.ic_cart_white);
-        PrimaryDrawerItem tutorial = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.tutorial).withIcon(R.drawable.ic_clipboard).withSelectedIcon(R.drawable.ic_clipboard_white);
-        PrimaryDrawerItem share = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.share).withIcon(R.drawable.ic_share).withSelectedIcon(R.drawable.ic_share_white);
-        PrimaryDrawerItem logout = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.logout).withIcon(R.drawable.ic_logout).withSelectedIcon(R.drawable.ic_logout_white);
-        PrimaryDrawerItem rateus = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.rateus).withIcon(R.drawable.ic_rateus).withSelectedIcon(R.drawable.ic_rateus_white);
-
-        PrimaryDrawerItem bonus = new PrimaryDrawerItem().withIdentifier(1).withName(R.string.bonus).withIcon(R.drawable.ic_rateus).withSelectedIcon(R.drawable.ic_rateus_white);
-
-        //create the drawer and remember the `Drawer` result object
-
-
-        AccountHeader accountHeader = getAccountHeader(imageURL);
-
-
-        Drawer result = new DrawerBuilder()
-                .withAccountHeader(accountHeader)
-                .withActivity(this)
-                .withToolbar(toolbar)
-
-                .addDrawerItems(
-                        home,
-                        profile,
-                        chart,
-                        store,
-                        setting,
-                        tutorial,
-                        share,
-                        rateus,
-                        logout,
-                        bonus
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-
-
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
-
-                        switch (position) {
-                            case 17:
-                                LoginManager.getInstance().logOut();
-                                intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                                break;
-                            case 1:
-                                setupDashboardFragment();
-                                break;
-                            case 2:
-                                Intent feedback = new Intent(Dashboard.this, ProfileFragment.class);
-                                startActivity(feedback);
-                                break;
-                            case 3:
-                                setupDashboardFragment();
-                                break;
-                            case 5:
-                                Intent setting = new Intent(Dashboard.this, SettingFragment.class);
-                                startActivity(setting);
-                                break;
-                            case 6:
-                                Intent team = new Intent(Dashboard.this, TeamNotificationActivity.class);
-                                startActivity(team);
-                                break;
-
-                            default:
-                                showMessage("Yet to implement" + position);
-                                break;
-                        }
-                        return false;
-                    }
-                })
-                .build();
-
-    }
-
-    private AccountHeader getAccountHeader(String imageURL) {
-        DrawerImageLoader.init(new AbstractDrawerImageLoader() {
-            @Override
-            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
-                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
-            }
-
-            @Override
-            public void cancel(ImageView imageView) {
-                Picasso.with(imageView.getContext()).cancelRequest(imageView);
-            }
-
-    /*
-    @Override
-    public Drawable placeholder(Context ctx) {
-        return super.placeholder(ctx);
-    }
-
-    @Override
-    public Drawable placeholder(Context ctx, String tag) {
-        return super.placeholder(ctx, tag);
-    }
-    */
-        });
-        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
-        String name = userSessionManager.getName();
-        String email = userSessionManager.getEmail();
-        headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withSelectionListEnabledForSingleProfile(false)
-                .withHeaderBackground(R.drawable.background)
-                .addProfiles(new ProfileDrawerItem().withName(name).withEmail(email).withIcon(imageURL))
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-        return headerResult;
     }
 
 

@@ -104,9 +104,10 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
                                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                                     if (dataSnapshot.child("comments").exists()) {
                                                         _comments = _team.child("comments");
+                                                        _comments.addChildEventListener(TheArenaActivity.this);
                                                     } else {
                                                         _team.updateChildren(map_comment);
-                                                        _team.addValueEventListener(TheArenaActivity.this);
+                                                        _team.addChildEventListener(TheArenaActivity.this);
                                                     }
                                                 }
 
@@ -117,7 +118,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
                                             });
                                         } else {
                                             _bet.updateChildren(map_team);
-                                            _bet.addValueEventListener(TheArenaActivity.this);
+                                            _bet.addChildEventListener(TheArenaActivity.this);
                                         }
                                     }
 
@@ -128,6 +129,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
                                 });
                             } else {
                                 _bet.updateChildren(map_betid);
+                                _bet.addChildEventListener(TheArenaActivity.this);
                             }
                         }
 
@@ -138,7 +140,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
                     });
                 } else {
                     _root.updateChildren(map_bet);
-                    _root.addValueEventListener(TheArenaActivity.this);
+                    _root.addChildEventListener(TheArenaActivity.this);
                 }
             }
 
@@ -195,7 +197,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        adapter = new TheArenaAdapter(this, theArenaDatas, bet_id, team);
+        adapter = new TheArenaAdapter(this, theArenaDatas, match_id,bet_id, team);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -235,12 +237,12 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
 
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-         firebaseTask(dataSnapshot);
+
     }
 
     private void firebaseTask(DataSnapshot dataSnapshot) {
         if (dataSnapshot.getKey().equalsIgnoreCase("bet")) {
-            _bet = _root.child("all");
+            _bet = _root.child("bet");
             _bet.updateChildren(map_betid);
             _bet.addChildEventListener(TheArenaActivity.this);
         } else if (dataSnapshot.getKey().equalsIgnoreCase(match_id)) {
@@ -265,7 +267,13 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-       firebaseTask(dataSnapshot);
+        try {
+            firebaseTask(dataSnapshot);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            showMessage("Something wrong with server");
+        }
+
     }
 
     @Override

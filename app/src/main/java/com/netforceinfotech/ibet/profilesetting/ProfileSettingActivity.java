@@ -161,6 +161,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                         showMessage("failed to upload");
                     }
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                     showMessage("Something went wrong");
                 }
 
@@ -174,7 +175,11 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
 
             }
         });
-        request.addFile("image", filePath);
+        if (filePath != null) {
+            request.addFile("image", filePath);
+        } else {
+            request.addFile("image", "");
+        }
         request.addMultipartParam("team", "text/plain", teams);
         queue.add(request);
 
@@ -189,35 +194,59 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         Log.i("result_url", url);
         Log.i("result_url", filePath + "   " + teams);
         File file = null;
-        if (filePath == null || filePath.length() == 0) {
-
-        } else {
-            file = new File(filePath);
-        }
         setHeader();
-        Ion.with(context)
-                .load(url)
-                .setMultipartFile("image", "image/*", file)
-                .setMultipartParameter("team", teams)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (result == null) {
-                            showMessage("nothing is happening");
-                        } else {
-                            Log.i("result_kunsang", result.toString());
-                            String status = result.get("status").getAsString();
-                            if (status.equalsIgnoreCase("success")) {
-                                showMessage("Successfully uploaded");
-                                Intent intent = new Intent(context, Dashboard.class);
-                                startActivity(intent);
+        if (filePath == null || filePath.length() == 0) {
+            filePath = "";
+            Ion.with(context)
+                    .load(url)
+                    .setMultipartParameter("team", teams)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            if (result == null) {
+                                showMessage("nothing is happening");
                             } else {
-                                showMessage("Failed to upload data");
+                                Log.i("result_kunsang", result.toString());
+                                String status = result.get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    showMessage("Successfully uploaded");
+                                    Intent intent = new Intent(context, Dashboard.class);
+                                    startActivity(intent);
+                                } else {
+                                    showMessage("Failed to upload data");
+                                }
                             }
                         }
-                    }
-                });
+                    });
+        } else {
+            file = new File(filePath);
+            Ion.with(context)
+                    .load(url)
+                    .setMultipartFile("image", "image/*", file)
+                    .setMultipartParameter("team", teams)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            if (result == null) {
+                                showMessage("nothing is happening");
+                            } else {
+                                Log.i("result_kunsang", result.toString());
+                                String status = result.get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    showMessage("Successfully uploaded");
+                                    Intent intent = new Intent(context, Dashboard.class);
+                                    startActivity(intent);
+                                } else {
+                                    showMessage("Failed to upload data");
+                                }
+                            }
+                        }
+                    });
+        }
+
+
     }
 
     private void showMessage(String s) {

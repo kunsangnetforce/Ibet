@@ -10,4 +10,14 @@ public class ExpandHeaderData {
         this.id = id;
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ExpandHeaderData)) {
+            return false;
+        }
+
+        ExpandHeaderData that = (ExpandHeaderData) obj;
+        return this.id.equals(that.id);
+    }
 }

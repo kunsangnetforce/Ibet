@@ -285,6 +285,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     private void setupExpandableData() {
         expandHeaderDatas.clear();
         expandChildDatas.clear();
+
         for (int i = 0; i < competitionIds.size(); i++) {
             expandHeaderDatas.add(new ExpandHeaderData(competitionIds.get(i), "dummy" + i));
         }
@@ -299,11 +300,13 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                     //expandChildDatas.put(expandHeaderDatas.get(j).name,new ArrayList<ExpandChildData(teamListDatas.get(i).id,teamListDatas.get(i).name,teamListDatas.get(i).logo );
                     Log.i("kunsangloop", i + "  " + j);
                     expandChildData.add(new TeamListData(teamListDatas.get(j).id, teamListDatas.get(j).name, teamListDatas.get(j).logo, teamListDatas.get(j).compid, teamListDatas.get(j).compName));
+                    teamListDatas.remove(j);
                 }
             }
             if (!(competitionName.length() > 0)) {
                 competitionName = "No name";
             }
+
             expandHeaderDatas.set(i, new ExpandHeaderData(competitionIds.get(i), competitionName));
             expandChildDatas.put(expandHeaderDatas.get(i), expandChildData);
         }

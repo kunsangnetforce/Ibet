@@ -81,11 +81,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         profile = Profile.getCurrentProfile();
 
         if (profile != null) {
-            LoginManager.getInstance().logOut();
-           /* Intent intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
+         //   LoginManager.getInstance().logOut();
+            Intent intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
             startActivity(intent);
             finish();
-            overridePendingTransition(R.anim.enter, R.anim.exit);*/
+            overridePendingTransition(R.anim.enter, R.anim.exit);
         }
         sendRegId();
     }

@@ -249,6 +249,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 bundle.putString("match_id", matchid);
                 bundle.putString("team", team);
                 bundle.putString("commentkey", itemList.get(position).key);
+                bundle.putString("from", "all");
                 bundle.putString("comment", itemList.get(position).comment);
                 bundle.putString("dislikecount", itemList.get(position).dislike);
                 bundle.putString("likecount", itemList.get(position).like);
@@ -311,7 +312,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void runTransaction(int position) {
-        DatabaseReference _count = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(itemList.get(position).key).child("count");
+        DatabaseReference _count = FirebaseDatabase.getInstance().getReference().child("bet").child(matchid).child(team).child("comments").child(itemList.get(position).key).child("count");
         _count.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData currentData) {
