@@ -108,7 +108,7 @@
         <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
         <activity android:name=".currentbet.betarena.thearena.TheArenaActivity" />
         <activity android:name=".currentbet.betarena.thearena.StandActivity" />
-        <activity android:name=".dashboard.home.create_bet.CreateBet" />
+        <activity android:name=".dashboard.home.startnewbet.create_bet.CreateBet" />
         <activity
             android:name=".scratchview.ImageOverlayDrawable"
             android:label="Image Overlay Drawable (Experimental)">
@@ -138,7 +138,7 @@
         </service>
 
         <activity android:name=".live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
-        <activity android:name=".dashboard.home.create_bet.searchfriend.SearchFriendActivity"></activity>
+        <activity android:name=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity"></activity>
     </application>
 
 </manifest>

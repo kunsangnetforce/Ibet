@@ -1,8 +1,7 @@
-package com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.friend;
+package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.friend;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;

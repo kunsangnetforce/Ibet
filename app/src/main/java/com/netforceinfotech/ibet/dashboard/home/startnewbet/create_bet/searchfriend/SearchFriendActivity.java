@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend;
+package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +20,9 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.CreateBet;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.friend.SearchFriendAdapter;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.selectedfrind.SelectFriendAdapter;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.CreateBet;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.friend.SearchFriendAdapter;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.selectedfrind.SelectFriendAdapter;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

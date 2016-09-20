@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.selectedfrind;
+package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.selectedfrind;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

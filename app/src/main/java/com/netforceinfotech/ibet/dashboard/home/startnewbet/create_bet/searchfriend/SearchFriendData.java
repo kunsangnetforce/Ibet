@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend;
+package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend;
 
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.

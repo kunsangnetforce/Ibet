@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.create_bet;
+package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,8 +15,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.SearchFriendActivity;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.SearchFriendData;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendData;
 
 import java.util.ArrayList;
 

@@ -23,7 +23,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.CreateBet;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.CreateBet;
 import com.squareup.picasso.Picasso;
 
 public class WhoWillWinActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".dashboard.home.create_bet.searchfriend.SearchFriendActivity">
+    tools:context=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity">
 
     <FrameLayout
         android:id="@+id/toolbar_container"

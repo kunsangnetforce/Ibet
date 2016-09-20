@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.selectedfrind;
+package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.selectedfrind;
 
 
 import android.content.Context;
@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.CreateBet;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.SearchFriendActivity;
-import com.netforceinfotech.ibet.dashboard.home.create_bet.searchfriend.SearchFriendData;
-import com.netforceinfotech.ibet.profilesetting.selectteam.SelectTeamActivity;
-import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.CreateBet;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
