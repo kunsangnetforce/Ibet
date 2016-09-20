@@ -6,9 +6,9 @@ import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListDa
  * Created by Netforce on 9/19/2016.
  */
 public class TeamData {
-    String id;
+    public String id;
     public String name;
-    String logo;
+    public String logo;
 
     public TeamData(String id, String name, String logo) {
         this.id = id;

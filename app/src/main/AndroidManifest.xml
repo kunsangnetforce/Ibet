@@ -67,6 +67,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".dashboard.setting.notification.generalNotification.soundlist.SoundlistActivity"
+            android:label="@string/title_activity_soundlist"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".dashboard.setting.feedback.FeedbackActivity"
             android:theme="@style/AppTheme" />
         <activity

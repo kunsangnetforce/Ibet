@@ -17,8 +17,7 @@ import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
 
-public class SoundlistActivity extends AppCompatActivity
-{
+public class SoundlistActivity extends AppCompatActivity {
 
 
     RecyclerView recyclerView;
@@ -30,17 +29,22 @@ public class SoundlistActivity extends AppCompatActivity
     int theme;
     Window window;
     LinearLayout activity_sound_layout;
-
+    String teamid, teamname;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_soundlist);
         userSessionManager = new UserSessionManager(getApplicationContext());
+        Bundle bundle = getIntent().getExtras();
+        try {
+            teamid = bundle.getString("teamid");
+            teamname = bundle.getString("teamname");
+        } catch (Exception ex) {
 
+        }
         theme = userSessionManager.getTheme();
         window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -48,49 +52,35 @@ public class SoundlistActivity extends AppCompatActivity
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
             }
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
             }
-        }
-        else if (theme == 4)
-        {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+        } else if (theme == 4) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
             }
@@ -100,8 +90,7 @@ public class SoundlistActivity extends AppCompatActivity
 
     }
 
-    private void setupToolBar(String title)
-    {
+    private void setupToolBar(String title) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         activity_sound_layout = (LinearLayout) findViewById(R.id.activity_sound_layout);
@@ -114,51 +103,41 @@ public class SoundlistActivity extends AppCompatActivity
 
     }
 
-    private void setupRecyclerView()
-    {
+    private void setupRecyclerView() {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
             activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
             activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
             activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
 
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
 
             activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
 
             activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme5));
         }
 
-        adapter = new SoundlistAdapter(getApplicationContext(), soundData);
+        adapter = new SoundlistAdapter(getApplicationContext(), soundData,teamname,teamid);
         recyclerView.setAdapter(adapter);
 
         setupFinsihedDatas();
@@ -167,14 +146,10 @@ public class SoundlistActivity extends AppCompatActivity
 
     }
 
-    private void setupFinsihedDatas()
-    {
-        try
-        {
+    private void setupFinsihedDatas() {
+        try {
             soundData.clear();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
         soundData.add(new SoundListData("A Tone", "imageurl"));
@@ -189,16 +164,13 @@ public class SoundlistActivity extends AppCompatActivity
         soundData.add(new SoundListData("Ta Da", "imageurl"));
 
 
-
     }
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -208,9 +180,6 @@ public class SoundlistActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
 
 }

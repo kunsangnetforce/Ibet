@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.soundlist;
+package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.soundlist;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -34,15 +34,15 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     Long s1;
     UserSessionManager userSessionManager;
     int theme;
-    String teamid, teamname;
     AssetFileDescriptor descriptor;
-    int lastclicked = 0;
+    int lastClicked = 0;
+    String event_name;
 
-    public SoundlistAdapter(Context context, List<SoundListData> itemList, String teamname, String teamid) {
-        this.teamid = teamid;
-        this.teamname = teamname;
+    public SoundlistAdapter(Context context, List<SoundListData> itemList, String event_name) {
+
         this.itemList = itemList;
         this.context = context;
+        this.event_name = event_name;
         inflater = LayoutInflater.from(context);
         userSessionManager = new UserSessionManager(context);
         theme = userSessionManager.getTheme();
@@ -57,6 +57,21 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         View view = inflater.inflate(R.layout.row_soundlist, parent, false);
         viewHolder = new SoundlistHolder(view);
         setlist_border();
+        /*try {
+            arrayListBoolean.clear();
+        } catch (Exception ex) {
+
+        }
+        for (int i = 0; i < itemList.size(); i++) {
+
+            if (i == 0) {
+                arrayListBoolean.add(true);
+            } else {
+                arrayListBoolean.add(false);
+            }
+
+        }
+*/
         return viewHolder;
 
 
@@ -65,9 +80,9 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
-        SoundlistHolder soundlistHolder = (SoundlistHolder) holder;
+        final SoundlistHolder soundlistHolder = (SoundlistHolder) holder;
         soundlistHolder.textViewTitle.setText(itemList.get(position).title);
-        if (lastclicked == position) {
+        if (lastClicked == position) {
             soundlistHolder.imageView.setImageResource(R.drawable.ic_check_30);
         } else {
             soundlistHolder.imageView.setImageResource(R.drawable.ic_uncheck_28);
@@ -81,11 +96,14 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         soundlistHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lastclicked = position;
-                userSessionManager.setTeamNotificationFileName(teamname + teamname + "filename", itemList.get(position).filename);
-                userSessionManager.setTeamNotificationSoundName(teamname + teamname + "souondname", itemList.get(position).title);
+                lastClicked = position;
+                userSessionManager.setGeneralNotificationFileName(event_name + "filename", itemList.get(position).filename);
+                userSessionManager.setGeneralNotificationSoundName(event_name + "soundname", itemList.get(position).title);
                 notifyDataSetChanged();
+
+
             }
+
         });
 
     }
@@ -118,6 +136,7 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             imageView = (ImageView) view.findViewById(R.id.imageViewCheck);
             textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
             layout_view = (View) itemView.findViewById(R.id.view);
+            m = new MediaPlayer();
 
         }
 
@@ -125,44 +144,18 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     private void playSound(int position) {
+        try {
+            counter.cancel();
+        } catch (Exception ex) {
+
+        }
         counter = new MyCount(3000, 1000);
         counter.start();
         AssetFileDescriptor descriptor = null;
-        try {
-            switch (position) {
-                case 0:
-                    descriptor = context.getAssets().openFd("A_tone.mp3");
-                    break;
-                case 1:
-                    descriptor = context.getAssets().openFd("Air_Horn.mp3");
-                    break;
-                case 2:
-                    descriptor = context.getAssets().openFd("Cheering.mp3");
-                    break;
-                case 3:
-                    descriptor = context.getAssets().openFd("Crowed_Boo.mp3");
-                    break;
-                case 4:
-                    descriptor = context.getAssets().openFd("Cheering.mp3");
-                    break;
-                case 5:
-                    descriptor = context.getAssets().openFd("Doorbell.mp3");
-                    break;
-                case 6:
-                    descriptor = context.getAssets().openFd("Store_Door_Chime.mp3");
-                    break;
-                case 7:
-                    descriptor = context.getAssets().openFd("Japanese_Temple_Bell_Small.mp3");
-                    break;
-                case 8:
-                    descriptor = context.getAssets().openFd("Doorbell.mp3");
-                    break;
-                case 9:
-                    descriptor = context.getAssets().openFd("CrowedHole.wav");
-                    break;
 
-            }
-            m = new MediaPlayer();
+        try {
+            descriptor = context.getAssets().openFd(itemList.get(position).filename);
+
             if (m.isPlaying()) {
                 m.stop();
                 m.release();
@@ -171,12 +164,12 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             descriptor.close();
             m.prepare();
             m.setVolume(1f, 1f);
-            m.setLooping(true);
+            m.setLooping(false);
             m.start();
 
 
         } catch (Exception ex) {
-
+            ex.printStackTrace();
         }
     }
 
@@ -188,8 +181,12 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         @Override
         public void onFinish() {
-            m.stop();
-            m.release();
+            try {
+                m.stop();
+                m.release();
+            } catch (Exception ex) {
+
+            }
         }
 
         @Override
