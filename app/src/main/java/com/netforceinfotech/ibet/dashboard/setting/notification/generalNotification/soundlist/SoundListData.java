@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.soundlist;
+package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.soundlist;
 
 /**
  * Created by John on 8/4/2016.

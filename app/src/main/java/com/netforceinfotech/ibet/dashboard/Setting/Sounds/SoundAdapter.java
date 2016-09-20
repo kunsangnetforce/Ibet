@@ -1,15 +1,18 @@
 package com.netforceinfotech.ibet.dashboard.setting.sounds;
 
 import android.content.Context;
+import android.icu.lang.UScript;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
@@ -19,24 +22,20 @@ import java.util.List;
 /**
  * Created by John on 7/26/2016.
  */
-public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     SettingHolder viewHolder;
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<String> itemList;
+    private List<SoundData> itemList;
     private Context context;
-    ArrayList<Integer> setting_icon = new ArrayList<>();
-    UserSessionManager  userSessionManager;
+    UserSessionManager userSessionManager;
     int theme;
 
 
-    public SoundAdapter(Context context, List<String> itemList,ArrayList<Integer> imagelist)
-    {
+    public SoundAdapter(Context context, List<SoundData> itemList) {
         this.itemList = itemList;
         this.context = context;
-        this.setting_icon = imagelist;
         inflater = LayoutInflater.from(context);
 
 
@@ -55,8 +54,7 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       }
   */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.row_sound_activity, parent, false);
         viewHolder = new SettingHolder(view);
@@ -67,87 +65,79 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
-    {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
-        viewHolder.textViewTitle.setText(itemList.get(position));
+        SettingHolder settingHolder = (SettingHolder) holder;
+        settingHolder.switchButton.setChecked(itemList.get(position).status);
+        settingHolder.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                switch (position) {
+                    case 0:
+                        userSessionManager.setSoundOnOff(b);
+                        break;
+                    case 1:
+                        userSessionManager.setBackgroundCrowd(b);
+                        break;
+                    case 2:
+                        userSessionManager.setWinBet(b);
+                        break;
+                    case 3:
+                        userSessionManager.setLoseBet(b);
+                        break;
+                }
+            }
+        });
+        viewHolder.textViewTitle.setText(itemList.get(position).title);
+
 
     }
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return 4;
 //        return itemList.size();
     }
 
 
-    public class SettingHolder  extends RecyclerView.ViewHolder  implements View.OnClickListener
-    {
+    public class SettingHolder extends RecyclerView.ViewHolder {
 
         TextView textViewTitle, textViewCategory, textViewPros;
-
+        SwitchButton switchButton;
         MaterialRippleLayout materialRippleLayout;
-        View view,layout_view;
+        View view, layout_view;
 
 
-        public SettingHolder(View itemView)
-        {
+        public SettingHolder(View itemView) {
             super(itemView);
             //implementing onClickListener
-            itemView.setOnClickListener(this);
             view = itemView;
 
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
 
             textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
-
-            layout_view = (View)  itemView.findViewById(R.id.view);
-
-        }
-        @Override
-        public void onClick(View v)
-        {
-
-            int position  =   getAdapterPosition();
-
-            if(position==0)
-            {
-
-
-
-            }
+            switchButton = (SwitchButton) view.findViewById(R.id.switchbutton);
+            layout_view = (View) itemView.findViewById(R.id.view);
 
         }
     }
 
 
-    private void setlist_border()
-    {
-        if(theme == 0)
-        {
+    private void setlist_border() {
+        if (theme == 0) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background2));
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background3));
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background4));
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background5));
         }
 

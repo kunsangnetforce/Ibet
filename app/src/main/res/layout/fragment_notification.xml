@@ -1,17 +1,14 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
     android:id="@+id/notification_layout"
- >
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        ><!--
+        android:orientation="vertical"><!--
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />-->
@@ -19,42 +16,38 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:background="@color/brown_color"
             android:orientation="horizontal"
-            >
+            android:padding="5dp"
+            android:visibility="visible">
 
 
             <TextView
                 android:id="@+id/notification_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/All_notification_heading"
-                android:textColor="@color/white"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="5dp"
+                android:text="@string/All_notification_heading"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:button="@xml/custom_checkbox"
+
                 />
 
-           <CheckBox
-               android:id="@+id/checkbox"
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_alignParentRight="true"
-               android:button="@xml/custom_checkbox"
-
-               />
-
         </RelativeLayout>
-
-
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           android:layout_below="@+id/header"
-            ></android.support.v7.widget.RecyclerView>
+            android:layout_below="@+id/header"></android.support.v7.widget.RecyclerView>
 
 
     </LinearLayout>

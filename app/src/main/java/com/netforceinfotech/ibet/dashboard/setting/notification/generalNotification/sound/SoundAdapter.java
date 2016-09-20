@@ -1,7 +1,8 @@
-package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification;
+package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.sound;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.soundlist.SoundlistActivity;
+import com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.soundlist.SoundlistActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
@@ -22,16 +23,14 @@ import java.util.List;
 /**
  * Created by John on 7/26/2016.
  */
-public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     SettingHolder viewHolder;
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<String> itemList;
-    private List<String> sounList;
+    private List<SoundData> itemList;
     private Context context;
     ArrayList<Boolean> booleanGames = new ArrayList<>();
     ArrayList<Integer> setting_icon = new ArrayList<>();
@@ -39,14 +38,10 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     int theme;
 
 
-
-
-    public SoundAdapter(Context context, List<String> itemList,ArrayList<Integer> imagelist,List<String> sounList)
-    {
+    public SoundAdapter(Context context, List<SoundData> itemList, ArrayList<Integer> imagelist) {
         this.itemList = itemList;
         this.context = context;
         this.setting_icon = imagelist;
-        this.sounList = sounList;
         inflater = LayoutInflater.from(context);
 
         userSessionManager = new UserSessionManager(context);
@@ -64,8 +59,7 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
       }
   */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.row_sound, parent, false);
         viewHolder = new SettingHolder(view);
@@ -77,16 +71,25 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
-    {
-
-        viewHolder.textViewTitle.setText(itemList.get(position));
-        viewHolder.image_icon.setImageResource(setting_icon.get(position));
-        viewHolder.textViewSound.setText(sounList.get(position));
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        SettingHolder settingHolder = (SettingHolder) holder;
+        settingHolder.textViewTitle.setText(itemList.get(position).eventname);
+        settingHolder.image_icon.setImageResource(setting_icon.get(position));
+        settingHolder.textViewSound.setText(userSessionManager.getGeneralNotificationSoundName(itemList.get(position).eventname + "soundname"));
+        settingHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SoundlistActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name", itemList.get(position).eventname);
+                intent.putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
     }
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
@@ -98,73 +101,46 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
 
-    public class SettingHolder  extends RecyclerView.ViewHolder  implements View.OnClickListener
-    {
+    public class SettingHolder extends RecyclerView.ViewHolder {
 
 
         TextView textViewTitle, textViewSound, textViewPros;
         ImageView image_icon;
         MaterialRippleLayout materialRippleLayout;
-        View view,layout_view;
+        View view, layout_view;
 
 
-        public SettingHolder(View itemView)
-        {
+        public SettingHolder(View itemView) {
             super(itemView);
             //implementing onClickListener
-            itemView.setOnClickListener(this);
             view = itemView;
 
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
 
-            image_icon = (ImageView)  itemView.findViewById(R.id.setting_list_icon);
+            image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
             textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
             textViewSound = (TextView) itemView.findViewById(R.id.sound_text);
 
             layout_view = (View) itemView.findViewById(R.id.view);
 
 
-
-        }
-        @Override
-        public void onClick(View v)
-        {
-
-                int position  =   getAdapterPosition();
-                Intent intent =  new Intent(context, SoundlistActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-
-
         }
     }
 
 
-
-    private void setlist_border()
-    {
-        if(theme == 0)
-        {
+    private void setlist_border() {
+        if (theme == 0) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background2));
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background3));
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background4));
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background5));
         }
     }
-
 
 
 }

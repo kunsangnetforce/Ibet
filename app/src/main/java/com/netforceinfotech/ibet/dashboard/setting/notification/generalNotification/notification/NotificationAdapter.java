@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification;
+package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.notification;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -27,7 +27,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<String> itemList;
+    private List<NotificationData> itemList;
     private Context context;
     ArrayList<Boolean> booleanGames = new ArrayList<>();
     ArrayList<Integer> setting_icon = new ArrayList<>();
@@ -35,7 +35,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     int theme;
     public static ArrayList<Boolean> arrayListBoolean = new ArrayList<>();
 
-    public NotificationAdapter(Context context, List<String> itemList, ArrayList<Integer> imagelist) {
+    public NotificationAdapter(Context context, List<NotificationData> itemList, ArrayList<Integer> imagelist) {
         this.itemList = itemList;
         this.context = context;
         this.setting_icon = imagelist;
@@ -60,6 +60,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         View view = inflater.inflate(R.layout.row_notification, parent, false);
         viewHolder = new SettingHolder(view);
+        try {
+            arrayListBoolean.clear();
+        } catch (Exception ex) {
+
+        }
         for (int i = 0; i < itemList.size(); i++) {
             arrayListBoolean.add(true);
         }
@@ -70,13 +75,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         SettingHolder settingHolder = (SettingHolder) holder;
-        settingHolder.switchButton.setChecked(arrayListBoolean.get(position));
-        settingHolder.textViewTitle.setText(itemList.get(position));
+        settingHolder.switchButton.setChecked(userSessionManager.getGeneralNotification(itemList.get(position).name + "general"));
+        settingHolder.textViewTitle.setText(itemList.get(position).name);
         settingHolder.image_icon.setImageResource(setting_icon.get(position));
         settingHolder.switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 arrayListBoolean.set(position, b);
+                userSessionManager.setGeneralNotification(itemList.get(position).name + "general", b);
             }
         });
 

@@ -26,6 +26,10 @@ public class UserSessionManager {
     private static final String LOGINMODE = "loginmode";
     private static final String PROFILEPIC = "profilepic";
     private static final String REGREG = "regreg";
+    private static final String SOUND_ON_OFF = "sound_on_off";
+    private static final String BACKGROUND_CROWD = "background_crowd";
+    private static final String WINBET = "winbet";
+    private static final String LOSEBET = "losebet";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -185,7 +189,85 @@ public class UserSessionManager {
         editor.commit();
     }
 
-    public boolean getGCMRegistered() {
-        return pref.getBoolean(REGREG, false);
+    public boolean getGeneralNotification(String name) {
+        return pref.getBoolean(name, true);
+    }
+
+    public void setGeneralNotification(String name, boolean b) {
+        editor.putBoolean(name, b);
+        editor.commit();
+    }
+
+    public String getGeneralNotificationFileName(String name) {
+        return pref.getString(name, "A_tone.mp3");
+    }
+
+    public void setGeneralNotificationFileName(String name, String filename) {
+        editor.putString(name, filename);
+        editor.commit();
+    }
+
+    public String getGeneralNotificationSoundName(String name) {
+        return pref.getString(name, "A Tone");
+    }
+
+    public void setGeneralNotificationSoundName(String event_name, String name) {
+        editor.putString(event_name, name);
+        editor.commit();
+    }
+
+    public String getTeamNotificationFileName(String name) {
+        return pref.getString(name, "A_tone.mp3");
+    }
+
+    public void setTeamNotificationFileName(String name, String filename) {
+        editor.putString(name, filename);
+        editor.commit();
+    }
+
+    public String getTeamNotificationSoundName(String name) {
+        return pref.getString(name, "A Tone");
+    }
+
+    public void setTeamNotificationSoundName(String team_name, String name) {
+        editor.putString(team_name, name);
+        editor.commit();
+    }
+
+
+    public void setSoundOnOff(boolean b) {
+        editor.putBoolean(SOUND_ON_OFF, b);
+        editor.commit();
+    }
+
+    public boolean getSoundOnOff() {
+        return pref.getBoolean(SOUND_ON_OFF, true);
+    }
+
+    public void setBackgroundCrowd(boolean b) {
+        editor.putBoolean(BACKGROUND_CROWD, b);
+        editor.commit();
+    }
+
+    public boolean getBackgroundCrowd() {
+        return pref.getBoolean(BACKGROUND_CROWD, true);
+    }
+
+    public void setWinBet(boolean b) {
+        editor.putBoolean(WINBET, b);
+        editor.commit();
+    }
+
+    public boolean getWinBet() {
+        return pref.getBoolean(WINBET, true);
+    }
+
+    public void setLoseBet(boolean b) {
+        editor.putBoolean(LOSEBET, b);
+        editor.commit();
+    }
+
+    public boolean getLoseBet() {
+        return pref.getBoolean(LOSEBET, true);
     }
 }

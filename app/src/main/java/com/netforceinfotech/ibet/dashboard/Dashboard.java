@@ -237,7 +237,7 @@ Dashboard extends AppCompatActivity {
                     case "Rate us":
                         Toast.makeText(getApplicationContext(), "App url... yet to implement", Toast.LENGTH_SHORT).show();
                         return true;
-                    case "Log out":
+                    case "Logout":
 
                         LoginManager.getInstance().logOut();
                         intent = new Intent(getApplicationContext(), MainActivity.class);

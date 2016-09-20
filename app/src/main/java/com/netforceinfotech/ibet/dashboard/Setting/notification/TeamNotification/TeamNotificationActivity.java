@@ -32,7 +32,6 @@ public class TeamNotificationActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     TeamNotificationAdapter adapter;
     public ArrayList<TeamData> teamDatas = new ArrayList<>();
-    ArrayList<Integer> icon_list = new ArrayList<Integer>();
     ArrayList<Integer> ic_sound_list = new ArrayList<Integer>();
     private Toolbar toolbar;
     Button add_more_notification;
@@ -218,18 +217,12 @@ public class TeamNotificationActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layoutManager);
-
-        icon_list.add(R.drawable.match_reminder);
-        icon_list.add(R.drawable.goal_icon);
-        icon_list.add(R.drawable.red_cardicon);
-        icon_list.add(R.drawable.yellow_card);
-
         teamDatas.add(new TeamData("1", "Man U", "http://man.png"));
-        teamDatas.add(new TeamData("1", "Man City", "http://man.png"));
-        teamDatas.add(new TeamData("1", "Barca", "http://man.png"));
-        teamDatas.add(new TeamData("1", "Inter Minlan", "http://man.png"));
+        teamDatas.add(new TeamData("2", "Man City", "http://man.png"));
+        teamDatas.add(new TeamData("3", "Barca", "http://man.png"));
+        teamDatas.add(new TeamData("4", "Inter Minlan", "http://man.png"));
 
-        adapter = new TeamNotificationAdapter(getApplicationContext(), teamDatas, icon_list);
+        adapter = new TeamNotificationAdapter(getApplicationContext(), teamDatas);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

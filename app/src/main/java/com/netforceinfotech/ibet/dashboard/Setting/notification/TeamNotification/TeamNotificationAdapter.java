@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotificatio
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.soundlist.SoundlistActivity;
 import com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.teamlist.TeamData;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,17 +36,15 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
     private final LayoutInflater inflater;
     public List<TeamData> itemList;
     private Context context;
-    ArrayList<Integer> setting_icon = new ArrayList<>();
     UserSessionManager userSessionManager;
     int theme;
     public static ArrayList<Boolean> arrayListBoolean = new ArrayList<>();
 
 
-    public TeamNotificationAdapter(Context context, List<TeamData> itemList, ArrayList<Integer> imagelist) {
+    public TeamNotificationAdapter(Context context, List<TeamData> itemList) {
 
         this.itemList = itemList;
         this.context = context;
-        this.setting_icon = imagelist;
         inflater = LayoutInflater.from(context);
         userSessionManager = new UserSessionManager(context);
         theme = userSessionManager.getTheme();
@@ -68,9 +68,9 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         View view = inflater.inflate(R.layout.row_teamnotification, parent, false);
         viewHolder = new SettingHolder(view);
-        try{
+        try {
             arrayListBoolean.clear();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         for (int i = 0; i < itemList.size(); i++) {
@@ -84,9 +84,13 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
-        final SettingHolder settingHolder= (SettingHolder) holder;
+        final SettingHolder settingHolder = (SettingHolder) holder;
         settingHolder.textViewTitle.setText(itemList.get(position).name);
-        settingHolder.image_icon.setImageResource(setting_icon.get(position));
+        try {
+            Picasso.with(context).load(itemList.get(position).logo).error(R.drawable.ic_error).into(settingHolder.image_icon);
+        } catch (Exception ex) {
+            Picasso.with(context).load(R.drawable.ic_error).into(settingHolder.image_icon);
+        }
 
 
         setlist_border();
@@ -100,13 +104,27 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
         settingHolder.sound_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(userSessionManager.getTeamNotification(itemList.get(position).name)){
-                    userSessionManager.setTeamNotification(itemList.get(position).name,false);
+                if (userSessionManager.getTeamNotification(itemList.get(position).name)) {
+                    userSessionManager.setTeamNotification(itemList.get(position).name, false);
                     settingHolder.sound_icon.setImageResource(R.drawable.teammute_icon);
-                }else {
-                    userSessionManager.setTeamNotification(itemList.get(position).name,true);
+                } else {
+                    userSessionManager.setTeamNotification(itemList.get(position).name, true);
                     settingHolder.sound_icon.setImageResource(R.drawable.teammusic_icon);
                 }
+            }
+        });
+        settingHolder.setting_image_icon.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SoundlistActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("teamname", itemList.get(position).name);
+                bundle.putString("teamid", itemList.get(position).id);
+                intent.putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+
             }
         });
 
@@ -198,19 +216,6 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 }
             });
-
-
-            setting_image_icon.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, SoundlistActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-
-                }
-            });
-
 
         }
 

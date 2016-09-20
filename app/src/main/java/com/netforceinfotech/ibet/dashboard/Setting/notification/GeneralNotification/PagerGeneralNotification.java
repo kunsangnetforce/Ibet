@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.notification.NotificationFragment;
+import com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.sound.SoundFragment;
+
 /**
  * Created by John on 7/25/2016.
  */
