@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.netforceinfotech.ibet.R;
@@ -17,74 +19,69 @@ import com.netforceinfotech.ibet.general.UserSessionManager;
 import java.util.ArrayList;
 
 
-public class NotificationFragment extends Fragment
-{
+public class NotificationFragment extends Fragment {
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     NotificationAdapter adapter;
     ArrayList<String> notificationDatas = new ArrayList<String>();
-
+    CheckBox checkBox;
     ArrayList<Integer> icon_list = new ArrayList<Integer>();
 
-    Context  context;
+    Context context;
     LinearLayout general_notification_layout;
 
     private UserSessionManager userSessionManager;
     int theme;
 
-    public NotificationFragment()
-    {
+    public NotificationFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
         context = getActivity();
-
+        checkBox = (CheckBox) view.findViewById(R.id.checkbox);
         userSessionManager = new UserSessionManager(getActivity());
-
         theme = userSessionManager.getTheme();
-
         setupRecyclerView(view);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    for (int i = 0; i < NotificationAdapter.arrayListBoolean.size(); i++) {
+                        NotificationAdapter.arrayListBoolean.set(i, true);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
         return view;
     }
 
-    private void setupRecyclerView(View view)
-    {
+    private void setupRecyclerView(View view) {
 
         general_notification_layout = (LinearLayout) view.findViewById(R.id.notification_layout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
 
-
-        if(theme == 0)
-        {
+        if (theme == 0) {
             general_notification_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme1));
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
             general_notification_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme2));
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
             general_notification_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme3));
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
             general_notification_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme4));
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
             general_notification_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme5));
         }
 
@@ -108,15 +105,13 @@ public class NotificationFragment extends Fragment
         notificationDatas.add("Final");
 
 
-
         adapter = new NotificationAdapter(getActivity(), notificationDatas, icon_list);
         recyclerView.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
 
 
-        recyclerView.setOnClickListener(new View.OnClickListener()
-        {
+        recyclerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

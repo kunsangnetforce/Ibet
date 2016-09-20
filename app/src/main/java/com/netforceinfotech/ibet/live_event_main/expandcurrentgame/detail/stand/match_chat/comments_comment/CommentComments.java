@@ -48,6 +48,8 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
     TextView textViewLC, textViewDC, textViewSC, textViewComment, textViewDate, textViewTime;
     Long timestamp;
     boolean buttonclicked = false;
+    String from;
+    private String betid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
             Bundle bundle = getIntent().getExtras();
             matchid = bundle.getString("matchid");
             team = bundle.getString("team");
+            from = bundle.getString("from");
+            betid = bundle.getString("bet_id");
             commentkey = bundle.getString("commentkey");
             comment = bundle.getString("comment");
             dislikecount = bundle.getString("dislikecount");
@@ -99,8 +103,21 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
 
     private void setupFirebase() {
         _root = FirebaseDatabase.getInstance().getReference();
+        if (from.equalsIgnoreCase("all")) {
+            try {
+                _comments = _root.child("all").child(matchid).child(team).child("comments").child(commentkey).child("comments");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        } else {
+            try {
+                _comments = _root.child("bet").child(betid).child(team).child("comments").child(commentkey).child("comments");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         try {
-            _comments = _root.child("all").child(matchid).child(team).child("comments").child(commentkey).child("comments");
             _comments.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -139,13 +156,14 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
             });
         } catch (Exception ex) {
             showMessage("firebase error");
+            ex.printStackTrace();
         }
 
     }
 
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        adapter = new CCAdapter(context, ccDatas, matchid, team);
+        adapter = new CCAdapter(context, ccDatas, matchid, team, betid, from);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -203,7 +221,12 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
     }
 
     public void runTransaction() {
-        DatabaseReference _count = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(commentkey).child("count");
+        DatabaseReference _count;
+        if (from.equalsIgnoreCase("all")) {
+            _count = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(commentkey).child("count");
+        } else {
+            _count = FirebaseDatabase.getInstance().getReference().child("bet").child(betid).child(team).child("comments").child(commentkey).child("count");
+        }
         _count.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData currentData) {
@@ -217,7 +240,7 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                showMessage("something is wrong");
+
             }
         });
     }

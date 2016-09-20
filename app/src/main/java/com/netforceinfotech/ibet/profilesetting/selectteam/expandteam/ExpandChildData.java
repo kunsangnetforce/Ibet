@@ -11,4 +11,14 @@ public class ExpandChildData {
         this.name = name;
         this.logo = logo;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ExpandChildData)) {
+            return false;
+        }
+
+        ExpandChildData that = (ExpandChildData) obj;
+        return this.id.equals(that.id);
+    }
 }

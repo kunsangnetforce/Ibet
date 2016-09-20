@@ -158,6 +158,7 @@
                 app:mrl_rippleOverlay="true">
 
                 <Button
+                    android:id="@+id/buttonSetTeam"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/accent"
@@ -175,6 +176,7 @@
                 app:mrl_rippleOverlay="true">
 
                 <Button
+                    android:id="@+id/buttonDone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/green"

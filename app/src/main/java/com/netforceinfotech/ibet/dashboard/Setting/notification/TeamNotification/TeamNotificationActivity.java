@@ -2,9 +2,9 @@ package com.netforceinfotech.ibet.dashboard.setting.notification.teamNotificatio
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,22 +13,25 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.teamlist.TeamData;
 import com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.teamlist.TeamlistActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
 
-public class TeamNotificationActivity extends AppCompatActivity
-{
+public class TeamNotificationActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     TeamNotificationAdapter adapter;
-    ArrayList<String> teamDatas = new ArrayList<String>();
+    public ArrayList<TeamData> teamDatas = new ArrayList<>();
     ArrayList<Integer> icon_list = new ArrayList<Integer>();
     ArrayList<Integer> ic_sound_list = new ArrayList<Integer>();
     private Toolbar toolbar;
@@ -37,12 +40,12 @@ public class TeamNotificationActivity extends AppCompatActivity
     RelativeLayout team_layout;
     int theme;
     Window window;
-    ImageView mute_image;
+    CheckBox radioButton;
+    ImageView imageViewMute;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_notification);
@@ -57,141 +60,71 @@ public class TeamNotificationActivity extends AppCompatActivity
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-        if (theme == 0)
-        {
+        if (theme == 0) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
 
-        }
-        else if (theme == 2)
-        {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+        } else if (theme == 2) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
             }
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
             }
-        }
-        else if (theme == 4)
-        {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+        } else if (theme == 4) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
             }
         }
 
+        initView();
         setupToolBar("Team Notification");
         setupRecyclerView();
     }
 
-    private void setupToolBar(String title)
-    {
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+    private void initView() {
+        radioButton = (CheckBox) findViewById(R.id.radioButton);
+        radioButton.setChecked(false);
         team_layout = (RelativeLayout) findViewById(R.id.teamnotification_layout);
 
         add_more_notification = (Button) findViewById(R.id.button_add_notifiaction);
 
-        mute_image = (ImageView) findViewById(R.id.mute_image);
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String teams = title;
-        getSupportActionBar().setTitle(teams);
+        imageViewMute = (ImageView) findViewById(R.id.imageViewMute);
 
 
-        if (theme == 0)
-        {
-
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
-
-        }
-        else if (theme == 1)
-        {
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
-
-        }
-        else if (theme == 2)
-        {
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
-
-        }
-        else if (theme == 3)
-        {
-
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
-
-        }
-        else if (theme == 4)
-        {
-
-            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme5));
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
-
-
-
-        }
-
-        mute_image.setOnClickListener(new View.OnClickListener()
-        {
+        imageViewMute.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
                 ic_sound_list.clear();
-
-                ic_sound_list.add(R.drawable.teammute_icon);
-                ic_sound_list.add(R.drawable.teammute_icon);
-                ic_sound_list.add(R.drawable.teammute_icon);
-                ic_sound_list.add(R.drawable.teammute_icon);
-
-                adapter = new TeamNotificationAdapter(getApplicationContext(), teamDatas, icon_list);
-                recyclerView.setAdapter(adapter);
-
-                adapter.notifyDataSetChanged();
+                radioButton.toggle();
                 userSessionManager.setMuteAllNotification(false);
 
             }
         });
 
 
-        add_more_notification.setOnClickListener(new View.OnClickListener()
-        {
+        add_more_notification.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
                 Intent intent = new Intent(TeamNotificationActivity.this, TeamlistActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -200,15 +133,73 @@ public class TeamNotificationActivity extends AppCompatActivity
 
             }
         });
+        radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    for (int i = 0; i < TeamNotificationAdapter.arrayListBoolean.size(); i++) {
+                        TeamNotificationAdapter.arrayListBoolean.set(i, true);
+                        //userSessionManager.getTeamNotification(itemList.get(position).name);
+                        userSessionManager.setTeamNotification(teamDatas.get(i).name, true);
+                    }
+                    imageViewMute.setImageResource(R.drawable.ic_volume);
+
+                } else {
+                    imageViewMute.setImageResource(R.drawable.ic_volume_mute);
+                    for (int i = 0; i < TeamNotificationAdapter.arrayListBoolean.size(); i++) {
+                        TeamNotificationAdapter.arrayListBoolean.set(i, false);
+                        //userSessionManager.getTeamNotification(itemList.get(position).name);
+                        userSessionManager.setTeamNotification(teamDatas.get(i).name, false);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+    }
+
+    private void setupToolBar(String title) {
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String teams = title;
+        getSupportActionBar().setTitle(teams);
+
+
+        if (theme == 0) {
+
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
+
+        } else if (theme == 1) {
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
+
+        } else if (theme == 2) {
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
+
+        } else if (theme == 3) {
+
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
+
+        } else if (theme == 4) {
+
+            team_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme5));
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
+
+
+        }
 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -221,8 +212,7 @@ public class TeamNotificationActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupRecyclerView()
-    {
+    private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
@@ -234,10 +224,10 @@ public class TeamNotificationActivity extends AppCompatActivity
         icon_list.add(R.drawable.red_cardicon);
         icon_list.add(R.drawable.yellow_card);
 
-        teamDatas.add("Manchester United");
-        teamDatas.add("Real Madrid");
-        teamDatas.add("Fc Barcelona");
-        teamDatas.add("Hapeol Beer Sheva");
+        teamDatas.add(new TeamData("1", "Man U", "http://man.png"));
+        teamDatas.add(new TeamData("1", "Man City", "http://man.png"));
+        teamDatas.add(new TeamData("1", "Barca", "http://man.png"));
+        teamDatas.add(new TeamData("1", "Inter Minlan", "http://man.png"));
 
         adapter = new TeamNotificationAdapter(getApplicationContext(), teamDatas, icon_list);
         recyclerView.setAdapter(adapter);
