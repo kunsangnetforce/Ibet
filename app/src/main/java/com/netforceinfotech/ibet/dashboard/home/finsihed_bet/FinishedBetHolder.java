@@ -14,7 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class FinishedBetHolder extends RecyclerView.ViewHolder {
 
-    //String userdp,name, selectedteamlogo, selectedteamname, numberparticipant, numberpost, time, teamalogo, teamblogo, teamaname, teambname, betstatus, betid;
+    //String userdp,name, selectedteamlogo, selectedteamname, numberparticipant, numberpost, time, home_logo, away_logo, home_name, away_name, betstatus, betid;
     TextView textViewDetail, textViewName, textViewSelectedName, textViewNumberOfParticipants, textViewNumberPost, textViewTime, textViewTeamA, textViewTeamB, textViewBetStatus;
     ImageView imageViewSelectedTeamLogo, imageViewTeamA, imageViewTeamB;
     CircleImageView imageViewDp;

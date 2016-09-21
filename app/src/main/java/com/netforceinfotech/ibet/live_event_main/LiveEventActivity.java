@@ -23,7 +23,7 @@ public class LiveEventActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         teamaname = bundle.getString("home_name");
         teambname = bundle.getString("away_name");
-        teamaid = bundle.getString("home_id");
+        teamaid = bundle.getString("away_id");
         teambid = bundle.getString("away_id");
         matchid = bundle.getString("match_id");
         logoa = bundle.getString("home_logo");

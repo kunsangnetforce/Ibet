@@ -52,7 +52,7 @@ public class SummaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_summary, container, false);
         context = getActivity();
         initview(view);
-        String matchid = this.getArguments().getString("matchid");
+        String matchid = this.getArguments().getString("match_id");
         getStatistic(matchid);
         return view;
     }

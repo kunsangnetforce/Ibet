@@ -43,7 +43,7 @@ public class StandFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_stand, container, false);
         context = getActivity();
         try {
-            home_id = this.getArguments().getString("home_id");
+            home_id = this.getArguments().getString("away_id");
             away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");
@@ -79,7 +79,7 @@ public class StandFragment extends Fragment implements View.OnClickListener {
                 intent = new Intent(context, StandActivity.class);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
-                bundle.putString("home_id", home_id);
+                bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("match_id", match_id);
                 bundle.putString("team", "nuetral");
@@ -92,7 +92,7 @@ public class StandFragment extends Fragment implements View.OnClickListener {
                 intent = new Intent(context, StandActivity.class);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
-                bundle.putString("home_id", home_id);
+                bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("match_id", match_id);
                 bundle.putString("team", "home");
@@ -105,7 +105,7 @@ public class StandFragment extends Fragment implements View.OnClickListener {
                 intent = new Intent(context, StandActivity.class);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
-                bundle.putString("home_id", home_id);
+                bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("match_id", match_id);
                 bundle.putString("team", "away");

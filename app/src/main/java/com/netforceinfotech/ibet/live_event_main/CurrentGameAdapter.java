@@ -69,7 +69,7 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 Bundle bundle = new Bundle();
                 Log.i("kunsangadapter",matchid+" "+teamaid+" "+teambid);
 
-                bundle.putString("home_id", teamaid);
+                bundle.putString("away_id", teamaid);
                 bundle.putString("away_id", teambid);
                 bundle.putString("home_name", teama);
                 bundle.putString("away_name", teamb);

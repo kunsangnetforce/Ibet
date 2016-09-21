@@ -37,7 +37,7 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         theme = userSessionManager.getTheme();
         Bundle bundle = getIntent().getExtras();
         try {
-            home_id = bundle.getString("home_id");
+            home_id = bundle.getString("away_id");
             away_id = bundle.getString("away_id");
             home_logo = bundle.getString("home_logo");
             away_logo = bundle.getString("away_logo");

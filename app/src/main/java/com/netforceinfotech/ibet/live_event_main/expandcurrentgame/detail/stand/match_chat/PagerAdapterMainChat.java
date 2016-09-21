@@ -38,7 +38,7 @@ public class PagerAdapterMainChat extends FragmentStatePagerAdapter {
             case 0:
                 AllFragment home = new AllFragment();
                 bundle.putString("match_id", match_id);
-                bundle.putString("home_id", home_id);
+                bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
@@ -50,7 +50,7 @@ public class PagerAdapterMainChat extends FragmentStatePagerAdapter {
             case 1:
                 TopFragment currentBet = new TopFragment();
                 bundle.putString("match_id", match_id);
-                bundle.putString("home_id", home_id);
+                bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
@@ -63,7 +63,7 @@ public class PagerAdapterMainChat extends FragmentStatePagerAdapter {
             case 2:
                 FriendFragment betDetailFragment = new FriendFragment();
                 bundle.putString("match_id", match_id);
-                bundle.putString("home_id", home_id);
+                bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);

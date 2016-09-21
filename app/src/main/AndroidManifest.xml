@@ -44,7 +44,7 @@
             android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.home.detail_bet_to_join.WhoWillWinActivity"
+            android:name=".dashboard.home.startnewbet.create_bet.WhoWillWinActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.home.startnewbet.StartNewBetActivity"

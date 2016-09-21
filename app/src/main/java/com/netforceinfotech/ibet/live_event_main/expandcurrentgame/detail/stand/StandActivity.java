@@ -109,7 +109,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
             team = bundle.getString("team");
             home_name = bundle.getString("home_name");
             away_name = bundle.getString("away_name");
-            home_id = bundle.getString("home_id");
+            home_id = bundle.getString("away_id");
             away_id = bundle.getString("away_id");
             match_id = bundle.getString("match_id");
             home_logo = bundle.getString("home_logo");

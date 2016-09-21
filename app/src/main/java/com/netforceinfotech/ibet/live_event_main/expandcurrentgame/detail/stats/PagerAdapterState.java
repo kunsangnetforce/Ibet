@@ -43,7 +43,7 @@ public class PagerAdapterState extends FragmentStatePagerAdapter {
                 TableFragment liveEvents = new TableFragment();
                 bundle = new Bundle();
                 bundle.putString("match_id", match_id);
-                bundle.putString("home_id", home_id);
+                bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
                 return liveEvents;
 

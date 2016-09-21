@@ -127,7 +127,7 @@ public class LineUpFragment extends Fragment {
             e.printStackTrace();
         }
         String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
-        // url = url + "/events_by_match_id.php?match_id=" + match_id + "&home_team_id=" + teamaid + "&away_team_id=" + teambid;
+        // url = url + "/events_by_match_id.php?match_id=" + match_id + "&home_team_id=" + home_id + "&away_team_id=" + away_id;
         // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
         setHeader();
         Ion.with(context)

@@ -101,11 +101,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 Bundle bundle = new Bundle();
                 Log.i("kunsangadapter", matchid + " " + teamaid + " " + teambid);
 
-                bundle.putString("teamaid", teamaid);
-                bundle.putString("teambid", teambid);
-                bundle.putString("teama", teama);
-                bundle.putString("teamb", teamb);
-                bundle.putString("matchid", matchid);
+                bundle.putString("home_id", teamaid);
+                bundle.putString("away_id", teambid);
+                bundle.putString("home_name", teama);
+                bundle.putString("away_name", teamb);
+                bundle.putString("match_id", matchid);
                 intent.putExtras(bundle);
                 _context.startActivity(intent);
             }

@@ -50,6 +50,7 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         for (int i = 0; i < itemList.size(); i++) {
             if (i == 0) {
                 booleanGames.add(true);
+                UpComingGamesFragment.match_id = itemList.get(i).match_id;
             } else {
                 booleanGames.add(false);
             }
@@ -69,17 +70,24 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((UpcomingGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
         }
         Log.i("ibet_position", "" + position);
-        UpcomingGameHolder upcomingGameHolder = (UpcomingGameHolder) holder;
+        final UpcomingGameHolder upcomingGameHolder = (UpcomingGameHolder) holder;
         upcomingGameHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 for (int i = 0; i < itemList.size(); i++) {
                     if (i == position) {
-                        ((UpcomingGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
+                        upcomingGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
                         booleanGames.set(position, true);
+                        UpComingGamesFragment.match_id = itemList.get(position).match_id;
+                        UpComingGamesFragment.home_logo = itemList.get(position).home_logo;
+                        UpComingGamesFragment.away_logo = itemList.get(position).away_logo;
+                        UpComingGamesFragment.home_name = itemList.get(position).home_name;
+                        UpComingGamesFragment.away_name = itemList.get(position).away_name;
+                        UpComingGamesFragment.away_id = itemList.get(position).away_id;
+                        UpComingGamesFragment.home_id = itemList.get(position).home_id;
+
                     } else {
-                        ((UpcomingGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
+                        upcomingGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
                         booleanGames.set(i, false);
                     }
                 }
@@ -87,21 +95,21 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             }
         });
-        upcomingGameHolder.textViewTeamA.setText(itemList.get(position).teama);
-        upcomingGameHolder.textViewTeamB.setText(itemList.get(position).teamb);
-        upcomingGameHolder.textView.setText(itemList.get(position).teama + " vs " + itemList.get(position).teamb);
-        if (itemList.get(position).logob.length() > 1) {
+        upcomingGameHolder.textViewTeamA.setText(itemList.get(position).home_name);
+        upcomingGameHolder.textViewTeamB.setText(itemList.get(position).away_name);
+        upcomingGameHolder.textView.setText(itemList.get(position).home_name + " vs " + itemList.get(position).away_name);
+        if (itemList.get(position).away_logo.length() > 1) {
             Picasso.with(context)
-                    .load(itemList.get(position).logob)
+                    .load(itemList.get(position).away_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(upcomingGameHolder.teamb);
         } else {
             upcomingGameHolder.teamb.setImageResource(R.drawable.ic_error);
         }
-        if (itemList.get(position).logoa.length() > 1) {
+        if (itemList.get(position).home_logo.length() > 1) {
             Picasso.with(context)
-                    .load(itemList.get(position).logoa)
+                    .load(itemList.get(position).home_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(upcomingGameHolder.teama);

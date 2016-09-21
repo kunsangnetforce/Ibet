@@ -80,7 +80,7 @@ public class FinsihedBet extends Fragment {
         } catch (Exception ex) {
 
         }
-        //String name, selectedteamlogo, selectedteamname, numberparticipant, numberpost, time, teamalogo, teamblogo, teamaname, teambname, betstatus, betid;
+        //String name, selectedteamlogo, selectedteamname, numberparticipant, numberpost, time, home_logo, away_logo, home_name, away_name, betstatus, betid;
         FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
         FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
         FinsihedDatas.add(new FinsihedData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
