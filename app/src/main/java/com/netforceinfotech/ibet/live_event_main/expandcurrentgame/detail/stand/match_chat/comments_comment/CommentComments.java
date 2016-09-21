@@ -61,7 +61,7 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
         try {
 
             Bundle bundle = getIntent().getExtras();
-            matchid = bundle.getString("matchid");
+            matchid = bundle.getString("match_id");
             team = bundle.getString("team");
             from = bundle.getString("from");
             betid = bundle.getString("bet_id");

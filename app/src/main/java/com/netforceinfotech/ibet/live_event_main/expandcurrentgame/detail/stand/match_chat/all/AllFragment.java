@@ -84,7 +84,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         imageViewSend.setOnClickListener(this);
 
         try {
-            home_id = this.getArguments().getString("home_id");
+            home_id = this.getArguments().getString("away_id");
             away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");

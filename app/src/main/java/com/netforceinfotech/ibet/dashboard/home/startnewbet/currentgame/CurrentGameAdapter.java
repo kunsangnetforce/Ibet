@@ -42,7 +42,7 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         for (int i = 0; i < itemList.size(); i++) {
             if (i == 0) {
                 booleanGames.add(true);
-                CurrentGameFragment.matchid = itemList.get(i).matchid;
+                CurrentGameFragment.match_id = itemList.get(i).match_id;
             } else {
                 booleanGames.add(false);
             }
@@ -74,11 +74,13 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     if (i == position) {
                         currentGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
                         booleanGames.set(position, true);
-                        CurrentGameFragment.matchid = itemList.get(position).matchid;
-                        CurrentGameFragment.teamalogo=itemList.get(position).logoa;
-                        CurrentGameFragment.teamblogo=itemList.get(position).logob;
-                        CurrentGameFragment.teamaname=itemList.get(position).teama;
-                        CurrentGameFragment.teambname=itemList.get(position).teamb;
+                        CurrentGameFragment.match_id = itemList.get(position).match_id;
+                        CurrentGameFragment.home_logo = itemList.get(position).home_logo;
+                        CurrentGameFragment.away_logo = itemList.get(position).away_logo;
+                        CurrentGameFragment.home_name = itemList.get(position).home_name;
+                        CurrentGameFragment.away_name = itemList.get(position).away_name;
+                        CurrentGameFragment.away_id = itemList.get(position).away_id;
+                        CurrentGameFragment.home_id = itemList.get(position).home_id;
 
                     } else {
                         currentGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
@@ -88,21 +90,21 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 notifyDataSetChanged();
             }
         });
-        currentGameHolder.textViewTeamA.setText(itemList.get(position).teama);
-        currentGameHolder.textViewTeamB.setText(itemList.get(position).teamb);
-        currentGameHolder.textView.setText(itemList.get(position).teama + " vs " + itemList.get(position).teamb);
-        if (itemList.get(position).logob.length() > 1) {
+        currentGameHolder.textViewTeamA.setText(itemList.get(position).home_name);
+        currentGameHolder.textViewTeamB.setText(itemList.get(position).away_name);
+        currentGameHolder.textView.setText(itemList.get(position).home_name + " vs " + itemList.get(position).away_name);
+        if (itemList.get(position).away_logo.length() > 1) {
             Picasso.with(context)
-                    .load(itemList.get(position).logob)
+                    .load(itemList.get(position).away_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(currentGameHolder.teamb);
         } else {
             currentGameHolder.teamb.setImageResource(R.drawable.ic_error);
         }
-        if (itemList.get(position).logoa.length() > 1) {
+        if (itemList.get(position).home_logo.length() > 1) {
             Picasso.with(context)
-                    .load(itemList.get(position).logoa)
+                    .load(itemList.get(position).home_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(currentGameHolder.teama);

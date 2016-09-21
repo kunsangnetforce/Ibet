@@ -13,9 +13,6 @@ import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.DetailBetToJoin;
-import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.WhoWillWinActivity;
-import com.netforceinfotech.ibet.dashboard.home.detail_finished_bet.DetailFinishedBet;
-import com.netforceinfotech.ibet.dashboard.home.finsihed_bet.FinishedBetHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

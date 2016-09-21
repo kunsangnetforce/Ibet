@@ -4,7 +4,6 @@ package com.netforceinfotech.ibet.dashboard.home.startnewbet.currentgame;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,12 +16,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,7 +27,7 @@ import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.WhoWillWinActivity;
+import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.WhoWillWinActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import org.json.JSONArray;
@@ -57,12 +53,12 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
     LinearLayout linearLayout;
     Button buttonNext;
     int theme;
-    public static String matchid = "";
     TextView textViewBetamount;
     private EditText editTextPopupBetAmount;
     private String betamountString;
-    public static String teamaname, teambname, teamalogo, teamblogo;
-
+    public static String home_name, away_name, home_logo, away_logo;
+    public static String match_id = "";
+    public static String home_id,away_id;
     public CurrentGameFragment() {
         // Required empty public constructor
     }
@@ -207,11 +203,13 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
             case R.id.buttonNext:
                 Intent intent = new Intent(context, WhoWillWinActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("matchid", matchid);
-                bundle.putString("teamaname", teamaname);
-                bundle.putString("teambname", teambname);
-                bundle.putString("teamalogo", teamalogo);
-                bundle.putString("teamblogo", teamblogo);
+                bundle.putString("match_id", match_id);
+                bundle.putString("away_id", home_id);
+                bundle.putString("away_id", away_id);
+                bundle.putString("home_name", home_name);
+                bundle.putString("away_name", away_name);
+                bundle.putString("home_logo", home_logo);
+                bundle.putString("away_logo", away_logo);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

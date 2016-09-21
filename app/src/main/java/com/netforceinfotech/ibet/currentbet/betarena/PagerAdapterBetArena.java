@@ -40,7 +40,7 @@ public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
                 LiveEventFragment home = new LiveEventFragment();
                 bundle.putString("bet_id", bet_id);
                 bundle.putString("match_id", bet_id);
-                bundle.putString("home_id", bet_id);
+                bundle.putString("away_id", bet_id);
                 bundle.putString("away_id", bet_id);
                 bundle.putString("home_name", bet_id);
                 bundle.putString("away_name", bet_id);
@@ -52,7 +52,7 @@ public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
                 StateFragment currentBet = new StateFragment();
                 bundle.putString("bet_id", bet_id);
                 bundle.putString("match_id", bet_id);
-                bundle.putString("home_id", bet_id);
+                bundle.putString("away_id", bet_id);
                 bundle.putString("away_id", bet_id);
                 bundle.putString("home_name", bet_id);
                 bundle.putString("away_name", bet_id);
@@ -64,7 +64,7 @@ public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
                 BetDetailFragment betDetailFragment = new BetDetailFragment();
                 bundle.putString("bet_id", bet_id);
                 bundle.putString("match_id", bet_id);
-                bundle.putString("home_id", bet_id);
+                bundle.putString("away_id", bet_id);
                 bundle.putString("away_id", bet_id);
                 bundle.putString("home_name", bet_id);
                 bundle.putString("away_name", bet_id);
@@ -76,7 +76,7 @@ public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
                 TheArenaFragment theArenaFragment = new TheArenaFragment();
                 bundle.putString("bet_id", bet_id);
                 bundle.putString("match_id", bet_id);
-                bundle.putString("home_id", bet_id);
+                bundle.putString("away_id", bet_id);
                 bundle.putString("away_id", bet_id);
                 bundle.putString("home_name", bet_id);
                 bundle.putString("away_name", bet_id);

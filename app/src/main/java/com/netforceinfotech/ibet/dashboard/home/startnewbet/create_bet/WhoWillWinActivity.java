@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join;
+package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.CreateBet;
 import com.squareup.picasso.Picasso;
 
 public class WhoWillWinActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -32,10 +31,10 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
     ImageView imageViewTeamA, imageViewTeamB, imageViewHomeIncrement, imageViewHomeDecrement, imageViewAwayIncrement, imageViewAwayDecrement;
     RelativeLayout relativeLayoutBetAmount;
     TextView textViewBetamount, textViewTeamA, textViewTeamB, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway;
-    String matchid;
+    String match_id;
     private String betamountString;
     private EditText editTextPopupBetAmount;
-    String teama, teamb, teamalogo, teamblogo;
+    String home_name, home_logo, away_logo, away_name, home_id, away_id;
     int homescore = 0, awayscore = 0;
     RadioButton radioButtonHome, radioButtonDraw, radioButtonAway;
     public static String selectedteam, stringbetoption = "0";
@@ -50,12 +49,13 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         Bundle bundle = getIntent().getExtras();
         context = this;
         try {
-            matchid = bundle.getString("matchid");
-            teama = bundle.getString("teamaname");
-            teama = bundle.getString("teambname");
-            teamalogo = bundle.getString("teamalogo");
-            teamblogo = bundle.getString("teamblogo");
-            Log.i("kunsangbundle", matchid + ":" + teama + ":" + teamb + ":" + teamalogo + ":" + teamblogo);
+            match_id = bundle.getString("match_id");
+            home_name = bundle.getString("home_name");
+            away_name = bundle.getString("away_name");
+            home_logo = bundle.getString("home_logo");
+            away_logo = bundle.getString("away_logo");
+            home_id = bundle.getString("home_id");
+            away_id = bundle.getString("away_id");
 
         } catch (Exception ex) {
             showMessage("Bundle error");
@@ -75,17 +75,17 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             }
         });
         try {
-            Picasso.with(context).load(teamalogo).error(R.drawable.ic_error).into(imageViewTeamA);
+            Picasso.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
         } catch (Exception ex) {
             Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
         }
         try {
-            Picasso.with(context).load(teamblogo).error(R.drawable.ic_error).into(imageViewTeamB);
+            Picasso.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         } catch (Exception ex) {
             Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
         }
-        textViewTeamA.setText(teama);
-        textViewTeamB.setText(teamb);
+        textViewTeamA.setText(home_name);
+        textViewTeamB.setText(away_name);
 
     }
 

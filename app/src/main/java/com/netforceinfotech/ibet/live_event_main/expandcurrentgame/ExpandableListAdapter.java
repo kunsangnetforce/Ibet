@@ -103,7 +103,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 Bundle bundle = new Bundle();
                 Log.i("kunsangadapter", match_id + " " + home_id + " " + away_id);
 
-                bundle.putString("home_id", home_id);
+                bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);

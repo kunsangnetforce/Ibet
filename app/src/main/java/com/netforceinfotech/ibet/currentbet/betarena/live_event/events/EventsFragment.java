@@ -79,7 +79,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         context = getActivity();
         try {
-            home_id = this.getArguments().getString("home_id");
+            home_id = this.getArguments().getString("away_id");
             away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");

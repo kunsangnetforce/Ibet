@@ -32,8 +32,8 @@ public class LiveEventFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_live_event, container, false);
         try {
-            // teamaid = this.getArguments().getString("teamaid");
-            home_id = this.getArguments().getString("home_id");
+            // home_id = this.getArguments().getString("home_id");
+            home_id = this.getArguments().getString("away_id");
             away_id = this.getArguments().getString("away_id");
             home_name = this.getArguments().getString("home_name");
             away_name = this.getArguments().getString("away_name");
