@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/coordinatorlayout"
     android:background="@color/colorPrimary"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="16dp"
     tools:context=".dashboard.home.detail_bet_to_join.DetailBetToJoin">
-
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -39,6 +43,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textViewMSI"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -46,6 +51,7 @@
                 android:paddingBottom="6dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
+                android:textColor="@color/white"
                 android:paddingTop="6dp"
                 android:text="Match starts in " />
 
@@ -142,6 +148,7 @@
                             android:src="@drawable/img_dollor_small" />
 
                         <TextView
+                            android:id="@+id/textViewBetamount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="150"
@@ -194,6 +201,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -209,6 +217,7 @@
                     android:layout_weight="40">
 
                     <TextView
+                        android:id="@+id/textViewPlayer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -224,6 +233,7 @@
                     android:layout_weight="20">
 
                     <TextView
+                        android:id="@+id/textViewResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -239,6 +249,7 @@
                     android:layout_weight="20">
 
                     <TextView
+                        android:id="@+id/textViewTeam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -254,6 +265,7 @@
                     android:layout_weight="20">
 
                     <TextView
+                        android:id="@+id/textViewScore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -294,6 +306,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewLoserMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimaryDark"
@@ -345,3 +358,4 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

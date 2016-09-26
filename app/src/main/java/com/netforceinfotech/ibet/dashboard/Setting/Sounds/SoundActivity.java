@@ -92,14 +92,14 @@ public class SoundActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    userSessionManager.setSoundOnOff(true);
-                    userSessionManager.setBackgroundCrowd(true);
-                    userSessionManager.setWinBet(true);
-                    userSessionManager.setLoseBet(true);
-                    soundDatas.get(0).status = true;
-                    soundDatas.get(1).status = true;
-                    soundDatas.get(2).status = true;
-                    soundDatas.get(3).status = true;
+                    userSessionManager.setSoundOnOff(false);
+                    userSessionManager.setBackgroundCrowd(false);
+                    userSessionManager.setWinBet(false);
+                    userSessionManager.setLoseBet(false);
+                    soundDatas.get(0).status = false;
+                    soundDatas.get(1).status = false;
+                    soundDatas.get(2).status = false;
+                    soundDatas.get(3).status = false;
                     adapter.notifyDataSetChanged();
                 }
             }

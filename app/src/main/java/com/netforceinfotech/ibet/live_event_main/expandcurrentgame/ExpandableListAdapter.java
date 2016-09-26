@@ -7,22 +7,29 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.live_event_main.CurrentGameData;
 import com.netforceinfotech.ibet.live_event_main.LiveEventActivity;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
+    UserSessionManager userSessionManager;
     private Context _context;
     private ArrayList<ExpandHeaderData> _listDataHeader; // header titles
     // child data in format of header title, child title
@@ -33,6 +40,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
+        userSessionManager = new UserSessionManager(context);
     }
 
     @Override
@@ -56,6 +64,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.row_live_event, null);
         }
+        LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.linearLayout);
+        TextView textViewVs = (TextView) convertView.findViewById(R.id.textViewVs);
         ImageView imageViewTeamA, imageViewTeamB;
         TextView textViewTeamA, textViewTeamB;
         MaterialRippleLayout materialRippleLayout;
@@ -98,22 +108,61 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 String match_id = currentGameData.matchid;
                 String home_name = currentGameData.teama;
                 String away_name = currentGameData.teamb;
-                String home_logo=currentGameData.logoa;
-                String away_logo=currentGameData.logob;
+                String home_logo = currentGameData.logoa;
+                String away_logo = currentGameData.logob;
                 Bundle bundle = new Bundle();
                 Log.i("kunsangadapter", match_id + " " + home_id + " " + away_id);
 
-                bundle.putString("away_id", home_id);
+                bundle.putString("home_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
                 bundle.putString("match_id", match_id);
-                bundle.putString("home_logo",home_logo);
-                bundle.putString("away_logo",away_logo);
+                bundle.putString("home_logo", home_logo);
+                bundle.putString("away_logo", away_logo);
                 intent.putExtras(bundle);
                 _context.startActivity(intent);
             }
         });
+        switch (userSessionManager.getTheme()) {
+            case 0:
+                linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimary));
+                textViewTeamA.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
+                textViewTeamB.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
+                textViewVs.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
+                break;
+            case 1:
+                linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryBrown));
+                textViewTeamA.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentBrown));
+                textViewTeamB.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentBrown));
+                textViewVs.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentBrown));
+                break;
+            case 2:
+                linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryPurple));
+                textViewTeamA.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentPurple));
+                textViewTeamB.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentPurple));
+                textViewVs.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentPurple));
+                break;
+            case 3:
+                linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryGreen));
+                textViewTeamA.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentGreen));
+                textViewTeamB.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentGreen));
+                textViewVs.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentGreen));
+                break;
+            case 4:
+                linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryMarron));
+                textViewTeamA.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentMarron));
+                textViewTeamB.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentMarron));
+                textViewVs.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentMarron));
+                break;
+            case 5:
+                linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryLightBlue));
+                textViewTeamA.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentLightBlue));
+                textViewTeamB.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentLightBlue));
+                textViewVs.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentLightBlue));
+                break;
+
+        }
         return convertView;
     }
 
@@ -148,10 +197,36 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group, null);
         }
+        RelativeLayout relativeLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayout);
         TextView textview = (TextView) convertView.findViewById(R.id.textViewCompetitionName);
         textview.setText(header.name);
+        switch (userSessionManager.getTheme()) {
+            case 0:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimary));
+                textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
+                break;
+            case 1:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryBrown));
+                textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentBrown));
+                break;
+            case 2:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryPurple));
+                textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentPurple));
+                break;
+            case 3:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryGreen));
+                textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentGreen));
+                break;
+            case 4:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryMarron));
+                textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentMarron));
+                break;
+            case 5:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryLightBlue));
+                textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentLightBlue));
+                break;
 
-
+        }
         return convertView;
     }
 

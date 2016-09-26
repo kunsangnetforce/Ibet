@@ -112,4 +112,42 @@
     <color name="colorAccentTransution">#9bd08720</color>
     <color name="darkgrey">#424242</color>
 
+
+    <color name="colorPrimaryMarron">#570000</color>
+    <color name="colorPrimaryLightMaron">#ab0101</color>
+    <color name="colorPrimaryDarkMarron">#3d0101</color>
+    <color name="colorPrimaryDarkMarronTranslusent">#9f3d0101</color>
+    <color name="colorAccentMarron">#FF5A2E</color>
+    <color name="colorTextMarron">#FFFFFF</color>
+
+    <color name="colorPrimaryPurple">#FF39064B</color>
+    <color name="colorPrimaryLightPurple">#8611af</color>
+    <color name="colorPrimaryDarkPurple">#1b0323</color>
+    <color name="colorPrimaryDarkPurpleTranslusent">#b11b0323</color>
+    <color name="colorAccentPurple">#DE00FF</color>
+    <color name="colorTextPurple">#FFFFFF</color>
+
+    <color name="colorPrimaryGreen">#0a510f</color>
+    <color name="colorPrimaryLightGreen">#27862d</color>
+    <color name="colorPrimaryDarkGreen">#052507</color>
+    <color name="colorPrimaryDarkGreenTranslusent">#b5052507</color>
+    <color name="colorAccentGreen">#02C80F</color>
+    <color name="colorTextGreen">#FFFFFF</color>
+
+
+    <color name="colorPrimaryBrown">#6F1C03</color>
+    <color name="colorPrimaryLightBrown">#d73909</color>
+    <color name="colorPrimaryDarkBrown">#390f02</color>
+    <color name="colorPrimaryDarkBrownTranslusent">#ae390f02</color>
+    <color name="colorAccentBrown">#FF5A2E</color>
+    <color name="colorTextBrown">#FFFFFF</color>
+
+
+    <color name="colorPrimaryLightBlue">#04c4f9</color>
+    <color name="colorPrimaryLightBlueLight">#50e7f2</color>
+    <color name="colorPrimaryDarkLightBlue">#057897</color>
+    <color name="colorPrimaryDarkLightBlueTranslusent">#ab057897</color>
+    <color name="colorAccentLightBlue">#d0207b</color>
+    <color name="colorTextLightBlue">#FFFFFF</color>
+
 </resources>

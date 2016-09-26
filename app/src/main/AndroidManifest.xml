@@ -57,6 +57,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
+            android:name=".dashboard.profile.selectteam.SelectTeamActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity
             android:name=".dashboard.chart.highest.HighestTabActivity"
             android:label="@string/title_activity_chart_tab"
             android:screenOrientation="portrait"
@@ -138,7 +142,9 @@
         </service>
 
         <activity android:name=".live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
-        <activity android:name=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity"></activity>
+        <activity android:name=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity" />
+        <activity android:name=".scratchview.ScratchActivity" />
+        <activity android:name=".dashboard.setting.theme.background.BackgroundActivity"></activity>
     </application>
 
 </manifest>

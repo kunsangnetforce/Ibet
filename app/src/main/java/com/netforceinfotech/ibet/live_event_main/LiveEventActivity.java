@@ -14,22 +14,22 @@ public class LiveEventActivity extends AppCompatActivity {
 
     private CustomViewPager viewPager;
     private Toolbar toolbar;
-    public static String teamaname, teambname, teamaid, teambid, matchid, logoa, logob;
+    public static String home_name, away_name, home_id, away_id, match_id, home_logo, away_logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_event);
         Bundle bundle = getIntent().getExtras();
-        teamaname = bundle.getString("home_name");
-        teambname = bundle.getString("away_name");
-        teamaid = bundle.getString("away_id");
-        teambid = bundle.getString("away_id");
-        matchid = bundle.getString("match_id");
-        logoa = bundle.getString("home_logo");
-        logob = bundle.getString("away_logo");
+        home_name = bundle.getString("home_name");
+        away_name = bundle.getString("away_name");
+        home_id = bundle.getString("home_id");
+        away_id = bundle.getString("away_id");
+        match_id = bundle.getString("match_id");
+        home_logo = bundle.getString("home_logo");
+        away_logo = bundle.getString("away_logo");
 
-        setupToolBar(teamaname + " vs " + teambname);
+        setupToolBar(home_name + " vs " + away_name);
         setupTab();
     }
 
@@ -55,8 +55,8 @@ public class LiveEventActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.stats));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.stand));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        Log.i("kunsangliveevent", matchid + " " + teamaid + " " + teambid);
-        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getSupportFragmentManager(), tabLayout.getTabCount(), matchid, teamaid, teambid, teamaname, teambname,logoa,logob);
+        Log.i("kunsangliveevent", match_id + " " + home_id + " " + away_id);
+        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getSupportFragmentManager(), tabLayout.getTabCount(), match_id, home_id, away_id, home_name, away_name, home_logo, away_logo);
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

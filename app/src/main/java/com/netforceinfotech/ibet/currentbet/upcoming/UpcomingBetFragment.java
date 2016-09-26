@@ -57,36 +57,6 @@ public class UpcomingBetFragment extends Fragment
         upcomminhg_bet_latout = (FrameLayout) view.findViewById(R.id.upcomminhg_bet_latout);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-
-        if (theme == 0)
-        {
-
-            upcomminhg_bet_latout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme1));
-
-        }
-        else if (theme == 1)
-        {
-
-            upcomminhg_bet_latout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme2));
-
-        }
-        else if (theme == 2)
-        {
-
-            upcomminhg_bet_latout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme3));
-        }
-        else if (theme == 3)
-        {
-
-            upcomminhg_bet_latout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme4));
-
-        }
-        else if (theme == 4)
-        {
-
-            upcomminhg_bet_latout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme5));
-        }
-
         recyclerView.setLayoutManager(layoutManager);
         UpcomingBetAdapter adapter = new UpcomingBetAdapter(context, upcomingBetDatas);
         recyclerView.setAdapter(adapter);

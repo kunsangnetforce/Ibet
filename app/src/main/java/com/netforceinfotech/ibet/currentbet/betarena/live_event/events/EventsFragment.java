@@ -111,7 +111,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
         textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
         textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
-        textViewTime = (TextView) view.findViewById(R.id.textViewMinute);
+        textViewTime = (TextView) view.findViewById(R.id.textViewLevelNumber);
         textViewHomeGoal = (TextView) view.findViewById(R.id.textViewHomeGoal);
         textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
         linearLayoutProgress = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);

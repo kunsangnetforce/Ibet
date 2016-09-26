@@ -2,9 +2,8 @@ package com.netforceinfotech.ibet.dashboard;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -20,32 +18,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
-import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.purchase.PurchaseActivity;
-import com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.TeamNotificationActivity;
 import com.netforceinfotech.ibet.dashboard.chart.ChartFragment;
 import com.netforceinfotech.ibet.dashboard.profile.ProfileFragment;
+import com.netforceinfotech.ibet.dashboard.purchase.PurchaseActivity;
 import com.netforceinfotech.ibet.dashboard.setting.SettingFragment;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.login.LoginActivity;
-import com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable;
+import com.netforceinfotech.ibet.profilesetting.tutorial.DefaultIntro;
+import com.netforceinfotech.ibet.scratchview.ScratchActivity;
+import com.netforceinfotech.ibet.scratchview.ScratchFragment;
+import com.plattysoft.leonids.ParticleSystem;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -71,78 +67,51 @@ Dashboard extends AppCompatActivity {
     RelativeLayout header_background;
     String loginmode;
     private Menu menu;
-    CircleImageView imageViewProfilePic;
-    TextView textViewName;
+    public static CircleImageView imageViewProfilePic;
+    public static TextView textViewName;
     Context context;
+    private MaterialDialog dailog;
+    private ParticleSystem confetti_top_right, confetti_top_left;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(getApplication());
         setContentView(R.layout.activity_dashboard);
         context = this;
         userSessionManager = new UserSessionManager(getApplicationContext());
+        window = getWindow();
 
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
         loginmode = userSessionManager.getLoginMode();
 
         setupToolBar("Ibet");
 
-        window = getWindow();
-
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-        if (theme == 0) {
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
-            }
-        } else if (theme == 1) {
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
-            }
-
-        } else if (theme == 2) {
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
-            }
-
-        } else if (theme == 3) {
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
-            }
-        } else if (theme == 4) {
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                // only for gingerbread and newer versions
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
-            }
-        }
-
-
+        theme = userSessionManager.getTheme();
+        setupTheme(theme);
         setupDashboardFragment();
         userSessionManager = new UserSessionManager(getApplicationContext());
         String id = userSessionManager.getFBID();
         imageURL = "https://graph.facebook.com/" + id + "/picture?type=large";
         // setupNavigation(imageURL);
         setupNavigationHeader();
+        if (userSessionManager.getIsFirstTime()) {
+            showPopUp("");
+        }
 
 
     }
 
     private void setupNavigationHeader() {
-        imageViewProfilePic = (CircleImageView)navigationView.getHeaderView(0).findViewById(R.id.imageViewProfilePic);
+        imageViewProfilePic = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.imageViewProfilePic);
         textViewName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.textViewName);
         if (!userSessionManager.getLoginMode().equals("0")) {
             Log.i("picturekunsang", userSessionManager.getProfilePic());
@@ -160,37 +129,10 @@ Dashboard extends AppCompatActivity {
     private void setupToolBar(String s) {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         header_background = (RelativeLayout) findViewById(R.id.header_relative);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         setupNavigationView();
-        if (theme == 0) {
-
-            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme1));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme1));
-            // header_background.setBackgroundColor(Color.RED);
-
-        } else if (theme == 1) {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme2));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme2));
-
-        } else if (theme == 2) {
-
-            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme3));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme3));
-
-        } else if (theme == 3) {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme4));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme4));
-
-        } else if (theme == 4) {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_background_theme5));
-            navigationView.setBackgroundColor(getResources().getColor(R.color.navigation_background_theme5));
-
-        }
-
-
         setSupportActionBar(toolbar);
         title = (TextView) toolbar.findViewById(R.id.textViewTitle);
         title.setText(s);
@@ -222,14 +164,18 @@ Dashboard extends AppCompatActivity {
                         setupChartFragment();
                         return true;
                     case "Store":
-                        Intent intent = new Intent(getApplicationContext(), PurchaseActivity.class);
+                        intent = new Intent(getApplicationContext(), PurchaseActivity.class);
                         startActivity(intent);
                         return true;
                     case "Setting":
                         setupSettingFragment();
                         return true;
                     case "Tutorial":
-                        Toast.makeText(getApplicationContext(), "Tutotial screen to be shown... yet to implment", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(getApplicationContext(), DefaultIntro.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("from", "dashboard");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                         return true;
                     case "Share":
                         shareData();
@@ -247,10 +193,9 @@ Dashboard extends AppCompatActivity {
                         return true;
 
                     case "Scratch bonus":
-
-                        Intent bonus = new Intent(Dashboard.this, ImageOverlayDrawable.class);
+                        //setupScratchFragment();
+                        Intent bonus = new Intent(Dashboard.this, ScratchActivity.class);
                         startActivity(bonus);
-
                         return true;
                     case "Login":
 
@@ -284,6 +229,7 @@ Dashboard extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
     }
+
 
     private void setupNavigationView() {
         menu = navigationView.getMenu();
@@ -324,6 +270,13 @@ Dashboard extends AppCompatActivity {
 
     }
 
+    private void setupScratchFragment() {
+        title.setText("Scratch Bonus");
+        ScratchFragment scratchFragment = new ScratchFragment();
+        tagName = scratchFragment.getClass().getName();
+        replaceFragment(scratchFragment, tagName);
+    }
+
     private void setupProfileFragment() {
 
         profileFragment = new ProfileFragment();
@@ -360,5 +313,128 @@ Dashboard extends AppCompatActivity {
     }
 
     //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+    private void showPopUp(String s) {
 
+
+        confetti_top_right = new ParticleSystem(this, 80, R.drawable.confeti3, 10000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
+                .setRotationSpeed(144)
+                .setAcceleration(0.00005f, 90);
+        confetti_top_right.emit(findViewById(R.id.emiter_top_right), 8);
+
+
+        confetti_top_left = new ParticleSystem(this, 80, R.drawable.confeti2, 10000)
+                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
+                .setRotationSpeed(144)
+                .setAcceleration(0.00005f, 90);
+        confetti_top_left.emit(findViewById(R.id.emiter_top_left), 8);
+        dailog = new MaterialDialog.Builder(Dashboard.this)
+                .title("")
+                .customView(R.layout.custom_congratulation_dialog, true).build();
+
+        Button b = (Button) dailog.findViewById(R.id.got_it_buttton);
+        TextView textView = (TextView) dailog.findViewById(R.id.textView1);
+
+        YoYo.with(Techniques.ZoomIn)
+                .duration(700)
+                .playOn(dailog.findViewById(R.id.textView1));
+        dailog.show();
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userSessionManager.setIsFirstTime(false);
+                confetti_top_left.stopEmitting();
+                confetti_top_right.stopEmitting();
+                dailog.dismiss();
+            }
+        });
+
+    }
+
+    private void setupTheme(int theme) {
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+
+    }
+
+    private void setupLightBlueTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        }
+
+        navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+
+    }
+
+    private void setupMarronTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        }
+        navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+
+    }
+
+    private void setupGreenTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        }
+        navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+
+    }
+
+    private void setupPurlpleTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        }
+        navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+
+    }
+
+    private void setupBrownTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        }
+        navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+
+    }
+
+    private void setupDefaultTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        }
+        navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+        navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+
+    }
 }
+
+

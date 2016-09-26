@@ -15,8 +15,7 @@ import android.widget.TextView;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
-public class RichestTabActivity extends AppCompatActivity
-{
+public class RichestTabActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     Window window;
@@ -25,10 +24,8 @@ public class RichestTabActivity extends AppCompatActivity
     TabLayout tabLayout;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_start_vew_bet);
@@ -48,51 +45,37 @@ public class RichestTabActivity extends AppCompatActivity
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
 
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
             }
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
             }
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
             }
@@ -103,8 +86,7 @@ public class RichestTabActivity extends AppCompatActivity
         setupToolBar("Richest Rank");
     }
 
-    private void setupToolBar(String app_name)
-    {
+    private void setupToolBar(String app_name) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView textView = (TextView) toolbar.findViewById(R.id.textViewTitle);
         setSupportActionBar(toolbar);
@@ -113,8 +95,7 @@ public class RichestTabActivity extends AppCompatActivity
         getSupportActionBar().setTitle(app_name);
         textView.setText(app_name);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme1));
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
@@ -123,18 +104,14 @@ public class RichestTabActivity extends AppCompatActivity
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme1));
 
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme2));
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme2));
 
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme2));
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme3));
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme3));
@@ -142,9 +119,7 @@ public class RichestTabActivity extends AppCompatActivity
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme3));
 
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme4));
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
@@ -152,9 +127,7 @@ public class RichestTabActivity extends AppCompatActivity
 
             tabLayout.setTabTextColors(ContextCompat.getColor(getApplicationContext(), R.color.white), ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_text_color_theme4));
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme5));
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
@@ -169,13 +142,13 @@ public class RichestTabActivity extends AppCompatActivity
 
     private void setupTab() {
 
-        tabLayout.addTab(tabLayout.newTab().setText("Friends"));
+        //tabLayout.addTab(tabLayout.newTab().setText("Friends"));
         tabLayout.addTab(tabLayout.newTab().setText("All"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
-        final PagerRichestAdapter adapter = new  PagerRichestAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final PagerRichestAdapter adapter = new PagerRichestAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 

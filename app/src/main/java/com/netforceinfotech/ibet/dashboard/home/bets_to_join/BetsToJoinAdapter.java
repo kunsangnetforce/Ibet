@@ -17,9 +17,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Gowtham Chandrasekar on 31-07-2015.
- */
 public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
@@ -57,7 +54,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.i("ibet_position", "" + position);
         BetsToJoinHolder betsToJoinHolder = (BetsToJoinHolder) holder;
-        betsToJoinHolder.textViewBetStatus.setOnClickListener(new View.OnClickListener() {
+        betsToJoinHolder.textViewResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailBetToJoin.class);
@@ -111,9 +108,8 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         betsToJoinHolder.textViewName.setText(itemList.get(position).name);
-        betsToJoinHolder.textViewSelectedName.setText(itemList.get(position).selectedteamname);
-        betsToJoinHolder.textViewNumberOfParticipants.setText(itemList.get(position).numberparticipant);
-        betsToJoinHolder.textViewNumberPost.setText(itemList.get(position).numberpost);
+        betsToJoinHolder.textViewParticipants.setText(itemList.get(position).numberparticipant);
+        betsToJoinHolder.textViewPost.setText(itemList.get(position).numberpost);
         betsToJoinHolder.textViewTeamA.setText(itemList.get(position).teamaname);
         betsToJoinHolder.textViewTeamB.setText(itemList.get(position).teambname);
       //  betsToJoinHolder.textViewBetStatus.setText(itemList.get(position).betstatus);

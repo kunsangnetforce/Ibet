@@ -63,26 +63,6 @@ public class LiveBetFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
-        if (theme == 0) {
-
-            livebet.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme1));
-
-        } else if (theme == 1) {
-
-            livebet.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme2));
-
-        } else if (theme == 2) {
-
-            livebet.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme3));
-        } else if (theme == 3) {
-
-            livebet.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme4));
-
-        } else if (theme == 4) {
-
-            livebet.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme5));
-        }
-
         recyclerView.setLayoutManager(layoutManager);
         setupliveBetDatas();
         adapter = new LiveBetAdapter(context, liveBetDatas);

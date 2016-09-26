@@ -5,18 +5,32 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 
-public class RichestFriendsFragment extends Fragment
-{
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+public class RichestFriendsFragment extends Fragment {
 
     Context context;
     private LinearLayoutManager layoutManager;
@@ -29,92 +43,21 @@ public class RichestFriendsFragment extends Fragment
 
     ArrayList<RichestData> richestDatas = new ArrayList<RichestData>();
 
-    public RichestFriendsFragment()
-    {
+    public RichestFriendsFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmenthighest, container, false);
         context = getActivity();
 
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
-        setupRecyclerView(view);
         return view;
     }
 
-    private void setupRecyclerView(View view)
-    {
-        highestLayout = (FrameLayout) view.findViewById(R.id.highestlayout);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-
-        if(theme == 0)
-        {
-
-            highestLayout.setBackgroundResource(R.drawable.background_theme1);
-
-        }
-        else if (theme == 1)
-        {
-
-            highestLayout.setBackgroundResource(R.drawable.background_theme2);
-
-        }
-        else if (theme == 2)
-        {
-
-            highestLayout.setBackgroundResource(R.drawable.background_theme3);;
-
-        }
-        else if (theme == 3)
-        {
-
-            highestLayout.setBackgroundResource(R.drawable.background_theme4);
-
-        }
-        else if (theme == 4)
-        {
-
-            highestLayout.setBackgroundResource(R.drawable.background_theme5);
-
-        }
 
 
-
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new RichestAdapter(context, richestDatas);
-        recyclerView.setAdapter(adapter);
-        setupFinsihedDatas();
-        adapter.notifyDataSetChanged();
-    }
-
-    private void setupFinsihedDatas()
-    {
-        try
-        {
-            richestDatas.clear();
-        }
-
-        catch (Exception ex)
-        {
-
-        }
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-        richestDatas.add(new RichestData("Tea", "imageurl","coins 10"));
-    }
 }

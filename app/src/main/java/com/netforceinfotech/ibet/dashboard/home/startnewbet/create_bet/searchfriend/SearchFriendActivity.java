@@ -218,6 +218,7 @@ public class SearchFriendActivity extends AppCompatActivity implements View.OnCl
                 if (selectedDatas.size() == 0) {
                     showMessage("No friend selected");
                 }
+                finish();
                 break;
         }
     }

@@ -172,6 +172,8 @@
                                 android:id="@+id/scratchView1"
                                 android:layout_width="110dp"
                                 android:layout_height="120dp"
+                                wsv:scratchDrawable="@drawable/ic_scratch_bonus"
+
                                 android:layout_marginLeft="3dp"
                                 wsv:revealSize="40dp"
                                 wsv:scratchable="true" />

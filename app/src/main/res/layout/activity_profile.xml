@@ -3,14 +3,198 @@
     android:id="@+id/profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:gravity="center_horizontal|bottom"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/circleImageViewDp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/david"
+                app:civ_border_color="#12f4f0f0"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Ronney Singh"
+
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/textViewLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewLevelNumber"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Beginner"
+                android:textColor="@color/orange"
+
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40"
+                android:orientation="horizontal"
+                android:weightSum="150">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewWins"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/circular_bg"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:padding="2dp"
+                        android:text="12345"
+                        android:textColor="@color/green"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="WINNINGS"
+                        android:textColor="@color/green" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewLevelNumber"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/circular_bg"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:padding="2dp"
+                        android:text="12"
+                        android:textColor="@color/green"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="LEVEL"
+                        android:textColor="@color/green" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewLosses"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/circular_bg"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:padding="2dp"
+                        android:text="1235"
+                        android:textColor="@color/green"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="LOSSES"
+                        android:textColor="@color/green" />
+
+                </LinearLayout>
 
 
-    >
+            </LinearLayout>
 
-<include
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="60"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-    layout="@layout/content_profile"
-    ></include>
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    app:mrl_rippleColor="@color/ripple"
+                    app:mrl_rippleOverlay="true">
 
+                    <Button
+                        android:id="@+id/buttonSetTeam"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/accent"
+                        android:text="Set your Favourite Team"
+                        android:textColor="@color/white" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="16dp"
+                    app:mrl_rippleColor="@color/ripple"
+                    app:mrl_rippleOverlay="true">
+
+                    <Button
+                        android:id="@+id/buttonDone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/green"
+                        android:text="Done"
+                        android:textColor="@color/white" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.setting.theme.background.BackgroundActivity;
 import com.netforceinfotech.ibet.dashboard.setting.theme.themeColor.ThemeColorActivity;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
@@ -115,6 +116,13 @@ public class ThemeActivity extends AppCompatActivity
 
         choose_theme = (Button) findViewById(R.id.buttonTheme);
         choose_backgropund = (Button) findViewById(R.id.buttonBackground);
+        choose_backgropund.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), BackgroundActivity.class);
+                startActivity(intent);
+            }
+        });
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

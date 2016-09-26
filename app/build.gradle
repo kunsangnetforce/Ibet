@@ -50,15 +50,16 @@ dependencies {
     compile project(':wscratchview-library2')
 
 
+
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'cn.pedant.sweetalert:library:1.3'
     compile 'com.afollestad.material-dialogs:commons:0.9.0.0'
     compile 'com.github.cooltechworks:ScratchView:v1.0'
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.balysv:material-ripple:1.0.2'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.android.support:support-v4:24.1.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.github.jakob-grabner:Circle-Progress-View:v1.2.9'
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
@@ -87,6 +88,5 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.4.0'
     compile 'com.google.firebase:firebase-database:9.4.0'
     compile 'com.github.carlonzo.stikkyheader:core:0.0.3-SNAPSHOT'
-
 }
 apply plugin: 'com.google.gms.google-services'

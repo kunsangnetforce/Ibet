@@ -1,66 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.balysv.materialripple.MaterialRippleLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ripple"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:id="@+id/ripple"
+    android:orientation="horizontal">
 
-    android:orientation="horizontal"
-    >
-    <!-- <AbsoluteLayout
-         android:layout_width="wrap_content"
-         android:layout_height=""></AbsoluteLayout>-->
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-        <RelativeLayout
-
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            >
-
+            android:layout_weight="30"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal">
 
             <TextView
-                android:textColor="@color/colorAccent"
+                android:id="@+id/textViewRank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_alignParentLeft="true"
-                android:textSize="14dp"
-                android:text="@string/highets_friend" />
+                android:layout_marginRight="6dp"
+                android:text="1"
+                android:textColor="@color/colorAccent" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewProfilePic"
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
+        </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/ic_home"
-                android:layout_centerHorizontal="true"
-                />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:gravity="left">
 
             <TextView
-                android:textColor="@color/colorAccent"
+                android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:layout_alignParentRight="true"
-                android:text="@string/highets_rank"
-                android:textSize="14dp"
-                />
-        </RelativeLayout>
-        <View
-            android:background="@color/blue_background_view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+                android:text="kunsnag"
+                android:textColor="@color/colorAccent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="40"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/textViewAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000.00"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
     </LinearLayout>
 </com.balysv.materialripple.MaterialRippleLayout>

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
@@ -17,8 +18,7 @@ import java.util.List;
 /**
  * Created by asdf on 7/21/2016.1
  */
-public class HighestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class HighestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
@@ -33,58 +33,40 @@ public class HighestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         inflater = LayoutInflater.from(context);
     }
 
-    /*  @Override
-      public int getItemViewType(int position) {
-          if (itemList.get(position).image.isEmpty()) {
-              return SIMPLE_TYPE;
-          } else {
-              return IMAGE_TYPE;
-          }
-      }
-  */
+
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.rowhighestrank, parent, false);
         HighestHolder viewHolder = new HighestHolder(view);
-        for (int i = 0; i < itemList.size(); i++)
-        {
-
-            if (i == 0)
-            {
-                booleanGames.add(true);
-            }
-            else
-            {
-                booleanGames.add(false);
-            }
-            Log.i("looppp", "" + i);
-
-        }
-
         return viewHolder;
 
 
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
-    {
-
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        HighestHolder richestHolder = (HighestHolder) holder;
+        int rank = position + 1;
+        richestHolder.textViewRank.setText(rank + "");
+        try {
+            Picasso.with(context).load(itemList.get(position).imageurl).error(R.drawable.ic_error).into(richestHolder.imageViewProfilePic);
+        } catch (Exception ex) {
+            Picasso.with(context).load(R.drawable.ic_error).into(richestHolder.imageViewProfilePic);
+        }
+        richestHolder.textViewName.setText(itemList.get(position).title);
+        richestHolder.textViewLevel.setText(itemList.get(position).level + " Level");
     }
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
 
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
-    public int getItemCount()
-    {
-        return 5;
+    public int getItemCount() {
+        return itemList.size();
 //        return itemList.size();
     }
 }

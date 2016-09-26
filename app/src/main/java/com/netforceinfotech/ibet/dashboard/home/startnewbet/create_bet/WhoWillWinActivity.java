@@ -6,11 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,24 +27,26 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
 
     private Toolbar toolbar;
     ImageView imageViewTeamA, imageViewTeamB, imageViewHomeIncrement, imageViewHomeDecrement, imageViewAwayIncrement, imageViewAwayDecrement;
-    RelativeLayout relativeLayoutBetAmount;
+    RelativeLayout relativeLayoutBetAmount, relativeLayoutScore, relativeLayoutTeam;
     TextView textViewBetamount, textViewTeamA, textViewTeamB, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway;
     String match_id;
-    private String betamountString;
+    double betamount = 0;
     private EditText editTextPopupBetAmount;
     String home_name, home_logo, away_logo, away_name, home_id, away_id;
     int homescore = 0, awayscore = 0;
     RadioButton radioButtonHome, radioButtonDraw, radioButtonAway;
-    public static String selectedteam, stringbetoption = "0";
+    public static String selectedteam = "", stringbetoption = "0";
     SwitchButton switchButton;
-    CheckBox checkBoxScore, checkBoxTeam;
+    RadioButton radiobuttonScore, radiobuttonTeam;
     Context context;
+    View viewTeam, viewScore;
+    private MaterialDialog dialogbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_who_will_win);
-        Bundle bundle = getIntent().getExtras();
+        final Bundle bundle = getIntent().getExtras();
         context = this;
         try {
             match_id = bundle.getString("match_id");
@@ -60,17 +60,30 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         } catch (Exception ex) {
             showMessage("Bundle error");
         }
-        setupToolBar("Bet");
+        setupToolBar(home_name + " vs " + away_name);
         initView();
-        checkBoxTeam.setChecked(true);
-        checkBoxScore.setChecked(false);
+        radiobuttonTeam.setChecked(true);
+        radiobuttonScore.setChecked(false);
         Button next = (Button) findViewById(R.id.buttonNext);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent i = new Intent(WhoWillWinActivity.this, CreateBet.class);
-                startActivity(i);
+                if (validate()) {
+                    Intent i = new Intent(WhoWillWinActivity.this, CreateBet.class);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("betoption", stringbetoption);
+                    bundle1.putInt("homescore", homescore);
+                    bundle1.putInt("awayscore", awayscore);
+                    bundle1.putString("selectedteam", selectedteam);
+                    bundle1.putDouble("betamount", betamount);
+                    bundle1.putString("home_name", home_name);
+                    bundle1.putString("away_name", away_name);
+                    bundle1.putString("match_id", match_id);
+                    bundle1.putString("home_id", home_id);
+                    bundle1.putString("away_id", away_id);
+                    i.putExtras(bundle1);
+                    startActivity(i);
+                }
 
             }
         });
@@ -89,13 +102,35 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
 
     }
 
+    private boolean validate() {
+        if (betamount == 0) {
+            showMessage("enter bet amount");
+            return false;
+        }
+        if (stringbetoption.equalsIgnoreCase("0")) {
+            if (selectedteam.equalsIgnoreCase("")) {
+                showMessage("select a team");
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void showMessage(String s) {
         Toast.makeText(WhoWillWinActivity.this, s, Toast.LENGTH_SHORT).show();
     }
 
     private void initView() {
-        checkBoxScore = (CheckBox) findViewById(R.id.checkboxscore);
-        checkBoxTeam = (CheckBox) findViewById(R.id.checkboxteam);
+        relativeLayoutScore = (RelativeLayout) findViewById(R.id.relativeLayoutScore);
+        relativeLayoutTeam = (RelativeLayout) findViewById(R.id.relativeLayoutTeam);
+        relativeLayoutTeam.setOnClickListener(this);
+        relativeLayoutScore.setOnClickListener(this);
+        viewScore = findViewById(R.id.viewScore);
+        viewTeam = findViewById(R.id.viewTeam);
+        viewTeam.setOnClickListener(this);
+        viewScore.setOnClickListener(this);
+        radiobuttonScore = (RadioButton) findViewById(R.id.radiobuttonScore);
+        radiobuttonTeam = (RadioButton) findViewById(R.id.radiobuttonTeam);
         switchButton = (SwitchButton) findViewById(R.id.switchJoin);
         relativeLayoutBetAmount = (RelativeLayout) findViewById(R.id.relativeLayoutBetAmount);
         imageViewTeamA = (ImageView) findViewById(R.id.imageViewTeamA);
@@ -118,8 +153,8 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         radioButtonAway.setOnCheckedChangeListener(this);
         radioButtonHome.setOnCheckedChangeListener(this);
         radioButtonDraw.setOnCheckedChangeListener(this);
-        checkBoxScore.setOnCheckedChangeListener(this);
-        checkBoxTeam.setOnCheckedChangeListener(this);
+        radiobuttonScore.setOnCheckedChangeListener(this);
+        radiobuttonTeam.setOnCheckedChangeListener(this);
         switchButton.setOnCheckedChangeListener(this);
         imageViewAwayIncrement.setOnClickListener(this);
         imageViewHomeIncrement.setOnClickListener(this);
@@ -133,8 +168,8 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
 
     private void setupToolBar(String title) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
+        TextView textViewTitle = (TextView) toolbar.findViewById(R.id.textViewTitle);
+        textViewTitle.setText(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -158,17 +193,30 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
 
     private void showPopup() {
         boolean wrapInScrollView = true;
-        MaterialDialog dialogbox = new MaterialDialog.Builder(WhoWillWinActivity.this)
+        dialogbox = new MaterialDialog.Builder(WhoWillWinActivity.this)
                 .title("Set bet amount")
                 .customView(R.layout.setbetamount, wrapInScrollView)
                 .positiveText("Set").onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        betamountString = editTextPopupBetAmount.getText().toString();
-                        textViewBetamount.setText(betamountString);
+                        if (editTextPopupBetAmount.getText().length() <= 0) {
+                            showMessage("Enter Amount");
+                            showPopup();
+                        } else {
+                            betamount = Double.parseDouble(editTextPopupBetAmount.getText().toString());
+                            if (betamount > 0) {
+                                textViewBetamount.setText(betamount + "");
+                                dialogbox.dismiss();
+                            } else {
+                                betamount = 0;
+                                showMessage("Bet amount should be more than 0");
+                                showPopup();
+                            }
+                        }
                     }
                 })
                 .show();
+        dialogbox.setCancelable(false);
         editTextPopupBetAmount = (EditText) dialogbox.findViewById(R.id.editText);
 
     }
@@ -176,6 +224,14 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.relativeLayoutScore:
+            case R.id.viewScore:
+                radiobuttonScore.setChecked(true);
+                break;
+            case R.id.relativeLayoutTeam:
+            case R.id.viewTeam:
+                radiobuttonTeam.setChecked(true);
+                break;
             case R.id.imageViewHomeIncrement:
                 homescore++;
                 textViewScoreHome.setText("" + homescore);
@@ -186,10 +242,16 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.imageViewHomeDecrement:
                 homescore--;
+                if (homescore < 0) {
+                    homescore = 0;
+                }
                 textViewScoreHome.setText("" + homescore);
                 break;
             case R.id.imageViewAwayDecrement:
                 awayscore--;
+                if (awayscore < 0) {
+                    awayscore = 0;
+                }
                 textViewScoreAway.setText("" + awayscore);
                 break;
             case R.id.textviewselectHome:
@@ -237,32 +299,45 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.switchJoin:
                 if (b) {
-                    checkBoxScore.setChecked(true);
-                    checkBoxTeam.setChecked(true);
+                    viewScore.setVisibility(View.GONE);
+                    viewTeam.setVisibility(View.GONE);
+                    radiobuttonScore.setChecked(true);
+                    radiobuttonTeam.setChecked(true);
+                } else {
+                    viewTeam.setVisibility(View.GONE);
+                    viewScore.setVisibility(View.VISIBLE);
+                    radiobuttonTeam.setChecked(true);
+                    radiobuttonScore.setChecked(false);
                 }
                 break;
-            case R.id.checkboxscore:
-                if (b) {
-                    stringbetoption = "1";
-                    if (checkBoxTeam.isChecked()) {
-                        stringbetoption = "2";
-                        switchButton.setChecked(true);
-                    }
+            case R.id.radiobuttonScore:
+                if (switchButton.isChecked()) {
+                    viewTeam.setVisibility(View.GONE);
+                    viewScore.setVisibility(View.GONE);
+                    stringbetoption = "2";
+
                 } else {
-                    stringbetoption = "0";
-                    checkBoxTeam.setChecked(true);
+                    if (b) {
+                        radiobuttonTeam.setChecked(false);
+                        stringbetoption = "1";
+                        viewScore.setVisibility(View.GONE);
+                        viewTeam.setVisibility(View.VISIBLE);
+                    }
                 }
                 break;
-            case R.id.checkboxteam:
-                if (b) {
-                    stringbetoption = "0";
-                    if (checkBoxScore.isChecked()) {
-                        stringbetoption = "2";
-                        switchButton.setChecked(true);
-                    }
+            case R.id.radiobuttonTeam:
+                if (switchButton.isChecked()) {
+                    viewTeam.setVisibility(View.GONE);
+                    viewScore.setVisibility(View.GONE);
+                    stringbetoption = "2";
+
                 } else {
-                    stringbetoption = "1";
-                    checkBoxScore.setChecked(true);
+                    if (b) {
+                        radiobuttonScore.setChecked(false);
+                        stringbetoption = "0";
+                        viewScore.setVisibility(View.VISIBLE);
+                        viewTeam.setVisibility(View.GONE);
+                    }
                 }
                 break;
         }

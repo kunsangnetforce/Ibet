@@ -7,15 +7,17 @@ import android.widget.TextView;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
 
-/**1
+import de.hdodenhof.circleimageview.CircleImageView;
+
+/**
+ * 1
  * Created by asdf on 7/21/2016.
  */
 public class HighestHolder extends RecyclerView.ViewHolder {
 
 
-    TextView textViewTitle, textViewCategory, textViewPros;
-
-    MaterialRippleLayout materialRippleLayout;
+    TextView textViewName, textViewLevel, textViewRank;
+    CircleImageView imageViewProfilePic;
     View view;
 
 
@@ -23,8 +25,10 @@ public class HighestHolder extends RecyclerView.ViewHolder {
         super(itemView);
         //implementing onClickListener
         view = itemView;
-
-        materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+        textViewRank = (TextView) view.findViewById(R.id.textViewRank);
+        textViewLevel = (TextView) view.findViewById(R.id.textViewLevel);
+        textViewName = (TextView) view.findViewById(R.id.textViewName);
+        imageViewProfilePic = (CircleImageView) view.findViewById(R.id.imageViewProfilePic);
 
     }
 }

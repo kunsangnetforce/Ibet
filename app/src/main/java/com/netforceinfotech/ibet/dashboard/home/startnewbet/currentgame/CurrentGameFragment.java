@@ -85,7 +85,7 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String token = userSessionManager.getApitoken();
         String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam,competition";
-
+        Log.i("kunsang_url",url);
         RequestQueue queue = Volley.newRequestQueue(context);
 
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,

@@ -185,37 +185,18 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
         ImageView image_icon, setting_image_icon, sound_icon;
         MaterialRippleLayout materialRippleLayout;
         View view, layout_view;
-        FrameLayout delete_layout;
 
 
         public SettingHolder(View itemView) {
             super(itemView);
             //implementing onClickListener
             view = itemView;
-
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-
             image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
-
             sound_icon = (ImageView) itemView.findViewById(R.id.sound_icon);
-
             textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
-
-            delete_layout = (FrameLayout) itemView.findViewById(R.id.delete_layout);
-
             setting_image_icon = (ImageView) itemView.findViewById(R.id.setting_icon);
-
             layout_view = (View) itemView.findViewById(R.id.view);
-
-            delete_layout.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-                    itemList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-
-                }
-            });
 
         }
 

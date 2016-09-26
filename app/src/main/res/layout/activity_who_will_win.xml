@@ -159,6 +159,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/relativeLayoutTeam"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginTop="16dp">
@@ -174,8 +175,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <CheckBox
-                            android:id="@+id/checkboxteam"
+                        <RadioButton
+                            android:id="@+id/radiobuttonTeam"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -304,6 +305,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/relativeLayoutScore"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginTop="16dp">
@@ -319,8 +321,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <CheckBox
-                            android:id="@+id/checkboxscore"
+                        <RadioButton
+                            android:id="@+id/radiobuttonScore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

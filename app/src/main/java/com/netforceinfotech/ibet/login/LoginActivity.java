@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         profile = Profile.getCurrentProfile();
 
         if (profile != null) {
-         //   LoginManager.getInstance().logOut();
+            //   LoginManager.getInstance().logOut();
             Intent intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
             startActivity(intent);
             finish();
@@ -261,6 +261,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 JsonObject object = data.get(0).getAsJsonObject();
                                 String api_token = result.get("api_token").getAsString();
                                 String customer_id = object.get("customer_id").getAsString();
+                                String msg=object.get("msg").getAsString();
+                                if(msg.equalsIgnoreCase("Facebook ID Already Exist")){
+                                    userSessionManager.setIsFirstTime(false);
+                                }
                                 userSessionManager.setCustomerId(customer_id);
                                 userSessionManager.setApitoken(api_token);
                                 if (userSessionManager.getIsFirstTime()) {

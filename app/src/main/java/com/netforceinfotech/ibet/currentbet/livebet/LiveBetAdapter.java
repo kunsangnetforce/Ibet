@@ -16,9 +16,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Gowtham Chandrasekar on 31-07-2015.
- */
 public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
@@ -115,9 +112,6 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         betsToJoinHolder.textViewName.setText(itemList.get(position).name);
-        betsToJoinHolder.textViewSelectedName.setText(itemList.get(position).selectedteamname);
-        betsToJoinHolder.textViewNumberOfParticipants.setText(itemList.get(position).numberparticipant);
-        betsToJoinHolder.textViewNumberPost.setText(itemList.get(position).numberpost);
         betsToJoinHolder.textViewTeamA.setText(itemList.get(position).teamaname);
         betsToJoinHolder.textViewTeamB.setText(itemList.get(position).teambname);
         //  betsToJoinHolder.textViewBetStatus.setText(itemList.get(position).betstatus);

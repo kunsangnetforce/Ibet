@@ -100,9 +100,6 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         upcomingBetHolder.textViewName.setText(itemList.get(position).name);
-        upcomingBetHolder.textViewSelectedName.setText(itemList.get(position).selectedteamname);
-        upcomingBetHolder.textViewNumberOfParticipants.setText(itemList.get(position).numberparticipant);
-        upcomingBetHolder.textViewNumberPost.setText(itemList.get(position).numberpost);
         upcomingBetHolder.textViewTeamA.setText(itemList.get(position).teamaname);
         upcomingBetHolder.textViewTeamB.setText(itemList.get(position).teambname);
 

@@ -1020,7 +1020,7 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
     }
 
     private void setScratchData() {
-        scratchDatas.add(new ScratchData(0, "180", "", "a"));
+        /*scratchDatas.add(new ScratchData(0, "180", "", "a"));
         scratchDatas.add(new ScratchData(1, "20", "", "b"));
         scratchDatas.add(new ScratchData(2, "70", "", "c"));
         scratchDatas.add(new ScratchData(3, "70", "", "c"));
@@ -1029,7 +1029,7 @@ public class ImageOverlayDrawable extends AppCompatActivity implements View.OnCl
         scratchDatas.add(new ScratchData(6, "100", "", "e"));
         scratchDatas.add(new ScratchData(7, "0", "", "f"));
         scratchDatas.add(new ScratchData(8, "70", "", "c"));
-
+*/
 
     }
 
