@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet.R;
@@ -262,30 +263,58 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         allHolder.imageViewShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+/*
                 Map<String, Object> map = new HashMap<String, Object>();
+
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _share.updateChildren(map);
                 shareData(itemList.get(position).comment, itemList.get(position).name);
-                shareclicked.set(position, true);
+                shareclicked.set(position, true);*/
+                Map<String, Object> map = new HashMap<String, Object>();
+                String tempKey = userSessionManager.getCustomerId();
+                _share.updateChildren(map);
+                DatabaseReference message_root = _share.child(tempKey);
+                Map<String, Object> map1 = new HashMap<String, Object>();
+                map1.put("name", userSessionManager.getName());
+                map1.put("id", userSessionManager.getCustomerId());
+                map1.put("image", userSessionManager.getProfilePic());
+                message_root.updateChildren(map1);
             }
         });
         allHolder.imageViewDislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<String, Object> map = new HashMap<String, Object>();
+                /*Map<String, Object> map = new HashMap<String, Object>();
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _dislike.updateChildren(map);
-                dislikeclicked.set(position, true);
+                dislikeclicked.set(position, true);*/
+                Map<String, Object> map = new HashMap<String, Object>();
+                String tempKey = userSessionManager.getCustomerId();
+                _dislike.updateChildren(map);
+                DatabaseReference message_root = _dislike.child(tempKey);
+                Map<String, Object> map1 = new HashMap<String, Object>();
+                map1.put("name", userSessionManager.getName());
+                map1.put("id", userSessionManager.getCustomerId());
+                map1.put("image", userSessionManager.getProfilePic());
+                message_root.updateChildren(map1);
             }
         });
         allHolder.imageViewLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<String, Object> map = new HashMap<String, Object>();
+               /* Map<String, Object> map = new HashMap<String, Object>();
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _like.updateChildren(map);
-                likeclicked.set(position, true);
+                likeclicked.set(position, true);*/
+                Map<String, Object> map = new HashMap<String, Object>();
+                String tempKey = userSessionManager.getCustomerId();
+                _like.updateChildren(map);
+                DatabaseReference message_root = _like.child(tempKey);
+                Map<String, Object> map1 = new HashMap<String, Object>();
+                map1.put("name", userSessionManager.getName());
+                map1.put("id", userSessionManager.getCustomerId());
+                map1.put("image", userSessionManager.getProfilePic());
+                message_root.updateChildren(map1);
             }
         });
 
@@ -312,7 +341,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void runTransaction(int position) {
-        DatabaseReference _count = FirebaseDatabase.getInstance().getReference().child("bet").child(matchid).child(team).child("comments").child(itemList.get(position).key).child("count");
+        DatabaseReference _count = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(itemList.get(position).key).child("count");
         _count.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData currentData) {

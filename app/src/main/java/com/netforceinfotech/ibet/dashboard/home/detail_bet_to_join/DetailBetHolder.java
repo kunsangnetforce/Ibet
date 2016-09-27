@@ -12,9 +12,6 @@ import android.widget.TextView;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
-/**
- * Created by Gowtham Chandrasekar on 31-07-2015.
- */
 public class DetailBetHolder extends RecyclerView.ViewHolder {
 
 

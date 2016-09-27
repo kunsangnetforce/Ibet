@@ -12,13 +12,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +69,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static final int MEDIA_TYPE_IMAGE = 1;
     private static final int PICK_IMAGE = 109;
 
-    LinearLayout profile_layout;
+    CoordinatorLayout coordinatorLayout;
     int theme;
     CircleImageView circleImageViewDp;
     TextView textViewName, textViewLevel, textViewWin, textViewLose, textViewLevelNumber;
@@ -75,6 +78,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private MaterialDialog dialog;
     private Uri fileUri;
     private String filePath;
+    Button buttonSetTeam, buttonDone;
+    private View view1;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -90,6 +95,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
         Dashboard.title.setText("Profile");
         setupLayout(view);
+        setupTheme();
+        setupBackground();
         getProfile();
         return view;
     }
@@ -148,16 +155,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void setupLayout(View view) {
 
-        profile_layout = (LinearLayout) view.findViewById(R.id.profile_layout);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
+        view1 = view.findViewById(R.id.view);
         textViewLevel = (TextView) view.findViewById(R.id.textViewLevel);
         textViewLevelNumber = (TextView) view.findViewById(R.id.textViewLevelNumber);
         textViewName = (TextView) view.findViewById(R.id.textViewName);
         textViewWin = (TextView) view.findViewById(R.id.textViewWins);
         textViewLose = (TextView) view.findViewById(R.id.textViewLosses);
         circleImageViewDp = (CircleImageView) view.findViewById(R.id.circleImageViewDp);
+        buttonSetTeam = (Button) view.findViewById(R.id.buttonSetTeam);
+        buttonDone = (Button) view.findViewById(R.id.buttonDone);
         circleImageViewDp.setOnClickListener(this);
-        view.findViewById(R.id.buttonSetTeam).setOnClickListener(ProfileFragment.this);
-        view.findViewById(R.id.buttonDone).setOnClickListener(ProfileFragment.this);
+        buttonDone.setOnClickListener(ProfileFragment.this);
+        buttonSetTeam.setOnClickListener(ProfileFragment.this);
 
     }
 
@@ -173,8 +183,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.buttonDone:
                 if (filePath == null) {
-                 showMessage("Image not picked");
-                }else {
+                    showMessage("Image not picked");
+                } else {
                     uploadImage1();
                 }
                 break;
@@ -464,4 +474,99 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        textViewWin.setBackgroundResource(R.drawable.circular_bg_brown);
+        textViewLose.setBackgroundResource(R.drawable.circular_bg_brown);
+        textViewLevelNumber.setBackgroundResource(R.drawable.circular_bg_brown);
+        textViewLevel.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        buttonSetTeam.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        textViewWin.setBackgroundResource(R.drawable.circular_bg_purlple);
+        textViewLose.setBackgroundResource(R.drawable.circular_bg_purlple);
+        textViewLevelNumber.setBackgroundResource(R.drawable.circular_bg_purlple);
+        textViewLevel.setTextColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        buttonSetTeam.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+    }
+
+    private void setupGreenTheme() {
+        textViewWin.setBackgroundResource(R.drawable.circular_bg_green);
+        textViewLose.setBackgroundResource(R.drawable.circular_bg_green);
+        textViewLevelNumber.setBackgroundResource(R.drawable.circular_bg_green);
+        textViewLevel.setTextColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        buttonSetTeam.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+    }
+
+    private void setupMarronTheme() {
+        textViewWin.setBackgroundResource(R.drawable.circular_bg_marron);
+        textViewLose.setBackgroundResource(R.drawable.circular_bg_marron);
+        textViewLevelNumber.setBackgroundResource(R.drawable.circular_bg_marron);
+        textViewLevel.setTextColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        buttonSetTeam.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+    }
+
+    private void setupLightBlueTheme() {
+        textViewWin.setBackgroundResource(R.drawable.circular_bg_lightblue);
+        textViewLose.setBackgroundResource(R.drawable.circular_bg_lightblue);
+        textViewLevelNumber.setBackgroundResource(R.drawable.circular_bg_lightblue);
+        textViewLevel.setTextColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        buttonSetTeam.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        textViewWin.setBackgroundResource(R.drawable.circular_bg);
+        textViewLose.setBackgroundResource(R.drawable.circular_bg);
+        textViewLevelNumber.setBackgroundResource(R.drawable.circular_bg);
+        textViewLevel.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+        buttonSetTeam.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+    }
+
+    private void setupBackground() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+    }
 }

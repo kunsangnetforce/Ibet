@@ -1,6 +1,9 @@
 package com.netforceinfotech.ibet.currentbet.betarena.thearena;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +37,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
     private Toolbar toolbar;
     RecyclerView recyclerView;
     LinearLayout relativeLayout;
+    CoordinatorLayout coordinatorLayout;
     ArrayList<TheArenaData> theArenaDatas = new ArrayList<>();
     String match_id, bet_id, team, home_id, home_name, home_logo, away_id, away_name, away_logo;
     private LinearLayoutManager linearLayoutManager;
@@ -49,6 +53,8 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
     CircleImageView imageViewSend;
     LinearLayout linearLayoutInput, linearLayoutNoComment, linearLayoutContainer;
     UserSessionManager userSessionManager;
+    Context context;
+    View view1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +73,10 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
 
         }
         userSessionManager = new UserSessionManager(this);
+        context = this;
+        view1 = findViewById(R.id.view);
         imageViewSend = (CircleImageView) findViewById(R.id.imageViewSend);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         editText = (EditText) findViewById(R.id.editText);
         relativeLayout = (LinearLayout) findViewById(R.id.header);
         linearLayoutInput = (LinearLayout) findViewById(R.id.linearLayoutInput);
@@ -76,10 +85,14 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
         _root = FirebaseDatabase.getInstance().getReference();
         imageViewSend.setOnClickListener(this);
         setupToolBar("The Arena");
+        setupTheme();
+        setupBackground();
         setupHashMap();
         setupRecyclerView();
         setupFirebase();
+
     }
+
 
     private void setupFirebase() {
         linearLayoutInput.setVisibility(View.GONE);
@@ -197,7 +210,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        adapter = new TheArenaAdapter(this, theArenaDatas, match_id,bet_id, team);
+        adapter = new TheArenaAdapter(this, theArenaDatas, match_id, bet_id, team);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -336,6 +349,85 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
             sendMessage(editText.getText().toString());
         } else {
             showMessage("Enter text");
+        }
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        linearLayoutInput.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        linearLayoutInput.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+    }
+
+    private void setupGreenTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        linearLayoutInput.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+    }
+
+    private void setupMarronTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        linearLayoutInput.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+    }
+
+    private void setupLightBlueTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        linearLayoutInput.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        linearLayoutInput.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+
+    }
+
+    private void setupBackground() {
+        int background = userSessionManager.getBackground();
+        switch (background) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
         }
     }
 }

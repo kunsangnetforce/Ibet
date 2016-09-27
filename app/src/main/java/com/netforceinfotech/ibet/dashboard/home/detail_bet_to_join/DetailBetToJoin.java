@@ -35,6 +35,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     ImageView imageViewTeamA, imageViewTeamB;
     UserSessionManager userSessionManager;
     TextView textViewMSI, textViewBetamount, textViewPlayer, textViewResult, textViewTeam, textViewScore, textViewLoserMessage;
+    View view1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +47,12 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         setupRecyclerView();
         setupToolBar("Germany vs Italy");
         setupTheme();
-        setupBackbround();
+        setupBackground();
 
     }
 
     private void initView() {
+        view1 = findViewById(R.id.view);
         textViewPlayer = (TextView) findViewById(R.id.textViewPlayer);
         textViewResult = (TextView) findViewById(R.id.textViewResult);
         textViewScore = (TextView) findViewById(R.id.textViewScore);
@@ -68,8 +70,28 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
     }
 
-    private void setupBackbround() {
+    private void setupBackground() {
 
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
     }
 
     private void setupTheme() {
@@ -100,7 +122,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         textViewMSI.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
-        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
         textViewBetamount.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
         linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
         textViewPlayer.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
@@ -111,7 +133,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setupPurlpleTheme() {
-        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         textViewMSI.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
@@ -125,7 +147,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setupGreenTheme() {
-        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         textViewMSI.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
@@ -139,7 +161,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setupMarronTheme() {
-        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         textViewMSI.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
@@ -153,7 +175,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setupLightBlueTheme() {
-        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         textViewMSI.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
@@ -167,7 +189,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setupDefaultTheme() {
-        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        textViewLoserMessage.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         textViewMSI.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));

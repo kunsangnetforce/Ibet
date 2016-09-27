@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:focusableInTouchMode="true"
     tools:context=".currentbet.betarena.live_event.events.EventsFragment">
 
@@ -290,7 +289,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp"
@@ -372,7 +370,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp"

@@ -3,6 +3,8 @@ package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 
 public class WhoWillWinActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -41,6 +45,10 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
     Context context;
     View viewTeam, viewScore;
     private MaterialDialog dialogbox;
+    CoordinatorLayout coordinatorLayout;
+    private UserSessionManager userSessionManager;
+    private View view1;
+    LinearLayout linearLayoutHome, linearLayoutAway;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_who_will_win);
         final Bundle bundle = getIntent().getExtras();
         context = this;
+        userSessionManager = new UserSessionManager(this);
         try {
             match_id = bundle.getString("match_id");
             home_name = bundle.getString("home_name");
@@ -62,6 +71,154 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         }
         setupToolBar(home_name + " vs " + away_name);
         initView();
+        setupTheme();
+        setupBackbround();
+
+    }
+
+    private void setupBackbround() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+    }
+
+    private void setupGreenTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+    }
+
+    private void setupMarronTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+    }
+
+    private void setupLightBlueTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+    }
+
+    private boolean validate() {
+        if (betamount == 0) {
+            showMessage("enter bet amount");
+            return false;
+        }
+        if (stringbetoption.equalsIgnoreCase("0")) {
+            if (selectedteam.equalsIgnoreCase("")) {
+                showMessage("select a team");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void showMessage(String s) {
+        Toast.makeText(WhoWillWinActivity.this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    private void initView() {
+        linearLayoutAway = (LinearLayout) findViewById(R.id.linearLayoutAway);
+        linearLayoutHome = (LinearLayout) findViewById(R.id.linearLayoutHome);
+        view1 = findViewById(R.id.view);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+        relativeLayoutScore = (RelativeLayout) findViewById(R.id.relativeLayoutScore);
+        relativeLayoutTeam = (RelativeLayout) findViewById(R.id.relativeLayoutTeam);
+        relativeLayoutTeam.setOnClickListener(this);
+        relativeLayoutScore.setOnClickListener(this);
+        viewScore = findViewById(R.id.viewScore);
+        viewTeam = findViewById(R.id.viewTeam);
+        viewTeam.setOnClickListener(this);
+        viewScore.setOnClickListener(this);
+        radiobuttonScore = (RadioButton) findViewById(R.id.radiobuttonScore);
+        radiobuttonTeam = (RadioButton) findViewById(R.id.radiobuttonTeam);
+        switchButton = (SwitchButton) findViewById(R.id.switchJoin);
+        relativeLayoutBetAmount = (RelativeLayout) findViewById(R.id.relativeLayoutBetAmount);
+        imageViewTeamA = (ImageView) findViewById(R.id.imageViewTeamA);
+        imageViewTeamB = (ImageView) findViewById(R.id.imageViewTeamB);
+        imageViewHomeIncrement = (ImageView) findViewById(R.id.imageViewHomeIncrement);
+        imageViewHomeDecrement = (ImageView) findViewById(R.id.imageViewHomeDecrement);
+        imageViewAwayIncrement = (ImageView) findViewById(R.id.imageviewAwayincrement);
+        imageViewAwayDecrement = (ImageView) findViewById(R.id.imageViewAwayDecrement);
+        textViewTeamA = (TextView) findViewById(R.id.textViewTeamA);
+        textViewTeamB = (TextView) findViewById(R.id.textViewTeamB);
+        textviewselectHome = (TextView) findViewById(R.id.textviewselectHome);
+        textviewselectDraw = (TextView) findViewById(R.id.textviewselectDraw);
+        textviewselectAway = (TextView) findViewById(R.id.textviewselectAway);
+        textViewScoreHome = (TextView) findViewById(R.id.textViewHomeScore);
+        textViewScoreAway = (TextView) findViewById(R.id.textViewAwayScore);
+        textViewBetamount = (TextView) findViewById(R.id.textViewBetamount);
+        radioButtonAway = (RadioButton) findViewById(R.id.radioTeamb);
+        radioButtonDraw = (RadioButton) findViewById(R.id.radioDraw);
+        radioButtonHome = (RadioButton) findViewById(R.id.radioTeama);
         radiobuttonTeam.setChecked(true);
         radiobuttonScore.setChecked(false);
         Button next = (Button) findViewById(R.id.buttonNext);
@@ -100,56 +257,6 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         textViewTeamA.setText(home_name);
         textViewTeamB.setText(away_name);
 
-    }
-
-    private boolean validate() {
-        if (betamount == 0) {
-            showMessage("enter bet amount");
-            return false;
-        }
-        if (stringbetoption.equalsIgnoreCase("0")) {
-            if (selectedteam.equalsIgnoreCase("")) {
-                showMessage("select a team");
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void showMessage(String s) {
-        Toast.makeText(WhoWillWinActivity.this, s, Toast.LENGTH_SHORT).show();
-    }
-
-    private void initView() {
-        relativeLayoutScore = (RelativeLayout) findViewById(R.id.relativeLayoutScore);
-        relativeLayoutTeam = (RelativeLayout) findViewById(R.id.relativeLayoutTeam);
-        relativeLayoutTeam.setOnClickListener(this);
-        relativeLayoutScore.setOnClickListener(this);
-        viewScore = findViewById(R.id.viewScore);
-        viewTeam = findViewById(R.id.viewTeam);
-        viewTeam.setOnClickListener(this);
-        viewScore.setOnClickListener(this);
-        radiobuttonScore = (RadioButton) findViewById(R.id.radiobuttonScore);
-        radiobuttonTeam = (RadioButton) findViewById(R.id.radiobuttonTeam);
-        switchButton = (SwitchButton) findViewById(R.id.switchJoin);
-        relativeLayoutBetAmount = (RelativeLayout) findViewById(R.id.relativeLayoutBetAmount);
-        imageViewTeamA = (ImageView) findViewById(R.id.imageViewTeamA);
-        imageViewTeamB = (ImageView) findViewById(R.id.imageViewTeamB);
-        imageViewHomeIncrement = (ImageView) findViewById(R.id.imageViewHomeIncrement);
-        imageViewHomeDecrement = (ImageView) findViewById(R.id.imageViewHomeDecrement);
-        imageViewAwayIncrement = (ImageView) findViewById(R.id.imageviewAwayincrement);
-        imageViewAwayDecrement = (ImageView) findViewById(R.id.imageViewAwayDecrement);
-        textViewTeamA = (TextView) findViewById(R.id.textViewTeamA);
-        textViewTeamB = (TextView) findViewById(R.id.textViewTeamB);
-        textviewselectHome = (TextView) findViewById(R.id.textviewselectHome);
-        textviewselectDraw = (TextView) findViewById(R.id.textviewselectDraw);
-        textviewselectAway = (TextView) findViewById(R.id.textviewselectAway);
-        textViewScoreHome = (TextView) findViewById(R.id.textViewHomeScore);
-        textViewScoreAway = (TextView) findViewById(R.id.textViewAwayScore);
-        textViewBetamount = (TextView) findViewById(R.id.textViewBetamount);
-        radioButtonAway = (RadioButton) findViewById(R.id.radioTeamb);
-        radioButtonDraw = (RadioButton) findViewById(R.id.radioDraw);
-        radioButtonHome = (RadioButton) findViewById(R.id.radioTeama);
         radioButtonAway.setOnCheckedChangeListener(this);
         radioButtonHome.setOnCheckedChangeListener(this);
         radioButtonDraw.setOnCheckedChangeListener(this);

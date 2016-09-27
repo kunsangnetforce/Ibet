@@ -1,7 +1,10 @@
 package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,10 +61,14 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     private MaterialDialog dialogConfirmation;
     String match_id;
     private String frindstring;
+    Context context;
     private String friendsidstring;
     private String home_id, away_id;
     UserSessionManager userSessionManager;
     private String losercomment = "";
+    private CoordinatorLayout coordinatorLayout;
+    private Button buttonCreateBet;
+    private View view1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +83,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         */
         Bundle bundle = getIntent().getExtras();
         userSessionManager = new UserSessionManager(getApplicationContext());
+        context = this;
         try {
             home_id = bundle.getString("home_id");
             away_id = bundle.getString("away_id");
@@ -91,8 +100,100 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         }
         setupToolBar("Create Bet");
         setuplayout();
+        setupTheme();
+        setupBackbround();
         findViewById(R.id.buttoncreatebet).setOnClickListener(this);
 
+    }
+
+    private void setupBackbround() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        buttonCreateBet.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+
+    }
+
+    private void setupPurlpleTheme() {
+        buttonCreateBet.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+
+    }
+
+    private void setupGreenTheme() {
+        buttonCreateBet.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+
+    }
+
+    private void setupMarronTheme() {
+        buttonCreateBet.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+
+    }
+
+    private void setupLightBlueTheme() {
+        buttonCreateBet.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+
+    }
+
+    private void setupDefaultTheme() {
+        buttonCreateBet.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
     }
 
     @Override
@@ -114,6 +215,8 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     }
 
     private void setuplayout() {
+        view1 = findViewById(R.id.view);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         switchButtonCanJoin = (SwitchButton) findViewById(R.id.switchbuttonCanJoin);
         switchButtonCantView = (SwitchButton) findViewById(R.id.switchbuttonCantView);
         switchButtonCanView = (SwitchButton) findViewById(R.id.switchbuttonCanView);
@@ -127,7 +230,8 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         setting_list2 = (ImageView) findViewById(R.id.canView);
         setting_list3 = (ImageView) findViewById(R.id.cantView);
         findViewById(R.id.buttonInviteFriend).setOnClickListener(this);
-        findViewById(R.id.buttoncreatebet).setOnClickListener(this);
+        buttonCreateBet = (Button) findViewById(R.id.buttoncreatebet);
+        buttonCreateBet.setOnClickListener(this);
         boolean wrapInScrollView = true;
 
 
@@ -251,8 +355,8 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
                     }
                 })
                 .build();
-        ;
 
+        LinearLayout linearLayoutConfirmation = (LinearLayout) dialogConfirmation.findViewById(R.id.linearLayoutConfirmation);
         LinearLayout linearLayoutScore, linearLayoutTeam;
         linearLayoutScore = (LinearLayout) dialogConfirmation.findViewById(R.id.linearLayoutScore);
         linearLayoutTeam = (LinearLayout) dialogConfirmation.findViewById(R.id.linearLayoutTeam);
@@ -294,6 +398,28 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         textViewLoserMessage.setText("Loser Message : " + editText.getText().toString());
         textViewFriendInvited.setText("Friend Invited : " + friendslist.getText().toString());
         dialogConfirmation.show();
+        switch (userSessionManager.getTheme()) {
+            case 0:
+                linearLayoutConfirmation.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                break;
+            case 1:
+                linearLayoutConfirmation.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+                break;
+            case 2:
+                linearLayoutConfirmation.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+                break;
+            case 3:
+                linearLayoutConfirmation.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+                break;
+            case 4:
+                linearLayoutConfirmation.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+                break;
+            case 5:
+                linearLayoutConfirmation.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+                break;
+
+        }
+
     }
 
     private boolean validate() {

@@ -1,8 +1,10 @@
 package com.netforceinfotech.ibet.currentbet.betarena;
 
 import android.content.Context;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +29,8 @@ public class EnterBetArenaActivity extends AppCompatActivity {
     String home_name, away_name, home_logo, away_logo, home_id, away_id, bet_id, match_id;
     public static TextView title;
     Context context;
+    CoordinatorLayout coordinatorLayout;
+    View view1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,8 @@ public class EnterBetArenaActivity extends AppCompatActivity {
             away_logo = bundle.getString("away_logo");
             home_name = bundle.getString("home_name");
             away_name = bundle.getString("away_name");
-            bet_id=bundle.getString("bet_id");
-            match_id=bundle.getString("match_id");
+            bet_id = bundle.getString("bet_id");
+            match_id = bundle.getString("match_id");
         } catch (Exception ex) {
             showMessage("Bundle error");
         }
@@ -53,8 +57,16 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         } catch (Exception ex) {
 
         }
+        initView();
         setupToolBar("Ibet");
         setupTab();
+        setupTheme();
+        setupBackbround();
+    }
+
+    private void initView() {
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+        view1 = findViewById(R.id.view);
     }
 
     private void showMessage(String s) {
@@ -75,47 +87,7 @@ public class EnterBetArenaActivity extends AppCompatActivity {
     }
 
     private void setupTab() {
-
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
-        if (theme == 0) {
-
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme1));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme1));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme1));
-
-
-        } else if (theme == 1) {
-
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme2));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.red));
-
-
-        } else if (theme == 2) {
-
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme3));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme3));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme3));
-
-
-        } else if (theme == 3) {
-
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme4));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme4));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme4));
-
-
-        } else if (theme == 4) {
-
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme5));
-
-
-        }
-
-
         tabLayout.addTab(tabLayout.newTab().setText("Live Events"));
         tabLayout.addTab(tabLayout.newTab().setText("Stats"));
         tabLayout.addTab(tabLayout.newTab().setText("Bet Detail"));
@@ -124,7 +96,7 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);
         final PagerAdapterBetArena adapter = new PagerAdapterBetArena
-                (getSupportFragmentManager(), tabLayout.getTabCount(),bet_id,match_id,home_id,away_id,home_name,away_name,home_logo,away_id);
+                (getSupportFragmentManager(), tabLayout.getTabCount(), bet_id, match_id, home_id, away_id, home_name, away_name, home_logo, away_id);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -179,5 +151,107 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setupBackbround() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
+
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
+
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+    }
+
+    private void setupGreenTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
+
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+    }
+
+    private void setupMarronTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentMarron));
+
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+    }
+
+    private void setupLightBlueTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccent));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccent));
+
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+    }
 
 }

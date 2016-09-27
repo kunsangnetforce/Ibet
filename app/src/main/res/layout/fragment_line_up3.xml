@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context="com.netforceinfotech.ibet.currentbet.betarena.stats.lineup.LineUpFragment">
 
@@ -36,10 +36,12 @@
                 android:layout_height="640dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ibet_stadium" />
+
             <View
-                android:background="@color/transulation"
                 android:layout_width="match_parent"
-                android:layout_height="640dp"/>
+                android:layout_height="640dp"
+                android:background="@color/transulation" />
+
             <RelativeLayout
                 android:id="@+id/away"
                 android:layout_width="match_parent"
