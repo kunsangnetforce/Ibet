@@ -25,11 +25,18 @@ public final class DefaultIntro extends BaseIntro {
     Bitmap icon;
     MaterialDialog dailog;
     ExplosionField mExplosionField;
+    private String from;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Bundle bundle = getIntent().getExtras();
+        try {
+            from = bundle.getString("from");
+        } catch (Exception ex) {
+            from = "login";
+        }
         addSlide(SampleSlide.newInstance(R.layout.intro));
         addSlide(SampleSlide.newInstance(R.layout.intro2));
         addSlide(SampleSlide.newInstance(R.layout.intro3));
@@ -40,77 +47,34 @@ public final class DefaultIntro extends BaseIntro {
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-
-
-        mExplosionField = ExplosionField.attach2Window(this);
-
-        mExplosionField.expandExplosionBound(200, 300);
-
-        showPopUp("");
-
         // loadMainActivity();
+        if (from.equalsIgnoreCase("login")) {
+            Intent intent = new Intent(DefaultIntro.this, Dashboard.class);
+            startActivity(intent);
+            finish();
+        } else {
+            finish();
+        }
+
     }
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
+        if (from.equalsIgnoreCase("login")) {
+            intent = new Intent(DefaultIntro.this, Dashboard.class);
+            startActivity(intent);
+            finish();
+        } else {
+            finish();
+        }
+
        /* loadMainActivity();
         Toast.makeText(getApplicationContext(), getString(R.string.skip), Toast.LENGTH_SHORT).show();*/
-
-
-        mExplosionField = ExplosionField.attach2Window(this);
-
-        mExplosionField.expandExplosionBound(200, 300);
-
-        showPopUp("");
     }
 
     public void getStarted(View v) {
         loadMainActivity();
-    }
-
-
-    private void showPopUp(String s) {
-        dailog = new MaterialDialog.Builder(DefaultIntro.this)
-                .title("")
-                .customView(R.layout.custom_congratulation_dialog, true).build();
-
-        Button b = (Button) dailog.findViewById(R.id.got_it_buttton);
-        TextView textView = (TextView) dailog.findViewById(R.id.textView1);
-
-        YoYo.with(Techniques.ZoomIn)
-                .duration(700)
-                .playOn(dailog.findViewById(R.id.textView1));
-
-        mExplosionField = ExplosionField.attach2Window(this);
-
-        mExplosionField.expandExplosionBound(200, 300);
-
-        icon = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.coin);
-
-        //   mExplosionField.explode(icon,null,0,5000);
-        addListener(dailog.findViewById(R.id.root));
-
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mExplosionField.explode(view);
-
-                dailog.dismiss();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(getApplicationContext(), Dashboard.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                    }
-                }, 800);
-            }
-        });
-        dailog.show();
-
-
     }
 
 

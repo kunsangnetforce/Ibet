@@ -5,7 +5,8 @@
     android:background="@color/colorPrimaryDark"
     android:gravity="center_vertical"
     android:padding="16dp"
-    android:layout_margin="3dp"
+    android:id="@+id/relativeLayout"
+    android:layout_margin="4dp"
     android:orientation="horizontal">
 
 

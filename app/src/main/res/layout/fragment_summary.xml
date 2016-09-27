@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context="com.netforceinfotech.ibet.currentbet.betarena.stats.summary.SummaryFragment">
 
     <ScrollView
@@ -79,7 +78,7 @@
                             android:gravity="center">
 
                             <TextView
-                                android:id="@+id/textViewMinute"
+                                android:id="@+id/textViewLevelNumber"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
@@ -92,14 +91,14 @@
                                 android:id="@+id/textViewGoal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/textViewMinute"
+                                android:layout_below="@+id/textViewLevelNumber"
                                 android:textColor="@color/colorText"
                                 android:textSize="18sp" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/textViewMinute"
+                                android:layout_below="@+id/textViewLevelNumber"
                                 android:layout_centerHorizontal="true"
                                 android:orientation="horizontal"
                                 android:visibility="gone">

@@ -1,15 +1,18 @@
 package com.netforceinfotech.ibet.currentbet.betarena.live_event;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.CustomViewPager;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +23,8 @@ public class LiveEventFragment extends Fragment {
     private TabLayout tabLayout;
     private int theme = 0;
     String home_id, away_id, match_id, bet_id, home_name, away_name, home_logo, away_logo;
+    UserSessionManager userSessionManager;
+    Context context;
 
     public LiveEventFragment() {
         // Required empty public constructor
@@ -31,6 +36,8 @@ public class LiveEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_live_event, container, false);
+        context = getActivity();
+        userSessionManager = new UserSessionManager(context);
         try {
             // home_id = this.getArguments().getString("home_id");
             home_id = this.getArguments().getString("away_id");
@@ -45,13 +52,14 @@ public class LiveEventFragment extends Fragment {
         } catch (Exception ex) {
 
         }
+        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         setupTab(view);
+        setupTheme();
         return view;
     }
 
     private void setupTab(View view) {
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
         if (theme == 0) {
 
@@ -96,7 +104,7 @@ public class LiveEventFragment extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
         final PagerAdapterLiveEvent adapter = new PagerAdapterLiveEvent
-                (getChildFragmentManager(), tabLayout.getTabCount(),bet_id,match_id,home_id,away_id,home_name,away_name,home_logo,away_logo);
+                (getChildFragmentManager(), tabLayout.getTabCount(), bet_id, match_id, home_id, away_id, home_name, away_name, home_logo, away_logo);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -119,4 +127,69 @@ public class LiveEventFragment extends Fragment {
             }
         });
     }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
+    }
+
+    private void setupGreenTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
+    }
+
+    private void setupMarronTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentMarron));
+
+    }
+
+    private void setupLightBlueTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+
+
+    }
+
+    private void setupDefaultTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccent));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccent));
+
+    }
+
 }

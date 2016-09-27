@@ -103,12 +103,8 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         finishedBetHolder.textViewName.setText(itemList.get(position).name);
-        finishedBetHolder.textViewSelectedName.setText(itemList.get(position).selectedteamname);
-        finishedBetHolder.textViewNumberOfParticipants.setText(itemList.get(position).numberparticipant);
-        finishedBetHolder.textViewNumberPost.setText(itemList.get(position).numberpost);
         finishedBetHolder.textViewTeamA.setText(itemList.get(position).teamaname);
         finishedBetHolder.textViewTeamB.setText(itemList.get(position).teambname);
-        finishedBetHolder.textViewBetStatus.setText(itemList.get(position).betstatus);
     }
 
     private void showMessage(String s) {

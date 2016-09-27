@@ -1,17 +1,18 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".currentbet.CurrentBet">
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/linearLayoutLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/buttonLogin"
@@ -22,13 +23,19 @@
             android:textColor="@color/colorText" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transulation" />
+
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/currentbet_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
@@ -48,8 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimary"
 
             />
     </LinearLayout>
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

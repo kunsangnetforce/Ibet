@@ -1,333 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardBackgroundColor="@color/colorPrimary">
+    android:layout_marginBottom="16dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:id="@+id/linearLayoutTitleBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        android:orientation="vertical">
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/circleImageViewDp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:civ_border_color="#12f4f0f0"
+                app:civ_border_width="6dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutNameTeam"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:weightSum="130">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textViewName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ronie sing"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageViewSelectedLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center"
+
+                >
+
+                <TextView
+                    android:id="@+id/textViewSelectedName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Italy"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutDetailBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="20"
-                    android:gravity="center">
-
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/circleImageViewDp"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        app:civ_border_color="#12f4f0f0"
-                        app:civ_border_width="6dp" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="80"
-                    android:background="@color/colorPrimaryDark"
-                    android:gravity="center"
-                    android:weightSum="130">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/textViewName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ronie sing"
-                            android:textColor="@color/colorText"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="30"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/imageViewSelectedLogo"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_margin="3dp"
-                            />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center"
-
-                        >
-
-                        <TextView
-                            android:id="@+id/textViewSelectedName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Italy"
-                            android:textColor="@color/colorText"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="100">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
+                android:layout_weight="50"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:paddingBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textViewParticipants"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/circular_bg"
-                            android:gravity="center_vertical|center_horizontal"
-                            android:text="30"
-                            android:textColor="@color/green"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="@string/participants"
-                            android:textColor="@color/green"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textViewPost"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/circular_bg"
-                            android:gravity="center_vertical|center_horizontal"
-                            android:text="40"
-                            android:textColor="@color/green"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="@string/posts"
-                            android:textColor="@color/green"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-                </LinearLayout>
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewTime"
+                    android:id="@+id/textViewParticipants"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circular_bg"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="30"
+                    android:textColor="@color/green"
+                    android:textSize="20sp" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="8dp"
-                    android:text="11.45"
-                    android:textColor="@color/colorText"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/participants"
+                    android:textColor="@color/green"
                     android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewPost"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circular_bg"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="40"
+                    android:textColor="@color/green"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/posts"
+                    android:textColor="@color/green"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="16dp"
+            android:text="11.45"
+            android:textColor="@color/colorText"
+            android:textSize="14sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:id="@+id/linearLayoutRoundCornor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:background="@drawable/roundcornor"
+                android:gravity="center"
+                android:padding="6dp"
+                android:weightSum="115">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp"
-                    android:background="@drawable/roundcornor"
-                    android:gravity="center"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:weightSum="115">
+                    android:layout_weight="50"
+                    android:gravity="center">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="120">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:weightSum="100">
+                            android:layout_weight="50"
+                            android:gravity="center">
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="40"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:id="@+id/imageViewTeamA"
-                                    android:layout_width="40dp"
-                                    android:layout_height="30dp"
-                                    />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="60"
-                                android:gravity="center">
-
-                                <TextView
-                                    android:id="@+id/textViewTeamA"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Italy"
-                                    android:textColor="@color/colorText"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
+                            <ImageView
+                                android:id="@+id/imageViewTeamA"
+                                android:layout_width="45dp"
+                                android:layout_height="30dp" />
                         </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="15"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ball" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
-                        android:gravity="center">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:weightSum="100">
+                            android:layout_weight="70"
+                            android:gravity="left|center_vertical">
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="60"
-                                android:gravity="center">
-
-                                <TextView
-                                    android:id="@+id/textViewTeamB"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Germany"
-                                    android:textColor="@color/colorText"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="40"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:id="@+id/imageViewTeamB"
-                                    android:layout_width="40dp"
-                                    android:layout_height="30dp"
-                                     />
-                            </LinearLayout>
-
-
+                            <TextView
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:id="@+id/textViewTeamA"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Italy"
+                                android:textColor="@color/colorText"
+                                android:textSize="12sp" />
                         </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <com.balysv.materialripple.MaterialRippleLayout
-                    app:mrl_rippleColor="@color/ripple"
-                    app:mrl_rippleOverlay="true"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_weight="15"
+                    android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/buttonEnterBetArena"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/circular_bg_fill"
-                        android:elevation="6dp"
-                        android:gravity="center"
-                        android:text="@string/enter_bet_arena"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </com.balysv.materialripple.MaterialRippleLayout>
-
-                <com.balysv.materialripple.MaterialRippleLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-
-                    <TextView
-                        android:id="@+id/textViewDetail"
+                    <ImageView
                         android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ball" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="View Detail"
-                        android:textColor="@color/colorText"
-                        android:textStyle="bold" />
-                </com.balysv.materialripple.MaterialRippleLayout>
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="120">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="70"
+                            android:gravity="right">
+
+                            <TextView
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:id="@+id/textViewTeamB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Germany"
+                                android:textColor="@color/colorText"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="50"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/imageViewTeamB"
+                                android:layout_width="45dp"
+                                android:layout_height="30dp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
-        </LinearLayout>
+            <ImageView
+                android:layout_centerInParent="true"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ball"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="6dp"
+            android:id="@+id/textViewEnterBetArena"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/circular_bg_fill"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:text="@string/enter_bet_arena"
+            android:textColor="@color/colorText"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/textViewDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View Detail"
+                android:textColor="@color/colorText"
+                android:textStyle="bold" />
+        </com.balysv.materialripple.MaterialRippleLayout>
     </LinearLayout>
-</android.support.v7.widget.CardView>
+</LinearLayout>

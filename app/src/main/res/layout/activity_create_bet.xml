@@ -1,328 +1,338 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/teamnotification_layout"
+    android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/brown_color"
-    android:orientation="vertical"
-
-    >
-
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/app_bar" />
-
+    android:orientation="vertical">
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transulation" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        android:layout_below="@+id/toolbar"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <RelativeLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/teamnotification_heading"
-            android:orientation="horizontal"
-            android:padding="5dp">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/app_bar" />
 
 
-            <Button
-                android:id="@+id/buttonInviteFriend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/contact_background"
-                android:drawableLeft="@drawable/ic_pick_contact"
-                android:gravity="center"
-                android:paddingLeft="15dp"
-                android:text="Invite friends to Bet"
-                android:textAllCaps="false"
-                android:textSize="16dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/buttonInviteFriend"
-                android:layout_marginTop="6dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Friends:"
-                    android:textColor="@color/colorText"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/textViewListofFriends"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="kunsang,choephel"
-                    android:textColor="@color/colorText"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/teamnotification_heading"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
-            android:padding="5dp"
-            android:text="@string/create_bet_txt"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="90">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/canViewJoin"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_info" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="60">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Other user/s can view the bet and join"
-                    android:textColor="@color/grey"
-                    android:textSize="14sp"
-
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center">
-
-                <com.kyleduo.switchbutton.SwitchButton
-                    style="@style/SwitchButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center"
-                    app:kswBackDrawable="@drawable/flyme_back_drawable"
-                    app:kswBackMeasureRatio="2.4"
-                    app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
-                    app:kswThumbHeight="16dp"
-                    app:kswThumbWidth="16dp" />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="90">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/canView"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_info" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="60">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Other user/s can only View without join"
-                    android:textColor="@color/grey"
-                    android:textSize="14sp"
-
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center">
-
-                <com.kyleduo.switchbutton.SwitchButton
-                    style="@style/SwitchButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center"
-                    app:kswBackDrawable="@drawable/flyme_back_drawable"
-                    app:kswBackMeasureRatio="2.4"
-                    app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
-                    app:kswThumbHeight="16dp"
-                    app:kswThumbWidth="16dp" />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="90">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/cantView"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_info" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="60">
-
-                <TextView
-                    android:id="@+id/setting_list_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="No one can view the bet accept the invited users."
-                    android:textColor="@color/grey"
-                    android:textSize="14sp"
-
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center">
-
-                <com.kyleduo.switchbutton.SwitchButton
-                    android:id="@+id/sb_custom_flyme"
-                    style="@style/SwitchButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center"
-                    app:kswBackDrawable="@drawable/flyme_back_drawable"
-                    app:kswBackMeasureRatio="2.4"
-                    app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
-                    app:kswThumbHeight="16dp"
-                    app:kswThumbWidth="16dp" />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewRemaing"
+            <RelativeLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="200 characters remaining"
+                android:layout_below="@+id/teamnotification_heading"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+
+                <Button
+                    android:id="@+id/buttonInviteFriend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/contact_background"
+                    android:drawableLeft="@drawable/ic_pick_contact"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:text="Invite friends to Bet"
+                    android:textAllCaps="false"
+                    android:textSize="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buttonInviteFriend"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Friends:"
+                        android:textColor="@color/colorText"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textViewListofFriends"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="kunsang,choephel"
+                        android:textColor="@color/colorText"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/teamnotification_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar"
+                android:padding="5dp"
+                android:text="@string/create_bet_txt"
                 android:textColor="@color/white"
-
-                android:textSize="12sp"
-
+                android:textSize="14sp"
 
                 />
 
-
-            <EditText
-                android:id="@+id/editText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/contact_background"
-                android:gravity="top|left"
-                android:hint="@string/score"
-                android:maxLength="200"
-                android:padding="5dp"
-                android:textColor="@color/black" />
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="90">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/canViewJoin"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_info" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="60">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Other user/s can view the bet and join"
+                        android:textColor="@color/grey"
+                        android:textSize="14sp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:gravity="center">
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/switchbuttonCanJoin"
+                        style="@style/SwitchButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        app:kswBackDrawable="@drawable/flyme_back_drawable"
+                        app:kswBackMeasureRatio="2.4"
+                        app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
+                        app:kswThumbHeight="16dp"
+                        app:kswThumbWidth="16dp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="90">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/canView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_info" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="60">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Other user/s can only View without join"
+                        android:textColor="@color/grey"
+                        android:textSize="14sp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:gravity="center">
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/switchbuttonCanView"
+                        style="@style/SwitchButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        app:kswBackDrawable="@drawable/flyme_back_drawable"
+                        app:kswBackMeasureRatio="2.4"
+                        app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
+                        app:kswThumbHeight="16dp"
+                        app:kswThumbWidth="16dp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="90">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/cantView"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_info" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="60">
+
+                    <TextView
+                        android:id="@+id/setting_list_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="No one can view the bet accept the invited users."
+                        android:textColor="@color/grey"
+                        android:textSize="14sp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:gravity="center">
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/switchbuttonCantView"
+                        style="@style/SwitchButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        app:kswBackDrawable="@drawable/flyme_back_drawable"
+                        app:kswBackMeasureRatio="2.4"
+                        app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
+                        app:kswThumbHeight="16dp"
+                        app:kswThumbWidth="16dp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewRemaing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="200 characters remaining"
+                    android:textColor="@color/white"
+
+                    android:textSize="12sp"
+
+
+                    />
+
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/contact_background"
+                    android:gravity="top|left"
+                    android:hint="@string/score"
+                    android:maxLength="200"
+                    android:padding="5dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <Button
+
+                android:id="@+id/buttoncreatebet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"
+                android:text="@string/create_bet"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+
         </LinearLayout>
-
-        <Button
-
-            android:id="@+id/buttoncreatebet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
-            android:text="@string/create_bet"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
 
     </LinearLayout>
 
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

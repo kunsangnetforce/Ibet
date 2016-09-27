@@ -63,7 +63,7 @@ public class SummaryFragment extends Fragment {
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
         textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
         textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
-        textViewTime = (TextView) view.findViewById(R.id.textViewMinute);
+        textViewTime = (TextView) view.findViewById(R.id.textViewLevelNumber);
         textViewHomeGoal = (TextView) view.findViewById(R.id.textViewHomeGoal);
         textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);

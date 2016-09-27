@@ -2,8 +2,8 @@ package com.netforceinfotech.ibet.login;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +20,6 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonArray;
@@ -34,7 +33,6 @@ import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.profilesetting.ProfileSettingActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         profile = Profile.getCurrentProfile();
 
         if (profile != null) {
-         //   LoginManager.getInstance().logOut();
+            //   LoginManager.getInstance().logOut();
             Intent intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
             startActivity(intent);
             finish();
@@ -261,6 +259,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 JsonObject object = data.get(0).getAsJsonObject();
                                 String api_token = result.get("api_token").getAsString();
                                 String customer_id = object.get("customer_id").getAsString();
+                                String msg=object.get("msg").getAsString();
+                                if(msg.equalsIgnoreCase("Facebook ID Already Exist")){
+                                    userSessionManager.setIsFirstTime(false);
+                                }
                                 userSessionManager.setCustomerId(customer_id);
                                 userSessionManager.setApitoken(api_token);
                                 if (userSessionManager.getIsFirstTime()) {

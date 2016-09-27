@@ -69,8 +69,14 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_setting);
         context = this;
-        getPermission();
         userSessionManager = new UserSessionManager(context);
+        if (!userSessionManager.getIsFirstTime()) {
+            Intent intent = new Intent(this, Dashboard.class);
+            startActivity(intent);
+            finish();
+        }
+        getPermission();
+
         imageViewDP = (ImageView) findViewById(R.id.imageViewDP);
 
         findViewById(R.id.buttonSkip).setOnClickListener(this);
@@ -105,8 +111,6 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                 finish();*/
                 intent = new Intent(context, DefaultIntro.class);
                 startActivity(intent);
-
-
                 break;
             case R.id.buttonFavTeam:
                 intent = new Intent(context, SelectTeamActivity.class);
@@ -386,10 +390,6 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         }
     }
 
-    public Uri getOutputMediaFileUri(int type) {
-        return Uri.fromFile(getOutputMediaFile(type));
-    }
-
     private static File getOutputMediaFile(int type) {
 
         // External sdcard location
@@ -425,6 +425,11 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
 
         return mediaFile;
     }
+
+    public Uri getOutputMediaFileUri(int type) {
+        return Uri.fromFile(getOutputMediaFile(type));
+    }
+
 
     private void setHeader() {
         final String appkey = getResources().getString(R.string.appkey);

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.CustomViewPager;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 
 /**
@@ -24,6 +25,7 @@ public class StateFragment extends Fragment {
     private TabLayout tabLayout;
     private int theme;
     private String home_id, away_id, home_name, away_name, match_id;
+    UserSessionManager userSessionManager;
 
     public StateFragment() {
         // Required empty public constructor
@@ -36,6 +38,7 @@ public class StateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_state, container, false);
         context = getActivity();
+        userSessionManager = new UserSessionManager(context);
         try {
             home_id = this.getArguments().getString("away_id");
             away_id = this.getArguments().getString("away_id");
@@ -46,14 +49,12 @@ public class StateFragment extends Fragment {
             Log.i("kunsang_exception", "paramenter not set");
         }
         setupTab(view);
+        setupTheme();
         return view;
     }
 
     private void setupTab(View view) {
-
-
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-
         tabLayout.addTab(tabLayout.newTab().setIcon(ContextCompat.getDrawable(context, R.drawable.ic_graph)));
         tabLayout.addTab(tabLayout.newTab().setIcon(ContextCompat.getDrawable(context, R.drawable.ic_line_up)));
         tabLayout.addTab(tabLayout.newTab().setIcon(ContextCompat.getDrawable(context, R.drawable.ic_list)));
@@ -90,5 +91,69 @@ public class StateFragment extends Fragment {
 
             }
         });
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
+    }
+
+    private void setupGreenTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
+    }
+
+    private void setupMarronTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentMarron));
+
+    }
+
+    private void setupLightBlueTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+
+
+    }
+
+    private void setupDefaultTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccent));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccent));
+
     }
 }

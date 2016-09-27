@@ -3,7 +3,9 @@ package com.netforceinfotech.ibet.live_event_main;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.datetimepicker.date.DatePickerDialog;
@@ -64,6 +67,11 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     LinearLayout linearLayoutNoMatch;
     private ExpandableListView expListView;
     ImageView imageViewNoMatch;
+    UserSessionManager userSessionManager;
+    private Button buttonLive;
+    CoordinatorLayout coordinatorLayout;
+    TextView textViewNoData;
+    View view1;
 
     public LiveEventsFragment() {
         // Required empty public constructor
@@ -76,12 +84,115 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_live_events, container, false);
         context = getActivity();
+        userSessionManager = new UserSessionManager(getActivity());
+        initView(view);
+        setupTheme();
+        setupBackground();
+        // getLiveMatch1();
+        return view;
+    }
+
+    private void setupBackground() {
+        int background = userSessionManager.getBackground();
+        switch (background) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    private void setupTheme() {
+        switch (userSessionManager.getTheme()) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+
+    }
+
+    private void setupPurlpleTheme() {
+        buttonDate.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        buttonLive.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        textViewNoData.setTextColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+
+    }
+
+    private void setupGreenTheme() {
+        buttonDate.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        buttonLive.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        textViewNoData.setTextColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+
+    }
+
+    private void setupMarronTheme() {
+        buttonDate.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        buttonLive.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+    }
+
+    private void setupLightBlueTheme() {
+
+    }
+
+    private void setupBrownTheme() {
+        buttonDate.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        buttonLive.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        textViewNoData.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+
+    }
+
+    private void setupDefaultTheme() {
+        buttonDate.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+        buttonLive.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        textViewNoData.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+
+    }
+
+    private void initView(View view) {
+        view1 = view.findViewById(R.id.view);
+        textViewNoData = (TextView) view.findViewById(R.id.textViewNoData);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
         linearLayoutNoMatch = (LinearLayout) view.findViewById(R.id.linearLayoutNoLiveMatches);
         imageViewNoMatch = (ImageView) view.findViewById(R.id.imageViewNoLiveMatch);
         Picasso.with(context).load(R.drawable.gs_stadium).into(imageViewNoMatch);
         buttonDate = (Button) view.findViewById(R.id.buttondate);
         buttonDate.setOnClickListener(this);
+        buttonLive = (Button) view.findViewById(R.id.buttonLive);
         mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
         mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
@@ -94,9 +205,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
             }
         });
         setupExpandableView(view);
-        view.findViewById(R.id.buttonLive).setOnClickListener(this);
-        // getLiveMatch1();
-        return view;
+        buttonLive.setOnClickListener(this);
     }
 
     private void getLiveMatch1() {

@@ -65,7 +65,7 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         topHolder.textViewLC.setText(topData.like);
         topHolder.textViewComment.setText(topData.comment);
         topHolder.textViewDate.setText(Util.getDateCurrentTimeZone(topData.timestamp));
-        topHolder.textViewTime.setText(Util.getDateCurrentTimeZone(topData.timestamp));
+        topHolder.textViewTime.setText(Util.getTimeCurrentTimeZone(topData.timestamp));
 
     }
 

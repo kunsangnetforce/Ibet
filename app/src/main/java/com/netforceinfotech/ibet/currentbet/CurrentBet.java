@@ -4,17 +4,16 @@ package com.netforceinfotech.ibet.currentbet;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.startnewbet.PagerAdapterNewBet;
 import com.netforceinfotech.ibet.general.CustomViewPager;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.login.LoginActivity;
@@ -31,6 +30,8 @@ public class CurrentBet extends Fragment implements View.OnClickListener {
     LinearLayout currrentbetlayout, linearLayoutLogin;
     String loginmode;
     Context context;
+    View view1;
+    CoordinatorLayout coordinatorLayout;
 
     public CurrentBet() {
         // Required empty public constructor
@@ -47,10 +48,80 @@ public class CurrentBet extends Fragment implements View.OnClickListener {
         loginmode = userSessionManager.getLoginMode();
         initView(view);
         setupTab(view);
+        setupTheme();
+        setupBackground();
         return view;
     }
 
+    private void setupBackground() {
+        UserSessionManager userSessionManager = new UserSessionManager(getActivity());
+        int background = userSessionManager.getBackground();
+        switch (background) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    private void setupTheme() {
+        if (theme == 0) {
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccent));
+
+
+        } else if (theme == 1) {
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
+
+
+        } else if (theme == 2) {
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
+
+
+        } else if (theme == 3) {
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
+
+
+        } else if (theme == 4) {
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentMarron));
+
+
+        }
+
+
+    }
+
     private void initView(View view) {
+        view1 = view.findViewById(R.id.view);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
         currrentbetlayout = (LinearLayout) view.findViewById(R.id.currentbet_layout);
         linearLayoutLogin = (LinearLayout) view.findViewById(R.id.linearLayoutLogin);
         view.findViewById(R.id.buttonLogin).setOnClickListener(CurrentBet.this);
@@ -65,51 +136,6 @@ public class CurrentBet extends Fragment implements View.OnClickListener {
 
     private void setupTab(View view) {
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-
-
-        if (theme == 0) {
-
-            currrentbetlayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme1));
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme1));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme1));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme1));
-
-
-        } else if (theme == 1) {
-
-            currrentbetlayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme2));
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme2));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.red));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.red));
-
-
-        } else if (theme == 2) {
-
-            currrentbetlayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme3));
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme3));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme3));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme3));
-
-
-        } else if (theme == 3) {
-
-            currrentbetlayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme4));
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme4));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme4));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme4));
-
-
-        } else if (theme == 4) {
-
-            currrentbetlayout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tab_background_theme5));
-            tabLayout.setBackgroundColor(getResources().getColor(R.color.tab_background_theme5));
-            tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_seclector_highlitedcolor_theme5));
-            tabLayout.setTabTextColors(getResources().getColor(R.color.white), getResources().getColor(R.color.tab_seclector_text_color_theme5));
-
-
-        }
-
-
         tabLayout.addTab(tabLayout.newTab().setText("Live Bets"));
         tabLayout.addTab(tabLayout.newTab().setText("Upcoming Bets"));
 

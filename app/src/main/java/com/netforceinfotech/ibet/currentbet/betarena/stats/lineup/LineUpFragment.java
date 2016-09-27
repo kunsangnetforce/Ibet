@@ -4,6 +4,7 @@ package com.netforceinfotech.ibet.currentbet.betarena.stats.lineup;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,7 @@ public class LineUpFragment extends Fragment {
     ArrayList<LineUPData> lineUPDatasHome = new ArrayList<>();
     ArrayList<LineUPData> lineUPDatasAway = new ArrayList<>();
     private TextDrawable drawable;
+    LinearLayout linearLayout;
     LinearLayout linearLayoutGKH, linearLayoutDH3, linearLayoutDH4, linearLayoutDH5, linearLayoutMH1, linearLayoutMH2, linearLayoutMH3, linearLayoutMH4, linearLayoutMH5, linearLayoutFH1, linearLayoutFH2, linearLayoutFH3, linearLayoutFH4;
     LinearLayout linearLayoutGKA, linearLayoutDA3, linearLayoutDA4, linearLayoutDA5, linearLayoutMA1, linearLayoutMA2, linearLayoutMA3, linearLayoutMA4, linearLayoutMA5, linearLayoutFA1, linearLayoutFA2, linearLayoutFA3, linearLayoutFA4;
     ImageView imageViewGKH;
@@ -78,6 +80,7 @@ public class LineUpFragment extends Fragment {
     ScrollView scrollView;
     TextView textViewError;
     private String match_id;
+    UserSessionManager userSessionManager;
 
     public LineUpFragment() {
         // Required empty public constructor
@@ -90,14 +93,67 @@ public class LineUpFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_line_up3, container, false);
         context = getActivity();
+        userSessionManager = new UserSessionManager(context);
         try {
-            match_id = this.getArguments().getString("match_id");
+            //691136  match_id = this.getArguments().getString("match_id");
+            match_id = "691136";
         } catch (Exception ex) {
         }
         initview(view);
         getLineUp1(match_id);
+        // setupTheme();
         //    setDummyLineUp();
         return view;
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+    }
+
+    private void setupGreenTheme() {
+        linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+    }
+
+    private void setupMarronTheme() {
+
+        linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+    }
+
+    private void setupLightBlueTheme() {
+
+        linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
     }
 
     private void getLineUp1(String matchid) {
@@ -1051,6 +1107,7 @@ public class LineUpFragment extends Fragment {
 
 
     private void initview(View view) {
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         linearLayoutError = (LinearLayout) view.findViewById(R.id.linearLayoutError);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         textViewError = (TextView) view.findViewById(R.id.textViewError);

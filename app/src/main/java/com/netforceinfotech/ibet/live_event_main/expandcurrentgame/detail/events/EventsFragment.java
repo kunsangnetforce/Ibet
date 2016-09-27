@@ -61,6 +61,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     private String voted;
     private String login_mode;
     private String matchstatus;
+    String home_logo, away_logo;
     TextView textViewMatchStatus;
     CircleProgressView cpvLevel;
     TickTockView tickTockView;
@@ -79,12 +80,15 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         context = getActivity();
         try {
-            home_id = this.getArguments().getString("away_id");
+            home_id = this.getArguments().getString("home_id");
             away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");
             away_name = this.getArguments().getString("away_name");
+            home_logo = this.getArguments().getString("home_logo");
+            away_logo = this.getArguments().getString("away_logo");
         } catch (Exception ex) {
+            showMessage("bundle error");
             Log.i("kunsang_exception", "paramenter not yet set");
         }
         initView(view);
@@ -111,7 +115,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
         textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
         textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
-        textViewTime = (TextView) view.findViewById(R.id.textViewMinute);
+        textViewTime = (TextView) view.findViewById(R.id.textViewLevelNumber);
         textViewHomeGoal = (TextView) view.findViewById(R.id.textViewHomeGoal);
         textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
         linearLayoutProgress = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
@@ -144,7 +148,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         login_mode = userSessionManager.getLoginMode();
         String url = getResources().getString(R.string.url);
-        url = url + "/events_by_match_id.php?match_id=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode;
+        url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode;
         // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
         Log.i("result url", url);
         setHeader();
@@ -186,7 +190,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                 String teamalogo = "";
                 String teamblogo = "";
                 try {
-                    if (teamObject.get("hm_teamname").isJsonNull()) {
+                   /* if (teamObject.get("hm_teamname").isJsonNull()) {
                         teama = "";
                     } else {
                         teama = teamObject.get("hm_teamname").getAsString();
@@ -206,7 +210,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                     } else {
                         teamblogo = teamObject.get("aw_teamlogo").getAsString();
                     }
-
+*/
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -249,14 +253,13 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } else {
                             team = "b";
                         }
+                        Log.i("kunsangteam",team);
                         String minute = jsonObject.get("minute").getAsString();
                         String extra_min = "0";
                         if (jsonObject.get("extra_min").isJsonNull()) {
                             extra_min = "0";
                         } else {
                             extra_min = jsonObject.get("extra_min").getAsString();
-
-                            extra_min = "0";
                         }
 
                         String time = "0";
@@ -304,8 +307,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
                 String minute = score_object.get("minute").getAsString();
                 String extra_minute = score_object.get("extra_minute").getAsString();
-                textViewTeamA.setText(teama);
-                textViewTeamB.setText(teamb);
+                textViewTeamA.setText(home_name);
+                textViewTeamB.setText(away_name);
                 textViewHomeGoal.setText(home_score);
                 textViewAwayGoal.setText(away_score);
                 switch (matchstatus) {
@@ -449,18 +452,18 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                 } else {
                     textViewTime.setText(minute + "'+" + extra_minute);
                 }
-                if (teamalogo.length() > 0) {
+                if (home_logo.length() > 0) {
                     Picasso.with(context)
-                            .load(teamalogo)
+                            .load(home_logo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewHome);
                 } else {
                     imageViewHome.setImageResource(R.drawable.ic_error);
                 }
-                if (teamblogo.length() > 0) {
+                if (away_logo.length() > 0) {
                     Picasso.with(context)
-                            .load(teamblogo)
+                            .load(away_logo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewAway);
@@ -610,7 +613,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String url = getResources().getString(R.string.url);
         String user_id = userSessionManager.getCustomerId();
-        url = url + "/votes_by_match.php?match_id=" + match_id + "&user_id=" + user_id + "&vote=" + team;
+        url = url + "/votes_by_match.php?matchid=" + match_id + "&user_id=" + user_id + "&vote=" + team;
         Log.i("result url", url);
         setHeader();
         Ion.with(context)

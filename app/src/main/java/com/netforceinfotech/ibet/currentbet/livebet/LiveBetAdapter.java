@@ -12,13 +12,11 @@ import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.currentbet.betarena.EnterBetArenaActivity;
+import com.netforceinfotech.ibet.dashboard.home.detail_finished_bet.DetailFinishedBet;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Gowtham Chandrasekar on 31-07-2015.
- */
 public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
@@ -55,19 +53,7 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-/*
-        LiveBetHolder liveBetHolder = (LiveBetHolder) holder;
 
-        liveBetHolder.textViewEnterBetArena.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(context, EnterBetArenaActivity.class);
-                context.startActivity(intent);
-            }
-        });
-*/
         Log.i("ibet_position", "" + position);
         LiveBetHolder betsToJoinHolder = (LiveBetHolder) holder;
         betsToJoinHolder.textViewEnterBetArena.setOnClickListener(new View.OnClickListener() {
@@ -113,13 +99,16 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         } else {
             betsToJoinHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
         }
-
         betsToJoinHolder.textViewName.setText(itemList.get(position).name);
-        betsToJoinHolder.textViewSelectedName.setText(itemList.get(position).selectedteamname);
-        betsToJoinHolder.textViewNumberOfParticipants.setText(itemList.get(position).numberparticipant);
-        betsToJoinHolder.textViewNumberPost.setText(itemList.get(position).numberpost);
         betsToJoinHolder.textViewTeamA.setText(itemList.get(position).teamaname);
         betsToJoinHolder.textViewTeamB.setText(itemList.get(position).teambname);
+        betsToJoinHolder.textViewDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailFinishedBet.class);
+                context.startActivity(intent);
+            }
+        });
         //  betsToJoinHolder.textViewBetStatus.setText(itemList.get(position).betstatus);
     }
 

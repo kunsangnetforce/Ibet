@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,7 @@ import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.profilesetting.ProfileSettingActivity;
 import com.netforceinfotech.ibet.profilesetting.selectteam.expandteam.ExpandHeaderData;
@@ -37,14 +39,24 @@ import com.netforceinfotech.ibet.profilesetting.selectteam.expandteam.Expandable
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListAdapter;
 import com.netforceinfotech.ibet.profilesetting.selectteam.listofteam.TeamListData;
 import com.netforceinfotech.ibet.profilesetting.selectteam.selectedteam.SelectTeamAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class SelectTeamActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListAdapter.clickListner {
 
@@ -393,13 +405,53 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonDone:
-                for (int i = 0; i < selectTeamDatas.size(); i++) {
-                    ProfileSettingActivity.arrayListTeamids.add(selectTeamDatas.get(i).id);
+                try {
+                    ProfileSettingActivity.arrayListTeamids.clear();
+                } catch (Exception ex) {
+
                 }
-                finish();
-                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                for (int i = 0; i < selectTeamDatas.size(); i++) {
+                    if (!ProfileSettingActivity.arrayListTeamids.contains(selectTeamDatas.get(i))) {
+                        ProfileSettingActivity.arrayListTeamids.add(selectTeamDatas.get(i).id);
+                    }
+                }
+                String teams = TextUtils.join(",", ProfileSettingActivity.arrayListTeamids);
+                updateTeam(teams);
+
                 break;
         }
+    }
+
+    private void updateTeam(String teams) {
+        UserSessionManager userSessionManager = new UserSessionManager(context);
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=insert_team_list&customer_id=46&team=1,2,3
+        String baseUrl = getString(R.string.url);
+        String updateTeamUrl = "/services.php?opt=insert_team_list&customer_id=" + userSessionManager.getCustomerId()
+                + "&team=" + teams;
+        String url = baseUrl + updateTeamUrl;
+        Log.i("kunsangurl", url);
+        setupSelfSSLCert();
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            showMessage("Something is wrong");
+                        } else {
+                            Log.i("kunsangresult", result.toString());
+                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                                showMessage("Favourite Team Selected");
+                                finish();
+                                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                            } else {
+                                showMessage("Could not set team. Try again");
+                            }
+                        }
+                    }
+                });
+
     }
 
     private void setHeader() {
@@ -444,5 +496,51 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void itemClicked(View view, int groupview, int childview) {
+    }
+
+    private static class Trust implements X509TrustManager {
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+
+    }
+
+    public void setupSelfSSLCert() {
+        final Trust trust = new Trust();
+        final TrustManager[] trustmanagers = new TrustManager[]{trust};
+        SSLContext sslContext;
+        try {
+            sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustmanagers, new SecureRandom());
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setTrustManagers(trustmanagers);
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setSSLContext(sslContext);
+        } catch (final NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (final KeyManagementException e) {
+            e.printStackTrace();
+        }
     }
 }

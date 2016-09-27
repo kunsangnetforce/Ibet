@@ -1,6 +1,8 @@
 package com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend;
 
 import android.content.Context;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.CreateBet;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.friend.SearchFriendAdapter;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.selectedfrind.SelectFriendAdapter;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -38,22 +42,36 @@ public class SearchFriendActivity extends AppCompatActivity implements View.OnCl
     LinearLayout linearLayoutMain, linearLayoutNoContent;
     public static ArrayList<SearchFriendData> selectedDatas = new ArrayList<>();
     Context context;
+    CoordinatorLayout coordinatorLayout;
     private Toolbar toolbar;
+    Button buttonDone;
+    View view1;
+    UserSessionManager userSessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_friend);
         context = this;
-        linearLayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
-        linearLayoutNoContent = (LinearLayout) findViewById(R.id.linearLayoutNoContent);
-        linearLayoutMain.setVisibility(View.GONE);
-        linearLayoutNoContent.setVisibility(View.GONE);
-        findViewById(R.id.buttonDone).setOnClickListener(this);
+        userSessionManager = new UserSessionManager(context);
+        initView();
         setupToolBar("Search Friends");
         setupRecycler();
         setupRecyclerSelected();
         setSearchView();
+        setupTheme();
+        setupBackbround();
+    }
+
+    private void initView() {
+        view1 = findViewById(R.id.view);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+        buttonDone = (Button) findViewById(R.id.buttonDone);
+        linearLayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
+        linearLayoutNoContent = (LinearLayout) findViewById(R.id.linearLayoutNoContent);
+        linearLayoutMain.setVisibility(View.GONE);
+        linearLayoutNoContent.setVisibility(View.GONE);
+        buttonDone.setOnClickListener(this);
     }
 
     @Override
@@ -218,7 +236,98 @@ public class SearchFriendActivity extends AppCompatActivity implements View.OnCl
                 if (selectedDatas.size() == 0) {
                     showMessage("No friend selected");
                 }
+                finish();
                 break;
         }
     }
+
+    private void setupBackbround() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        buttonDone.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+
+    }
+
+    private void setupPurlpleTheme() {
+        buttonDone.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+
+    }
+
+    private void setupGreenTheme() {
+
+        buttonDone.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+
+    }
+
+    private void setupMarronTheme() {
+        buttonDone.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+    }
+
+    private void setupLightBlueTheme() {
+        buttonDone.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        buttonDone.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+    }
+
 }

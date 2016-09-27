@@ -15,6 +15,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -73,6 +74,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/textViewVs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="VS"

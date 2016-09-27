@@ -30,6 +30,7 @@ public class UserSessionManager {
     private static final String BACKGROUND_CROWD = "background_crowd";
     private static final String WINBET = "winbet";
     private static final String LOSEBET = "losebet";
+    private static final String BACKGROUND = "background";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -269,5 +270,14 @@ public class UserSessionManager {
 
     public boolean getLoseBet() {
         return pref.getBoolean(LOSEBET, true);
+    }
+
+    public void setBackground(int choice) {
+        editor.putInt(BACKGROUND, choice);
+        editor.commit();
+    }
+
+    public int getBackground() {
+        return pref.getInt(BACKGROUND, 6);
     }
 }

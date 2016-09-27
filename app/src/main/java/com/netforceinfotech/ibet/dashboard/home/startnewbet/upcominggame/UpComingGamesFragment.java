@@ -30,14 +30,25 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.WhoWillWinActivity;
 import com.netforceinfotech.ibet.dashboard.home.startnewbet.currentgame.CurrentGameData;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +66,8 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
     LinearLayout linearLayout;
     public static String home_name, away_name, home_logo, away_logo;
     public static String match_id = "";
-    public static String home_id,away_id;
+    public static String home_id, away_id;
+
     public UpComingGamesFragment() {
         // Required empty public constructor
     }
@@ -114,12 +126,13 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
                 Intent intent = new Intent(getActivity(), WhoWillWinActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("match_id", match_id);
-                bundle.putString("away_id", home_id);
+                bundle.putString("home_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
                 bundle.putString("home_logo", home_logo);
                 bundle.putString("away_logo", away_logo);
+                Log.i("kunsangparamenter", home_id + "" + away_id);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -129,9 +142,10 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
     private void getLiveMatch1() {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String token = userSessionManager.getApitoken();
-        String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam,competition";
-
-        RequestQueue queue = Volley.newRequestQueue(context);
+        //https://netforcesales.com/ibet_admin/api/upcoming_matches.php
+        String url = getResources().getString(R.string.url) + "/upcoming_matches.php";
+        Log.i("kunsang_url", url);
+     /*   RequestQueue queue = Volley.newRequestQueue(context);
 
         JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
                 url,
@@ -139,7 +153,91 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
                 createMyReqSuccessListener(),
                 createMyReqErrorListener());
 
-        queue.add(myReq);
+        queue.add(myReq);*/
+        final Trust trust = new Trust();
+        final TrustManager[] trustmanagers = new TrustManager[]{trust};
+        SSLContext sslContext;
+        try {
+            sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustmanagers, new SecureRandom());
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setTrustManagers(trustmanagers);
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setSSLContext(sslContext);
+        } catch (final NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (final KeyManagementException e) {
+            e.printStackTrace();
+        }
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        Log.i("kunsangresponse", result.toString());
+                        if (result == null) {
+                            showMessage("Something wrong");
+                        } else {
+                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                                setUpData(result);
+                            } else {
+                                showMessage("Authentication failure. Login again");
+                            }
+                        }
+
+                    }
+                });
+    }
+
+    private void setUpData(JsonObject result) {
+        if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+            linearLayout.setVisibility(View.GONE);
+            try {
+                Log.i("kunsang_result", result.toString());
+                JsonArray data = result.getAsJsonArray("data");
+                if (data.size() == 0) {
+                    showMessage("No match available");
+                } else {
+                    for (int i = 0; i < data.size(); i++) {
+                        JsonObject jsonObject = data.get(i).getAsJsonObject();
+                        String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
+                        if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
+                            matchid = jsonObject.get("matchid").getAsString();
+                            home_team_id = jsonObject.get("home_team_id").getAsString();
+                            away_team_id = jsonObject.get("away_team_id").getAsString();
+                            try {
+                                home_team_name = jsonObject.get("home_teamname").getAsString();
+                            } catch (Exception ex) {
+                                home_team_name = "";
+                            }
+                            try {
+                                away_team_name = jsonObject.get("away_teamname").getAsString();
+                            } catch (Exception ex) {
+                                away_team_name = "";
+                            }
+                            try {
+                                home_team_logo = jsonObject.get("home_teamlogo").getAsString();
+                            } catch (Exception ex) {
+                                home_team_logo = "";
+                            }
+                            try {
+                                away_team_logo = jsonObject.get("away_teamlogo").getAsString();
+
+                            } catch (Exception ex) {
+                                away_team_logo = "";
+                            }
+                            upcomingGameDatas.add(new UpcomingGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name));
+                        }
+                    }
+                    upcomingGameAdapter.notifyDataSetChanged();
+                }
+            } catch (Exception ex) {
+                showMessage("json parsing exception");
+                ex.printStackTrace();
+            }
+
+
+        }
     }
 
     private Response.Listener<JSONObject> createMyReqSuccessListener() {
@@ -158,27 +256,32 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
                                 JSONObject jsonObject = data.getJSONObject(i);
                                 String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
                                 if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
-                                    matchid = jsonObject.getString("id");
+                                    matchid = jsonObject.getString("match_id");
                                     home_team_id = jsonObject.getString("home_team_id");
                                     away_team_id = jsonObject.getString("away_team_id");
-                                    JSONObject homeTeam, awayTeam, competition;
-                                    if (!(jsonObject.get("homeTeam") == null || jsonObject.get("awayTeam") == null)) {
-                                        homeTeam = jsonObject.getJSONObject("homeTeam");
-                                        awayTeam = jsonObject.getJSONObject("awayTeam");
-                                        competition = jsonObject.getJSONObject("competition");
-                                        home_team_name = homeTeam.getString("name");
-                                        away_team_name = awayTeam.getString("name");
-                                        competition_id = competition.getString("id");
-                                        competition_name = competition.getString("name");
-
-                                        if (!(homeTeam.get("logo") == null)) {
-                                            home_team_logo = homeTeam.getString("logo");
-                                        }
-                                        if (!(awayTeam.get("logo") == null)) {
-                                            away_team_logo = awayTeam.getString("logo");
-                                        }
-
+                                    try {
+                                        home_team_name = jsonObject.getString("home_teamname");
+                                    } catch (Exception ex) {
+                                        home_team_name = "";
                                     }
+                                    try {
+                                        away_team_name = jsonObject.getString("away_teamname");
+                                    } catch (Exception ex) {
+                                        away_team_name = "";
+                                    }
+                                    try {
+                                        home_team_logo = jsonObject.getString("home_teamlogo");
+                                    } catch (Exception ex) {
+                                        home_team_logo = "";
+                                    }
+                                    try {
+                                        away_team_logo = jsonObject.getString("away_teamlogo");
+
+                                    } catch (Exception ex) {
+                                        away_team_logo = "";
+                                    }
+
+
                                     //luug
                                     upcomingGameDatas.add(new UpcomingGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name));
                                 }
@@ -255,5 +358,35 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
 
             }
         });
+    }
+
+    private static class Trust implements X509TrustManager {
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+
     }
 }

@@ -5,9 +5,12 @@ package com.netforceinfotech.ibet.dashboard.chart.highest;
  */
 public class HighestFragmentData {
 
-    String imageurl,title;
-    HighestFragmentData(String title, String imageurl){
+    String imageurl,title,level;
+    HighestFragmentData(String title, String imageurl, String coins)
+    {
         this.imageurl=imageurl;
         this.title=title;
+        this.level = coins;
     }
+
 }

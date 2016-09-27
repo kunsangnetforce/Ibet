@@ -160,6 +160,7 @@ public class TopFragment extends Fragment {
         if (stringComment != null) {
             //TopData(String imageurl, String name, Long timestamp, String comment, String share, String dislike, String like, String message, String key) {
             topDatas.add(new TopData(stringImage, chatUsername, timestamp, stringComment, share, dislike, like, comments, dataSnapshot.getKey()));
+            Log.i("kunsangcount", like + ":" + dislike+":=="+dataSnapshot.toString());
         }
         if (topDatas.size() != 0) {
             linearLayoutNoComment.setVisibility(View.GONE);

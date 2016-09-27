@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.netforceinfotech.ibet.dashboard.setting.theme.background.BackgroundActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/app_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Choose a background for application"
+                android:textColor="@color/colorAccent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="50">
+
+                    <ImageView
+                        android:id="@+id/imageViewBlue"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="center"
+                        android:src="@drawable/blue240" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="50">
+
+                    <ImageView
+                        android:id="@+id/imageViewFrance"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="center"
+                        android:src="@drawable/france240" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="50">
+
+                    <ImageView
+                        android:id="@+id/imageViewSoccer"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="center"
+                        android:src="@drawable/soccer240" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="50">
+
+                    <ImageView
+                        android:id="@+id/imageViewSpain"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="center"
+                        android:src="@drawable/spain240" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="50">
+
+                    <ImageView
+                        android:id="@+id/imageViewUk"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="center"
+                        android:src="@drawable/uk240" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="50">
+
+                    <ImageView
+                        android:id="@+id/imageViewDefault"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:background="@color/colorPrimary"
+                        android:scaleType="center" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

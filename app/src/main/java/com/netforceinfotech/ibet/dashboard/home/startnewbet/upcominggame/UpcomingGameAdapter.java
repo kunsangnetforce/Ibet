@@ -25,7 +25,7 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private final LayoutInflater inflater;
     private List<UpcomingGameData> itemList;
     private Context context;
-    ArrayList<Boolean> booleanGames = new ArrayList<>();
+    int lastclicked = 0;
 
     public UpcomingGameAdapter(Context context, List<UpcomingGameData> itemList) {
         this.itemList = itemList;
@@ -47,16 +47,6 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         View view = inflater.inflate(R.layout.row_currentgame, parent, false);
         UpcomingGameHolder viewHolder = new UpcomingGameHolder(view);
-        for (int i = 0; i < itemList.size(); i++) {
-            if (i == 0) {
-                booleanGames.add(true);
-                UpComingGamesFragment.match_id = itemList.get(i).match_id;
-            } else {
-                booleanGames.add(false);
-            }
-            Log.i("looppp", "" + i);
-        }
-
         return viewHolder;
 
 
@@ -64,33 +54,26 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        if (booleanGames.get(position)) {
-            ((UpcomingGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
-        } else {
-            ((UpcomingGameHolder) holder).imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
-        }
-        Log.i("ibet_position", "" + position);
         final UpcomingGameHolder upcomingGameHolder = (UpcomingGameHolder) holder;
+        if (position == lastclicked) {
+            Log.i("kunsangcondition", "called");
+            upcomingGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
+            UpComingGamesFragment.match_id = itemList.get(position).match_id;
+            UpComingGamesFragment.home_logo = itemList.get(position).home_logo;
+            UpComingGamesFragment.away_logo = itemList.get(position).away_logo;
+            UpComingGamesFragment.home_name = itemList.get(position).home_name;
+            UpComingGamesFragment.away_name = itemList.get(position).away_name;
+            UpComingGamesFragment.away_id = itemList.get(position).away_id;
+            UpComingGamesFragment.home_id = itemList.get(position).home_id;
+
+            Log.i("kunsangcondition", "called end" + itemList.get(position).match_id);
+        } else {
+            upcomingGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
+        }
         upcomingGameHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < itemList.size(); i++) {
-                    if (i == position) {
-                        upcomingGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
-                        booleanGames.set(position, true);
-                        UpComingGamesFragment.match_id = itemList.get(position).match_id;
-                        UpComingGamesFragment.home_logo = itemList.get(position).home_logo;
-                        UpComingGamesFragment.away_logo = itemList.get(position).away_logo;
-                        UpComingGamesFragment.home_name = itemList.get(position).home_name;
-                        UpComingGamesFragment.away_name = itemList.get(position).away_name;
-                        UpComingGamesFragment.away_id = itemList.get(position).away_id;
-                        UpComingGamesFragment.home_id = itemList.get(position).home_id;
-
-                    } else {
-                        upcomingGameHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_outline);
-                        booleanGames.set(i, false);
-                    }
-                }
+                lastclicked = position;
                 notifyDataSetChanged();
 
             }

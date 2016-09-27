@@ -8,16 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by John on 7/25/2016.
  */
-public class RichestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class RichestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
@@ -27,51 +31,45 @@ public class RichestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     ArrayList<Boolean> booleanGames = new ArrayList<>();
 
 
-
-    public RichestAdapter(Context context, List<RichestData> itemList)
-    {
+    public RichestAdapter(Context context, List<RichestData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
 
-
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.row_richest_rank, parent, false);
         RichestHolder viewHolder = new RichestHolder(view);
-        for (int i = 0; i < itemList.size(); i++) {
-            if (i == 0) {
-                booleanGames.add(true);
-            } else {
-                booleanGames.add(false);
-            }
-            Log.i("looppp", "" + i);
-        }
-
         return viewHolder;
 
 
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
-    {
-
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        RichestHolder richestHolder = (RichestHolder) holder;
+        int rank = position + 1;
+        richestHolder.textViewRank.setText(rank + "");
+        try {
+            Picasso.with(context).load(itemList.get(position).imageurl).error(R.drawable.ic_error).into(richestHolder.imageViewProfilePic);
+        } catch (Exception ex) {
+            Picasso.with(context).load(R.drawable.ic_error).into(richestHolder.imageViewProfilePic);
+        }
+        richestHolder.textViewName.setText(itemList.get(position).title);
+        richestHolder.textViewAmount.setText(itemList.get(position).coins + " coins");
     }
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
     public int getItemCount() {
-        return 12;
+        return itemList.size();
 //        return itemList.size();
     }
 
@@ -79,9 +77,8 @@ public class RichestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class RichestHolder extends RecyclerView.ViewHolder {
 
 
-        TextView textViewTitle, textViewCategory, textViewPros;
-
-        MaterialRippleLayout materialRippleLayout;
+        TextView textViewName, textViewAmount, textViewRank;
+        CircleImageView imageViewProfilePic;
         View view;
 
 
@@ -89,8 +86,10 @@ public class RichestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             //implementing onClickListener
             view = itemView;
-
-            materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+            textViewRank = (TextView) view.findViewById(R.id.textViewRank);
+            textViewAmount = (TextView) view.findViewById(R.id.textViewAmount);
+            textViewName = (TextView) view.findViewById(R.id.textViewName);
+            imageViewProfilePic = (CircleImageView) view.findViewById(R.id.imageViewProfilePic);
 
         }
     }
