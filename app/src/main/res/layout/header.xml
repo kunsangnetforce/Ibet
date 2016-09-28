@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/header_relative"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
+    android:layout_height="120dp"
+    android:paddingLeft="16dp"
+    android:gravity="center_vertical"
     android:background="@color/tab_background_theme1"
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="6dp"
         android:id="@+id/imageViewProfilePic"
         android:layout_width="76dp"
         android:layout_height="76dp"
-        android:layout_alignParentLeft="true"
-
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
         android:src="@drawable/ic_error" />
 
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/email"
-        android:layout_alignLeft="@+id/imageViewProfilePic"
-        android:layout_alignStart="@+id/imageViewProfilePic"
         android:gravity="left"
-        android:paddingBottom="4dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="6dp"
         android:text="Login"
         android:textColor="#FFF"
         android:textSize="14sp"
@@ -45,4 +40,4 @@
         android:textColor="#fff"
         android:textSize="14sp" />
 
-</RelativeLayout>
+</LinearLayout>

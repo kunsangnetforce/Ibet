@@ -17,8 +17,7 @@ import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
 
-public class ThemeColorActivity extends AppCompatActivity
-{
+public class ThemeColorActivity extends AppCompatActivity {
 
 
     RecyclerView recyclerView;
@@ -32,11 +31,8 @@ public class ThemeColorActivity extends AppCompatActivity
     RelativeLayout theamcolor_layout;
 
 
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_color);
 
@@ -51,49 +47,35 @@ public class ThemeColorActivity extends AppCompatActivity
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme1));
             }
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
             }
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme3));
             }
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme4));
             }
-        }
-        else if (theme == 4)
-        {
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
+        } else if (theme == 4) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme5));
             }
@@ -104,8 +86,7 @@ public class ThemeColorActivity extends AppCompatActivity
     }
 
 
-    private void setupToolBar(String title)
-    {
+    private void setupToolBar(String title) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -116,8 +97,7 @@ public class ThemeColorActivity extends AppCompatActivity
 
     }
 
-    private void setupRecyclerView()
-    {
+    private void setupRecyclerView() {
 
         theamcolor_layout = (RelativeLayout) findViewById(R.id.theme_back_layout);
 
@@ -125,41 +105,32 @@ public class ThemeColorActivity extends AppCompatActivity
 
         recyclerView.setHasFixedSize(true);
 
-        layoutManager =  new GridLayoutManager(ThemeColorActivity.this, 2);
+        layoutManager = new GridLayoutManager(ThemeColorActivity.this, 2);
 
-        if(theme == 0)
-        {
+        if (theme == 0) {
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
             theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
 
-        }
-        else if (theme == 1)
-        {
+        } else if (theme == 1) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
             theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
 
 
-        }
-        else if (theme == 2)
-        {
+        } else if (theme == 2) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
             theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
 
 
-        }
-        else if (theme == 3)
-        {
+        } else if (theme == 3) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
 
             theamcolor_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
 
 
-        }
-        else if (theme == 4)
-        {
+        } else if (theme == 4) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
 
@@ -177,6 +148,7 @@ public class ThemeColorActivity extends AppCompatActivity
         icon_list.add(R.drawable.home_theme1);
         icon_list.add(R.drawable.home_theme2);
         icon_list.add(R.drawable.home_theme3);
+        icon_list.add(R.drawable.home_theme6);
 
 
         adapter = new ThemeColorAdapter(ThemeColorActivity.this, icon_list);

@@ -15,7 +15,9 @@ import android.widget.Toast;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.Dashboard;
+import com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.sound.SoundAdapter;
 import com.netforceinfotech.ibet.general.UserSessionManager;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,16 +48,6 @@ public class ThemeColorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         userSessionManager = new UserSessionManager(context);
     }
 
-    /*  @Override
-      public int getItemViewType(int position) {
-          if (itemList.get(position).image.isEmpty()) {
-              return SIMPLE_TYPE;
-          } else {
-              return IMAGE_TYPE;
-          }
-      }
-    */
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -71,9 +63,13 @@ public class ThemeColorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        SettingHolder settingHolder= (SettingHolder) holder;
+        try{
+            Picasso.with(context).load(setting_icon.get(position)).into(settingHolder.image_icon);
+        }catch (Exception ex){
+            Picasso.with(context).load(setting_icon.get(position)).resize(300,300).into(settingHolder.image_icon);
+        }
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), setting_icon.get(position));
-        viewHolder.image_icon.setImageBitmap(bitmap);
         // new_decode();
 
     }

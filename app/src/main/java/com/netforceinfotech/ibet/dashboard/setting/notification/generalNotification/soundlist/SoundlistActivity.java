@@ -1,13 +1,16 @@
 package com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.soundlist;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -20,15 +23,15 @@ import java.util.ArrayList;
 
 public class SoundlistActivity extends AppCompatActivity {
 
-
+    Context context;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     SoundlistAdapter adapter;
     ArrayList<SoundListData> soundData = new ArrayList<>();
     private Toolbar toolbar;
     UserSessionManager userSessionManager;
-    Window window;
-    LinearLayout activity_sound_layout;
+    CoordinatorLayout coordinatorLayout;
+    View view1;
     private String event_name;
 
 
@@ -37,21 +40,20 @@ public class SoundlistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_soundlist);
-        userSessionManager = new UserSessionManager(getApplicationContext());
+        context = this;
+        userSessionManager = new UserSessionManager(context);
         Bundle bundle = getIntent().getExtras();
         try {
             event_name = bundle.getString("name");
         } catch (Exception ex) {
             showMessage("bundle error");
         }
-        window = getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+        view1 = findViewById(R.id.view);
         setupToolBar("Sound List");
         setupRecyclerView();
+        setupTheme();
+        setupBackground();
 
     }
 
@@ -61,9 +63,6 @@ public class SoundlistActivity extends AppCompatActivity {
 
     private void setupToolBar(String title) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        activity_sound_layout = (LinearLayout) findViewById(R.id.activity_sound_layout);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,5 +121,127 @@ public class SoundlistActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setupStatusBar() {
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        switch (userSessionManager.getTheme()) {
+            case 0:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                }
+                break;
+            case 1:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+                }
+                break;
+            case 2:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+                }
+                break;
+            case 3:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+                }
+                break;
+            case 4:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+                }
+                break;
+            case 5:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+                }
+                break;
+        }
+
+    }
+
+    private void setupBackground() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+    }
+
+    private void setupGreenTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+    }
+
+    private void setupMarronTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+    }
+
+    private void setupLightBlueTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+
+    }
 
 }

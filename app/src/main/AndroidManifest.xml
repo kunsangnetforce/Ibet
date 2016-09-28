@@ -38,10 +38,10 @@
             android:name=".dashboard.Dashboard"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.home.detail_finished_bet.DetailFinishedBet"
+            android:name=".dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin"
+            android:name=".dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin"
             android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.home.startnewbet.create_bet.WhoWillWinActivity"

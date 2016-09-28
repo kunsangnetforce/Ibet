@@ -1,9 +1,7 @@
-package com.netforceinfotech.ibet.dashboard.home.detail_finished_bet;
+package com.netforceinfotech.ibet.dashboard.home.finsihed_bet.detail_finished_bet;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;

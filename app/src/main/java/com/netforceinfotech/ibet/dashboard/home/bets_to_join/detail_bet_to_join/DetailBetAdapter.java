@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join;
+package com.netforceinfotech.ibet.dashboard.home.bets_to_join.detail_bet_to_join;
 
 
 import android.content.Context;

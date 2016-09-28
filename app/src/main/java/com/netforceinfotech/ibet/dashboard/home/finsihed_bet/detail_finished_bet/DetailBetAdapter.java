@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.detail_finished_bet;
+package com.netforceinfotech.ibet.dashboard.home.finsihed_bet.detail_finished_bet;
 
 
 import android.content.Context;

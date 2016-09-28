@@ -78,46 +78,6 @@ public class CurrentBet extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void setupTheme() {
-        if (theme == 0) {
-            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
-            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimary));
-            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccent));
-
-
-        } else if (theme == 1) {
-            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
-            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
-            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
-
-
-        } else if (theme == 2) {
-            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
-            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
-            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
-
-
-        } else if (theme == 3) {
-            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
-            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
-            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
-
-
-        } else if (theme == 4) {
-            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
-            tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
-            tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
-            tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentMarron));
-
-
-        }
-
-
-    }
 
     private void initView(View view) {
         view1 = view.findViewById(R.id.view);
@@ -191,5 +151,69 @@ public class CurrentBet extends Fragment implements View.OnClickListener {
                 getActivity().finish();
                 break;
         }
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
+    }
+
+    private void setupGreenTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
+    }
+
+    private void setupMarronTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentMarron));
+
+    }
+
+    private void setupLightBlueTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+
+
+    }
+
+    private void setupDefaultTheme() {
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccent));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccent));
+
     }
 }

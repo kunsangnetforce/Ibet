@@ -246,9 +246,13 @@ public class Home extends Fragment implements View.OnClickListener {
     }
 
     private void setupCoin(String total_amt) {
-        Toolbar toolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.toolbar);
-        TextView textView = (TextView) toolbar.findViewById(R.id.textViewCoins);
-        textView.setText(total_amt);
+        try {
+            Toolbar toolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.toolbar);
+            TextView textView = (TextView) toolbar.findViewById(R.id.textViewCoins);
+            textView.setText(total_amt);
+        } catch (Exception ex) {
+
+        }
     }
 
     private Response.ErrorListener createMyReqErrorListener() {

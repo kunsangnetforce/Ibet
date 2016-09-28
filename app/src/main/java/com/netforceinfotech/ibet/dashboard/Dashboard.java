@@ -19,7 +19,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.dashboard.chart.ChartFragment;
 import com.netforceinfotech.ibet.dashboard.profile.ProfileFragment;
 import com.netforceinfotech.ibet.dashboard.purchase.PurchaseActivity;
+import com.netforceinfotech.ibet.dashboard.purchase.PurchaseFragment;
 import com.netforceinfotech.ibet.dashboard.setting.SettingFragment;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.login.LoginActivity;
@@ -47,24 +49,18 @@ import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class
-Dashboard extends AppCompatActivity {
+Dashboard extends AppCompatActivity implements View.OnClickListener {
 
-    private DashboardFragment dashboardFragment;
-    private ProfileFragment profileFragment;
-    private ChartFragment chartfragment;
-    private SettingFragment settingfragment;
     private Toolbar toolbar;
     private UserSessionManager userSessionManager;
     private AccountHeader headerResult;
     private String imageURL, tagName;
     Intent intent;
     public static TextView title;
-    int theme;
-    int drawer_color;
+    ImageView imageViewScratch;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
-    Window window;
-    RelativeLayout header_background;
+    LinearLayout header_background;
     String loginmode;
     private Menu menu;
     public static CircleImageView imageViewProfilePic;
@@ -82,21 +78,12 @@ Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         context = this;
         userSessionManager = new UserSessionManager(getApplicationContext());
-        window = getWindow();
-
-// clear FLAG_TRANSLUCENT_STATUS flag:
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-// finally change the color
         loginmode = userSessionManager.getLoginMode();
-
+        initView();
         setupToolBar("Ibet");
-
-        theme = userSessionManager.getTheme();
-        setupTheme(theme);
+        setupNavigationView();
+        setupTheme();
+        setupStatusBar();
         setupDashboardFragment();
         userSessionManager = new UserSessionManager(getApplicationContext());
         String id = userSessionManager.getFBID();
@@ -109,6 +96,17 @@ Dashboard extends AppCompatActivity {
 
 
     }
+
+    private void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        header_background = (LinearLayout) findViewById(R.id.header_relative);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        imageViewScratch = (ImageView) navigationView.findViewById(R.id.imageViewScratch);
+        imageViewScratch.setOnClickListener(this);
+
+    }
+
 
     private void setupNavigationHeader() {
         imageViewProfilePic = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.imageViewProfilePic);
@@ -127,16 +125,37 @@ Dashboard extends AppCompatActivity {
     }
 
     private void setupToolBar(String s) {
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        header_background = (RelativeLayout) findViewById(R.id.header_relative);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        setupNavigationView();
         setSupportActionBar(toolbar);
         title = (TextView) toolbar.findViewById(R.id.textViewTitle);
         title.setText(s);
 
+
+    }
+
+
+    private void setupNavigationView() {
+        menu = navigationView.getMenu();
+        if (loginmode.equalsIgnoreCase("0")) {
+            menu.add("Home").setIcon(R.drawable.ic_home);
+            menu.add("Setting").setIcon(R.drawable.ic_setting);
+            menu.add("Tutorial").setIcon(R.drawable.ic_clipboard);
+            menu.add("Share").setIcon(R.drawable.ic_share);
+            menu.add("Rate us").setIcon(R.drawable.ic_rateus);
+            menu.add("Login").setIcon(R.drawable.ic_logout);
+
+        } else {
+            menu.add("Home").setIcon(R.drawable.ic_home);
+            menu.add("Profile").setIcon(R.drawable.ic_profile_setting);
+            menu.add("Chart").setIcon(R.drawable.ic_chart);
+            menu.add("Store").setIcon(R.drawable.ic_cart);
+            menu.add("Setting").setIcon(R.drawable.ic_setting);
+            menu.add("Tutorial").setIcon(R.drawable.ic_clipboard);
+            menu.add("Share").setIcon(R.drawable.ic_share);
+            menu.add("Rate us").setIcon(R.drawable.ic_rateus);
+            menu.add("Logout").setIcon(R.drawable.ic_logout);
+
+        }
+        menu.setGroupCheckable(0, true, false);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             // This method will trigger on item Click of navigation menu
@@ -164,8 +183,7 @@ Dashboard extends AppCompatActivity {
                         setupChartFragment();
                         return true;
                     case "Store":
-                        intent = new Intent(getApplicationContext(), PurchaseActivity.class);
-                        startActivity(intent);
+                        setupPurchaseFragment();
                         return true;
                     case "Setting":
                         setupSettingFragment();
@@ -189,24 +207,19 @@ Dashboard extends AppCompatActivity {
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();
-
                         return true;
-
                     case "Scratch bonus":
                         //setupScratchFragment();
                         Intent bonus = new Intent(Dashboard.this, ScratchActivity.class);
                         startActivity(bonus);
                         return true;
                     case "Login":
-
                         Intent login = new Intent(Dashboard.this, LoginActivity.class);
                         startActivity(login);
                         finish();
-
                         return true;
                     default:
-                        Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
-                        return true;
+                        return false;
 
                 }
             }
@@ -230,32 +243,6 @@ Dashboard extends AppCompatActivity {
 
     }
 
-
-    private void setupNavigationView() {
-        menu = navigationView.getMenu();
-        if (loginmode.equalsIgnoreCase("0")) {
-            menu.add("Home").setIcon(R.drawable.ic_home);
-            menu.add("Setting").setIcon(R.drawable.ic_setting);
-            menu.add("Tutorial").setIcon(R.drawable.ic_clipboard);
-            menu.add("Share").setIcon(R.drawable.ic_share);
-            menu.add("Rate us").setIcon(R.drawable.ic_rateus);
-            menu.add("Login").setIcon(R.drawable.ic_logout);
-
-        } else {
-            menu.add("Home").setIcon(R.drawable.ic_home);
-            menu.add("Profile").setIcon(R.drawable.ic_profile_setting);
-            menu.add("Chart").setIcon(R.drawable.ic_chart);
-            menu.add("Store").setIcon(R.drawable.ic_cart);
-            menu.add("Setting").setIcon(R.drawable.ic_setting);
-            menu.add("Tutorial").setIcon(R.drawable.ic_clipboard);
-            menu.add("Share").setIcon(R.drawable.ic_share);
-            menu.add("Rate us").setIcon(R.drawable.ic_rateus);
-            menu.add("Logout").setIcon(R.drawable.ic_logout);
-            menu.add("Scratch bonus").setIcon(R.drawable.ic_scratch);
-        }
-        menu.setGroupCheckable(0, true, false);
-    }
-
     private void replaceFragment(Fragment newFragment, String tag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag);
@@ -264,7 +251,7 @@ Dashboard extends AppCompatActivity {
 
     private void setupDashboardFragment() {
         title.setText("Ibet");
-        dashboardFragment = new DashboardFragment();
+        DashboardFragment dashboardFragment = new DashboardFragment();
         tagName = dashboardFragment.getClass().getName();
         replaceFragment(dashboardFragment, tagName);
 
@@ -279,7 +266,7 @@ Dashboard extends AppCompatActivity {
 
     private void setupProfileFragment() {
 
-        profileFragment = new ProfileFragment();
+        ProfileFragment profileFragment = new ProfileFragment();
         tagName = profileFragment.getClass().getName();
         replaceFragment(profileFragment, tagName);
 
@@ -297,7 +284,7 @@ Dashboard extends AppCompatActivity {
 
     private void setupSettingFragment() {
 
-        settingfragment = new SettingFragment();
+        SettingFragment settingfragment = new SettingFragment();
         tagName = settingfragment.getClass().getName();
         replaceFragment(settingfragment, tagName);
 
@@ -306,9 +293,16 @@ Dashboard extends AppCompatActivity {
 
 
     private void setupChartFragment() {
-        chartfragment = new ChartFragment();
+        ChartFragment chartfragment = new ChartFragment();
         tagName = chartfragment.getClass().getName();
         replaceFragment(chartfragment, tagName);
+
+    }
+
+    private void setupPurchaseFragment() {
+        PurchaseFragment purchaseFragment = new PurchaseFragment();
+        tagName = purchaseFragment.getClass().getName();
+        replaceFragment(purchaseFragment, tagName);
 
     }
 
@@ -351,8 +345,8 @@ Dashboard extends AppCompatActivity {
 
     }
 
-    private void setupTheme(int theme) {
-        switch (theme) {
+    private void setupTheme() {
+        switch (userSessionManager.getTheme()) {
             case 0:
                 setupDefaultTheme();
                 break;
@@ -377,10 +371,6 @@ Dashboard extends AppCompatActivity {
 
     private void setupLightBlueTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
-        }
-
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
 
@@ -388,9 +378,6 @@ Dashboard extends AppCompatActivity {
 
     private void setupMarronTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
-        }
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
 
@@ -398,9 +385,6 @@ Dashboard extends AppCompatActivity {
 
     private void setupGreenTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
-        }
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
 
@@ -408,9 +392,6 @@ Dashboard extends AppCompatActivity {
 
     private void setupPurlpleTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
-        }
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
 
@@ -418,9 +399,6 @@ Dashboard extends AppCompatActivity {
 
     private void setupBrownTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
-        }
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
 
@@ -428,12 +406,64 @@ Dashboard extends AppCompatActivity {
 
     private void setupDefaultTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
-        }
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
+    }
+
+    private void setupStatusBar() {
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        switch (userSessionManager.getTheme()) {
+            case 0:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                }
+                break;
+            case 1:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+                }
+                break;
+            case 2:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+                }
+                break;
+            case 3:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+                }
+                break;
+            case 4:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+                }
+                break;
+            case 5:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imageViewScratch:
+                drawerLayout.closeDrawers();
+                Intent intent = new Intent(context, ScratchActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
 

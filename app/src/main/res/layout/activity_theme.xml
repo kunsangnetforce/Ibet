@@ -1,85 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/theme_layout"
+    android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/orange"
-    android:orientation="vertical"
+    android:layout_height="match_parent">
 
-    >
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/app_bar" />
-
-    <RelativeLayout
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
+        android:layout_height="match_parent"
+        android:background="@color/transulation" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/orange"
         android:orientation="vertical"
-        android:padding="32dp">
 
+        >
 
-        <LinearLayout
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/app_bar" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
             android:orientation="vertical"
+            android:padding="32dp">
 
 
-            >
-
-            <com.balysv.materialripple.MaterialRippleLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:mrl_rippleColor="@color/ripple"
-                app:mrl_rippleOverlay="true">
+                android:orientation="vertical"
 
-                <Button
-                    android:id="@+id/buttonTheme"
+
+                >
+
+                <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:drawablePadding="16dp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center"
-                    android:text="@string/theme"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="#ffffff"
+                    android:layout_marginBottom="16dp"
+                    app:mrl_rippleColor="@color/ripple"
+                    app:mrl_rippleOverlay="true">
 
-                    />
-            </com.balysv.materialripple.MaterialRippleLayout>
+                    <Button
+                        android:id="@+id/buttonTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+                        android:text="@string/theme"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffff"
 
-            <com.balysv.materialripple.MaterialRippleLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="40dp"
-                app:mrl_rippleColor="@color/ripple"
-                app:mrl_rippleOverlay="true">
+                        />
+                </com.balysv.materialripple.MaterialRippleLayout>
 
-                <Button
-                    android:id="@+id/buttonBackground"
+                <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:drawablePadding="16dp"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="center"
-                    android:text="@string/choose_background"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="#ffffff"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="40dp"
+                    app:mrl_rippleColor="@color/ripple"
+                    app:mrl_rippleOverlay="true">
 
-                    />
+                    <Button
+                        android:id="@+id/buttonBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:drawablePadding="16dp"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+                        android:text="@string/choose_background"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#ffffff"
 
-            </com.balysv.materialripple.MaterialRippleLayout>
-        </LinearLayout>
+                        />
+
+                </com.balysv.materialripple.MaterialRippleLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
-
-</RelativeLayout>
-
+</android.support.design.widget.CoordinatorLayout>

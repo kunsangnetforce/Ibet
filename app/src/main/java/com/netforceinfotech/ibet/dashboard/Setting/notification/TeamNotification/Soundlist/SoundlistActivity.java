@@ -28,7 +28,6 @@ public class SoundlistActivity extends AppCompatActivity {
     UserSessionManager userSessionManager;
     int theme;
     Window window;
-    LinearLayout activity_sound_layout;
     String teamid, teamname;
 
 
@@ -92,9 +91,6 @@ public class SoundlistActivity extends AppCompatActivity {
 
     private void setupToolBar(String title) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        activity_sound_layout = (LinearLayout) findViewById(R.id.activity_sound_layout);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -108,34 +104,6 @@ public class SoundlistActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-
-        if (theme == 0) {
-
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
-            activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme1));
-
-        } else if (theme == 1) {
-
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
-            activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme2));
-
-        } else if (theme == 2) {
-
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
-            activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme3));
-
-
-        } else if (theme == 3) {
-
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
-
-            activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme4));
-
-        } else if (theme == 4) {
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
-
-            activity_sound_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.navigation_background_theme5));
-        }
 
         adapter = new SoundlistAdapter(getApplicationContext(), soundData,teamname,teamid);
         recyclerView.setAdapter(adapter);

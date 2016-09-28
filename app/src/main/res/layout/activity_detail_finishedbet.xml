@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="16dp"
-    tools:context=".dashboard.home.detail_finished_bet.DetailFinishedBet">
+    tools:context=".dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet">
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"

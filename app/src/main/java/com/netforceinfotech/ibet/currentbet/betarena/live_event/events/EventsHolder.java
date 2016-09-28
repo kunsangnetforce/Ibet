@@ -72,7 +72,6 @@ public class EventsHolder extends RecyclerView.ViewHolder {
         linearLayouta1.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
         linearLayoutb.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
         linearLayoutb1.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
-        textViewTime.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
     }
 
     private void setMarronTheme() {

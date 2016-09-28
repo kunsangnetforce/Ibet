@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet.currentbet.betarena.stats.summary;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class SummaryFragment extends Fragment {
     ImageView imageViewHome, imageViewAway;
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
     UserSessionManager userSessionManager;
+    CoordinatorLayout coordinatorLayout;
+    View view1;
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -59,10 +62,13 @@ public class SummaryFragment extends Fragment {
         String matchid = "691136";
         getStatistic(matchid);
         setupTheme();
+        setupBackground();
         return view;
     }
 
     private void initview(View view) {
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
+        view1 = view.findViewById(R.id.view);
         textViewGoal = (TextView) view.findViewById(R.id.textViewGoal);
         imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamB);
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
@@ -504,5 +510,29 @@ public class SummaryFragment extends Fragment {
         progressbarRCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
         progressbarSaveA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
 
+    }
+
+    private void setupBackground() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
     }
 }
