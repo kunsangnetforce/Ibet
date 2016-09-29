@@ -30,6 +30,10 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.netforceinfotech.ibet.MainActivity;
 import com.netforceinfotech.ibet.R;
@@ -45,6 +49,16 @@ import com.netforceinfotech.ibet.scratchview.ScratchActivity;
 import com.netforceinfotech.ibet.scratchview.ScratchFragment;
 import com.plattysoft.leonids.ParticleSystem;
 import com.squareup.picasso.Picasso;
+
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -68,6 +82,8 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     Context context;
     private MaterialDialog dailog;
     private ParticleSystem confetti_top_right, confetti_top_left;
+    TextView textviewCoins;
+    LinearLayout linearLayoutToolbar;
 
 
     @Override
@@ -94,7 +110,14 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
             showPopUp("");
         }
 
+        updatecoin(0);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updatecoin(0);
     }
 
     private void initView() {
@@ -104,6 +127,8 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         imageViewScratch = (ImageView) navigationView.findViewById(R.id.imageViewScratch);
         imageViewScratch.setOnClickListener(this);
+        textviewCoins = (TextView) toolbar.findViewById(R.id.textViewCoins);
+        linearLayoutToolbar = (LinearLayout) toolbar.findViewById(R.id.linearLayoutToolbar);
 
     }
 
@@ -464,6 +489,89 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void updatecoin(int coins) {
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=add_coin&custid=15&amt_new=50
+        String baseUrl = getString(R.string.url);
+        String updatecointsurl = "/services.php?opt=add_coin&custid=" + userSessionManager.getCustomerId() + "&amt_new=" + coins;
+        String url = baseUrl + updatecointsurl;
+        setupSelfSSLCert();
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            showMessage("Something is wrong");
+                        } else {
+                            Log.i("kunsangresult", result.toString());
+                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                                refreshCoin(result);
+                                Log.i("kunsangcoins", result.toString());
+                            } else {
+                                showMessage("Could not set team. Try again");
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void refreshCoin(JsonObject result) {
+        JsonArray data = result.getAsJsonArray("data");
+        JsonObject object = data.get(0).getAsJsonObject();
+        String coins = object.get("Current Coin").getAsString();
+        textviewCoins.setText(coins);
+        YoYo.with(Techniques.Tada)
+                .duration(700)
+                .playOn(linearLayoutToolbar);
+    }
+
+    public void setupSelfSSLCert() {
+        final Trust trust = new Trust();
+        final TrustManager[] trustmanagers = new TrustManager[]{trust};
+        SSLContext sslContext;
+        try {
+            sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustmanagers, new SecureRandom());
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setTrustManagers(trustmanagers);
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setSSLContext(sslContext);
+        } catch (final NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (final KeyManagementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class Trust implements X509TrustManager {
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+
     }
 }
 

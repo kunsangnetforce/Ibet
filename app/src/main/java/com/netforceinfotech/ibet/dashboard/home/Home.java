@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -48,6 +50,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -87,8 +92,6 @@ public class Home extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NukeSSLCerts.nuke();
-        HttpsTrustManager.allowAllSSL();
     }
 
     @Override
@@ -194,7 +197,6 @@ public class Home extends Fragment implements View.OnClickListener {
                                 Picasso.with(context).load(profile_image).error(R.drawable.ic_error).into(Dashboard.imageViewProfilePic);
                                 textViewName.setText(name);
                                 Dashboard.textViewName.setText(name);
-                                setupCoin(total_amt);
                                 textviewLevel.setText(level);
                                 textViewWins.setText(win);
                                 textViewLose.setText(lose);
@@ -232,7 +234,6 @@ public class Home extends Fragment implements View.OnClickListener {
                         userSessionManager.setProfilePic(profile_image);
                         Picasso.with(context).load(profile_image).error(R.drawable.ic_error).into(circleImageViewDp);
                         textViewName.setText(name);
-                        setupCoin(total_amt);
 
                     } else {
                         showMessage("Authentication failure. Login again");
@@ -245,15 +246,12 @@ public class Home extends Fragment implements View.OnClickListener {
 
     }
 
-    private void setupCoin(String total_amt) {
-        try {
-            Toolbar toolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.toolbar);
-            TextView textView = (TextView) toolbar.findViewById(R.id.textViewCoins);
-            textView.setText(total_amt);
-        } catch (Exception ex) {
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        }
     }
+
 
     private Response.ErrorListener createMyReqErrorListener() {
         return new Response.ErrorListener() {

@@ -143,7 +143,9 @@
 
         <activity android:name=".live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
         <activity android:name=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity" />
-        <activity android:name=".scratchview.ScratchActivity" />
+        <activity android:name=".scratchview.ScratchActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".dashboard.setting.theme.background.BackgroundActivity"></activity>
     </application>
 
