@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.netforceinfotech.ibet.currentbet.betarena.stats.table.TableFragment">
+    tools:context="com.netforceinfotech.ibet1.currentbet.betarena.stats.table.TableFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
