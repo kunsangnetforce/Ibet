@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stats.lineup.LineUpFragment;
+import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stats.lineup.LineupFragmentNew;
 import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stats.summary.SummaryFragment;
 import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stats.table.TableFragment;
 
@@ -33,7 +34,7 @@ public class PagerAdapterState extends FragmentStatePagerAdapter {
                 home.setArguments(bundle);
                 return home;
             case 1:
-                LineUpFragment currentBet = new LineUpFragment();
+                LineupFragmentNew currentBet = new LineupFragmentNew();
                 bundle = new Bundle();
                 bundle.putString("match_id", match_id);
                 currentBet.setArguments(bundle);

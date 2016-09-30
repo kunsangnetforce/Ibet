@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join;
+package com.netforceinfotech.ibet.dashboard.home.finsihed_bet.detail_finished_bet;
 
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.

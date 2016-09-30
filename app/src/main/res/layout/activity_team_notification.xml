@@ -1,94 +1,99 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    android:id="@+id/teamnotification_layout"
+    android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/app_bar" />
-
-
-    <TextView
-        android:id="@+id/teamnotification_heading"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:background="@color/white"
-        android:padding="10dp"
-        android:text="@string/teamnotification_heading" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
-    <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/teamnotification_heading"
-        android:background="@color/brown_color"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/app_bar" />
 
 
         <TextView
-            android:id="@+id/muteallnotification_yxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/muteallnotification"
-            android:textColor="@color/white" />
-
-        <CheckBox
-            android:id="@+id/radioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/imageViewMute"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/teamnotifibox_icon"
-            android:padding="5dp"
-            android:src="@drawable/ic_volume_mute" />
-
-    </RelativeLayout>
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button_add_notifiaction1"
-        android:layout_below="@+id/header">
-
-    </android.support.v7.widget.RecyclerView>
-
-
-    <com.balysv.materialripple.MaterialRippleLayout
-        android:id="@+id/button_add_notifiaction1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        app:mrl_rippleColor="@color/ripple"
-        app:mrl_rippleOverlay="true">
-
-        <Button
-            android:id="@+id/button_add_notifiaction"
+            android:id="@+id/teamnotification_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@string/add_more"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-
-    </com.balysv.materialripple.MaterialRippleLayout>
+            android:layout_below="@+id/toolbar"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:text="@string/teamnotification_heading" />
 
 
-</RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teamnotification_heading"
+            android:background="@color/brown_color"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/muteallnotification_yxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/muteallnotification"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imageViewMute"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/teamnotifibox_icon"
+                android:padding="5dp"
+                android:src="@drawable/ic_volume_mute" />
+
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button_add_notifiaction1"
+            android:layout_below="@+id/header">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/button_add_notifiaction1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            app:mrl_rippleColor="@color/ripple"
+            app:mrl_rippleOverlay="true">
+
+            <Button
+                android:id="@+id/button_add_notifiaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="@string/add_more"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

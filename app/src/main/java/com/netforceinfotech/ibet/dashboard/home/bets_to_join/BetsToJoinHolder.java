@@ -77,7 +77,7 @@ public class BetsToJoinHolder extends RecyclerView.ViewHolder {
         linearLayoutDetailBackground.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
         textViewParticipants.setBackgroundResource(R.drawable.circular_bg_lightblue);
         textViewPost.setBackgroundResource(R.drawable.circular_bg_lightblue);
-        linearLayoutRoundCornor.setBackgroundResource(R.drawable.roundcornor);
+        linearLayoutRoundCornor.setBackgroundResource(R.drawable.roundcornor_lightblue);
         textViewResult.setBackgroundResource(R.drawable.circular_bg_fill_lightblue);
 
     }

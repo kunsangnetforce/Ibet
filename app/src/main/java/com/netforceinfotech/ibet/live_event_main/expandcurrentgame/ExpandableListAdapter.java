@@ -202,27 +202,27 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         textview.setText(header.name);
         switch (userSessionManager.getTheme()) {
             case 0:
-                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimary));
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDark));
                 textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
                 break;
             case 1:
-                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryBrown));
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDarkBrown));
                 textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentBrown));
                 break;
             case 2:
-                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryPurple));
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDarkPurple));
                 textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentPurple));
                 break;
             case 3:
-                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryGreen));
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDarkGreen));
                 textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentGreen));
                 break;
             case 4:
-                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryMarron));
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDarkMarron));
                 textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentMarron));
                 break;
             case 5:
-                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryLightBlue));
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDarkLightBlue));
                 textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccentLightBlue));
                 break;
 

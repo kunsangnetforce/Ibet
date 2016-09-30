@@ -142,7 +142,7 @@ public class TopFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         linearLayoutManager.setReverseLayout(true);
-        adapter = new TopAdapter(getActivity(), topDatas);
+        adapter = new TopAdapter(getActivity(), topDatas, match_id, team);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -160,7 +160,7 @@ public class TopFragment extends Fragment {
         if (stringComment != null) {
             //TopData(String imageurl, String name, Long timestamp, String comment, String share, String dislike, String like, String message, String key) {
             topDatas.add(new TopData(stringImage, chatUsername, timestamp, stringComment, share, dislike, like, comments, dataSnapshot.getKey()));
-            Log.i("kunsangcount", like + ":" + dislike+":=="+dataSnapshot.toString());
+            Log.i("kunsangcount", like + ":" + dislike + ":==" + dataSnapshot.toString());
         }
         if (topDatas.size() != 0) {
             linearLayoutNoComment.setVisibility(View.GONE);

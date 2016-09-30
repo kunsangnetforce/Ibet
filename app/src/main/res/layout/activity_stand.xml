@@ -8,6 +8,12 @@
     android:background="@color/colorPrimary"
     android:focusableInTouchMode="true">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transulation" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,22 +45,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:gravity="center"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <android.support.design.widget.CoordinatorLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="140dp"
+                            android:background="@drawable/stand_bg"
                             android:orientation="vertical">
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/transulation" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginTop="32dp"
+                                android:layout_marginTop="6dp"
                                 android:orientation="horizontal"
                                 android:weightSum="100">
 
                                 <LinearLayout
+
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="50"
@@ -64,8 +77,8 @@
 
                                     <de.hdodenhof.circleimageview.CircleImageView
                                         android:id="@+id/imageViewTeamA"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
                                         android:layout_gravity="center"
                                         app:civ_border_color="#43000000"
                                         app:civ_border_width="12dp" />
@@ -75,15 +88,23 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:background="@color/darkgrey"
+                                        android:paddingLeft="3dp"
+                                        android:paddingRight="3dp"
                                         android:text="00"
-                                        android:textColor="@color/green" />
+                                        android:textColor="@color/green"
+                                        android:textSize="14sp" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
+                                        android:layout_marginTop="3dp"
+                                        android:background="@color/darkgrey"
+                                        android:paddingLeft="3dp"
+                                        android:paddingRight="3dp"
                                         android:text="@string/fan"
-                                        android:textColor="@color/green" />
+                                        android:textColor="@color/green"
+                                        android:textSize="14sp" />
 
 
                                 </LinearLayout>
@@ -97,8 +118,8 @@
 
                                     <de.hdodenhof.circleimageview.CircleImageView
                                         android:id="@+id/imageViewTeamB"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
                                         android:layout_gravity="center"
                                         app:civ_border_color="#43000000"
                                         app:civ_border_width="12dp" />
@@ -108,20 +129,27 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="10dp"
+                                        android:background="@color/darkgrey"
+                                        android:paddingLeft="3dp"
+                                        android:paddingRight="3dp"
                                         android:text="00"
-                                        android:textColor="@color/green" />
+                                        android:textColor="@color/green"
+                                        android:textSize="14sp" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginTop="10dp"
+                                        android:layout_marginTop="3dp"
+                                        android:background="@color/darkgrey"
+                                        android:paddingLeft="3dp"
+                                        android:paddingRight="3dp"
                                         android:text="@string/fan"
                                         android:textColor="@color/green" />
                                 </LinearLayout>
                             </LinearLayout>
 
 
-                        </LinearLayout>
+                        </android.support.design.widget.CoordinatorLayout>
 
 
                         <LinearLayout

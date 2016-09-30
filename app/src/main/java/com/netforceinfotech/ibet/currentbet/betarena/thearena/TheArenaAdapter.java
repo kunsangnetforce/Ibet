@@ -250,6 +250,8 @@ public class TheArenaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 bundle.putString("match_id", match_id);
                 bundle.putString("bet_id", bet_id);
                 bundle.putString("team", team);
+                bundle.putString("dp", itemList.get(position).imageurl);
+                bundle.putString("name", itemList.get(position).name);
                 bundle.putString("from", "bet");
                 bundle.putString("commentkey", itemList.get(position).key);
                 bundle.putString("comment", itemList.get(position).comment);

@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/app_bar" />
+        layout="@layout/app_bar_coin" />
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -77,14 +77,16 @@
                         android:layout_margin="1dp"
                         android:layout_weight="50">
 
-
-                        <ImageView
-                            android:id="@+id/imageView0"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView0"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView0"
@@ -104,14 +106,16 @@
                         android:layout_margin="1dp"
                         android:layout_weight="50">
 
-
-                        <ImageView
-                            android:id="@+id/imageView1"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView1"
@@ -132,13 +136,16 @@
                         android:layout_weight="50">
 
 
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView2"
@@ -166,14 +173,16 @@
                         android:layout_margin="1dp"
                         android:layout_weight="50">
 
-
-                        <ImageView
-                            android:id="@+id/imageView3"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView3"
@@ -193,14 +202,17 @@
                         android:layout_margin="1dp"
                         android:layout_weight="50">
 
-
-                        <ImageView
-                            android:id="@+id/imageView4"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView4"
@@ -220,14 +232,17 @@
                         android:layout_margin="1dp"
                         android:layout_weight="50">
 
-
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView5"
@@ -255,14 +270,16 @@
                         android:layout_margin="1dp"
                         android:layout_weight="50">
 
-
-                        <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView6"
@@ -283,13 +300,16 @@
                         android:layout_weight="50">
 
 
-                        <ImageView
-                            android:id="@+id/imageView7"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView7"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView7"
@@ -310,13 +330,16 @@
                         android:layout_weight="50">
 
 
-                        <ImageView
-                            android:id="@+id/imageView8"
-                            android:layout_width="match_parent"
-                            android:layout_height="120dp"
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:background="@drawable/ic_launcher" />
+                            android:background="@drawable/circular_bg_fill"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
 
                         <com.winsontan520.WScratchView xmlns:wsv="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/scratchView8"
@@ -395,7 +418,7 @@
                 android:drawablePadding="12dp"
                 android:drawableRight="@drawable/img_dollor"
                 android:padding="6dp"
-                android:text="Buy another for 150 coins"
+                android:text="Buy another for 20 coins"
                 android:textColor="@color/colorAccent" />
         </RelativeLayout>
     </FrameLayout>

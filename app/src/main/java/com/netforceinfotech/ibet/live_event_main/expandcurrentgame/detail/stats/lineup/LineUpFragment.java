@@ -951,7 +951,7 @@ public class LineUpFragment extends Fragment {
                 linearLayoutFA3.setVisibility(View.VISIBLE);
                 textViewFA31.setText(arrayListAwayForward.get(0).name);
                 textViewFA32.setText(arrayListAwayForward.get(1).name);
-                textViewFA33.setText(arrayListAwayForward.get(3).name);
+                textViewFA33.setText(arrayListAwayForward.get(2).name);
                 if (awayTeamLogo.length() > 0) {
                     Picasso.with(context)
                             .load(awayTeamLogo)

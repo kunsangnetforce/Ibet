@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.currentbet.betarena.EnterBetArenaActivity;
-import com.netforceinfotech.ibet.dashboard.home.detail_finished_bet.DetailFinishedBet;
+import com.netforceinfotech.ibet.dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

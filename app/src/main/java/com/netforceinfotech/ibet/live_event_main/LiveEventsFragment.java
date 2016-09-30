@@ -163,7 +163,10 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     }
 
     private void setupLightBlueTheme() {
-
+        buttonDate.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        buttonLive.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        textViewNoData.setTextColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
     }
 
     private void setupBrownTheme() {

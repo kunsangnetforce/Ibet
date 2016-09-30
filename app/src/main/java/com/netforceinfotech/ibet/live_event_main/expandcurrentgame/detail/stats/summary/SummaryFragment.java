@@ -3,7 +3,9 @@ package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stats
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -38,7 +41,9 @@ public class SummaryFragment extends Fragment {
 
     ImageView imageViewHome, imageViewAway;
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
-
+    UserSessionManager userSessionManager;
+    View view1;
+    CoordinatorLayout coordinatorLayout;
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -51,13 +56,18 @@ public class SummaryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_summary, container, false);
         context = getActivity();
+        userSessionManager = new UserSessionManager(context);
         initview(view);
+        setupTheme();
+        setupBackground();
         String match_id = this.getArguments().getString("match_id");
         getStatistic(match_id);
         return view;
     }
 
     private void initview(View view) {
+        view1 = view.findViewById(R.id.view);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
         textViewGoal = (TextView) view.findViewById(R.id.textViewGoal);
         imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamB);
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
@@ -337,4 +347,191 @@ public class SummaryFragment extends Fragment {
         });
     }
 
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        progressbarTSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarSoTH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarFoulH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarOSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarCornorH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarPossesionH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarYCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarRCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarSaveH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+
+        progressbarTSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarSoTA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarFoulA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarOSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarCornorA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarPossesionA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarYCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarRCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        progressbarSaveA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        progressbarTSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarSoTH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarFoulH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarOSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarCornorH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarPossesionH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarYCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarRCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarSaveH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+
+        progressbarTSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarSoTA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarFoulA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarOSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarCornorA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarPossesionA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarYCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarRCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        progressbarSaveA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+    }
+
+    private void setupGreenTheme() {
+        progressbarTSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarSoTH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarFoulH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarOSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarCornorH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarPossesionH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarYCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarRCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarSaveH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+
+        progressbarTSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarSoTA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarFoulA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarOSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarCornorA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarPossesionA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarYCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarRCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        progressbarSaveA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+    }
+
+    private void setupMarronTheme() {
+        progressbarTSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarSoTH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarFoulH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarOSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarCornorH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarPossesionH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarYCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarRCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarSaveH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+
+        progressbarTSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarSoTA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarFoulA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarOSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarCornorA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarPossesionA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarYCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarRCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        progressbarSaveA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+
+    }
+
+    private void setupLightBlueTheme() {
+        progressbarTSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarSoTH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarFoulH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarOSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarCornorH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarPossesionH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarYCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarRCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarSaveH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+
+        progressbarTSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarSoTA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarFoulA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarOSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarCornorA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarPossesionA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarYCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarRCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        progressbarSaveA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+
+    }
+
+    private void setupDefaultTheme() {
+       /*
+        RoundCornerProgressBar progressbarTSH, progressbarSoTH, progressbarFoulH, progressbarOSH, progressbarCornorH,
+         progressbarPossesionH, progressbarYCH, progressbarRCH, progressbarSaveH;
+    RoundCornerProgressBar progressbarTSA, progressbarSoTA, progressbarFoulA, progressbarOSA, progressbarCornorA, progressbarPossesionA, progressbarYCA, progressbarRCA, progressbarSaveA;
+       */
+        progressbarTSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarSoTH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarFoulH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarOSH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarCornorH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarPossesionH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarYCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarRCH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarSaveH.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+
+        progressbarTSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarSoTA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarFoulA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarOSA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarCornorA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarPossesionA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarYCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarRCA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        progressbarSaveA.setProgressBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+
+    }
+
+    private void setupBackground() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+    }
 }

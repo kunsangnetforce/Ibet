@@ -1,26 +1,35 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorAccent"
-    android:id="@+id/activity_sound_layout"
+    android:layout_height="match_parent">
 
-    >
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/app_bar" />
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonNext"
-        android:layout_alignParentTop="true"
+        android:layout_height="match_parent"
+        android:background="@color/transulation" />
 
-        ></android.support.v7.widget.RecyclerView>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        >
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/app_bar" />
 
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/buttonNext"
+            android:layout_alignParentTop="true"
 
-</LinearLayout>
+            ></android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -251,6 +251,8 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 bundle.putString("team", team);
                 bundle.putString("commentkey", itemList.get(position).key);
                 bundle.putString("from", "all");
+                bundle.putString("dp", itemList.get(position).imageurl);
+                bundle.putString("name", itemList.get(position).name);
                 bundle.putString("comment", itemList.get(position).comment);
                 bundle.putString("dislikecount", itemList.get(position).dislike);
                 bundle.putString("likecount", itemList.get(position).like);

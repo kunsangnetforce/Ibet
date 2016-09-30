@@ -2,13 +2,17 @@ package com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments;
 import com.netforceinfotech.ibet.util.Util;
 import com.squareup.picasso.Picasso;
 
@@ -24,10 +28,13 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final LayoutInflater inflater;
     private List<TopData> itemList;
     private Context context;
+    String matchid, team;
 
-    public TopAdapter(Context context, List<TopData> itemList) {
+    public TopAdapter(Context context, List<TopData> itemList,String matchid,String team) {
         this.itemList = itemList;
         this.context = context;
+        this.team=team;
+        this.matchid=matchid;
         inflater = LayoutInflater.from(context);
     }
 
@@ -66,6 +73,27 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         topHolder.textViewComment.setText(topData.comment);
         topHolder.textViewDate.setText(Util.getDateCurrentTimeZone(topData.timestamp));
         topHolder.textViewTime.setText(Util.getTimeCurrentTimeZone(topData.timestamp));
+        topHolder.imageViewMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("kunsangvalue", itemList.get(position).like + ":" + itemList.get(position).dislike);
+                Intent intent = new Intent(context, CommentComments.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("match_id", matchid);
+                bundle.putString("team", team);
+                bundle.putString("commentkey", itemList.get(position).key);
+                bundle.putString("from", "all");
+                bundle.putString("dp", itemList.get(position).imageurl);
+                bundle.putString("name", itemList.get(position).name);
+                bundle.putString("comment", itemList.get(position).comment);
+                bundle.putString("dislikecount", itemList.get(position).dislike);
+                bundle.putString("likecount", itemList.get(position).like);
+                bundle.putString("sharecount", itemList.get(position).share);
+                bundle.putLong("timestamp", itemList.get(position).timestamp);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

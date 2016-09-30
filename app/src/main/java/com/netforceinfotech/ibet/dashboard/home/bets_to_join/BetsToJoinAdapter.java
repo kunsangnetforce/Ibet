@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforceinfotech.ibet.R;
-import com.netforceinfotech.ibet.dashboard.home.detail_bet_to_join.DetailBetToJoin;
+import com.netforceinfotech.ibet.dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

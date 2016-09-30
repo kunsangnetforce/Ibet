@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.netforceinfotech.ibet">
 
+    <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -38,10 +39,10 @@
             android:name=".dashboard.Dashboard"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.home.detail_finished_bet.DetailFinishedBet"
+            android:name=".dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".dashboard.home.detail_bet_to_join.DetailBetToJoin"
+            android:name=".dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin"
             android:screenOrientation="portrait" />
         <activity
             android:name=".dashboard.home.startnewbet.create_bet.WhoWillWinActivity"
@@ -143,7 +144,9 @@
 
         <activity android:name=".live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
         <activity android:name=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity" />
-        <activity android:name=".scratchview.ScratchActivity" />
+        <activity
+            android:name=".scratchview.ScratchActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".dashboard.setting.theme.background.BackgroundActivity"></activity>
     </application>
 
