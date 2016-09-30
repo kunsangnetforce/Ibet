@@ -82,15 +82,16 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         setupToolBar("Scratch card");
         context = this;
         userSessionManager = new UserSessionManager(context);
-        try{
-            String from=getIntent().getStringExtra("from");
-            if(from.equalsIgnoreCase("itself")){
+        try {
+            String from = getIntent().getStringExtra("from");
+            if (from.equalsIgnoreCase("itself")) {
                 showMessage("page refresh");
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
         initView();
+        updatecoin(0);
         setupStatusBar();
         setupTheme();
         selectedCoins = pickCoins();
@@ -414,21 +415,6 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void showPopUpMessage(String s, final int value) {
-        buttonColloect.setVisibility(View.VISIBLE);
-        confetti_top_left = new ParticleSystem(this, 80, R.drawable.confeti3, 10000)
-                .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
-                .setRotationSpeed(144)
-                .setAcceleration(0.00005f, 90);
-        confetti_top_left.emit(findViewById(R.id.emiter_top_left), 8);
-        confetti_top_right = new ParticleSystem(this, 80, R.drawable.confeti2, 10000)
-                .setSpeedModuleAndAngleRange(0f, 0.3f, 180, 180)
-                .setRotationSpeed(144)
-                .setAcceleration(0.00005f, 90);
-        confetti_top_right.emit(findViewById(R.id.emiter_top_right), 8);
-
-
-        gif.setVisibility(View.VISIBLE);
-
         boolean wrapInScrollView = true;
         customdialog = new MaterialDialog.Builder(this)
                 .customView(R.layout.custom_dialog, wrapInScrollView).show();
@@ -439,13 +425,27 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View view) {
                 customdialog.dismiss();
-                confetti = new ParticleSystem(ScratchActivity.this, 100, R.drawable.confeti2, 5000)
-                        .setSpeedRange(0.1f, 0.25f);
-                confetti.oneShot(view, 900);
+                buttonColloect.setVisibility(View.VISIBLE);
+                confetti_top_left = new ParticleSystem(ScratchActivity.this, 80, R.drawable.confeti3, 10000)
+                        .setSpeedModuleAndAngleRange(0f, 0.3f, 0, 0)
+                        .setRotationSpeed(144)
+                        .setAcceleration(0.00005f, 90);
+                confetti_top_left.emit(findViewById(R.id.emiter_top_left), 8);
+                confetti_top_right = new ParticleSystem(ScratchActivity.this, 80, R.drawable.confeti2, 10000)
+                        .setSpeedModuleAndAngleRange(0f, 0.3f, 180, 180)
+                        .setRotationSpeed(144)
+                        .setAcceleration(0.00005f, 90);
+                confetti_top_right.emit(findViewById(R.id.emiter_top_right), 8);
+
+
+                gif.setVisibility(View.VISIBLE);
+
+
+                revealAll();
+
 
             }
         });
-        revealAll();
     }
 
     @Override
@@ -457,6 +457,15 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                 //   showPopUpMessage("kunsang");
                 try {
                     updatecoin(price);
+                    confetti = new ParticleSystem(ScratchActivity.this, 100, R.drawable.confeti2, 5000)
+                            .setSpeedRange(0.1f, 0.25f);
+                    confetti.oneShot(view, 900);
+                    confetti.stopEmitting();
+                    confetti_top_left.stopEmitting();
+                    confetti_top_right.stopEmitting();
+                    gif.setVisibility(View.GONE);
+                    relativeLayoutCounter.setVisibility(View.VISIBLE);
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -614,25 +623,24 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
             coins.add(5);
             coins.add(5);
             coins.add(5);
+            coins.add(5);
+            coins.add(10);
             coins.add(10);
             coins.add(10);
             coins.add(10);
             coins.add(10);
             coins.add(20);
             coins.add(20);
+            coins.add(20);
+            coins.add(20);
             coins.add(30);
             coins.add(30);
             coins.add(30);
-            coins.add(30);
-            coins.add(50);
-            coins.add(50);
-            coins.add(50);
-            coins.add(50);
-            coins.add(50);
-            coins.add(200);
-            coins.add(100);
-            coins.add(100);
         }
+        coins.add(50);
+        coins.add(50);
+        coins.add(200);
+        coins.add(100);
         int bucketSize = coins.size();
         Random random = new Random();
         for (int i = 0; i < 9; i++) {
@@ -708,11 +716,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         JsonObject object = data.get(0).getAsJsonObject();
         String coins = object.get("Current Coin").getAsString();
         textviewCoins.setText(coins);
-        confetti.stopEmitting();
-        confetti_top_left.stopEmitting();
-        confetti_top_right.stopEmitting();
-        gif.setVisibility(View.GONE);
-        relativeLayoutCounter.setVisibility(View.VISIBLE);
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, 1);
