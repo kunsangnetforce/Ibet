@@ -23,7 +23,7 @@ public class StateFragment extends Fragment {
     Context context;
     private TabLayout tabLayout;
     private int theme;
-    private String home_id, away_id, home_name, away_name, match_id;
+    private String home_id, away_id, home_name, away_name, match_id, season_id;
 
     public StateFragment() {
         // Required empty public constructor
@@ -42,6 +42,7 @@ public class StateFragment extends Fragment {
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");
             away_name = this.getArguments().getString("away_name");
+            season_id = this.getArguments().getString("season_id");
         } catch (Exception ex) {
             Log.i("kunsang_exception", "paramenter not set");
         }
@@ -66,7 +67,7 @@ public class StateFragment extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
         final PagerAdapterState adapter = new PagerAdapterState
-                (getChildFragmentManager(), tabLayout.getTabCount(), match_id, home_id, away_id);
+                (getChildFragmentManager(), tabLayout.getTabCount(), match_id, home_id, away_id,season_id);
         viewPager.setPagingEnabled(true);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

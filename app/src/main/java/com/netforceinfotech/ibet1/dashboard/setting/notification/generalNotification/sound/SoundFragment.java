@@ -62,7 +62,7 @@ public class SoundFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
         if (theme == 0) {
-            general_notification_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme1));
+            //general_notification_layout.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.navigation_background_theme1));
 
         } else if (theme == 1) {
 

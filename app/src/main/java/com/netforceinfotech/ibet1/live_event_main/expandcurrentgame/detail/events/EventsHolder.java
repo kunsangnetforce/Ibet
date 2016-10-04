@@ -45,7 +45,7 @@ public class EventsHolder extends RecyclerView.ViewHolder {
         linearLayoutb = (LinearLayout) view.findViewById(R.id.linearLayoutb);
         switch (userSessionManager.getTheme()) {
             case 0:
-                setDefaultTheme();
+               // setDefaultTheme();
                 break;
             case 1:
                 setBrownTheme();

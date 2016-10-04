@@ -66,12 +66,12 @@ public class OddsActivity extends AppCompatActivity {
         }
         else if (theme == 1)
         {
-
+/*
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             {
                 // only for gingerbread and newer versions
                 window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_background_theme2));
-            }
+            }*/
 
         }
         else if (theme == 2)

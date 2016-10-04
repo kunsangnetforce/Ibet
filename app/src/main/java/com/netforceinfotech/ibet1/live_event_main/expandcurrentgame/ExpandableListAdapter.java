@@ -108,6 +108,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 String away_name = currentGameData.teamb;
                 String home_logo = currentGameData.logoa;
                 String away_logo = currentGameData.logob;
+                String season_id = currentGameData.season_id;
                 Bundle bundle = new Bundle();
                 Log.i("kunsangadapter", match_id + " " + home_id + " " + away_id);
 
@@ -118,16 +119,18 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 bundle.putString("match_id", match_id);
                 bundle.putString("home_logo", home_logo);
                 bundle.putString("away_logo", away_logo);
+                bundle.putString("season_id", season_id);
                 intent.putExtras(bundle);
                 _context.startActivity(intent);
             }
         });
         switch (userSessionManager.getTheme()) {
             case 0:
-                linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimary));
+              /*  linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimary));
                 textViewTeamA.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
                 textViewTeamB.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
                 textViewVs.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
+              */
                 break;
             case 1:
                 linearLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryBrown));
@@ -200,8 +203,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         textview.setText(header.name);
         switch (userSessionManager.getTheme()) {
             case 0:
-                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDark));
+              /*  relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDark));
                 textview.setTextColor(ContextCompat.getColor(_context, R.color.colorAccent));
+            */
                 break;
             case 1:
                 relativeLayout.setBackgroundColor(ContextCompat.getColor(_context, R.color.colorPrimaryDarkBrown));

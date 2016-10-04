@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
@@ -20,7 +21,8 @@ import com.netforceinfotech.ibet1.general.UserSessionManager;
 
 public class BackgroundActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView imageViewBlue, imageViewFrance, imageViewUk, imageViewSpain, imageViewDefault, imageViewSoccer;
+    ImageView imageViewBlue, imageViewFrance, imageViewUk, imageViewSpain, imageViewSoccer;
+    TextView imageViewDefault;
     UserSessionManager userSessionManager;
     private Toolbar toolbar;
     CoordinatorLayout coordinatorLayout;
@@ -49,7 +51,6 @@ public class BackgroundActivity extends AppCompatActivity implements View.OnClic
         imageViewFrance = (ImageView) findViewById(R.id.imageViewFrance);
         imageViewUk = (ImageView) findViewById(R.id.imageViewUk);
         imageViewSpain = (ImageView) findViewById(R.id.imageViewSpain);
-        imageViewDefault = (ImageView) findViewById(R.id.imageViewDefault);
         imageViewSoccer = (ImageView) findViewById(R.id.imageViewSoccer);
         imageViewSoccer.setOnClickListener(this);
         imageViewDefault.setOnClickListener(this);
@@ -77,7 +78,7 @@ public class BackgroundActivity extends AppCompatActivity implements View.OnClic
             case R.id.imageViewUk:
                 userSessionManager.setBackground(4);
                 break;
-            case R.id.imageViewDefault:
+            case R.id.textViewDefault:
                 userSessionManager.setBackground(5);
                 break;
 

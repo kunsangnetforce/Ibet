@@ -23,7 +23,7 @@ public class LiveEventActivity extends AppCompatActivity {
     private CustomViewPager viewPager;
     private Toolbar toolbar;
     UserSessionManager userSessionManager;
-    public static String home_name, away_name, home_id, away_id, match_id, home_logo, away_logo;
+    public static String home_name, away_name, home_id, away_id, match_id, home_logo, away_logo, season_id;
     private Context context;
     CoordinatorLayout coordinatorLayout;
     View view1;
@@ -41,6 +41,7 @@ public class LiveEventActivity extends AppCompatActivity {
         match_id = bundle.getString("match_id");
         home_logo = bundle.getString("home_logo");
         away_logo = bundle.getString("away_logo");
+        season_id = bundle.getString("season_id");
         context = this;
         userSessionManager = new UserSessionManager(context);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
@@ -73,7 +74,7 @@ public class LiveEventActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.stand));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         Log.i("kunsangliveevent", match_id + " " + home_id + " " + away_id);
-        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getSupportFragmentManager(), tabLayout.getTabCount(), match_id, home_id, away_id, home_name, away_name, home_logo, away_logo);
+        final PagerAdapterLiveEvents adapter = new PagerAdapterLiveEvents(getSupportFragmentManager(), tabLayout.getTabCount(), match_id, home_id, away_id, home_name, away_name, home_logo, away_logo,season_id);
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -185,7 +186,7 @@ public class LiveEventActivity extends AppCompatActivity {
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-                setupDefaultTheme();
+                // setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
@@ -31,12 +32,13 @@ public class ThemeColorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final LayoutInflater inflater;
     Activity context;
     ArrayList<Integer> setting_icon = new ArrayList<>();
-
+    ArrayList<String> theme_names;
     UserSessionManager userSessionManager;
 
 
-    public ThemeColorAdapter(Activity context, ArrayList<Integer> imagelist) {
+    public ThemeColorAdapter(Activity context, ArrayList<Integer> imagelist, ArrayList<String> theme_names) {
         this.context = context;
+        this.theme_names = theme_names;
         this.setting_icon = imagelist;
         inflater = LayoutInflater.from(context);
         userSessionManager = new UserSessionManager(context);
@@ -57,12 +59,13 @@ public class ThemeColorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        SettingHolder settingHolder= (SettingHolder) holder;
-        try{
+        SettingHolder settingHolder = (SettingHolder) holder;
+        try {
             Picasso.with(context).load(setting_icon.get(position)).into(settingHolder.image_icon);
-        }catch (Exception ex){
-            Picasso.with(context).load(setting_icon.get(position)).resize(300,300).into(settingHolder.image_icon);
+        } catch (Exception ex) {
+            Picasso.with(context).load(setting_icon.get(position)).resize(300, 300).into(settingHolder.image_icon);
         }
+        settingHolder.textViewThemenName.setText(theme_names.get(position));
 
         // new_decode();
 
@@ -89,6 +92,7 @@ public class ThemeColorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public class SettingHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView image_icon;
+        TextView textViewThemenName;
         MaterialRippleLayout materialRippleLayout;
         View view;
         FrameLayout delete_layout;
@@ -100,6 +104,7 @@ public class ThemeColorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
             image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
             image_icon.setOnClickListener(this);
+            textViewThemenName = (TextView) view.findViewById(R.id.textViewThemeName);
 
         }
 

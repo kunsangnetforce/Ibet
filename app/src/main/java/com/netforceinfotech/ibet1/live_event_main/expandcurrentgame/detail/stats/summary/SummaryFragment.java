@@ -351,8 +351,7 @@ public class SummaryFragment extends Fragment {
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-                setupDefaultTheme();
-                break;
+//                break;
             case 1:
                 setupBrownTheme();
                 break;

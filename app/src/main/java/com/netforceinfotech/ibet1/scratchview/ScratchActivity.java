@@ -74,6 +74,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     TextView textviewCoins;
     LinearLayout linearLayoutToolbar;
     private int price;
+    private CountDownTimer countdonw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,12 +92,14 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
 
         }
         initView();
+        getTime();
         updatecoin(0);
         setupStatusBar();
         setupTheme();
         selectedCoins = pickCoins();
         setupCard(selectedCoins);
     }
+
 
     private void setupCard(ArrayList<Integer> integers) {
         price = 0;
@@ -479,6 +482,12 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
 
 
     private void setupTimeThread(String starting_date) {
+        try {
+            countdonw.cancel();
+            countdonw.onFinish();
+        } catch (Exception ex) {
+
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -491,7 +500,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         long milliseconds = (myDate.getTime() - dateNow.getTime());
-        new CountDownTimer(milliseconds, 1000) {
+        countdonw = new CountDownTimer(milliseconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -564,7 +573,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-                setupDefaultTheme();
+              //  setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();
@@ -772,7 +781,33 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-
+    private void getTime() {
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=get_scratch_time&user_id=137
+        String baseUrl = getString(R.string.url);
+        String updatecointsurl = "/services.php?opt=add_coin&custid=" + userSessionManager.getCustomerId() + "&amt_new=" + -20;
+        String url = baseUrl + updatecointsurl;
+        setupSelfSSLCert();
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            showMessage("Something is wrong");
+                        } else {
+                            Log.i("kunsangresult", result.toString());
+                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                               // refreshPage(result);
+                                Log.i("kunsangcoins", result.toString());
+                                showMessage("Can scratch");
+                            } else {
+                                showMessage("Cannot scratch");
+                            }
+                        }
+                    }
+                });
+    }
 }
 
 

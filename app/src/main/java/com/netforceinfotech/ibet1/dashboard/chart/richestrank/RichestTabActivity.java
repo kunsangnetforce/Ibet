@@ -170,7 +170,7 @@ public class RichestTabActivity extends AppCompatActivity {
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-                setupDefaultTheme();
+              //  setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

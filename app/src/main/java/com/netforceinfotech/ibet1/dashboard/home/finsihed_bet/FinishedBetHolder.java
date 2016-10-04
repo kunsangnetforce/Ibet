@@ -52,7 +52,7 @@ public class FinishedBetHolder extends RecyclerView.ViewHolder {
 
         switch (userSessionManager.getTheme()) {
             case 0:
-                setDefaultTheme();
+               // setDefaultTheme();
                 break;
             case 1:
                 setBrownTheme();

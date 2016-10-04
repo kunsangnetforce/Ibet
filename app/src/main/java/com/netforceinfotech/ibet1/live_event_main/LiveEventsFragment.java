@@ -119,7 +119,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     private void setupTheme() {
         switch (userSessionManager.getTheme()) {
             case 0:
-                setupDefaultTheme();
+                //setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();
@@ -257,11 +257,12 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                             linearLayoutNoMatch.setVisibility(View.GONE);
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject jsonObject = data.getJSONObject(i);
-                                String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
+                                String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "", season_id = "";
                                 if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
                                     matchid = jsonObject.getString("id");
                                     home_team_id = jsonObject.getString("home_team_id");
                                     away_team_id = jsonObject.getString("away_team_id");
+                                    season_id = jsonObject.getString("season_id");
                                     JSONObject homeTeam, awayTeam, competition;
                                     if (!(jsonObject.get("homeTeam") == null || jsonObject.get("awayTeam") == null)) {
                                         homeTeam = jsonObject.getJSONObject("homeTeam");
@@ -281,7 +282,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
 
                                     }
                                     //luug
-                                    currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name));
+                                    currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name, season_id));
                                 }
 
                             }
@@ -338,109 +339,6 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         };
     }
 
-    private void getLiveMatch() {
-        //https://api.soccerama.pro/v1.1/livescore?api_token=__YOURTOKEN__
-        //String url = getResources().getString(R.string.url);
-        //url = url + "/current_matches.php";
-        String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
-        String url = "https://api.soccerama.pro/v1.1/livescore/url?api_token=" + token + "&include=homeTeam,awayTeam";
-
-        Log.i("result url", url);
-        setHeader();
-        Ion.with(context)
-                .load(url)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        mSwipyRefreshLayout.setRefreshing(false);
-                        linearLayout.setVisibility(View.GONE);
-                        if (result == null) {
-                            showMessage("Somethings wrong");
-                        } else {
-                          /*  String status = result.get("status").getAsString();
-                            if (status.equalsIgnoreCase("success")) {
-                                JsonArray data = result.getAsJsonArray("data");
-                                for (int i = 0; i < data.size(); i++) {
-
-                                    JsonObject object = data.get(i).getAsJsonObject();
-                                    String match_id = object.get("match_id").getAsString();
-                                    String home_name = null;
-                                    if (!object.get("home_teamname").isJsonNull()) {
-                                        home_name = object.get("home_teamname").getAsString();
-                                    }
-                                    String away_name = null;
-                                    if (!object.get("away_teamname").isJsonNull()) {
-                                        away_name = object.get("away_teamname").getAsString();
-                                    }
-                                    String logohome_team = "";
-                                    if (!object.get("home_teamlogo").isJsonNull()) {
-                                        logohome_team = object.get("home_teamlogo").getAsString();
-                                    }
-
-                                    String awayteam_team = "";
-                                    if (!object.get("away_teamlogo").isJsonNull()) {
-                                        awayteam_team = object.get("away_teamlogo").getAsString();//dummy
-                                    }
-                                    String hometeamid = "";
-                                    if (!object.get("home_team_id").isJsonNull()) {
-                                        hometeamid = object.get("home_team_id").getAsString();//dummy
-                                    }
-                                    //home_team_id  away_team_id
-                                    String away_team_id = "";
-                                    if (!object.get("away_team_id").isJsonNull()) {
-                                        away_team_id = object.get("away_team_id").getAsString();//dummy
-                                    }
-                                    if (!(match_id == null || home_name == null || away_name == null)) {
-                                        currentGameDatas.add(new CurrentGameData(match_id, home_name, away_name, logohome_team, awayteam_team, hometeamid, away_team_id));
-                                    }
-                                }
-                                currentGameAdapter.notifyDataSetChanged();
-                            } else {
-                                showMessage("json error");
-                            }*/
-                            try {
-                                JsonArray data = result.getAsJsonArray("data");
-                                if (data.size() == 0) {
-                                    showMessage("No match available");
-                                } else {
-                                    for (int i = 0; i < data.size(); i++) {
-                                        JsonObject jsonObject = data.get(i).getAsJsonObject();
-                                        String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
-                                        if (!(jsonObject.get("id").isJsonNull() || jsonObject.get("home_team_id").isJsonNull() || jsonObject.get("away_team_id").isJsonNull())) {
-                                            matchid = jsonObject.get("id").getAsString();
-                                            home_team_id = jsonObject.get("home_team_id").getAsString();
-                                            away_team_id = jsonObject.get("away_team_id").getAsString();
-                                            JsonObject homeTeam, awayTeam, competition;
-                                            if (!(jsonObject.get("homeTeam").isJsonNull() || jsonObject.get("awayTeam").isJsonNull())) {
-                                                homeTeam = jsonObject.getAsJsonObject("homeTeam");
-                                                awayTeam = jsonObject.getAsJsonObject("awayTeam");
-                                                home_team_name = homeTeam.get("name").getAsString();
-                                                away_team_name = awayTeam.get("name").getAsString();
-
-                                                if (!(homeTeam.get("logo").isJsonNull())) {
-                                                    home_team_logo = homeTeam.get("logo").getAsString();
-                                                }
-                                                if (!(awayTeam.get("logo").isJsonNull())) {
-                                                    away_team_logo = awayTeam.get("logo").getAsString();
-                                                }
-
-                                            }
-                                            //luug
-                                            currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, "", ""));
-                                        }
-
-                                    }
-                                }
-                            } catch (Exception ex) {
-                                showMessage("Error occur while fetching data");
-                                ex.printStackTrace();
-                            }
-                        }
-
-                    }
-                });
-    }
 
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();

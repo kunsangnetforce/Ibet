@@ -130,7 +130,7 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private void setlist_border() {
         if (theme == 0) {
-            viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
+          //  viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
         } else if (theme == 1) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background2));
         } else if (theme == 2) {

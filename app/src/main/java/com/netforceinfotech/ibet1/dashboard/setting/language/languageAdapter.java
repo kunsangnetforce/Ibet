@@ -141,7 +141,7 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         if(theme == 0)
         {
-            viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
+           // viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
         }
         else if (theme == 1)
         {

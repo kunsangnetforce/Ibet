@@ -105,11 +105,15 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
         imageURL = "https://graph.facebook.com/" + id + "/picture?type=large";
         // setupNavigation(imageURL);
         setupNavigationHeader();
-        if (userSessionManager.getIsFirstTime()) {
+
+        if (userSessionManager.getIsFirstTime() && !userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
             showPopUp("");
+            updatecoin(0);
+        }
+        if (userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
+            linearLayoutToolbar.setVisibility(View.GONE);
         }
 
-        updatecoin(0);
 
     }
 
@@ -166,6 +170,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
             menu.add("Share").setIcon(R.drawable.ic_share);
             menu.add("Rate us").setIcon(R.drawable.ic_rateus);
             menu.add("Login").setIcon(R.drawable.ic_logout);
+            imageViewScratch.setVisibility(View.GONE);
 
         } else {
             menu.add("Home").setIcon(R.drawable.ic_home);
@@ -372,7 +377,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     private void setupTheme() {
         switch (userSessionManager.getTheme()) {
             case 0:
-                setupDefaultTheme();
+                // setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

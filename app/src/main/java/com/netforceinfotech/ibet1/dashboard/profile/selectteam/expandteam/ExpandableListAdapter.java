@@ -117,7 +117,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         });
         switch (userSessionManager.getTheme()){
             case 0:
-                linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimary));
+            //    linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimary));
                 break;
             case 1:
                 linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryBrown));
@@ -179,9 +179,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         switch (userSessionManager.getTheme()) {
             case 0:
-                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDark));
+              /*  relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDark));
                 textViewCompetitionName.setTextColor(ContextCompat.getColor(_context,R.color.colorAccent));
-                break;
+              */  break;
             case 1:
                 relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDarkBrown));
                 textViewCompetitionName.setTextColor(ContextCompat.getColor(_context,R.color.colorAccentBrown));

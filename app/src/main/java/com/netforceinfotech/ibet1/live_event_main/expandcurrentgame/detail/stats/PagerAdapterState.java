@@ -11,11 +11,12 @@ import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stats
 
 public class PagerAdapterState extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    String match_id, home_id, away_id;
+    String match_id, home_id, away_id, season_id;
     private Bundle bundle;
 
-    public PagerAdapterState(FragmentManager fm, int NumOfTabs, String match_id, String home_id, String away_id) {
+    public PagerAdapterState(FragmentManager fm, int NumOfTabs, String match_id, String home_id, String away_id, String season_id) {
         super(fm);
+        this.season_id = season_id;
         this.mNumOfTabs = NumOfTabs;
         this.match_id = match_id;
         this.home_id = home_id;
@@ -42,9 +43,11 @@ public class PagerAdapterState extends FragmentStatePagerAdapter {
 
                 TableFragment liveEvents = new TableFragment();
                 bundle = new Bundle();
+                bundle.putString("season_id", season_id);
                 bundle.putString("match_id", match_id);
-                bundle.putString("away_id", home_id);
+                bundle.putString("home_id", home_id);
                 bundle.putString("away_id", away_id);
+                liveEvents.setArguments(bundle);
                 return liveEvents;
 
             default:

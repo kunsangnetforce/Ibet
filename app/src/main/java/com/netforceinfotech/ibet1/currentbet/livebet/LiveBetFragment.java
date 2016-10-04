@@ -47,7 +47,7 @@ public class LiveBetFragment extends Fragment {
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
         setupRecyclerView(view);
-        setupRecyclerView(view);
+     //   setupRecyclerView(view);
         setupliveBetDatas();
         return view;
 

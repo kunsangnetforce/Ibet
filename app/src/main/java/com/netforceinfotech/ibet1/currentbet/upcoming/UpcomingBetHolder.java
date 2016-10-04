@@ -53,7 +53,7 @@ public class UpcomingBetHolder extends RecyclerView.ViewHolder {
         textViewEnterBetArena = (TextView) view.findViewById(R.id.textViewEnterBetArena);
         switch (userSessionManager.getTheme()) {
             case 0:
-                setDefaultTheme();
+             //   setDefaultTheme();
                 break;
             case 1:
                 setBrownTheme();

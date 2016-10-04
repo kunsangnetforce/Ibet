@@ -475,7 +475,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-                setupDefaultTheme();
+              //  setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

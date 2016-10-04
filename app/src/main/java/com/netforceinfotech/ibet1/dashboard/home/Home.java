@@ -423,7 +423,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private void setupTheme(int theme) {
         switch (theme) {
             case 0:
-                setupDefaultTheme();
+               // setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();
