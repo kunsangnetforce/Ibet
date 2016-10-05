@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.netforceinfotech.ibet.dashboard.setting.theme.background.BackgroundActivity">
+        tools:context="com.netforceinfotech.ibet1.dashboard.setting.theme.background.BackgroundActivity">
 
         <include
             android:id="@+id/toolbar"
@@ -142,13 +142,14 @@
                         android:layout_margin="3dp"
                         android:layout_weight="50">
 
-                        <ImageView
-                            android:id="@+id/imageViewDefault"
+                        <TextView
+                            android:id="@+id/textViewDefault"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
                             android:background="@color/colorPrimary"
-                            android:scaleType="center" />
-
+                            android:gravity="center"
+                            android:text="Default"
+                            android:textColor="@color/colorText" />
                     </LinearLayout>
 
                 </LinearLayout>

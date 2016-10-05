@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
     tools:context=".currentbet.CurrentBet">
 
@@ -50,7 +51,7 @@
             app:tabSelectedTextColor="@color/colorText"
             app:tabTextColor="@color/white" />
 
-        <com.netforceinfotech.ibet.general.CustomViewPager
+        <com.netforceinfotech.ibet1.general.CustomViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

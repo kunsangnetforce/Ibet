@@ -1,12 +1,15 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<View
-    android:id="@+id/view"
-    android:background="@color/transulation"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transulation" />
+
     <LinearLayout
         android:id="@+id/language_layout"
         android:layout_width="match_parent"

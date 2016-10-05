@@ -1,9 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.netforceinfotech.ibet.currentbet.betarena.stats.StateFragment">
+    tools:context="com.netforceinfotech.ibet1.currentbet.betarena.stats.StateFragment">
 
     <LinearLayout
         android:layout_marginTop="16dp"
@@ -26,7 +27,7 @@
             app:tabSelectedTextColor="@color/colorText"
             app:tabTextColor="@color/white" />
 
-        <com.netforceinfotech.ibet.general.CustomViewPager
+        <com.netforceinfotech.ibet1.general.CustomViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

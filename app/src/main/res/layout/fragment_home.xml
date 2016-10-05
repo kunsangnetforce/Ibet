@@ -323,7 +323,7 @@
                     app:tabSelectedTextColor="@color/colorText"
                     app:tabTextColor="@color/white" />
 
-                <com.netforceinfotech.ibet.general.WrapContentViewPager
+                <com.netforceinfotech.ibet1.general.WrapContentViewPager
                     android:id="@+id/pager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

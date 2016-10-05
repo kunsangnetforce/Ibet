@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.netforceinfotech.ibet.currentbet.betarena.stats.lineup.LineUpFragment">
+    tools:context="com.netforceinfotech.ibet1.currentbet.betarena.stats.lineup.LineUpFragment">
 
     <ScrollView
         android:layout_width="match_parent"

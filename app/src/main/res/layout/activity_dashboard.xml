@@ -42,7 +42,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.netforceinfotech.ibet.scratchview.ScratchFragment">
+            tools:context="com.netforceinfotech.ibet1.scratchview.ScratchFragment">
 
             <View
                 android:id="@+id/emiter_top_right"
@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#FF0000"
+        android:background="@color/colorAccent"
         app:headerLayout="@layout/header"
         app:itemIconTint="@drawable/navigation_textcolor"
         app:itemTextColor="@drawable/navigation_textcolor"
