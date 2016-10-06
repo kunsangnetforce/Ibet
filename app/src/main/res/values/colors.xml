@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#062239</color>
     <color name="colorPrimaryDarkTranslusent">#c3062239</color>
     <color name="colorAccent">#D08720</color>
+    <color name="colorAccentDark">#895813</color>
     <color name="colorDivider">#B6B6B6</color>
     <color name="black">#000000</color>
     <color name="grey">#d1cece</color>
@@ -149,5 +150,6 @@
     <color name="colorPrimaryDarkLightBlueTranslusent">#ab057897</color>
     <color name="colorAccentLightBlue">#2bf2f5</color>
     <color name="colorTextLightBlue">#FFFFFF</color>
+
 
 </resources>

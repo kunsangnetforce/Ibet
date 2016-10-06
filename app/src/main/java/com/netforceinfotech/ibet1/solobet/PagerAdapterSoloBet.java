@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.netforceinfotech.ibet1.solobet.single.SingleFragment;
+import com.netforceinfotech.ibet1.solobet.Single.SingleFragment;
 
 /**
  * Created by John on 8/8/2016.

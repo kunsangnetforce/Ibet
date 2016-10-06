@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.currentbet.betarena.EnterBetArenaActivity;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         });
 
         if (itemList.get(position).userdp.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).userdp)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -72,7 +72,7 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             upcomingBetHolder.imageViewDp.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).selectedteamlogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).selectedteamlogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -81,7 +81,7 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             upcomingBetHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).teamalogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).teamalogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -90,7 +90,7 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             upcomingBetHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).teamblogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)

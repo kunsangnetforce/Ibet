@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.util.Util;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -67,9 +67,9 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         CCHolder.textViewTime.setText(Util.getTimeCurrentTimeZone(itemList.get(position).timestamp));
         CCHolder.textViewComment.setText(itemList.get(position).comment);
         try {
-            Picasso.with(context).load(itemList.get(position).imageurl).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(CCHolder.circleImageView);
+            Glide.with(context).load(itemList.get(position).imageurl).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(CCHolder.circleImageView);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(CCHolder.circleImageView);
+            Glide.with(context).load(R.drawable.ic_error).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(CCHolder.circleImageView);
         }
 
     }

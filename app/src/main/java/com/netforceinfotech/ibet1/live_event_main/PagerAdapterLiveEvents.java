@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.events.EventsFragment;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.StandFragment;
@@ -35,7 +38,6 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
             case 0:
                 EventsFragment home = new EventsFragment();
                 bundle = new Bundle();
-                Log.i("kunsangpager", match_id + " " + home_id + " " + away_id);
                 bundle.putString("match_id", match_id);
                 bundle.putString("home_id", home_id);
                 bundle.putString("away_id", away_id);
@@ -48,9 +50,9 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
             case 1:
                 StateFragment currentBet = new StateFragment();
                 bundle = new Bundle();
-                Log.i("kunsangpager", match_id + " " + home_id + " " + away_id);
+                Log.i("kunsangpager1", match_id + " " + home_id + " " + away_id);
                 bundle.putString("match_id", match_id);
-                bundle.putString("away_id", home_id);
+                bundle.putString("home_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
@@ -62,7 +64,6 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
             case 2:
                 StandFragment liveEvents = new StandFragment();
                 bundle = new Bundle();
-                Log.i("kunsangpager", match_id + " " + home_id + " " + away_id);
                 bundle.putString("match_id", match_id);
                 bundle.putString("away_id", home_id);
                 bundle.putString("away_id", away_id);
@@ -82,4 +83,5 @@ public class PagerAdapterLiveEvents extends FragmentStatePagerAdapter {
     public int getCount() {
         return mNumOfTabs;
     }
+
 }

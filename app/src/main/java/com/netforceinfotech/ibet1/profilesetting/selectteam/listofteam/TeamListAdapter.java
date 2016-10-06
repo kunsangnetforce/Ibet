@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.profilesetting.selectteam.SelectTeamActivity;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
         teamListHolder.textViewTeamName.setText(itemList.get(position).name);
         if (itemList.get(position).logo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)

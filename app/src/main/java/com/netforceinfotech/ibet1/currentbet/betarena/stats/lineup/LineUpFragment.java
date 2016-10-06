@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -31,7 +32,6 @@ import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -267,7 +267,7 @@ public class LineUpFragment extends Fragment {
                 case "Goalkeeper":
                     textViewGKH.setText(lineUPDatasHome.get(i).name);
                     if (homeTeamLogo.length() > 0) {
-                        Picasso.with(context)
+                        Glide.with(context)
                                 .load(homeTeamLogo)
                                 .placeholder(R.drawable.ic_holder)
                                 .error(R.drawable.ic_error)
@@ -314,7 +314,7 @@ public class LineUpFragment extends Fragment {
                 case "Goalkeeper":
                     textViewGKA.setText(lineUPDatasAway.get(i).name);
                     if (homeTeamLogo.length() > 0) {
-                        Picasso.with(context)
+                        Glide.with(context)
                                 .load(awayTeamLogo)
                                 .placeholder(R.drawable.ic_holder)
                                 .error(R.drawable.ic_error)
@@ -364,17 +364,17 @@ public class LineUpFragment extends Fragment {
                 textViewDH32.setText(arrayListHomeDefender.get(1).name);
                 textViewDH33.setText(arrayListHomeDefender.get(2).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH31);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH32);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -393,22 +393,22 @@ public class LineUpFragment extends Fragment {
                 textViewDH43.setText(arrayListHomeDefender.get(2).name);
                 textViewDH44.setText(arrayListHomeDefender.get(3).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH41);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH42);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH43);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -428,27 +428,27 @@ public class LineUpFragment extends Fragment {
                 textViewDH54.setText(arrayListHomeDefender.get(3).name);
                 textViewDH55.setText(arrayListHomeDefender.get(4).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH51);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH52);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH53);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDH54);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -472,7 +472,7 @@ public class LineUpFragment extends Fragment {
                 linearLayoutMH1.setVisibility(View.VISIBLE);
                 textViewMH11.setText(arrayListHomeMid.get(0).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -487,12 +487,12 @@ public class LineUpFragment extends Fragment {
                 textViewMH21.setText(arrayListHomeMid.get(0).name);
                 textViewMH22.setText(arrayListHomeMid.get(1).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH21);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -508,17 +508,17 @@ public class LineUpFragment extends Fragment {
                 textViewMH32.setText(arrayListHomeMid.get(1).name);
                 textViewMH33.setText(arrayListHomeMid.get(2).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH31);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH32);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -536,22 +536,22 @@ public class LineUpFragment extends Fragment {
                 textViewMH43.setText(arrayListHomeMid.get(2).name);
                 textViewMH44.setText(arrayListHomeMid.get(3).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH41);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH42);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH43);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -571,27 +571,27 @@ public class LineUpFragment extends Fragment {
                 textViewMH54.setText(arrayListHomeMid.get(3).name);
                 textViewMH55.setText(arrayListHomeMid.get(4).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH51);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH52);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH53);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMH54);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -614,7 +614,7 @@ public class LineUpFragment extends Fragment {
                 linearLayoutFH1.setVisibility(View.VISIBLE);
                 textViewFH11.setText(arrayListHomeForward.get(0).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -629,12 +629,12 @@ public class LineUpFragment extends Fragment {
                 textViewFH21.setText(arrayListHomeForward.get(0).name);
                 textViewFH22.setText(arrayListHomeForward.get(1).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFH21);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -651,17 +651,17 @@ public class LineUpFragment extends Fragment {
                 textViewFH32.setText(arrayListHomeForward.get(1).name);
                 textViewFH33.setText(arrayListHomeForward.get(2).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFH31);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFH32);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -680,22 +680,22 @@ public class LineUpFragment extends Fragment {
                 textViewFH43.setText(arrayListHomeForward.get(2).name);
                 textViewFH44.setText(arrayListHomeForward.get(3).name);
                 if (homeTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFH41);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFH42);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFH43);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(homeTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -722,17 +722,17 @@ public class LineUpFragment extends Fragment {
                 textViewDA32.setText(arrayListAwayDefender.get(1).name);
                 textViewDA33.setText(arrayListAwayDefender.get(2).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA31);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA32);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -751,22 +751,22 @@ public class LineUpFragment extends Fragment {
                 textViewDA43.setText(arrayListAwayDefender.get(2).name);
                 textViewDA44.setText(arrayListAwayDefender.get(3).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA41);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA42);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA43);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -786,27 +786,27 @@ public class LineUpFragment extends Fragment {
                 textViewDA54.setText(arrayListAwayDefender.get(3).name);
                 textViewDA55.setText(arrayListAwayDefender.get(4).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA51);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA52);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA53);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewDA54);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -830,7 +830,7 @@ public class LineUpFragment extends Fragment {
                 linearLayoutMA1.setVisibility(View.VISIBLE);
                 textViewMA11.setText(arrayListAwayMid.get(0).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -845,12 +845,12 @@ public class LineUpFragment extends Fragment {
                 textViewMA21.setText(arrayListAwayMid.get(0).name);
                 textViewMA22.setText(arrayListAwayMid.get(1).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA21);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -866,17 +866,17 @@ public class LineUpFragment extends Fragment {
                 textViewMA32.setText(arrayListAwayMid.get(1).name);
                 textViewMA33.setText(arrayListAwayMid.get(2).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA31);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA32);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -894,22 +894,22 @@ public class LineUpFragment extends Fragment {
                 textViewMA43.setText(arrayListAwayMid.get(2).name);
                 textViewMA44.setText(arrayListAwayMid.get(3).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA41);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA42);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA43);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -929,27 +929,27 @@ public class LineUpFragment extends Fragment {
                 textViewMA54.setText(arrayListAwayMid.get(3).name);
                 textViewMA55.setText(arrayListAwayMid.get(4).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA51);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA52);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA53);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewMA54);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -972,7 +972,7 @@ public class LineUpFragment extends Fragment {
                 linearLayoutFA1.setVisibility(View.VISIBLE);
                 textViewFA11.setText(arrayListAwayForward.get(0).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -987,12 +987,12 @@ public class LineUpFragment extends Fragment {
                 textViewFA21.setText(arrayListAwayForward.get(0).name);
                 textViewFA22.setText(arrayListAwayForward.get(1).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFA21);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -1009,17 +1009,17 @@ public class LineUpFragment extends Fragment {
                 textViewFA32.setText(arrayListAwayForward.get(1).name);
                 textViewFA33.setText(arrayListAwayForward.get(3).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFA31);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFA32);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -1038,22 +1038,22 @@ public class LineUpFragment extends Fragment {
                 textViewFA43.setText(arrayListAwayForward.get(2).name);
                 textViewFA44.setText(arrayListAwayForward.get(3).name);
                 if (awayTeamLogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFA41);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFA42);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewFA43);
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(awayTeamLogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)

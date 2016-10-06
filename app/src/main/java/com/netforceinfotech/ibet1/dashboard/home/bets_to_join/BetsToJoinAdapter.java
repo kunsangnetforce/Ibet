@@ -11,9 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         });
         if (itemList.get(position).userdp.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).userdp)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -80,7 +81,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             betsToJoinHolder.imageViewDp.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).selectedteamlogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).selectedteamlogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -89,7 +90,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             betsToJoinHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).teamalogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).teamalogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -98,7 +99,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             betsToJoinHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).teamblogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)

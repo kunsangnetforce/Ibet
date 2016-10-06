@@ -10,10 +10,10 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="16dp"
             android:weightSum="100">
 
             <LinearLayout
@@ -24,6 +24,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Rank"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
                     android:text="Team"
                     android:textColor="@color/colorAccent"
                     android:textSize="16sp"
@@ -84,13 +93,35 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:layout_margin="16dp"
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="16dp"
             android:layout_marginTop="16dp">
 
         </android.support.v7.widget.RecyclerView>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/imageViewError"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_margin="32dp"
+            android:text="Error" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Data Available"
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 </FrameLayout>

@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendData;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class SelectFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         SelectFriendHolder selectFriendHolder = (SelectFriendHolder) holder;
         if (itemList.get(position).profilepic.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).profilepic)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)

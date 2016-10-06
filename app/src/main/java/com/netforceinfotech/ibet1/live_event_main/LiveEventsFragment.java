@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -37,8 +38,6 @@ import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.ExpandHeader
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.ExpandableListAdapter;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -192,7 +191,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
         linearLayoutNoMatch = (LinearLayout) view.findViewById(R.id.linearLayoutNoLiveMatches);
         imageViewNoMatch = (ImageView) view.findViewById(R.id.imageViewNoLiveMatch);
-        Picasso.with(context).load(R.drawable.gs_stadium).into(imageViewNoMatch);
+        Glide.with(context).load(R.drawable.gs_stadium).into(imageViewNoMatch);
         buttonDate = (Button) view.findViewById(R.id.buttondate);
         buttonDate.setOnClickListener(this);
         buttonLive = (Button) view.findViewById(R.id.buttonLive);

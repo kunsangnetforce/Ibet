@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,8 +34,6 @@ import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.PagerAdapterMainChat;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.all.AllAdapter;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.all.AllFragment;
-import com.squareup.picasso.Picasso;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StandActivity extends AppCompatActivity implements View.OnClickListener {
@@ -129,12 +128,12 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
 
         }
         try {
-            Picasso.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
+            Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
         } catch (Exception ex) {
 
         }
         try {
-            Picasso.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+            Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         } catch (Exception ex) {
 
         }

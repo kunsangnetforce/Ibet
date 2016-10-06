@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.facebook.FacebookSdk;
@@ -47,8 +48,6 @@ import com.netforceinfotech.ibet1.profilesetting.tutorial.DefaultIntro;
 import com.netforceinfotech.ibet1.scratchview.ScratchActivity;
 import com.netforceinfotech.ibet1.scratchview.ScratchFragment;
 import com.plattysoft.leonids.ParticleSystem;
-import com.squareup.picasso.Picasso;
-
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -141,7 +140,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
         textViewName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.textViewName);
         if (!userSessionManager.getLoginMode().equals("0")) {
             Log.i("picturekunsang", userSessionManager.getProfilePic());
-            Picasso.with(context).load(userSessionManager.getProfilePic()).error(R.drawable.ic_error).into(imageViewProfilePic);
+            Glide.with(context).load(userSessionManager.getProfilePic()).error(R.drawable.ic_error).into(imageViewProfilePic);
             textViewName.setText(userSessionManager.getName());
         }
 

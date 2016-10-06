@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet1.solobet.single;
+package com.netforceinfotech.ibet1.solobet.Single;
 
 import android.content.Context;
 import android.os.Bundle;

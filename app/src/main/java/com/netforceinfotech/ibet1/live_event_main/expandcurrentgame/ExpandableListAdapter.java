@@ -19,12 +19,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.CurrentGameData;
 import com.netforceinfotech.ibet1.live_event_main.LiveEventActivity;
-import com.squareup.picasso.Picasso;
-
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     UserSessionManager userSessionManager;
@@ -76,24 +75,24 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         textViewTeamA.setText(currentGameData.teama);
         textViewTeamB.setText(currentGameData.teamb);
         if (currentGameData.logoa.length() > 1) {
-            Picasso.with(_context)
+            Glide.with(_context)
                     .load(currentGameData.logoa)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(imageViewTeamA);
         } else {
-            Picasso.with(_context)
+            Glide.with(_context)
                     .load(R.drawable.ic_error)
                     .into(imageViewTeamA);
         }
         if (currentGameData.logob.length() > 1) {
-            Picasso.with(_context)
+            Glide.with(_context)
                     .load(currentGameData.logob)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(imageViewTeamB);
         } else {
-            Picasso.with(_context)
+            Glide.with(_context)
                     .load(R.drawable.ic_error)
                     .into(imageViewTeamB);
         }

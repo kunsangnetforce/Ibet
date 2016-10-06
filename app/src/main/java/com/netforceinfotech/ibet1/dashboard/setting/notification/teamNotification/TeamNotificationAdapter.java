@@ -13,12 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.setting.notification.teamNotification.soundlist.SoundlistActivity;
 import com.netforceinfotech.ibet1.dashboard.setting.notification.teamNotification.teamlist.TeamData;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,9 +85,9 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
         final SettingHolder settingHolder = (SettingHolder) holder;
         settingHolder.textViewTitle.setText(itemList.get(position).name);
         try {
-            Picasso.with(context).load(itemList.get(position).logo).error(R.drawable.ic_error).into(settingHolder.image_icon);
+            Glide.with(context).load(itemList.get(position).logo).error(R.drawable.ic_error).into(settingHolder.image_icon);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).into(settingHolder.image_icon);
+            Glide.with(context).load(R.drawable.ic_error).into(settingHolder.image_icon);
         }
 
 

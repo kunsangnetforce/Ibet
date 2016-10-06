@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet1.solobet.single;
+package com.netforceinfotech.ibet1.solobet.Single;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

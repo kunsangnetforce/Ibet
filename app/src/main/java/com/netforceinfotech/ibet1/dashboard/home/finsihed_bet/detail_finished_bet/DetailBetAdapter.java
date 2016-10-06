@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.i("ibet_position", "" + position);
         DetailBetHolder detailBetHolder = (DetailBetHolder) holder;
-        Picasso.with(context).load(R.drawable.ic_error).into(detailBetHolder.imageView);
+        Glide.with(context).load(R.drawable.ic_error).into(detailBetHolder.imageView);
 
     }
 

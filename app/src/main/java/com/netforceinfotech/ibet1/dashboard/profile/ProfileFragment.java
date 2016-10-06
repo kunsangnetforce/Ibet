@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -40,8 +41,6 @@ import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.SelectTeamActivity;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.KeyManagementException;
@@ -137,9 +136,9 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         levelNumber = jsonObject.get("cust_level").getAsString();
         level = "Beginer";
         try {
-            Picasso.with(context).load(profile_image).error(R.drawable.ic_error).into(circleImageViewDp);
+            Glide.with(context).load(profile_image).error(R.drawable.ic_error).into(circleImageViewDp);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).into(circleImageViewDp);
+            Glide.with(context).load(R.drawable.ic_error).into(circleImageViewDp);
         }
         textViewName.setText(name);
         textViewLevel.setText(level);
@@ -393,7 +392,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             case TAKE_PHOTO_CODE:
                 if (resultCode == getActivity().RESULT_OK) {
                     Log.i("result picture", "clicked");
-                    Picasso.with(context).load(fileUri).into(circleImageViewDp);
+                    Glide.with(context).load(fileUri).into(circleImageViewDp);
                 }
                 break;
             case PICK_IMAGE:
@@ -412,7 +411,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 //                        circleImageViewDp.setImageBitmap(BitmapFactory.decodeFile(path));
                         File f = new File(path);
                         this.filePath = f.getPath();
-                        Picasso.with(context).load(f).into(circleImageViewDp);
+                        Glide.with(context).load(f).into(circleImageViewDp);
                         Log.i("kunsangfilepath", filePath);
                         cursor.close();
                     } else {

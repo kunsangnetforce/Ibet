@@ -6,28 +6,59 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.netforceinfotech.ibet1.login.LoginActivity;
-import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final long SPLASH_TIME_OUT = 3000;
     ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(getApplication());
         setContentView(R.layout.activity_main);
         imageView = (ImageView) findViewById(R.id.splash);
-        Picasso.with(getApplicationContext()).load(R.drawable.splash).into(imageView);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        Glide.with(getApplicationContext()).load(R.drawable.splash).into(imageView);
+        new AccessTokenTracker() {
             @Override
-            public void run() {
-                // do something
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                overridePendingTransition(R.anim.enter, R.anim.exit);
-                finish();
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+                updateWithToken(newAccessToken);
             }
-        }, 2000);
+        };
+        updateWithToken(AccessToken.getCurrentAccessToken());
+
+    }
+    private void updateWithToken(AccessToken currentAccessToken) {
+
+        if (currentAccessToken != null) {
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(i);
+
+                    finish();
+                }
+            }, SPLASH_TIME_OUT);
+        } else {
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(i);
+
+                    finish();
+                }
+            }, SPLASH_TIME_OUT);
+        }
     }
 }

@@ -13,13 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.SelectTeamActivity;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.listofteam.TeamListData;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.selectedteam.SelectedTeamData;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +74,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         String childText = expandChildDatas.get(expandHeaderDatas.get(groupPosition)).get(childPosition).name;
         txtListChild.setText(childText);
         if (expandChildDatas.get(expandHeaderDatas.get(groupPosition)).get(childPosition).logo.length() > 1) {
-            Picasso.with(_context)
+            Glide.with(_context)
                     .load(expandChildDatas.get(expandHeaderDatas.get(groupPosition)).get(childPosition).logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)

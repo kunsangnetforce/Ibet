@@ -12,10 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -61,9 +61,9 @@ public class ThemeColorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         SettingHolder settingHolder = (SettingHolder) holder;
         try {
-            Picasso.with(context).load(setting_icon.get(position)).into(settingHolder.image_icon);
+            Glide.with(context).load(setting_icon.get(position)).into(settingHolder.image_icon);
         } catch (Exception ex) {
-            Picasso.with(context).load(setting_icon.get(position)).resize(300, 300).into(settingHolder.image_icon);
+            Glide.with(context).load(setting_icon.get(position)).into(settingHolder.image_icon);
         }
         settingHolder.textViewThemenName.setText(theme_names.get(position));
 

@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
-import com.squareup.picasso.Picasso;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,9 +47,9 @@ public class HighestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         int rank = position + 1;
         richestHolder.textViewRank.setText(rank + "");
         try {
-            Picasso.with(context).load(itemList.get(position).imageurl).error(R.drawable.ic_error).into(richestHolder.imageViewProfilePic);
+            Glide.with(context).load(itemList.get(position).imageurl).error(R.drawable.ic_error).into(richestHolder.imageViewProfilePic);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).into(richestHolder.imageViewProfilePic);
+            Glide.with(context).load(R.drawable.ic_error).into(richestHolder.imageViewProfilePic);
         }
         richestHolder.textViewName.setText(itemList.get(position).title);
         richestHolder.textViewLevel.setText(itemList.get(position).level + " Level");

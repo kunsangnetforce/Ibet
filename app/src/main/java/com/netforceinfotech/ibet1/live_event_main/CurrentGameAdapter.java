@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +81,7 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         currentGameHolder.teama.setText(itemList.get(position).teama);
         currentGameHolder.teamb.setText(itemList.get(position).teamb);
         if (itemList.get(position).logoa.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).logoa)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -90,7 +90,7 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             currentGameHolder.logoteama.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).logob.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).logob)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
