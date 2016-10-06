@@ -22,8 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -179,55 +177,6 @@ public class Home extends Fragment implements View.OnClickListener {
     public void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
-
-
-    private Response.Listener<JSONObject> createMyReqSuccessListener() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.i("kunsangresponse", response.toString());
-                try {
-                    if (response.getString("status").equalsIgnoreCase("Success")) {
-                        JSONArray data = response.getJSONArray("data");
-                        JSONObject object = data.getJSONObject(0);
-                        String name = object.getString("name");
-                        String profile_image = object.getString("profile_image");
-                        String total_amt = object.getString("total_amt");
-                        String id = object.getString("id");
-                        userSessionManager.setCustomerId(id);
-                        userSessionManager.setName(name);
-                        userSessionManager.setProfilePic(profile_image);
-                        Glide.with(context).load(profile_image).error(R.drawable.ic_error).into(circleImageViewDp);
-                        textViewName.setText(name);
-
-                    } else {
-                        showMessage("Authentication failure. Login again");
-                    }
-                } catch (Exception ex) {
-
-                }
-            }
-        };
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-
-    private Response.ErrorListener createMyReqErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                linearLayout.setVisibility(View.GONE);
-                error.printStackTrace();
-            }
-        };
-    }
-
 
     private void initView(View view) {
         view1 = view.findViewById(R.id.view);

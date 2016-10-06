@@ -24,7 +24,7 @@
             <TextView
                 android:textStyle="bold"
                 android:id="@+id/textViewRank"
-                android:layout_width="wrap_content"
+                android:layout_width="27dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
                 android:gravity="center"

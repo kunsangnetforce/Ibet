@@ -26,11 +26,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.SimpleMultiPartRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -431,42 +426,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         String uploadurl = "/services.php?opt=update_profile&customer_id=" + userSessionManager.getCustomerId();
         url = url + uploadurl;
         Log.i("result_url", url);
-        RequestQueue queue = Volley.newRequestQueue(context);
-        SimpleMultiPartRequest request = new SimpleMultiPartRequest(
-                url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("result_multi", response);
-                JsonParser jsonParser = new JsonParser();
-                try {
-                    JsonObject jsonObject = jsonParser.parse(response).getAsJsonObject();
-                    if (jsonObject.get("status").getAsString().equalsIgnoreCase("success")) {
-                        showMessage("Uploaded Successfully");
-                    } else {
-                        showMessage("failed to upload");
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    showMessage("Something went wrong");
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("result_multi", "error");
-                error.printStackTrace();
-                showMessage("something went wrong");
-
-            }
-        });
-        if (filePath != null) {
-            request.addFile("image", filePath);
-        } else {
-            request.addFile("image", "");
-        }
-
-        queue.add(request);
 
     }
 

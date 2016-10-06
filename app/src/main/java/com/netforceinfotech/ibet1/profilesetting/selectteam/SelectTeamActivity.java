@@ -16,13 +16,6 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -102,15 +95,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         String token = userSessionManager.getApitoken();
         String url = "https://api.soccerama.pro/v1.1/competitions?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=currentSeason";
         Log.i("kunsangresult", url);
-        RequestQueue queue = Volley.newRequestQueue(context);
-        Log.i("result_url", url);
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                createMyReqSuccessListener(),
-                createMyReqErrorListener());
-
-        queue.add(myReq);
+     showMessage("implement get team");
     }
 
     @Override
@@ -330,48 +315,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(selectTeamAdapter);
-    }
-
-    private Response.Listener<JSONObject> createMyReqSuccessListener() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                linearLayoutProgress.setVisibility(View.GONE);
-                linearlayoutMain.setVisibility(View.VISIBLE);
-                linearLayoutTeams.setVisibility(View.VISIBLE);
-                Log.i("kunsangresult", response.toString());
-                try {
-                    JSONArray data = response.getJSONArray("data");
-                    for (int i = 0; i <= data.length(); i++) {
-                        JSONObject jsonObject = data.getJSONObject(i);
-                        String name = jsonObject.getString("name");
-                        String id = jsonObject.getString("id");
-                        expandHeaderDatas.add(new ExpandHeaderData(id, name));
-                        ArrayList<TeamListData> expandChildData = new ArrayList<>();
-                        expandChildDatas.put(expandHeaderDatas.get(i), expandChildData);
-                    }
-
-                    listAdapter.notifyDataSetChanged();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    showMessage("Error fetching data");
-                }
-            }
-        };
-    }
-
-
-    private Response.ErrorListener createMyReqErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                linearLayoutProgress.setVisibility(View.GONE);
-                linearlayoutMain.setVisibility(View.VISIBLE);
-                linearLayoutTeams.setVisibility(View.VISIBLE);
-                error.printStackTrace();
-
-            }
-        };
     }
 
 

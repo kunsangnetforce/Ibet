@@ -79,7 +79,7 @@ public class SummaryFragment extends Fragment {
         textViewHomeGoal = (TextView) view.findViewById(R.id.textViewHomeGoal);
         textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutInput);
+        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutError);
 
         initHome(view);
         initAway(view);

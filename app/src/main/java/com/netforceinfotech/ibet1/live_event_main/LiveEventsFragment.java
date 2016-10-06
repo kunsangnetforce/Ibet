@@ -19,12 +19,6 @@ import android.widget.Toast;
 
 import com.android.datetimepicker.date.DatePickerDialog;
 import com.android.datetimepicker.time.RadialPickerLayout;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -38,8 +32,6 @@ import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.ExpandHeader
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.ExpandableListAdapter;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,7 +49,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     Context context;
     ArrayList<CurrentGameData> currentGameDatas = new ArrayList<>();
     private CurrentGameAdapter currentGameAdapter;
-    LinearLayout linearLayout;
+    LinearLayout linearLayoutProgress;
     private SwipyRefreshLayout mSwipyRefreshLayout;
     Button buttonDate;
     private ExpandableListAdapter listAdapter;
@@ -87,7 +79,8 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         initView(view);
         setupTheme();
         setupBackground();
-        // getLiveMatch1();
+        getLiveMatch();
+        linearLayoutProgress.setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -188,7 +181,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         view1 = view.findViewById(R.id.view);
         textViewNoData = (TextView) view.findViewById(R.id.textViewNoData);
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
-        linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
+        linearLayoutProgress = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
         linearLayoutNoMatch = (LinearLayout) view.findViewById(R.id.linearLayoutNoLiveMatches);
         imageViewNoMatch = (ImageView) view.findViewById(R.id.imageViewNoLiveMatch);
         Glide.with(context).load(R.drawable.gs_stadium).into(imageViewNoMatch);
@@ -203,104 +196,13 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                 expandHeaderDatas.clear();
                 listDataChild.clear();
                 buttonDate.setText("Select Date");
-                getLiveMatch1();
+                getLiveMatch();
             }
         });
         setupExpandableView(view);
         buttonLive.setOnClickListener(this);
     }
 
-    private void getLiveMatch1() {
-        try {
-            expandHeaderDatas.clear();
-            listDataChild.clear();
-            currentGameDatas.clear();
-            listAdapter.notifyDataSetChanged();
-            //  currentGameAdapter.notifyDataSetChanged();
-        } catch (Exception ex) {
-
-        }
-        linearLayout.setVisibility(View.VISIBLE);
-        mSwipyRefreshLayout.setVisibility(View.GONE);
-        UserSessionManager userSessionManager = new UserSessionManager(context);
-        String token = userSessionManager.getApitoken();
-        String url = "https://api.soccerama.pro/v1.1/livescore/now?api_token=" + token + "&include=homeTeam,awayTeam,competition";
-
-        RequestQueue queue = Volley.newRequestQueue(context);
-        Log.i("result_url", url);
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                createMyReqSuccessListener(),
-                createMyReqErrorListener());
-
-        queue.add(myReq);
-    }
-
-    private Response.Listener<JSONObject> createMyReqSuccessListener() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                mSwipyRefreshLayout.setRefreshing(false);
-                mSwipyRefreshLayout.setVisibility(View.VISIBLE);
-                linearLayout.setVisibility(View.GONE);
-
-                try {
-                    Log.i("kunsang_result", response.toString());
-                    try {
-                        JSONArray data = response.getJSONArray("data");
-                        if (data.length() == 0) {
-                            linearLayoutNoMatch.setVisibility(View.VISIBLE);
-                            showMessage("No match available");
-                        } else {
-                            linearLayoutNoMatch.setVisibility(View.GONE);
-                            for (int i = 0; i < data.length(); i++) {
-                                JSONObject jsonObject = data.getJSONObject(i);
-                                String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "", season_id = "";
-                                if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
-                                    matchid = jsonObject.getString("id");
-                                    home_team_id = jsonObject.getString("home_team_id");
-                                    away_team_id = jsonObject.getString("away_team_id");
-                                    season_id = jsonObject.getString("season_id");
-                                    JSONObject homeTeam, awayTeam, competition;
-                                    if (!(jsonObject.get("homeTeam") == null || jsonObject.get("awayTeam") == null)) {
-                                        homeTeam = jsonObject.getJSONObject("homeTeam");
-                                        awayTeam = jsonObject.getJSONObject("awayTeam");
-                                        competition = jsonObject.getJSONObject("competition");
-                                        home_team_name = homeTeam.getString("name");
-                                        away_team_name = awayTeam.getString("name");
-                                        competition_id = competition.getString("id");
-                                        competition_name = competition.getString("name");
-
-                                        if (!(homeTeam.get("logo") == null)) {
-                                            home_team_logo = homeTeam.getString("logo");
-                                        }
-                                        if (!(awayTeam.get("logo") == null)) {
-                                            away_team_logo = awayTeam.getString("logo");
-                                        }
-
-                                    }
-                                    //luug
-                                    currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name, season_id));
-                                }
-
-                            }
-                            setupExpandableData(currentGameDatas);
-
-                            //    currentGameAdapter.notifyDataSetChanged();
-
-                        }
-                    } catch (Exception ex) {
-                        showMessage("Error occur while fetching data");
-                        ex.printStackTrace();
-                    }
-
-                } catch (Exception e) {
-
-                }
-            }
-        };
-    }
 
     private void setupExpandableData(ArrayList<CurrentGameData> currentGameDatas) {
         for (CurrentGameData currentGameData : currentGameDatas) {
@@ -325,20 +227,6 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private Response.ErrorListener createMyReqErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                showMessage("Check internet connection");
-                mSwipyRefreshLayout.setRefreshing(false);
-                mSwipyRefreshLayout.setVisibility(View.VISIBLE);
-                linearLayout.setVisibility(View.GONE);
-                error.printStackTrace();
-            }
-        };
-    }
-
-
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
@@ -352,10 +240,91 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
 
         // preparing list data
-        getLiveMatch1();
         listAdapter = new ExpandableListAdapter(context, expandHeaderDatas, listDataChild);
         // setting list adapter
         expListView.setAdapter(listAdapter);
+    }
+
+    private void getLiveMatch() {
+        showMessage("create methoud");
+        //https://api.soccerama.pro/v1.2/livescore/now?api_token=__YOURTOKEN__
+        String url = "https://api.soccerama.pro/v1.2/livescore/now?api_token=" + userSessionManager.getApitoken() + "&include=homeTeam,awayTeam,competition";
+        Log.i("kunsangurl", url);
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        linearLayoutProgress.setVisibility(View.GONE);
+                        if (result == null) {
+                            showMessage("null result");
+                        } else {
+                            setupData(result);
+                            Log.i("kunsangresult", result.toString());
+                        }
+
+
+                    }
+                });
+    }
+
+    private void setupData(JsonObject result) {
+        try{
+            currentGameDatas.clear();
+        }catch (Exception ex){
+
+        }
+        mSwipyRefreshLayout.setRefreshing(false);
+        mSwipyRefreshLayout.setVisibility(View.VISIBLE);
+        linearLayoutProgress.setVisibility(View.GONE);
+        try {
+            JsonArray data = result.getAsJsonArray("data");
+            if (data.size() == 0) {
+                linearLayoutNoMatch.setVisibility(View.VISIBLE);
+                showMessage("No match available");
+            } else {
+                linearLayoutNoMatch.setVisibility(View.GONE);
+                for (int i = 0; i < data.size(); i++) {
+                    JsonObject jsonObject = data.get(i).getAsJsonObject();
+                    String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "", season_id = "";
+                    if (!(jsonObject.get("id").isJsonNull() || jsonObject.get("home_team_id").isJsonNull() || jsonObject.get("away_team_id").isJsonNull())) {
+                        matchid = jsonObject.get("id").getAsString();
+                        home_team_id = jsonObject.get("home_team_id").getAsString();
+                        away_team_id = jsonObject.get("away_team_id").getAsString();
+                        season_id = jsonObject.get("season_id").getAsString();
+                        JsonObject homeTeam, awayTeam, competition;
+                        if (!(jsonObject.get("homeTeam").isJsonNull() || jsonObject.get("awayTeam").isJsonNull())) {
+                            homeTeam = jsonObject.getAsJsonObject("homeTeam");
+                            awayTeam = jsonObject.getAsJsonObject("awayTeam");
+                            competition = jsonObject.getAsJsonObject("competition");
+                            home_team_name = homeTeam.get("name").getAsString();
+                            away_team_name = awayTeam.get("name").getAsString();
+                            competition_id = competition.get("id").getAsString();
+                            competition_name = competition.get("name").getAsString();
+                            if (!(homeTeam.get("logo").isJsonNull())) {
+                                home_team_logo = homeTeam.get("logo").getAsString();
+                            }
+                            if (!(awayTeam.get("logo").isJsonNull())) {
+                                away_team_logo = awayTeam.get("logo").getAsString();
+                            }
+
+                        }
+                        //luug
+                        currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name, season_id));
+                    }
+
+                }
+                setupExpandableData(currentGameDatas);
+
+                //    currentGameAdapter.notifyDataSetChanged();
+
+            }
+        } catch (Exception ex) {
+            showMessage("Error occur while fetching data");
+            ex.printStackTrace();
+        }
+
     }
 
     private void setHeader() {
@@ -429,6 +398,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
             formattedMonth = "" + monthOfYear;
         }
         buttonDate.setText(day_txt + " " + dayOfMonth + " " + month_txt);
+        linearLayoutProgress.setVisibility(View.VISIBLE);
         getMatchBydate(year + "-" + formattedMonth + "-" + dayOfMonth);
         Log.i("kunsang_date", year + "-" + monthOfYear + "-" + dayOfMonth);
 
@@ -449,16 +419,26 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         String token = userSessionManager.getApitoken();
         //String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam";
         String url = "https://api.soccerama.pro/v1.1/livescore/date/" + date + "?api_token=" + token + "&include=homeTeam,awayTeam,competition";
-        Log.i("result_kunsang", url);
-        RequestQueue queue = Volley.newRequestQueue(context);
+        Log.i("kunsangresult", url);
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        linearLayoutProgress.setVisibility(View.GONE);
+                        if (result == null) {
+                            showMessage("null result");
+                        } else {
+                            setupData(result);
+                            showMessage("got result");
+                            Log.i("kunsangresult", result.toString());
+                        }
 
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                createMyReqSuccessListener(),
-                createMyReqErrorListener());
 
-        queue.add(myReq);
+                    }
+                });
+
     }
 
     @Override
@@ -470,7 +450,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                 DatePickerDialog.newInstance(this, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)).show(getActivity().getFragmentManager(), "datePicker");
 
             case R.id.buttonLive:
-                getLiveMatch1();
+                getLiveMatch();
                 break;
 
         }
