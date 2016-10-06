@@ -1190,11 +1190,17 @@
         </ScrollView>
 
         <LinearLayout
-            android:id="@+id/linearLayoutInput"
+            android:id="@+id/linearLayoutError"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageViewError"
+                android:layout_width="match_parent"
+                android:layout_height="240dp" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendData;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,9 +54,9 @@ public class SearchFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         Log.i("ibet_position", "" + position);
         SearchFriendHolder searchFriendHolder = (SearchFriendHolder) holder;
         try {
-            Picasso.with(context).load(itemList.get(position).profilepic).error(R.drawable.ic_error).into(searchFriendHolder.imageView);
+            Glide.with(context).load(itemList.get(position).profilepic).error(R.drawable.ic_error).into(searchFriendHolder.imageView);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).into(searchFriendHolder.imageView);
+            Glide.with(context).load(R.drawable.ic_error).into(searchFriendHolder.imageView);
         }
         searchFriendHolder.textViewName.setText(itemList.get(position).name);
         searchFriendHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {

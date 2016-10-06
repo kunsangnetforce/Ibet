@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -237,9 +237,9 @@ public class TheArenaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
 
         try {
-            Picasso.with(context).load(itemList.get(position).imageurl).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(theArenaHolder.circleImageView);
+            Glide.with(context).load(itemList.get(position).imageurl).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(theArenaHolder.circleImageView);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(theArenaHolder.circleImageView);
+            Glide.with(context).load(R.drawable.ic_error).into(theArenaHolder.circleImageView);
         }
         theArenaHolder.imageViewMessage.setOnClickListener(new View.OnClickListener() {
             @Override

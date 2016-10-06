@@ -11,9 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
-import com.squareup.picasso.Picasso;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -44,8 +43,8 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
     private void initView(View view) {
         circleImageViewTeamA = (CircleImageView) view.findViewById(R.id.imageViewTeamA);
         circleImageViewTeamB = (CircleImageView) view.findViewById(R.id.imageViewTeamB);
-        Picasso.with(context).load(R.drawable.ic_error).into(circleImageViewTeamA);
-        Picasso.with(context).load(R.drawable.ic_error).into(circleImageViewTeamB);
+        Glide.with(context).load(R.drawable.ic_error).into(circleImageViewTeamA);
+        Glide.with(context).load(R.drawable.ic_error).into(circleImageViewTeamB);
         buttonNeutral = (Button) view.findViewById(R.id.buttonNeutral);
         circleImageViewTeamA.setOnClickListener(this);
         circleImageViewTeamB.setOnClickListener(this);

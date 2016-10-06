@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stats.lineup;
+package com.netforceinfotech.ibet1.currentbet.betarena.stats.lineup;
 
 
 import android.content.Context;
@@ -50,7 +50,6 @@ public class LineupFragmentNew extends Fragment {
     private String homeTeamLogo, awayTeamLogo;
     TextView textViewError, textViewHGK, textViewAGK;
     ImageView imageViewHGK, imageViewAGK;
-    ImageView imageViewError;
 
     public LineupFragmentNew() {
         // Required empty public constructor
@@ -68,6 +67,7 @@ public class LineupFragmentNew extends Fragment {
         String match_id;
         try {
             match_id = this.getArguments().getString("match_id");
+            match_id = "691136";
             getLineUp1(match_id);
         } catch (Exception ex) {
             showMessage("bundleError");
@@ -84,8 +84,6 @@ public class LineupFragmentNew extends Fragment {
     }
 
     private void initview(View view) {
-        imageViewError = (ImageView) view.findViewById(R.id.imageViewError);
-        Glide.with(context).load(R.drawable.gs_stadium).into(imageViewError);
         linearLayoutAD = (LinearLayout) view.findViewById(R.id.linearLayoutAD);
         linearLayoutHD = (LinearLayout) view.findViewById(R.id.linearLayoutHD);
         linearLayoutHM = (LinearLayout) view.findViewById(R.id.linearLayoutHM);
@@ -93,7 +91,6 @@ public class LineupFragmentNew extends Fragment {
         linearLayoutAF = (LinearLayout) view.findViewById(R.id.linearLayoutAF);
         linearLayoutHF = (LinearLayout) view.findViewById(R.id.linearLayoutHF);
         linearLayoutError = (LinearLayout) view.findViewById(R.id.linearLayoutError);
-        linearLayoutError.setVisibility(View.GONE);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         textViewError = (TextView) view.findViewById(R.id.textViewError);
         textViewAGK = (TextView) view.findViewById(R.id.textViewGKA);
@@ -102,7 +99,6 @@ public class LineupFragmentNew extends Fragment {
         imageViewAGK = (ImageView) view.findViewById(R.id.imageViewGKA);
 
     }
-
 
     private void getLineUp1(String matchid) {
         UserSessionManager userSessionManager = new UserSessionManager(context);

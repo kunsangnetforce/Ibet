@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -29,7 +30,6 @@ import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,7 +66,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     CircleProgressView cpvLevel;
     TickTockView tickTockView;
     SwipyRefreshLayout swipeRefreshLayout;
-    private boolean firsttime = true;
+    private boolean firstTime = true;
 
     public EventsFragment() {
         // Required empty public constructor
@@ -184,37 +184,6 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                     voted = result.get("voted").getAsString();
                 }
                 JsonObject dataObject = result.getAsJsonObject("data");
-                JsonObject teamObject = dataObject.getAsJsonObject("team");
-                String teama = "";
-                String teamb = "";
-                String teamalogo = "";
-                String teamblogo = "";
-                try {
-                   /* if (teamObject.get("hm_teamname").isJsonNull()) {
-                        teama = "";
-                    } else {
-                        teama = teamObject.get("hm_teamname").getAsString();
-                    }
-                    if (teamObject.get("aw_teamname").isJsonNull()) {
-                        teamb = "";
-                    } else {
-                        teamb = teamObject.get("aw_teamname").getAsString();
-                    }
-                    if (teamObject.get("hm_teamlogo").isJsonNull()) {
-                        teamalogo = "";
-                    } else {
-                        teamalogo = teamObject.get("hm_teamlogo").getAsString();
-                    }
-                    if (teamObject.get("aw_teamlogo").isJsonNull()) {
-                        teamblogo = "";
-                    } else {
-                        teamblogo = teamObject.get("aw_teamlogo").getAsString();
-                    }
-*/
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
                 JsonArray data_event = dataObject.get("data_event").getAsJsonArray();
                 if (data_event.size() == 0) {
                     linearLayout.setVisibility(View.VISIBLE);
@@ -226,7 +195,6 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         JsonObject jsonObject = data_event.get(i).getAsJsonObject();
                         String id = jsonObject.get("id").getAsString();
                         String team_id = jsonObject.get("team_id").getAsString();
-                        String teamaName = "", teambName = "";
                         String type = jsonObject.get("type").getAsString();
                         String player_name = "";
                         String player_in_name = "", player_out_name = "";
@@ -262,13 +230,6 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                             extra_min = jsonObject.get("extra_min").getAsString();
                         }
 
-                        String time = "0";
-                        if (extra_min.equalsIgnoreCase("0")) {
-                            time = minute + "'";
-                        } else {
-                            time = minute + "'+" + extra_min;
-                        }
-                        //   EventsData(String name, String type, String teamid, String min, String extra, String in, String out, String team, String id) {
                         EventsData eventsData = new EventsData(player_name, type, team_id, minute, extra_min, player_in_name, player_out_name, team, id);
                         if (!eventsDatas.contains(eventsData)) {
                             eventsDatas.add(eventsData);
@@ -281,7 +242,11 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                     }
                     Collections.sort(eventsDatas);
                     Collections.reverse(eventsDatas);
-                    adapter.notifyDataSetChanged();
+                    try {
+                        adapter.notifyDataSetChanged();
+                    } catch (Exception ex) {
+
+                    }
                 }
                 JsonArray data_score = dataObject.get("data_score").getAsJsonArray();
                 JsonObject score_object = data_score.get(0).getAsJsonObject();
@@ -320,9 +285,12 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         setupTimeThread(starting_date, starting_time);
                         break;
                     case "LIVE":
-                        if (firsttime) {
-                            tickTockView.start(Calendar.getInstance());
-                            firsttime = !firsttime;
+                        if (firstTime) {
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.add(Calendar.MINUTE, 100);
+                            tickTockView.start(calendar);
+                            firstTime = !firstTime;
+
                         }
                         setupProgressThread(minute, extra_minute, 5000);
                         textViewMatchStatus.setText("LIVE");
@@ -342,6 +310,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
+
+                        setupProgressThread(minute, extra_minute, 5000);
                         textViewMatchStatus.setText("FULL TIME");
                         break;
                     case "ET":
@@ -453,22 +423,19 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                     textViewTime.setText(minute + "'+" + extra_minute);
                 }
                 if (home_logo.length() > 0) {
-                    Picasso.with(context)
+/*                    Picasso.with(context)
                             .load(home_logo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
-                            .into(imageViewHome);
+                            .into(imageViewHome);*/
+                    Glide.with(context).load(home_logo).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).into(imageViewHome);
                 } else {
-                    imageViewHome.setImageResource(R.drawable.ic_error);
+                    Glide.with(context).load(R.drawable.ic_error).into(imageViewHome);
                 }
                 if (away_logo.length() > 0) {
-                    Picasso.with(context)
-                            .load(away_logo)
-                            .placeholder(R.drawable.ic_holder)
-                            .error(R.drawable.ic_error)
-                            .into(imageViewAway);
+                    Glide.with(context).load(away_logo).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).into(imageViewAway);
                 } else {
-                    imageViewAway.setImageResource(R.drawable.ic_error);
+                    Glide.with(context).load(R.drawable.ic_error).into(imageViewAway);
                 }
 
                 //adapter.notifyItemRangeChanged(0, adapter.getItemCount());

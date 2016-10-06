@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.currentbet.betarena.EnterBetArenaActivity;
 import com.netforceinfotech.ibet1.dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         });
         if (itemList.get(position).userdp.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).userdp)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -73,7 +73,7 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             betsToJoinHolder.imageViewDp.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).selectedteamlogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).selectedteamlogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -82,7 +82,7 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             betsToJoinHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).teamalogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).teamalogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
@@ -91,7 +91,7 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             betsToJoinHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
-            Picasso.with(context)
+            Glide.with(context)
                     .load(itemList.get(position).teamblogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)

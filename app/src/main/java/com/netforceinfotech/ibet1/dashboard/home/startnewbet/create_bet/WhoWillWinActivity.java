@@ -25,10 +25,10 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
 
 public class WhoWillWinActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -249,14 +249,14 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             }
         });
         try {
-            Picasso.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
+            Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
+            Glide.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
         }
         try {
-            Picasso.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+            Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
+            Glide.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
         }
         textViewTeamA.setText(home_name);
         textViewTeamB.setText(away_name);

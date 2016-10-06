@@ -11,11 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments;
 import com.netforceinfotech.ibet1.util.Util;
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 /**
@@ -62,9 +61,9 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TopHolder topHolder = (TopHolder) holder;
         TopData topData = itemList.get(position);
         try {
-            Picasso.with(context).load(topData.imageurl).error(R.drawable.ic_error).into(topHolder.circleImageView);
+            Glide.with(context).load(topData.imageurl).error(R.drawable.ic_error).into(topHolder.circleImageView);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).into(topHolder.circleImageView);
+            Glide.with(context).load(R.drawable.ic_error).into(topHolder.circleImageView);
         }
         topHolder.textViewCC.setText(topData.message);
         topHolder.textViewSC.setText(topData.share);

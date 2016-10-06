@@ -51,13 +51,11 @@ public class GeneralNotificationActivity extends AppCompatActivity {
 
     private void setupToolBar(String app_name) {
 
-
-        TextView textView = (TextView) toolbar.findViewById(R.id.textViewTitle);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(app_name);
-        textView.setText(app_name);
+        toolbar.setTitle(app_name);
 
 
     }

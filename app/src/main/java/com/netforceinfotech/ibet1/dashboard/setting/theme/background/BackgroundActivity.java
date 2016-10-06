@@ -22,7 +22,7 @@ import com.netforceinfotech.ibet1.general.UserSessionManager;
 public class BackgroundActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView imageViewBlue, imageViewFrance, imageViewUk, imageViewSpain, imageViewSoccer;
-    TextView imageViewDefault;
+    TextView textViewDefault;
     UserSessionManager userSessionManager;
     private Toolbar toolbar;
     CoordinatorLayout coordinatorLayout;
@@ -52,8 +52,9 @@ public class BackgroundActivity extends AppCompatActivity implements View.OnClic
         imageViewUk = (ImageView) findViewById(R.id.imageViewUk);
         imageViewSpain = (ImageView) findViewById(R.id.imageViewSpain);
         imageViewSoccer = (ImageView) findViewById(R.id.imageViewSoccer);
+        textViewDefault= (TextView) findViewById(R.id.textViewDefault);
         imageViewSoccer.setOnClickListener(this);
-        imageViewDefault.setOnClickListener(this);
+        textViewDefault.setOnClickListener(this);
         imageViewSpain.setOnClickListener(this);
         imageViewUk.setOnClickListener(this);
         imageViewFrance.setOnClickListener(this);

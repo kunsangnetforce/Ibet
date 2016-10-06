@@ -12,9 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
-import com.squareup.picasso.Picasso;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -26,7 +25,6 @@ public class StandFragment extends Fragment implements View.OnClickListener {
     Button buttonNeutral;
     Context context;
     CircleImageView imageViewTeamA, imageViewTeamB;
-    private String tagName;
     private String home_id, away_id, home_name, away_name, match_id, home_logo, away_logo;
     private Intent intent;
     private Bundle bundle;
@@ -57,8 +55,8 @@ public class StandFragment extends Fragment implements View.OnClickListener {
         bundle = new Bundle();
         imageViewTeamA = (CircleImageView) view.findViewById(R.id.imageViewTeamA);
         imageViewTeamB = (CircleImageView) view.findViewById(R.id.imageViewTeamB);
-        Picasso.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
-        Picasso.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+        Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
+        Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         initView(view);
         return view;
     }

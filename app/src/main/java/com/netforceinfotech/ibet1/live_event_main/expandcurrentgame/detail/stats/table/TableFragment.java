@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -24,6 +27,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -38,6 +43,9 @@ public class TableFragment extends Fragment {
     private RecyclerView recyclerView;
     private Context context;
     UserSessionManager userSessionManager;
+    ArrayList<TableData> tableDatas = new ArrayList<>();
+    LinearLayout linearLayoutError;
+    ImageView imageViewError;
     private TableAdapter adapter;
 
     public TableFragment() {
@@ -51,8 +59,12 @@ public class TableFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_table, container, false);
         context = getActivity();
+        linearLayoutError = (LinearLayout) view.findViewById(R.id.linearLayoutError);
         userSessionManager = new UserSessionManager(context);
-        String seasonId = "", home_id, away_id;
+        imageViewError = (ImageView) view.findViewById(R.id.imageViewError);
+        Glide.with(context).load(R.drawable.gs_stadium).into(imageViewError);
+        linearLayoutError.setVisibility(View.GONE);
+        String seasonId = "", home_id = "", away_id = "";
         try {
             seasonId = this.getArguments().getString("season_id");
             home_id = this.getArguments().getString("home_id");
@@ -60,7 +72,7 @@ public class TableFragment extends Fragment {
         } catch (Exception ex) {
             Log.i("kunsang_exception", "paramenter not set");
         }
-        setupRecyclerView(view);
+        setupRecyclerView(view, home_id, away_id);
         getTable(seasonId);
         return view;
     }
@@ -86,11 +98,19 @@ public class TableFragment extends Fragment {
     }
 
     private void setTableData(JsonObject result) {
-        JsonArray data = result.getAsJsonArray("data");
-        int size = data.size();
+        JsonArray dataOuter = result.getAsJsonArray("data");
+        if (dataOuter.size() == 0) {
+            linearLayoutError.setVisibility(View.VISIBLE);
+            return;
+        }
+        Log.i("kunsangresult", result.toString());
+        JsonObject jsonObjectOuter = dataOuter.get(0).getAsJsonObject();
+        JsonObject standings = jsonObjectOuter.get("standings").getAsJsonObject();
+        JsonArray dataInner = standings.get("data").getAsJsonArray();
+        int size = dataInner.size();
         for (int i = 0; i < size; i++) {
-            JsonObject jsonObject = data.get(i).getAsJsonObject();
-            String position = jsonObject.get("position").getAsString();
+            JsonObject jsonObject = dataInner.get(i).getAsJsonObject();
+            int position = Integer.parseInt(jsonObject.get("position").getAsString());
             String points = jsonObject.get("points").getAsString();
             String goalDiff = jsonObject.get("goal_difference").getAsString();
             String wins = jsonObject.get("overall_win").getAsString();
@@ -100,18 +120,27 @@ public class TableFragment extends Fragment {
             JsonObject team = jsonObject.getAsJsonObject("team");
             String name = team.get("name").getAsString();
             String logo = team.get("logo").getAsString();
+            String id = team.get("id").getAsString();
+
+            TableData data = new TableData(name, logo, id, points, goalDiff, wins, overall_draw, overall_loose, overall_played, position);
+            if (!tableDatas.contains(data)) {
+                tableDatas.add(data);
+            }
+
         }
+        Collections.sort(tableDatas);
+        adapter.notifyDataSetChanged();
     }
 
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void setupRecyclerView(View view) {
+    private void setupRecyclerView(View view, String home_id, String away_id) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TableAdapter(context, null);
+        adapter = new TableAdapter(context, tableDatas, home_id, away_id);
         recyclerView.setAdapter(adapter);
 
     }

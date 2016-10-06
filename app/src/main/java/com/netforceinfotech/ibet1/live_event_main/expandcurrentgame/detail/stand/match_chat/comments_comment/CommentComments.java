@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,8 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.util.Util;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -120,9 +119,9 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
         textViewDate.setText(Util.getDateCurrentTimeZone(timestamp));
         textViewTime.setText(Util.getTimeCurrentTimeZone(timestamp));
         try {
-            Picasso.with(context).load(dp).into(circleImageViewDp);
+            Glide.with(context).load(dp).into(circleImageViewDp);
         } catch (Exception ex) {
-            Picasso.with(context).load(R.drawable.ic_error).into(circleImageViewDp);
+            Glide.with(context).load(R.drawable.ic_error).into(circleImageViewDp);
         }
     }
 

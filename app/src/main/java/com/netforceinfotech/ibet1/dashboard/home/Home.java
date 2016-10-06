@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -34,7 +35,6 @@ import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.general.WrapContentViewPager;
 import com.netforceinfotech.ibet1.login.LoginActivity;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -66,7 +66,6 @@ public class Home extends Fragment implements View.OnClickListener {
     CoordinatorLayout coordinatorLayout;
     UserSessionManager userSessionManager;
     int theme;
-    private LruCache<String, Bitmap> mMemoryCache;
     String loginmode;
     LinearLayout linearLayout;
     View view1;
@@ -92,22 +91,6 @@ public class Home extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         context = getActivity();
-        // Get max available VM memory, exceeding this amount will throw an
-        // OutOfMemory exception. Stored in kilobytes as LruCache takes an
-        // int in its constructor.
-        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-
-        // Use 1/8th of the available memory for this memory cache.
-        final int cacheSize = maxMemory / 8;
-
-        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
-            @Override
-            protected int sizeOf(String key, Bitmap bitmap) {
-                // The cache size will be measured in kilobytes rather than
-                // number of items.
-                return bitmap.getByteCount() / 1024;
-            }
-        };
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
         loginmode = userSessionManager.getLoginMode();
@@ -116,7 +99,6 @@ public class Home extends Fragment implements View.OnClickListener {
         if (!loginmode.equalsIgnoreCase("0")) {
             getProfileDetail(userSessionManager.getCustomerId());
         }
-
         setupTheme(theme);
         setupBackground(userSessionManager.getBackground());
         return view;
@@ -151,14 +133,7 @@ public class Home extends Fragment implements View.OnClickListener {
         String profileUrl = "/services.php?opt=get_home_by_userid&custid=" + customerId;
         String url = baseUrl + profileUrl;
         Log.i("kunsang_url", url);
-        /*RequestQueue queue = Volley.newRequestQueue(context);
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                createMyReqSuccessListener(),
-                createMyReqErrorListener());
 
-        queue.add(myReq);*/
         setupSelfSSLCert();
         Ion.with(context)
                 .load(url)
@@ -184,8 +159,7 @@ public class Home extends Fragment implements View.OnClickListener {
                                 userSessionManager.setCustomerId(id);
                                 userSessionManager.setName(name);
                                 userSessionManager.setProfilePic(profile_image);
-                                Picasso.with(context).load(profile_image).error(R.drawable.ic_error).into(circleImageViewDp);
-                                Picasso.with(context).load(profile_image).error(R.drawable.ic_error).into(Dashboard.imageViewProfilePic);
+                                Glide.with(context).load(profile_image).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).dontAnimate().into(circleImageViewDp);
                                 textViewName.setText(name);
                                 Dashboard.textViewName.setText(name);
                                 textviewLevel.setText(level);
@@ -223,7 +197,7 @@ public class Home extends Fragment implements View.OnClickListener {
                         userSessionManager.setCustomerId(id);
                         userSessionManager.setName(name);
                         userSessionManager.setProfilePic(profile_image);
-                        Picasso.with(context).load(profile_image).error(R.drawable.ic_error).into(circleImageViewDp);
+                        Glide.with(context).load(profile_image).error(R.drawable.ic_error).into(circleImageViewDp);
                         textViewName.setText(name);
 
                     } else {
@@ -294,24 +268,9 @@ public class Home extends Fragment implements View.OnClickListener {
         circleProgressViewStatus.setValueAnimated(35f, 1500);
         String fbId = userSessionManager.getFBID();
         Log.i("ibet_fbid", fbId);
-        String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
-        Picasso.with(context)
-                .load(imageURL)
-                .placeholder(R.drawable.david)
-                .error(R.drawable.david)
-                .into(circleImageViewDp);
 
     }
 
-    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
-        if (getBitmapFromMemCache(key) == null) {
-            mMemoryCache.put(key, bitmap);
-        }
-    }
-
-    public Bitmap getBitmapFromMemCache(String key) {
-        return mMemoryCache.get(key);
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -423,7 +382,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private void setupTheme(int theme) {
         switch (theme) {
             case 0:
-               // setupDefaultTheme();
+                // setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

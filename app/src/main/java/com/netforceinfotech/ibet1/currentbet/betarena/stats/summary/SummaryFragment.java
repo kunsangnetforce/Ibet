@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.bumptech.glide.Glide;
+import com.daimajia.easing.Glider;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
@@ -24,7 +26,6 @@ import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -270,7 +271,7 @@ public class SummaryFragment extends Fragment {
                                         textViewTime.setText(minute + "'+" + extra_minute);
                                     }
                                     if (hometeamlogo.length() > 0) {
-                                        Picasso.with(context)
+                                        Glide.with(context)
                                                 .load(hometeamlogo)
                                                 .placeholder(R.drawable.ic_holder)
                                                 .error(R.drawable.ic_error)
@@ -279,7 +280,7 @@ public class SummaryFragment extends Fragment {
                                         imageViewHome.setImageResource(R.drawable.ic_error);
                                     }
                                     if (awayteamlogo.length() > 0) {
-                                        Picasso.with(context)
+                                        Glide.with(context)
                                                 .load(awayteamlogo)
                                                 .placeholder(R.drawable.ic_holder)
                                                 .error(R.drawable.ic_error)

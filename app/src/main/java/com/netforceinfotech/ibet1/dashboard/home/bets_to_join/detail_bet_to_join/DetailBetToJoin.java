@@ -18,11 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.WhoWillWinActivity;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 public class DetailBetToJoin extends AppCompatActivity implements View.OnClickListener {
@@ -70,8 +69,8 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.buttonCancel).setOnClickListener(this);
         imageViewTeamA = (ImageView) findViewById(R.id.imageViewTeamA);
         imageViewTeamB = (ImageView) findViewById(R.id.imageViewTeamB);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
-        Picasso.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
+        Glide.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
+        Glide.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
     }
 
     private void setupBackground() {

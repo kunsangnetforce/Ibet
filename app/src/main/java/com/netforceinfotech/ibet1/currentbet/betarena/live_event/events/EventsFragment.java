@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -29,8 +30,6 @@ import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.squareup.picasso.Picasso;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -461,7 +460,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                     textViewTime.setText(minute + "'+" + extra_minute);
                 }
                 if (teamalogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(teamalogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
@@ -470,7 +469,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                     imageViewHome.setImageResource(R.drawable.ic_error);
                 }
                 if (teamblogo.length() > 0) {
-                    Picasso.with(context)
+                    Glide.with(context)
                             .load(teamblogo)
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
