@@ -37,8 +37,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Ronney Singh"
-
                 android:textColor="@color/colorText" />
 
             <TextView
@@ -49,7 +47,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="Beginner"
+                android:text="@string/beginner"
                 android:textColor="@color/orange"
 
                 />
@@ -83,7 +81,6 @@
                         android:background="@drawable/circular_bg"
                         android:gravity="center_vertical|center_horizontal"
                         android:padding="2dp"
-                        android:text="12345"
                         android:textColor="@color/green"
                         android:textSize="20sp" />
 
@@ -91,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="WINNINGS"
+                        android:text="@string/winnings"
                         android:textColor="@color/green" />
 
                 </LinearLayout>
@@ -110,7 +107,6 @@
                         android:background="@drawable/circular_bg"
                         android:gravity="center_vertical|center_horizontal"
                         android:padding="2dp"
-                        android:text="12"
                         android:textColor="@color/green"
                         android:textSize="20sp" />
 
@@ -118,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="LEVEL"
+                        android:text="@string/level"
                         android:textColor="@color/green" />
 
                 </LinearLayout>
@@ -137,7 +133,6 @@
                         android:background="@drawable/circular_bg"
                         android:gravity="center_vertical|center_horizontal"
                         android:padding="2dp"
-                        android:text="1235"
                         android:textColor="@color/green"
                         android:textSize="20sp" />
 
@@ -145,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="LOSSES"
+                        android:text="@string/losses_cap"
                         android:textColor="@color/green" />
 
                 </LinearLayout>
@@ -174,7 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/accent"
-                        android:text="Set your Favourite Team"
+                        android:text="@string/set_your_favourite_team"
                         android:textColor="@color/white" />
                 </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -192,7 +187,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/green"
-                        android:text="Done"
+                        android:text="@string/done"
                         android:textColor="@color/white" />
                 </com.balysv.materialripple.MaterialRippleLayout>
 

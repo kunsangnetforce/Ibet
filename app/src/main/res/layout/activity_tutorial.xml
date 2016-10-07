@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="startDefaultIntro"
-        android:text="Default Intro"
+        android:text="@string/default_intro"
 
         />
 

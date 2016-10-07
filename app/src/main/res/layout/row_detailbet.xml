@@ -35,7 +35,6 @@
                 android:layout_marginLeft="6dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="Rooney"
                 android:textColor="@color/colorAccent"
                 android:textSize="12sp" />
         </LinearLayout>

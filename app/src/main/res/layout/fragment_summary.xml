@@ -253,7 +253,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="Total Shots"
+                                    android:text="@string/total_shots"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -361,7 +361,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="Shots On Target"
+                                    android:text="@string/shots_on_target"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -469,7 +469,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="Fouls"
+                                    android:text="@string/fouls"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -577,7 +577,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="Cornors"
+                                    android:text="@string/cornors"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -684,7 +684,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Off side"
+                                    android:text="@string/off_side"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -792,7 +792,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="Possestion"
+                                    android:text="@string/possesion"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -900,7 +900,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="Yellow cards"
+                                    android:text="@string/yellow_cards"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -1008,7 +1008,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="Red cards"
+                                    android:text="@string/red_cards"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -1116,7 +1116,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="Saves"
+                                    android:text="@string/saves"
                                     android:textColor="@color/colorAccent"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
@@ -1205,7 +1205,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No Stats available"
+                android:text="@string/no_stats_available"
                 android:textColor="@color/colorAccent" />
 
         </LinearLayout>

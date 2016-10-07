@@ -57,7 +57,6 @@
                         android:id="@+id/textViewName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ronie sing"
                         android:textColor="@color/colorText"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -87,7 +86,6 @@
                         android:id="@+id/textViewSelectedName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Italy"
                         android:textColor="@color/colorText"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -310,7 +308,7 @@
                 android:layout_marginTop="16dp"
                 android:elevation="6dp"
                 android:gravity="center"
-                android:text="You Lost"
+                android:text="@string/you_lost"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -324,7 +322,7 @@
                     android:id="@+id/textViewDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Detail"
+                    android:text="@string/view_detail"
                     android:textColor="@color/colorText"
                     android:textStyle="bold" />
             </com.balysv.materialripple.MaterialRippleLayout>

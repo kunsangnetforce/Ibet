@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet1.profilesetting.selectteam;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -41,6 +43,7 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -66,7 +69,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     public static ExpandableListAdapter listAdapter;
     ArrayList<ExpandHeaderData> expandHeaderDatas = new ArrayList<>();
     HashMap<ExpandHeaderData, List<TeamListData>> expandChildDatas = new HashMap<>();
-    ArrayList<String> competitionIds = new ArrayList<>();
     LinearLayout linearLayoutSearch;
 
     @Override
@@ -95,7 +97,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         String token = userSessionManager.getApitoken();
         String url = "https://api.soccerama.pro/v1.1/competitions?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=currentSeason";
         Log.i("kunsangresult", url);
-     showMessage("implement get team");
+        showMessage("implement get team");
     }
 
     @Override
@@ -212,7 +214,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                                     String id = object.get("id").getAsString();
                                     String name = object.get("name").getAsString();
                                     String logo = object.get("logo").getAsString();
-                                    teamListDatas1.add(new TeamListData(id, name, logo, "", ""));
+                                    teamListDatas1.add(new TeamListData(id, name, logo, 0, ""));
                                 }
                                 upcomingGameAdapter.notifyDataSetChanged();
                             } else {
@@ -252,20 +254,26 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                                     if (!(object.get("id").isJsonNull() || object.get("name").isJsonNull())) {
                                         String id = object.get("id").getAsString();
                                         String name = object.get("name").getAsString();
-                                        String competition_id = object.get("competition_id").getAsString();
+                                        int competition_id = Integer.parseInt(object.get("competition_id").getAsString());
                                         String competition_name = object.get("comptition_name").getAsString();
                                         String logo = "";
                                         if (!object.get("logo").isJsonNull()) {
                                             logo = object.get("logo").getAsString();
                                         }
-                                        competitionIds.add(competition_id);
+                                        if (competition_name.equalsIgnoreCase("")) {
+                                            competition_name = "No Name";
+                                        }
+
+                                        ExpandHeaderData competition = new ExpandHeaderData(competition_id, competition_name);
+                                        if (!expandHeaderDatas.contains(competition)) {
+
+                                            expandHeaderDatas.add(competition);
+                                        }
+
                                         teamListDatas.add(new TeamListData(id, name, logo, competition_id, competition_name));
+                                        Collections.sort(teamListDatas);
                                     }
                                 }
-                                HashSet<String> hashSet = new HashSet<String>();
-                                hashSet.addAll(competitionIds);
-                                competitionIds.clear();
-                                competitionIds.addAll(hashSet);
                                 setupExpandableData();
                                 //  upcomingGameAdapter.notifyDataSetChanged();
                             } else {
@@ -278,34 +286,20 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setupExpandableData() {
-        expandHeaderDatas.clear();
-        expandChildDatas.clear();
 
-        for (int i = 0; i < competitionIds.size(); i++) {
-            expandHeaderDatas.add(new ExpandHeaderData(competitionIds.get(i), "dummy" + i));
-        }
+        int prevCompId = teamListDatas.get(0).compid;
+        int counter = 0;
+        ArrayList<TeamListData> expandChildData = new ArrayList<>();
+        for (TeamListData teamData : teamListDatas) {
+            expandChildData.add(teamData);
+            if (teamData.compid != prevCompId) {
+                expandChildDatas.put(expandHeaderDatas.get(counter), expandChildData);
+                counter++;
+                prevCompId = teamData.compid;
+                expandChildData = new ArrayList<>();
 
-        for (int i = 0; i < expandHeaderDatas.size(); i++) {
-            String competitionName = "";
-            ArrayList<TeamListData> expandChildData = new ArrayList<>();
-            for (int j = 0; j < teamListDatas.size(); j++) {
-                Log.i("kunsangstring", expandHeaderDatas.get(i).id + "####### " + teamListDatas.get(i).compid);
-                if (expandHeaderDatas.get(i).id.equalsIgnoreCase(teamListDatas.get(j).compid)) {
-                    competitionName = teamListDatas.get(j).compName;
-                    //expandChildDatas.put(expandHeaderDatas.get(j).name,new ArrayList<ExpandChildData(teamListDatas.get(i).id,teamListDatas.get(i).name,teamListDatas.get(i).logo );
-                    Log.i("kunsangloop", i + "  " + j);
-                    expandChildData.add(new TeamListData(teamListDatas.get(j).id, teamListDatas.get(j).name, teamListDatas.get(j).logo, teamListDatas.get(j).compid, teamListDatas.get(j).compName));
-                    teamListDatas.remove(j);
-                }
             }
-            if (!(competitionName.length() > 0)) {
-                competitionName = "No name";
-            }
-
-            expandHeaderDatas.set(i, new ExpandHeaderData(competitionIds.get(i), competitionName));
-            expandChildDatas.put(expandHeaderDatas.get(i), expandChildData);
         }
-
         listAdapter.notifyDataSetChanged();
     }
 

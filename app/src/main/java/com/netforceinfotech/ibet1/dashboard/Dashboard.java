@@ -48,6 +48,7 @@ import com.netforceinfotech.ibet1.profilesetting.tutorial.DefaultIntro;
 import com.netforceinfotech.ibet1.scratchview.ScratchActivity;
 import com.netforceinfotech.ibet1.scratchview.ScratchFragment;
 import com.plattysoft.leonids.ParticleSystem;
+
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -107,10 +108,12 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
 
         if (userSessionManager.getIsFirstTime() && !userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
             showPopUp("");
-            updatecoin(0);
         }
         if (userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
             linearLayoutToolbar.setVisibility(View.GONE);
+        } else {
+            updatecoin(0);
+
         }
 
 
@@ -119,7 +122,6 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        updatecoin(0);
     }
 
     private void initView() {

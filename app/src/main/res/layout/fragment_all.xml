@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading..."
+            android:text="@string/loading"
             android:textColor="@color/colorAccent" />
 
     </LinearLayout>
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Well no message yet"
+                    android:text="@string/well_no_message_yet"
                     android:textColor="@color/colorAccent"
                     android:textSize="28sp" />
 
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="Well be the first to start it"
+                    android:text="@string/well_be_the_first_to_start_it"
                     android:textColor="@color/colorText"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -108,7 +108,7 @@
                     android:layout_marginRight="6dp"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/roundcornor_white"
-                    android:hint="Type here"
+                    android:hint="@string/type_here"
                     android:imeOptions="actionSend"
                     android:padding="10dp"
                     android:textColor="@color/colorAccent" />

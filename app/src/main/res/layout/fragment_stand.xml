@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Welcome to the stand"
+                android:text="@string/welcome_to_the_stand"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -43,7 +43,7 @@
                 android:background="@color/colorPrimaryDarkTranslusent"
                 android:gravity="center"
                 android:padding="6dp"
-                android:text="Choose your side"
+                android:text="@string/choose_your_side"
                 android:textColor="@color/colorText" />
 
             <LinearLayout
@@ -118,7 +118,7 @@
                 android:background="@color/colorPrimaryDarkTranslusent"
                 android:gravity="center"
                 android:padding="6dp"
-                android:text="Or take no side"
+                android:text="@string/or_take_no_side"
                 android:textColor="@color/colorText" />
 
             <LinearLayout
@@ -141,7 +141,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/red"
-                        android:text="I'm neutral"
+                        android:text="@string/i_m_neutral"
                         android:textColor="@color/colorText" />
                 </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>

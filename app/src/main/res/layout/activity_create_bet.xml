@@ -45,7 +45,7 @@
                     android:drawableLeft="@drawable/ic_pick_contact"
                     android:gravity="center"
                     android:paddingLeft="15dp"
-                    android:text="Invite friends to Bet"
+                    android:text="@string/invite_friends_to_bet"
                     android:textAllCaps="false"
                     android:textSize="16dp" />
 
@@ -60,7 +60,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Friends:"
+                        android:text="@string/friends1"
                         android:textColor="@color/colorText"
                         android:textSize="16sp" />
 
@@ -68,7 +68,6 @@
                         android:id="@+id/textViewListofFriends"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="kunsang,choephel"
                         android:textColor="@color/colorText"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -119,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Other user/s can view the bet and join"
+                        android:text="@string/other_user_s_can_view_the_bet_and_join"
                         android:textColor="@color/grey"
                         android:textSize="14sp"
 
@@ -184,7 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="Other user/s can only View without join"
+                        android:text="@string/other_user_s_can_only_view_without_join"
                         android:textColor="@color/grey"
                         android:textSize="14sp"
 
@@ -250,7 +249,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="No one can view the bet accept the invited users."
+                        android:text="@string/no_one_can_view_the_bet_accept_the_invited_users"
                         android:textColor="@color/grey"
                         android:textSize="14sp"
 
@@ -293,7 +292,7 @@
                     android:id="@+id/textViewRemaing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="200 characters remaining"
+                    android:text="@string/_200_characters_remaining"
                     android:textColor="@color/white"
 
                     android:textSize="12sp"

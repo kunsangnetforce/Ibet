@@ -72,7 +72,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     TextView textView0, textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8;
     ArrayList<Integer> selectedCoins;
     TextView textviewCoins;
-    LinearLayout linearLayoutToolbar;
+    LinearLayout linearLayoutToolbar, linearLayoutScrach;
     private int price;
     private CountDownTimer countdonw;
 
@@ -158,11 +158,12 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initView() {
+        linearLayoutScrach = (LinearLayout) findViewById(R.id.linearLayoutScrach);
         buttonBuyScratch = (Button) findViewById(R.id.buttonBuyScratch);
         buttonBuyScratch.setOnClickListener(this);
         textViewCounter = (TextView) findViewById(R.id.textViewCounter);
         relativeLayoutCounter = (RelativeLayout) findViewById(R.id.relativeLayoutCounter);
-        relativeLayoutCounter.setVisibility(View.GONE);
+        relativeLayoutCounter.setVisibility(View.VISIBLE);
         gif = (GifImageView) findViewById(R.id.gif);
         dialog = new MaterialDialog.Builder(this)
                 .title("You can Choose Only Three Bonus")
@@ -363,7 +364,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, 1);
-            setupTimeThread(dateFormat.format(cal.getTime()));
+            setupTimeThread(86400);
             revealAll();
         }
     }
@@ -481,26 +482,14 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    private void setupTimeThread(String starting_date) {
+    private void setupTimeThread(int time_diff) {
         try {
             countdonw.cancel();
-            countdonw.onFinish();
         } catch (Exception ex) {
 
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date dateNow = Calendar.getInstance().getTime();
-        Date myDate = null;
-        try {
-            myDate = simpleDateFormat.parse(starting_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        long milliseconds = (myDate.getTime() - dateNow.getTime());
-        countdonw = new CountDownTimer(milliseconds, 1000) {
+        countdonw = new CountDownTimer(time_diff * 1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -509,8 +498,10 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
             }
 
             public void onFinish() {
+                countdonw.cancel();
                 textViewCounter.setText("Live!");
-
+                relativeLayoutCounter.setVisibility(View.GONE);
+                refreshPage();
             }
 
         }.start();
@@ -573,7 +564,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-              //  setupDefaultTheme();
+                //  setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();
@@ -675,7 +666,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                         } else {
                             Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                                refreshPage(result);
+                                refreshPage();
                                 Log.i("kunsangcoins", result.toString());
                             } else {
                                 showMessage("Could not set team. Try again");
@@ -685,7 +676,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                 });
     }
 
-    private void refreshPage(JsonObject result) {
+    private void refreshPage() {
         Intent intent = new Intent(context, ScratchActivity.class);
         intent.putExtra("from", "itself");
         startActivity(intent);
@@ -729,7 +720,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, 1);
-        setupTimeThread(dateFormat.format(cal.getTime()));
+        setupTimeThread(86400);
         YoYo.with(Techniques.Tada)
                 .duration(700)
                 .playOn(linearLayoutToolbar);
@@ -784,7 +775,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     private void getTime() {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=get_scratch_time&user_id=137
         String baseUrl = getString(R.string.url);
-        String updatecointsurl = "/services.php?opt=add_coin&custid=" + userSessionManager.getCustomerId() + "&amt_new=" + -20;
+        String updatecointsurl = "/services.php?opt=get_scratch_time&user_id=" + userSessionManager.getCustomerId() + "&amt_new=" + -20;
         String url = baseUrl + updatecointsurl;
         setupSelfSSLCert();
         Ion.with(context)
@@ -798,15 +789,50 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                         } else {
                             Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                               // refreshPage(result);
-                                Log.i("kunsangcoins", result.toString());
-                                showMessage("Can scratch");
-                            } else {
-                                showMessage("Cannot scratch");
+                                // refreshPage(result);
+                                JsonArray data = result.getAsJsonArray("data");
+                                JsonObject object = data.get(0).getAsJsonObject();
+                                int wait_time = object.get("wait_time").getAsInt();
+                                int time_diff = 86400 - wait_time;
+                                if (time_diff > 0) {
+                                    hideContent(time_diff);
+                                } else {
+                                    showContent();
+                                }
                             }
                         }
                     }
                 });
+    }
+
+    private void showContent() {
+        scratchView0.setVisibility(View.VISIBLE);
+        scratchView1.setVisibility(View.VISIBLE);
+        scratchView2.setVisibility(View.VISIBLE);
+        scratchView3.setVisibility(View.VISIBLE);
+        scratchView4.setVisibility(View.VISIBLE);
+        scratchView5.setVisibility(View.VISIBLE);
+        scratchView6.setVisibility(View.VISIBLE);
+        scratchView7.setVisibility(View.VISIBLE);
+        scratchView8.setVisibility(View.VISIBLE);
+
+        relativeLayoutCounter.setVisibility(View.VISIBLE);
+    }
+
+    private void hideContent(int time_diff) {
+        relativeLayoutCounter.setVisibility(View.VISIBLE);
+        linearLayoutScrach.setVisibility(View.GONE);
+        scratchView0.setVisibility(View.GONE);
+        scratchView1.setVisibility(View.GONE);
+        scratchView2.setVisibility(View.GONE);
+        scratchView3.setVisibility(View.GONE);
+        scratchView4.setVisibility(View.GONE);
+        scratchView5.setVisibility(View.GONE);
+        scratchView6.setVisibility(View.GONE);
+        scratchView7.setVisibility(View.GONE);
+        scratchView8.setVisibility(View.GONE);
+        setupTimeThread(time_diff);
+        showMessage("hide content");
     }
 }
 

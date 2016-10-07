@@ -86,7 +86,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Welcome to Stand"
+                            android:text="@string/welcome_to_stand"
                             android:textColor="@color/colorAccent"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Well no message yet"
+                        android:text="@string/welcome_to_stand"
                         android:textColor="@color/colorAccent"
                         android:textSize="28sp" />
 
@@ -116,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="Well be the first to start it"
+                        android:text="@string/well_be_the_first_to_start_it"
                         android:textColor="@color/colorText"
                         android:textSize="18sp" />
                 </LinearLayout>

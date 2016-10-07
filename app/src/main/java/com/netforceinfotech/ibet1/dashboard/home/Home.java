@@ -160,7 +160,7 @@ public class Home extends Fragment implements View.OnClickListener {
                                 Glide.with(context).load(profile_image).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).dontAnimate().into(circleImageViewDp);
                                 textViewName.setText(name);
                                 Dashboard.textViewName.setText(name);
-                                textviewLevel.setText(level);
+                                textviewLevel.setText("Level\n" + level);
                                 textViewWins.setText(win);
                                 textViewLose.setText(lose);
 

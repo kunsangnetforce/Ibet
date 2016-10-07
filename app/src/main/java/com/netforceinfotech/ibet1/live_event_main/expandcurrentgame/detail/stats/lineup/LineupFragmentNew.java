@@ -18,6 +18,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -75,6 +76,7 @@ public class LineupFragmentNew extends Fragment {
 
         return view;
     }
+
     private void getLineUp(String matchid) {
         //https://api.soccerama.pro/v1.1/matches/690006?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=lineup,homeTeam,awayTeam
         String query = "$";
@@ -89,6 +91,7 @@ public class LineupFragmentNew extends Fragment {
         String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
         // url = url + "/events_by_match_id.php?match_id=" + match_id + "&home_team_id=" + home_id + "&away_team_id=" + away_id;
         // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
+        Log.i("kunsangurl", url);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
@@ -162,6 +165,7 @@ public class LineupFragmentNew extends Fragment {
                     }
                 });
     }
+
     private void showMessage(String bundleError) {
         Toast.makeText(context, bundleError, Toast.LENGTH_SHORT).show();
     }
@@ -185,8 +189,6 @@ public class LineupFragmentNew extends Fragment {
         imageViewAGK = (ImageView) view.findViewById(R.id.imageViewGKA);
 
     }
-
-
 
 
     private void initLineUp(ArrayList<LineUPData> lineUPDatasHome, ArrayList<LineUPData> lineUPDatasAway) {
@@ -236,7 +238,7 @@ public class LineupFragmentNew extends Fragment {
                 case "RF":
                 case "CF-L":
                 case "CF-R":
-
+                case "RCF":
                     arrayListHomeForward.add(lineUPDatasHome.get(i));
                     break;
             }
@@ -279,6 +281,7 @@ public class LineupFragmentNew extends Fragment {
                 case "RF":
                 case "CF-L":
                 case "CF-R":
+                case "RCF":
                     arrayListAwayForward.add(lineUPDatasAway.get(i));
                     break;
             }
