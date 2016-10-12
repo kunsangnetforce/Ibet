@@ -37,13 +37,10 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
-import java.util.TimeZone;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -75,6 +72,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     LinearLayout linearLayoutToolbar, linearLayoutScrach;
     private int price;
     private CountDownTimer countdonw;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,16 +81,19 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         setupToolBar("Scratch card");
         context = this;
         userSessionManager = new UserSessionManager(context);
+        initView();
+
+
         try {
             String from = getIntent().getStringExtra("from");
             if (from.equalsIgnoreCase("itself")) {
-                showMessage("page refresh");
+                showContent();
+            } else {
+                getTime();
             }
         } catch (Exception ex) {
-
+            getTime();
         }
-        initView();
-        getTime();
         updatecoin(0);
         setupStatusBar();
         setupTheme();
@@ -131,39 +132,17 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         textView8.setText(integers.get(8) + "");
     }
 
-    private void setDummyScratchData() {
-
-        try {
-            revealedList.clear();
-            //  scratchDatas.clear();
-            types.clear();
-        } catch (Exception ex) {
-
-        }
-        for (int i = 0; i < 9; i++) {
-            revealedList.add(false);
-        }
-        //ScratchData(int position, String value, String imgUrl, String type) {
-      /*  scratchDatas.add(new ScratchData(0, 20, R.drawable.coin, ""));
-        scratchDatas.add(new ScratchData(1, 1000, R.drawable.coin, ""));
-        scratchDatas.add(new ScratchData(2, 10, R.drawable.coin, ""));
-        scratchDatas.add(new ScratchData(3, 1000, R.drawable.coin, ""));
-        scratchDatas.add(new ScratchData(4, 500, R.drawable.coin, ""));
-        scratchDatas.add(new ScratchData(5, 10, R.drawable.coin, ""));
-        scratchDatas.add(new ScratchData(6, 20, R.drawable.coin, ""));
-        scratchDatas.add(new ScratchData(7, 50, R.drawable.coin, ""));
-        scratchDatas.add(new ScratchData(8, 20, R.drawable.coin, ""));*/
-
-
-    }
 
     private void initView() {
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
         linearLayoutScrach = (LinearLayout) findViewById(R.id.linearLayoutScrach);
         buttonBuyScratch = (Button) findViewById(R.id.buttonBuyScratch);
         buttonBuyScratch.setOnClickListener(this);
         textViewCounter = (TextView) findViewById(R.id.textViewCounter);
         relativeLayoutCounter = (RelativeLayout) findViewById(R.id.relativeLayoutCounter);
-        relativeLayoutCounter.setVisibility(View.VISIBLE);
         gif = (GifImageView) findViewById(R.id.gif);
         dialog = new MaterialDialog.Builder(this)
                 .title("You can Choose Only Three Bonus")
@@ -172,6 +151,8 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
 
         buttonColloect = (Button) findViewById(R.id.buttonCollect);
         buttonColloect.setVisibility(View.GONE);
+        linearLayoutScrach.setVisibility(View.GONE);
+        relativeLayoutCounter.setVisibility(View.GONE);
         buttonColloect.setOnClickListener(this);
         relativeLayoutCounter = (RelativeLayout) findViewById(R.id.relativeLayoutCounter);
         textView0 = (TextView) findViewById(R.id.textView0);
@@ -365,7 +346,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, 1);
             setupTimeThread(86400);
-            revealAll();
+            // revealAll();
         }
     }
 
@@ -460,25 +441,57 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                 //:
                 //   showPopUpMessage("kunsang");
                 try {
-                    updatecoin(price);
-                    confetti = new ParticleSystem(ScratchActivity.this, 100, R.drawable.confeti2, 5000)
-                            .setSpeedRange(0.1f, 0.25f);
-                    confetti.oneShot(view, 900);
-                    confetti.stopEmitting();
-                    confetti_top_left.stopEmitting();
-                    confetti_top_right.stopEmitting();
-                    gif.setVisibility(View.GONE);
-                    relativeLayoutCounter.setVisibility(View.VISIBLE);
+                    saveTime(price, view);
+
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
+                scratchView0.resetView();
+                showMessage("clicked");
                 break;
             case R.id.buttonBuyScratch:
                 buyScratch();
                 break;
         }
 
+    }
+
+    private void saveTime(final int price, final View view) {
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=save_scratch_time&user_id=137
+        String url = getString(R.string.url) + "/services.php?opt=save_scratch_time&user_id=" + userSessionManager.getCustomerId();
+        showProgressDialog();
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            showMessage("Something is wrong");
+                        } else {
+                            Log.i("kunsangresult", result.toString());
+                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                                updatecoin(price);
+                                confetti = new ParticleSystem(ScratchActivity.this, 100, R.drawable.confeti2, 5000)
+                                        .setSpeedRange(0.1f, 0.25f);
+                                confetti.oneShot(view, 900);
+                                confetti.stopEmitting();
+                                confetti_top_left.stopEmitting();
+                                confetti_top_right.stopEmitting();
+                                gif.setVisibility(View.GONE);
+                                relativeLayoutCounter.setVisibility(View.VISIBLE);
+                                Log.i("kunsangcoins", result.toString());
+                            } else {
+                                showMessage("Could not set team. Try again");
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void showProgressDialog() {
+        progressDialog.show();
     }
 
 
@@ -527,32 +540,32 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (userSessionManager.getTheme()) {
             case 0:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
                 }
                 break;
             case 1:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
                 }
                 break;
             case 2:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
                 }
                 break;
             case 3:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
                 }
                 break;
             case 4:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
                 }
                 break;
             case 5:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
                 }
                 break;
@@ -655,6 +668,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         String updatecointsurl = "/services.php?opt=add_coin&custid=" + userSessionManager.getCustomerId() + "&amt_new=" + -20;
         String url = baseUrl + updatecointsurl;
         setupSelfSSLCert();
+        Log.i("kunsangurl", url);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
@@ -681,6 +695,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         intent.putExtra("from", "itself");
         startActivity(intent);
         finish();
+
     }
 
 
@@ -696,6 +711,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        hideProgressDialog();
                         if (result == null) {
                             showMessage("Something is wrong");
                         } else {
@@ -709,6 +725,10 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                         }
                     }
                 });
+    }
+
+    private void hideProgressDialog() {
+        progressDialog.dismiss();
     }
 
     private void refreshCoin(JsonObject result) {
@@ -775,9 +795,10 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     private void getTime() {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=get_scratch_time&user_id=137
         String baseUrl = getString(R.string.url);
-        String updatecointsurl = "/services.php?opt=get_scratch_time&user_id=" + userSessionManager.getCustomerId() + "&amt_new=" + -20;
+        String updatecointsurl = "/services.php?opt=get_scratch_time&user_id=" + userSessionManager.getCustomerId();
         String url = baseUrl + updatecointsurl;
         setupSelfSSLCert();
+        Log.i("kunsangurl", url);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
@@ -806,31 +827,12 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void showContent() {
-        scratchView0.setVisibility(View.VISIBLE);
-        scratchView1.setVisibility(View.VISIBLE);
-        scratchView2.setVisibility(View.VISIBLE);
-        scratchView3.setVisibility(View.VISIBLE);
-        scratchView4.setVisibility(View.VISIBLE);
-        scratchView5.setVisibility(View.VISIBLE);
-        scratchView6.setVisibility(View.VISIBLE);
-        scratchView7.setVisibility(View.VISIBLE);
-        scratchView8.setVisibility(View.VISIBLE);
-
-        relativeLayoutCounter.setVisibility(View.VISIBLE);
+        linearLayoutScrach.setVisibility(View.VISIBLE);
     }
 
     private void hideContent(int time_diff) {
         relativeLayoutCounter.setVisibility(View.VISIBLE);
         linearLayoutScrach.setVisibility(View.GONE);
-        scratchView0.setVisibility(View.GONE);
-        scratchView1.setVisibility(View.GONE);
-        scratchView2.setVisibility(View.GONE);
-        scratchView3.setVisibility(View.GONE);
-        scratchView4.setVisibility(View.GONE);
-        scratchView5.setVisibility(View.GONE);
-        scratchView6.setVisibility(View.GONE);
-        scratchView7.setVisibility(View.GONE);
-        scratchView8.setVisibility(View.GONE);
         setupTimeThread(time_diff);
         showMessage("hide content");
     }

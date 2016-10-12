@@ -3,14 +3,12 @@ package com.netforceinfotech.ibet1.dashboard.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.LruCache;
 import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,9 +31,6 @@ import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.general.WrapContentViewPager;
 import com.netforceinfotech.ibet1.login.LoginActivity;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -70,7 +65,7 @@ public class Home extends Fragment implements View.OnClickListener {
     NestedScrollView nestedScrollView;
     private Intent intent;
     RoundCornerProgressBar roundCornerProgressBarWin, roundCornerProgressBarLost;
-    TextView textViewName, textViewWins, textViewLose, textviewLevel;
+    TextView textViewName, textViewWins, textViewLose, textviewLevelNumber, textViewLevel;
     private TabLayout tabLayout;
 
     public Home() {
@@ -140,7 +135,6 @@ public class Home extends Fragment implements View.OnClickListener {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
-                        Log.i("kunsangresponse", result.toString());
                         if (result == null) {
                             showMessage("Something wrong");
                         } else {
@@ -154,13 +148,14 @@ public class Home extends Fragment implements View.OnClickListener {
                                 String win = jsonObject.get("cust_win").getAsString();
                                 String lose = jsonObject.get("cust_lost").getAsString();
                                 String level = jsonObject.get("cust_level").getAsString();
+                                textViewLevel.setText("Beginer");
                                 userSessionManager.setCustomerId(id);
                                 userSessionManager.setName(name);
                                 userSessionManager.setProfilePic(profile_image);
                                 Glide.with(context).load(profile_image).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).dontAnimate().into(circleImageViewDp);
                                 textViewName.setText(name);
                                 Dashboard.textViewName.setText(name);
-                                textviewLevel.setText("Level\n" + level);
+                                textviewLevelNumber.setText("Level\n" + level);
                                 textViewWins.setText(win);
                                 textViewLose.setText(lose);
 
@@ -185,7 +180,8 @@ public class Home extends Fragment implements View.OnClickListener {
         roundCornerProgressBarWin = (RoundCornerProgressBar) view.findViewById(R.id.progressBarWin);
         textViewWins = (TextView) view.findViewById(R.id.textViewWins);
         textViewLose = (TextView) view.findViewById(R.id.textViewLosses);
-        textviewLevel = (TextView) view.findViewById(R.id.textViewLevelNumber);
+        textviewLevelNumber = (TextView) view.findViewById(R.id.textViewLevelNumber);
+        textViewLevel = (TextView) view.findViewById(R.id.textViewLevel);
         textViewName = (TextView) view.findViewById(R.id.textViewName);
         nestedScrollView = (NestedScrollView) view.findViewById(R.id.nestedscrollview);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
