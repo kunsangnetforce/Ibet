@@ -92,8 +92,9 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                 getTime();
             }
         } catch (Exception ex) {
-            getTime();
+
         }
+        getTime();
         updatecoin(0);
         setupStatusBar();
         setupTheme();
@@ -691,10 +692,9 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void refreshPage() {
-        Intent intent = new Intent(context, ScratchActivity.class);
-        intent.putExtra("from", "itself");
-        startActivity(intent);
+        Intent intent = getIntent();
         finish();
+        startActivity(intent);
 
     }
 

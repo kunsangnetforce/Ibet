@@ -110,17 +110,64 @@ public class TableFragment extends Fragment {
         int size = dataInner.size();
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = dataInner.get(i).getAsJsonObject();
-            int position = Integer.parseInt(jsonObject.get("position").getAsString());
-            String points = jsonObject.get("points").getAsString();
-            String goalDiff = jsonObject.get("goal_difference").getAsString();
-            String wins = jsonObject.get("overall_win").getAsString();
-            String overall_draw = jsonObject.get("overall_draw").getAsString();
-            String overall_loose = jsonObject.get("overall_loose").getAsString();
-            String overall_played = jsonObject.get("overall_played").getAsString();
-            JsonObject team = jsonObject.getAsJsonObject("team");
-            String name = team.get("name").getAsString();
-            String logo = team.get("logo").getAsString();
-            String id = team.get("id").getAsString();
+            int position;
+            String points, goalDiff, wins, overall_draw, overall_loose, overall_played, name, logo, id;
+            JsonObject team;
+            if (jsonObject.get("position").isJsonNull()) {
+                position = 0;
+            } else {
+                position = Integer.parseInt(jsonObject.get("position").getAsString());
+            }
+            if (jsonObject.get("points").isJsonNull()) {
+                points = "na";
+            } else {
+                points = jsonObject.get("points").getAsString();
+            }
+            if (jsonObject.get("goal_difference").isJsonNull()) {
+                goalDiff = "na";
+            } else {
+                goalDiff = jsonObject.get("goal_difference").getAsString();
+            }
+            if (jsonObject.get("overall_win").isJsonNull()) {
+                wins = "na";
+            } else {
+                wins = jsonObject.get("overall_win").getAsString();
+            }
+            if (jsonObject.get("overall_draw").isJsonNull()) {
+                overall_draw = "na";
+            } else {
+                overall_draw = jsonObject.get("overall_draw").getAsString();
+            }
+            if (jsonObject.get("overall_loose").isJsonNull()) {
+                overall_loose = "na";
+            } else {
+                overall_loose = jsonObject.get("overall_loose").getAsString();
+            }
+            if (jsonObject.get("overall_played").isJsonNull()) {
+                overall_played = "na";
+            } else {
+                overall_played = jsonObject.get("overall_played").getAsString();
+            }
+            if (jsonObject.get("team").isJsonNull()) {
+                name = id = logo = "na";
+            } else {
+                team = jsonObject.getAsJsonObject("team");
+                if (team.get("logo").isJsonNull()) {
+                    logo = "";
+                } else {
+                    logo = team.get("logo").getAsString();
+                }
+                if (team.get("name").isJsonNull()) {
+                    name = "na";
+                } else {
+                    name = team.get("name").getAsString();
+                }
+                if (team.get("id").isJsonNull()) {
+                    id = "na";
+                } else {
+                    id = team.get("id").getAsString();
+                }
+            }
 
             TableData data = new TableData(name, logo, id, points, goalDiff, wins, overall_draw, overall_loose, overall_played, position);
             if (!tableDatas.contains(data)) {

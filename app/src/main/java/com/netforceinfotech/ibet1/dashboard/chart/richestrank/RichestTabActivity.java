@@ -105,6 +105,7 @@ public class RichestTabActivity extends AppCompatActivity {
 
         //tabLayout.addTab(tabLayout.newTab().setText("Friends"));
         tabLayout.addTab(tabLayout.newTab().setText("All"));
+        tabLayout.setVisibility(View.GONE);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

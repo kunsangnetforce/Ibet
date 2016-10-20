@@ -57,6 +57,7 @@ public class HighestTabActivity extends AppCompatActivity {
 
     private void setupTab() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.setVisibility(View.GONE);
         tabLayout.addTab(tabLayout.newTab().setText("All"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

@@ -132,15 +132,15 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
-        <activity android:name="com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.StandActivity" />
-
         <service android:name="com.netforceinfotech.ibet1.general.firebasegcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <activity android:name="com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.StandActivity" />
+
+
 
         <activity android:name="com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
         <activity android:name="com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity" />

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         updateWithToken(AccessToken.getCurrentAccessToken());
 
     }
+
     private void updateWithToken(AccessToken currentAccessToken) {
 
         if (currentAccessToken != null) {
