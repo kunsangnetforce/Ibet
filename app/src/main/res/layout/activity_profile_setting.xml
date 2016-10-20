@@ -68,7 +68,7 @@
                             android:layout_height="match_parent"
                             android:background="@color/colorSecondaryText"
                             android:gravity="center"
-                            android:text="Choose profile picture"
+                            android:text="@string/choose_profile_picture"
                             android:textColor="@color/colorText"
                             android:textStyle="bold" />
                     </com.balysv.materialripple.MaterialRippleLayout>

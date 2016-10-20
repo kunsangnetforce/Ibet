@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="Choose a background for application"
+                    android:text="@string/choose_app_bg_msg"
                     android:textColor="@color/colorAccent" />
 
                 <LinearLayout
@@ -55,8 +55,7 @@
                             android:id="@+id/imageViewBlue"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:scaleType="center"
-                            android:src="@drawable/blue240" />
+                            android:scaleType="center" />
 
                     </LinearLayout>
 
@@ -70,8 +69,7 @@
                             android:id="@+id/imageViewFrance"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:scaleType="center"
-                            android:src="@drawable/france240" />
+                            android:scaleType="center" />
 
                     </LinearLayout>
 
@@ -93,8 +91,7 @@
                             android:id="@+id/imageViewSoccer"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:scaleType="center"
-                            android:src="@drawable/soccer240" />
+                            android:scaleType="center" />
 
                     </LinearLayout>
 
@@ -108,8 +105,7 @@
                             android:id="@+id/imageViewSpain"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:scaleType="center"
-                            android:src="@drawable/spain240" />
+                            android:scaleType="center" />
 
                     </LinearLayout>
 
@@ -131,8 +127,7 @@
                             android:id="@+id/imageViewUk"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:scaleType="center"
-                            android:src="@drawable/uk240" />
+                            android:scaleType="center" />
 
                     </LinearLayout>
 
@@ -142,13 +137,11 @@
                         android:layout_margin="3dp"
                         android:layout_weight="50">
 
-                        <TextView
-                            android:id="@+id/textViewDefault"
+                        <ImageView
+                            android:id="@+id/imageViewDefault"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            android:background="@color/colorPrimary"
                             android:gravity="center"
-                            android:text="Default"
                             android:textColor="@color/colorText" />
                     </LinearLayout>
 

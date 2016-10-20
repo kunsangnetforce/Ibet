@@ -50,7 +50,6 @@
                     android:id="@+id/textViewName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ronie sing"
                     android:textColor="@color/colorText"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -318,7 +317,7 @@
                 android:id="@+id/textViewDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View Detail"
+                android:text="@string/italy"
                 android:textColor="@color/colorText"
                 android:textStyle="bold" />
         </com.balysv.materialripple.MaterialRippleLayout>

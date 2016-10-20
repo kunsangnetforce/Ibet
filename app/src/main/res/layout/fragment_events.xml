@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    android:background="@color/colorPrimary"
     tools:context=".currentbet.betarena.live_event.events.EventsFragment">
 
     <RelativeLayout
@@ -256,7 +255,7 @@
                             android:id="@+id/textViewYetTostart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Data not available"
+                            android:text="@string/data_not_available"
                             android:textColor="@color/colorAccent" />
                     </LinearLayout>
 

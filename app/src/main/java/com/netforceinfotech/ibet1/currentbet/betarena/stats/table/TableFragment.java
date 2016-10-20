@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -42,6 +45,8 @@ public class TableFragment extends Fragment {
     UserSessionManager userSessionManager;
     ArrayList<TableData> tableDatas = new ArrayList<>();
     private TableAdapter adapter;
+    LinearLayout linearLayoutError;
+    ImageView imageViewError;
 
     public TableFragment() {
         // Required empty public constructor
@@ -55,6 +60,10 @@ public class TableFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_table, container, false);
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
+        linearLayoutError = (LinearLayout) view.findViewById(R.id.linearLayoutError);
+        imageViewError = (ImageView) view.findViewById(R.id.imageViewError);
+        Glide.with(context).load(R.drawable.gs_stadium).into(imageViewError);
+        linearLayoutError.setVisibility(View.GONE);
         String seasonId = "", home_id, away_id;
         try {
             seasonId = this.getArguments().getString("season_id");
@@ -66,7 +75,7 @@ public class TableFragment extends Fragment {
         seasonId = "636";
         home_id = "40";
         away_id = "53";
-        setupRecyclerView(view,home_id,away_id);
+        setupRecyclerView(view, home_id, away_id);
         getTable(seasonId);
         return view;
     }
@@ -94,6 +103,7 @@ public class TableFragment extends Fragment {
     private void setTableData(JsonObject result) {
         JsonArray dataOuter = result.getAsJsonArray("data");
         if (dataOuter.size() == 0) {
+            linearLayoutError.setVisibility(View.VISIBLE);
             return;
         }
         Log.i("kunsangresult", result.toString());
@@ -129,11 +139,11 @@ public class TableFragment extends Fragment {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void setupRecyclerView(View view,String home_id,String away_id) {
+    private void setupRecyclerView(View view, String home_id, String away_id) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TableAdapter(context, tableDatas,home_id,away_id);
+        adapter = new TableAdapter(context, tableDatas, home_id, away_id);
         recyclerView.setAdapter(adapter);
 
     }

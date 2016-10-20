@@ -48,6 +48,7 @@ import com.netforceinfotech.ibet1.profilesetting.tutorial.DefaultIntro;
 import com.netforceinfotech.ibet1.scratchview.ScratchActivity;
 import com.netforceinfotech.ibet1.scratchview.ScratchFragment;
 import com.plattysoft.leonids.ParticleSystem;
+
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -107,10 +108,12 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
 
         if (userSessionManager.getIsFirstTime() && !userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
             showPopUp("");
-            updatecoin(0);
         }
         if (userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
             linearLayoutToolbar.setVisibility(View.GONE);
+        } else {
+            updatecoin(0);
+
         }
 
 
@@ -119,7 +122,6 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        updatecoin(0);
     }
 
     private void initView() {
@@ -450,32 +452,32 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
 
         switch (userSessionManager.getTheme()) {
             case 0:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
                 }
                 break;
             case 1:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
                 }
                 break;
             case 2:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
                 }
                 break;
             case 3:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
                 }
                 break;
             case 4:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
                 }
                 break;
             case 5:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
                 }
                 break;

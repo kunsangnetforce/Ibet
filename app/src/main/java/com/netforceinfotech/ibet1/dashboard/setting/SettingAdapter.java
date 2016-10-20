@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.dashboard.setting;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.netforceinfotech.ibet1.dashboard.setting.odds.OddsActivity;
 import com.netforceinfotech.ibet1.dashboard.setting.sounds.SoundActivity;
 import com.netforceinfotech.ibet1.dashboard.setting.theme.ThemeActivity;
 import com.netforceinfotech.ibet1.dashboard.setting.language.LanguageActivity;
+import com.netforceinfotech.ibet1.general.UserSessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,7 @@ import java.util.List;
 /**
  * Created by asdf on 7/22/2016.
  */
-public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
-
+public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     SettingHolder viewHolder;
@@ -40,8 +40,7 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     ArrayList<Boolean> booleanGames = new ArrayList<>();
     ArrayList<Integer> setting_icon = new ArrayList<>();
 
-    public SettingAdapter(Context context, List<String> itemList,ArrayList<Integer> imagelist)
-    {
+    public SettingAdapter(Context context, List<String> itemList, ArrayList<Integer> imagelist) {
         this.itemList = itemList;
         this.context = context;
         this.setting_icon = imagelist;
@@ -59,11 +58,10 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
       }
   */
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.row_setting, parent, false);
-         viewHolder = new SettingHolder(view);
+        viewHolder = new SettingHolder(view);
 
         return viewHolder;
 
@@ -71,16 +69,15 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
-    {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
 
         viewHolder.textViewTitle.setText(itemList.get(position));
-        viewHolder.image_icon.setImageResource(setting_icon.get(position));;
+        viewHolder.image_icon.setImageResource(setting_icon.get(position));
+        ;
 
     }
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
@@ -92,8 +89,7 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    public class SettingHolder  extends RecyclerView.ViewHolder  implements View.OnClickListener
-    {
+    public class SettingHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         TextView textViewTitle, textViewCategory, textViewPros;
@@ -102,74 +98,64 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         View view;
 
 
-        public SettingHolder(View itemView)
-        {
+        public SettingHolder(View itemView) {
             super(itemView);
             //implementing onClickListener
             itemView.setOnClickListener(this);
             view = itemView;
-
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-
-            image_icon = (ImageView)  itemView.findViewById(R.id.setting_list_icon);
+            image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
             textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            UserSessionManager userSessionManager = new UserSessionManager(context);
+            switch (userSessionManager.getBackground()) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    textViewTitle.setTextColor(ContextCompat.getColor(context,R.color.white));
+                    break;
+                case 5:
+                    break;
+            }
 
         }
-        @Override
-        public void onClick(View v)
-        {
 
-            int position  =   getAdapterPosition();
+        @Override
+        public void onClick(View v) {
+
+            int position = getAdapterPosition();
             final Intent intent;
 
-            if (position == 0)
-            {
-                intent =  new Intent(context, LanguageActivity.class);
+            if (position == 0) {
+                intent = new Intent(context, LanguageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else if (position == 1)
-            {
-                intent =  new Intent(context, TeamNotificationActivity.class);
+            } else if (position == 1) {
+                intent = new Intent(context, TeamNotificationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else if (position == 2)
-            {
-                intent =  new Intent(context, GeneralNotificationActivity.class);
+            } else if (position == 2) {
+                intent = new Intent(context, GeneralNotificationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else if (position == 3)
-            {
-                intent =  new Intent(context, SoundActivity.class);
+            } else if (position == 3) {
+                intent = new Intent(context, SoundActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else if (position == 4)
-            {
-                intent =  new Intent(context, ThemeActivity.class);
+            } else if (position == 4) {
+                intent = new Intent(context, ThemeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else if (position == 5)
-            {
-                intent =  new Intent(context, OddsActivity.class);
+            } else if (position == 5) {
+                intent = new Intent(context, OddsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else if (position == 6)
-            {
-                intent =  new Intent(context, OddsActivity.class);
+            } else if (position == 6) {
+                intent = new Intent(context, OddsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else if (position == 7)
-            {
-                intent =  new Intent(context, FeedbackActivity.class);
+            } else if (position == 7) {
+                intent = new Intent(context, FeedbackActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else if (position == 8)
-            {
-                intent =  new Intent(context, FeedbackActivity.class);
+            } else if (position == 8) {
+                intent = new Intent(context, FeedbackActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            else
-            {
-                intent =  new Intent(context, TeamNotificationActivity.class);
+            } else {
+                intent = new Intent(context, TeamNotificationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
             context.startActivity(intent);
@@ -178,8 +164,7 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
 
-
-
     }
+
 
 }

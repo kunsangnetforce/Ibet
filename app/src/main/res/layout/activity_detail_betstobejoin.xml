@@ -58,7 +58,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:paddingTop="6dp"
-                    android:text="Match starts in "
+                    android:text="@string/match_starts_in"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -66,7 +66,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="1D:18:23:32"
                     android:textColor="@color/colorText" />
 
                 <LinearLayout
@@ -108,7 +107,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="32dp"
-                                    android:text="@string/country"
                                     android:textColor="@color/colorText"
                                     android:textSize="17sp"
                                     android:textStyle="italic|bold" />
@@ -156,7 +154,6 @@
                                 android:id="@+id/textViewBetamount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="150"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="12sp" />
 
@@ -193,7 +190,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="32dp"
-                                    android:text="@string/country"
                                     android:textColor="@color/colorText"
                                     android:textSize="17sp"
                                     android:textStyle="italic|bold" />
@@ -320,7 +316,6 @@
                         android:background="@color/colorPrimaryDark"
                         android:lines="3"
                         android:padding="6dp"
-                        android:text="Loser will have to pay 5 full ..."
                         android:textColor="@color/colorText"
                         android:textSize="14sp" />
 

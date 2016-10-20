@@ -44,7 +44,6 @@
                     android:id="@+id/textViewName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alex Lucas"
                     android:textColor="@color/colorAccent" />
 
                 <View
@@ -74,7 +73,6 @@
                     android:id="@+id/textViewDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="27-01-2106"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp" />
 
@@ -83,7 +81,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="8:00 pm"
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp" />
             </RelativeLayout>

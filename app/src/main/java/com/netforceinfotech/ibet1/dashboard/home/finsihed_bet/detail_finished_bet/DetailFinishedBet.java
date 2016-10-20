@@ -274,32 +274,32 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
 
         switch (userSessionManager.getTheme()) {
             case 0:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
                 }
                 break;
             case 1:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
                 }
                 break;
             case 2:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
                 }
                 break;
             case 3:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
                 }
                 break;
             case 4:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
                 }
                 break;
             case 5:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
                 }
                 break;

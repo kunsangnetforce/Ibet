@@ -56,12 +56,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="come back in" />
+                android:text="@string/come_back_in" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="56-23-12" />
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -85,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Scratch to find 3 of a kind"
+                    android:text="@string/scratch_to_find_three_of_a_kind"
                     android:textColor="@color/colorText" />
 
             </LinearLayout>
@@ -477,7 +477,7 @@
                         android:layout_height="wrap_content"
                         android:background="#FF0000"
                         android:padding="5dp"
-                        android:text="Collect Your Prize"
+                        android:text="@string/collect_your_prize"
                         android:textAllCaps="false"
                         android:textColor="#FFFFFF"
                         android:visibility="gone" />
@@ -507,7 +507,7 @@
                     style="@style/Base.TextAppearance.AppCompat.Large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Come back in:"
+                    android:text="@string/come_back_in"
                     android:textColor="@color/colorAccent"
                     android:textSize="50sp" />
 
@@ -518,7 +518,6 @@
                     android:layout_height="wrap_content"
                     android:background="@color/grey"
                     android:gravity="center"
-                    android:text="23:45:20"
                     android:textColor="@color/red"
                     android:textSize="50sp" />
             </LinearLayout>

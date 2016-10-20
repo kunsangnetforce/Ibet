@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
-                        android:text="selected teams"
+                        android:text="@string/selected_teams"
                         android:textColor="@color/colorText" />
                 </LinearLayout>
 
@@ -103,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="3dp"
-                        android:text="All teams"
+                        android:text="@string/all_teams"
                         android:textColor="@color/colorText" />
                 </LinearLayout>
 

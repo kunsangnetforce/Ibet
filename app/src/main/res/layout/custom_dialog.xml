@@ -16,7 +16,6 @@
         android:id="@+id/textViewCoins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Congrats,you got $50 coins!!"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
         android:textStyle="bold|italic" />
@@ -28,5 +27,5 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK" />
+        android:text="@string/ok" />
 </LinearLayout>

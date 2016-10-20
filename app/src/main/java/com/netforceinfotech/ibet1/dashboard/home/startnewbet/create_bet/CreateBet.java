@@ -26,12 +26,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
@@ -453,36 +447,9 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         String url = baseUrl + betUrl;
         showMessage("bet losic will be created");
         Log.i("kunsangurl", url);
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                createMyReqSuccessListener(),
-                createMyReqErrorListener());
-
-        queue.add(myReq);
+        //joinbet()
     }
 
-    private Response.Listener<JSONObject> createMyReqSuccessListener() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.i("kunsang_result", response.toString());
-                    if (response.getString("status").equalsIgnoreCase("success")) {
-                        String bet_amount = response.getString("bet_amount");
-                        String bet_id = response.getString("bet_id");
-                        String bet_option = response.getString("bet_option");
-                        joinBet(bet_id, bet_amount, bet_option);
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-    }
 
     private void joinBet(String bet_id, String bet_amount, String bet_option) {
         // String url = baseUrl + betUrl;
@@ -491,51 +458,9 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         String joinBetUrl = "/accept_bet_request.php?team_status=" + selectedteam + "&option=" + bet_option + "&user_id" + userSessionManager.getCustomerId() +
                 "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore=" + awayscore + "&home_scrore=" + awayscore;
         String url = baseUrl + joinBetUrl;
+        Log.i("kunsang_url", url);
         showMessage("bet losic will be created");
-        Log.i("kunsangurl", url);
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                createMyReqSuccessListener1(),
-                createMyReqErrorListener1());
-
-        queue.add(myReq);
     }
-
-    private Response.ErrorListener createMyReqErrorListener1() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        };
-    }
-
-    private Response.Listener<JSONObject> createMyReqSuccessListener1() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Log.i("kunsang_result", response.toString());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-    }
-
-
-    private Response.ErrorListener createMyReqErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        };
-    }
-
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -569,6 +494,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
                 break;
         }
     }
+
     private void setupStatusBar() {
         Window window = getWindow();
 
@@ -580,32 +506,32 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
 
         switch (userSessionManager.getTheme()) {
             case 0:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
                 }
                 break;
             case 1:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
                 }
                 break;
             case 2:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
                 }
                 break;
             case 3:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
                 }
                 break;
             case 4:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
                 }
                 break;
             case 5:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
                 }
                 break;

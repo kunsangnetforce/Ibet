@@ -37,7 +37,7 @@
                 android:layout_height="50dp"
                 android:background="@color/colorAccent"
                 android:gravity="center"
-                android:text="Highest Rank"
+                android:text="@string/highest_rank"
                 android:textColor="@color/colorText" />
         </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -56,7 +56,7 @@
                 android:background="@color/colorAccent"
                 android:drawablePadding="16dp"
                 android:gravity="center"
-                android:text="Rishest Rank"
+                android:text="@string/rishest_rank"
                 android:textColor="@color/colorText" />
         </com.balysv.materialripple.MaterialRippleLayout>
     </LinearLayout>

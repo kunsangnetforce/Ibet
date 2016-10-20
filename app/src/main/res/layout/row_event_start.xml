@@ -55,7 +55,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Bravo Hard"
                         android:textColor="@color/colorText"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -99,7 +98,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Bravo Hard"
                         android:textColor="@color/colorText"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -141,7 +139,6 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/circular_bg_fill_dark"
                 android:gravity="center"
-                android:text="89"
                 android:textColor="@color/colorAccent"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -191,7 +188,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Bravo Hard"
                         android:textColor="@color/colorText"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -236,7 +232,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Bravo Hard"
                         android:textColor="@color/colorText"
                         android:textSize="12sp" />
                 </LinearLayout>

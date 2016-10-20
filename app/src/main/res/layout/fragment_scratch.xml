@@ -42,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scratch to find three of a kind"
+            android:text="@string/scratch_to_find_three_of_a_kind"
             android:textColor="@color/colorAccent"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -328,7 +328,7 @@
             android:layout_height="wrap_content"
             android:background="@color/darkgrey"
             android:padding="6dp"
-            android:text="Collect your price"
+            android:text="@string/collect_your_price"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
     </LinearLayout>
@@ -355,7 +355,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Large"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Come back in:"
+                android:text="@string/come_back_in"
                 android:textColor="@color/colorAccent"
                 android:textSize="50sp" />
 
@@ -380,7 +380,6 @@
             android:layout_marginBottom="32dp"
             android:background="@color/colorPrimary"
             android:padding="6dp"
-            android:text="Buy another for 150 coins"
             android:textColor="@color/colorAccent" />
     </RelativeLayout>
 </FrameLayout>

@@ -15,14 +15,14 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
 public class BackgroundActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView imageViewBlue, imageViewFrance, imageViewUk, imageViewSpain, imageViewSoccer;
-    TextView textViewDefault;
+    ImageView imageViewBlue, imageViewFrance, imageViewUk, imageViewSpain, imageViewSoccer,imageViewDefault;
     UserSessionManager userSessionManager;
     private Toolbar toolbar;
     CoordinatorLayout coordinatorLayout;
@@ -52,9 +52,15 @@ public class BackgroundActivity extends AppCompatActivity implements View.OnClic
         imageViewUk = (ImageView) findViewById(R.id.imageViewUk);
         imageViewSpain = (ImageView) findViewById(R.id.imageViewSpain);
         imageViewSoccer = (ImageView) findViewById(R.id.imageViewSoccer);
-        textViewDefault= (TextView) findViewById(R.id.textViewDefault);
+        imageViewDefault = (ImageView) findViewById(R.id.imageViewDefault);
+        Glide.with(context).load(R.drawable.blue240).fitCenter().into(imageViewBlue);
+        Glide.with(context).load(R.drawable.france240).fitCenter().into(imageViewFrance);
+        Glide.with(context).load(R.drawable.uk240).fitCenter().into(imageViewUk);
+        Glide.with(context).load(R.drawable.spain240).fitCenter().into(imageViewSpain);
+        Glide.with(context).load(R.drawable.soccer240).fitCenter().into(imageViewSoccer);
+        Glide.with(context).load(R.drawable.defaultbg).fitCenter().into(imageViewDefault);
         imageViewSoccer.setOnClickListener(this);
-        textViewDefault.setOnClickListener(this);
+        imageViewDefault.setOnClickListener(this);
         imageViewSpain.setOnClickListener(this);
         imageViewUk.setOnClickListener(this);
         imageViewFrance.setOnClickListener(this);
@@ -79,7 +85,7 @@ public class BackgroundActivity extends AppCompatActivity implements View.OnClic
             case R.id.imageViewUk:
                 userSessionManager.setBackground(4);
                 break;
-            case R.id.textViewDefault:
+            case R.id.imageViewDefault:
                 userSessionManager.setBackground(5);
                 break;
 
@@ -123,32 +129,32 @@ public class BackgroundActivity extends AppCompatActivity implements View.OnClic
 
         switch (userSessionManager.getTheme()) {
             case 0:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
                 }
                 break;
             case 1:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
                 }
                 break;
             case 2:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
                 }
                 break;
             case 3:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
                 }
                 break;
             case 4:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
                 }
                 break;
             case 5:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
                 }
                 break;

@@ -56,7 +56,6 @@
                     android:layout_marginLeft="16dp"
                     android:layout_toEndOf="@+id/linearLayoutInput"
                     android:layout_toRightOf="@+id/linearLayoutInput"
-                    android:text="@string/germany_vs_italy"
                     android:textColor="@color/colorText" />
 
                 <ImageView

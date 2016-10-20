@@ -45,7 +45,7 @@
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:background="@color/green"
-                android:text="Next"
+                android:text="@string/next"
                 android:textColor="@color/colorText" />
         </com.balysv.materialripple.MaterialRippleLayout>
     </RelativeLayout>

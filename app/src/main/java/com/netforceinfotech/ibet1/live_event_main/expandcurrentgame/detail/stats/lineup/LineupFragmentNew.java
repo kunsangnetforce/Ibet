@@ -19,21 +19,19 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -68,7 +66,7 @@ public class LineupFragmentNew extends Fragment {
         String match_id;
         try {
             match_id = this.getArguments().getString("match_id");
-            getLineUp1(match_id);
+            getLineUp(match_id);
         } catch (Exception ex) {
             showMessage("bundleError");
         }
@@ -77,6 +75,95 @@ public class LineupFragmentNew extends Fragment {
         //
 
         return view;
+    }
+
+    private void getLineUp(String matchid) {
+        //https://api.soccerama.pro/v1.1/matches/690006?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=lineup,homeTeam,awayTeam
+        String query = "$";
+        UserSessionManager userSessionManager = new UserSessionManager(context);
+        String token = userSessionManager.getApitoken();
+
+        try {
+            query = URLEncoder.encode(query, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
+        // url = url + "/events_by_match_id.php?match_id=" + match_id + "&home_team_id=" + home_id + "&away_team_id=" + away_id;
+        // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
+        Log.i("kunsangurl", url);
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            showMessage("something is wrong");
+                            e.printStackTrace();
+                        } else {
+                            try {
+
+                                JsonObject homeTeam = result.getAsJsonObject("homeTeam");
+                                JsonObject awayTeam = result.getAsJsonObject("awayTeam");
+                                JsonObject lineup = result.getAsJsonObject("lineup");
+                                if (!homeTeam.get("logo").isJsonNull()) {
+                                    homeTeamLogo = homeTeam.get("logo").getAsString();
+                                } else {
+                                    homeTeamLogo = "";
+                                }
+                                if (!awayTeam.get("logo").isJsonNull()) {
+                                    awayTeamLogo = awayTeam.get("logo").getAsString();
+                                } else {
+                                    awayTeamLogo = "";
+                                }
+
+                                String hometeamid = homeTeam.get("id").getAsString();
+                                String awayteamid = awayTeam.get("id").getAsString();
+                                JsonArray data = lineup.getAsJsonArray("data");
+                                if (data.size() == 0) {
+                                    textViewError.setText("line up not available");
+                                    linearLayoutError.setVisibility(View.VISIBLE);
+                                    scrollView.setVisibility(View.GONE);
+                                } else {
+
+                                    linearLayoutError.setVisibility(View.GONE);
+                                    scrollView.setVisibility(View.VISIBLE);
+                                    for (int i = 0; i < data.size(); i++) {
+                                        JsonObject jsonObject = data.get(i).getAsJsonObject();
+                                        String team_id = jsonObject.get("team_id").getAsString();
+                                        String player_name = "";
+                                        if (jsonObject.get("player_name").isJsonNull()) {
+                                            player_name = "";
+                                        } else {
+                                            player_name = jsonObject.get("player_name").getAsString();
+                                        }
+                                        String position = "";
+                                        if (jsonObject.get("position").isJsonNull()) {
+                                            position = "SUB";
+                                        } else {
+                                            position = jsonObject.get("position").getAsString();
+                                        }
+                                        String type = jsonObject.get("type").getAsString();
+                                        String shirt_number = jsonObject.get("shirt_number").getAsString();
+                                        if (type.equalsIgnoreCase("selection") && !position.equalsIgnoreCase("SUB")) {
+                                            if (team_id.equalsIgnoreCase(hometeamid)) {
+                                                lineUPDatasHome.add(new LineUPData(position, shirt_number, player_name));
+                                            } else {
+                                                lineUPDatasAway.add(new LineUPData(position, shirt_number, player_name));
+                                            }
+                                        }
+                                    }
+                                    initLineUp(lineUPDatasHome, lineUPDatasAway);
+                                }
+                            } catch (Exception ex) {
+                                linearLayoutError.setVisibility(View.VISIBLE);
+                                scrollView.setVisibility(View.GONE);
+                                ex.printStackTrace();
+                            }
+                        }
+                    }
+                });
     }
 
     private void showMessage(String bundleError) {
@@ -103,102 +190,6 @@ public class LineupFragmentNew extends Fragment {
 
     }
 
-
-    private void getLineUp1(String matchid) {
-        UserSessionManager userSessionManager = new UserSessionManager(context);
-        String token = userSessionManager.getApitoken();
-        String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
-        RequestQueue queue = Volley.newRequestQueue(context);
-        Log.i("url", url);
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                createMyReqSuccessListener(),
-                createMyReqErrorListener());
-
-        queue.add(myReq);
-    }
-
-    private Response.Listener<JSONObject> createMyReqSuccessListener() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                JsonParser jsonParser = new JsonParser();
-                JsonObject result = (JsonObject) jsonParser.parse(response.toString());
-                try {
-                    JsonObject homeTeam = result.getAsJsonObject("homeTeam");
-                    JsonObject awayTeam = result.getAsJsonObject("awayTeam");
-                    JsonObject lineup = result.getAsJsonObject("lineup");
-                    if (!homeTeam.get("logo").isJsonNull()) {
-
-                        homeTeamLogo = homeTeam.get("logo").getAsString();
-                    } else {
-                        homeTeamLogo = "";
-                    }
-                    if (!awayTeam.get("logo").isJsonNull()) {
-                        awayTeamLogo = awayTeam.get("logo").getAsString();
-                    } else {
-                        awayTeamLogo = "";
-                    }
-
-                    String hometeamid = homeTeam.get("id").getAsString();
-                    String awayteamid = awayTeam.get("id").getAsString();
-                    JsonArray data = lineup.getAsJsonArray("data");
-                    if (data.size() == 0) {
-                        textViewError.setText("line up not available");
-                        linearLayoutError.setVisibility(View.VISIBLE);
-                        scrollView.setVisibility(View.GONE);
-                    } else {
-                        linearLayoutError.setVisibility(View.GONE);
-                        scrollView.setVisibility(View.VISIBLE);
-                        for (int i = 0; i < data.size(); i++) {
-
-                            JsonObject jsonObject = data.get(i).getAsJsonObject();
-                            String team_id = jsonObject.get("team_id").getAsString();
-                            String player_name = "";
-                            if (jsonObject.get("player_name").isJsonNull()) {
-                                player_name = "";
-                            } else {
-                                player_name = jsonObject.get("player_name").getAsString();
-                            }
-                            String position = "";
-                            if (jsonObject.get("position").isJsonNull()) {
-                                position = "SUB";
-                            } else {
-                                position = jsonObject.get("position").getAsString();
-                                Log.i("kunsangposition", team_id + "" + i + position);
-                            }
-                            String type = jsonObject.get("type").getAsString();
-                            String shirt_number = jsonObject.get("shirt_number").getAsString();
-                            if (type.equalsIgnoreCase("selection")) {
-                                if (team_id.equalsIgnoreCase(hometeamid)) {
-                                    lineUPDatasHome.add(new LineUPData(position, shirt_number, player_name));
-                                } else {
-                                    lineUPDatasAway.add(new LineUPData(position, shirt_number, player_name));
-                                }
-                            }
-                        }
-                        initLineUp(lineUPDatasHome, lineUPDatasAway);
-                    }
-                } catch (Exception ex) {
-                    linearLayoutError.setVisibility(View.VISIBLE);
-                    scrollView.setVisibility(View.GONE);
-                    ex.printStackTrace();
-                }
-            }
-        };
-    }
-
-    private Response.ErrorListener createMyReqErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                linearLayoutError.setVisibility(View.VISIBLE);
-                scrollView.setVisibility(View.GONE);
-                error.printStackTrace();
-            }
-        };
-    }
 
     private void initLineUp(ArrayList<LineUPData> lineUPDatasHome, ArrayList<LineUPData> lineUPDatasAway) {
         ArrayList<LineUPData> arrayListHomeDefender = new ArrayList<>();
@@ -247,7 +238,7 @@ public class LineupFragmentNew extends Fragment {
                 case "RF":
                 case "CF-L":
                 case "CF-R":
-
+                case "RCF":
                     arrayListHomeForward.add(lineUPDatasHome.get(i));
                     break;
             }
@@ -290,6 +281,7 @@ public class LineupFragmentNew extends Fragment {
                 case "RF":
                 case "CF-L":
                 case "CF-R":
+                case "RCF":
                     arrayListAwayForward.add(lineUPDatasAway.get(i));
                     break;
             }

@@ -11,8 +11,7 @@
         style="@style/AppIntroDefaultHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Slide: Input Demo" />
+        android:gravity="center" />
 
     <TextView
         style="@style/AppIntroDefaultText"

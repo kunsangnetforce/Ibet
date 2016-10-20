@@ -4,9 +4,10 @@ package com.netforceinfotech.ibet1.dashboard.profile.selectteam.selectedteam;
  * Created by Netforce on 9/23/2016.
  */
 public class SelectedTeamData {
-    public String logo, id, name, compid, compName;
+    public String logo, id, name, compName;
+    public int compid;
 
-    public SelectedTeamData(String id, String name, String logo, String compid, String compName) {
+    public SelectedTeamData(String id, String name, String logo, int compid, String compName) {
         this.id = id;
         this.name = name;
         this.logo = logo;

@@ -80,7 +80,6 @@ dependencies {
     compile 'com.cleveroad:slidingtutorial:0.9.5'
     compile 'com.github.paolorotolo:appintro:4.0.0'
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
-    compile 'dev.dworks.libs:volleyplus:+'
     compile 'com.github.citux:datetimepicker:0.2.0'
     compile 'com.bcgdv.asia.lib:ticktock:1.2'
     compile 'com.google.firebase:firebase-core:9.4.0'

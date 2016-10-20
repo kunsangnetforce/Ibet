@@ -24,11 +24,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.SimpleMultiPartRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.koushikdutta.async.future.Cancellable;
@@ -119,7 +114,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
             case R.id.buttonDone:
                 linearLayoutProgress.setVisibility(View.VISIBLE);
                 String id = userSessionManager.getCustomerId();
-                uploadImage1(id);
+                uploadImage(id);
                 userSessionManager.setIsFirstTime(false);
                 break;
             case R.id.rippleProPic:
@@ -138,55 +133,6 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                 break;
 
         }
-    }
-
-    private void uploadImage1(String id) {
-        String url = getResources().getString(R.string.url);
-        String uploadurl = "/services.php?opt=update_profile&customer_id=" + id;
-        String teams = TextUtils.join(",", arrayListTeamids);
-        url = url + uploadurl;
-        Log.i("result_url", url);
-        Log.i("result_url", filePath + "   " + teams);
-        RequestQueue queue = Volley.newRequestQueue(context);
-        SimpleMultiPartRequest request = new SimpleMultiPartRequest(
-                url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                linearLayoutProgress.setVisibility(View.GONE);
-                Log.i("result_multi", response);
-                JsonParser jsonParser = new JsonParser();
-                try {
-                    JsonObject jsonObject = jsonParser.parse(response).getAsJsonObject();
-                    if (jsonObject.get("status").getAsString().equalsIgnoreCase("success")) {
-                        showMessage("Successfully uploaded");
-                        Intent intent = new Intent(context, DefaultIntro.class);
-                        startActivity(intent);
-                    } else {
-                        showMessage("failed to upload");
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    showMessage("Something went wrong");
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("result_multi", "error");
-                error.printStackTrace();
-                showMessage("something went wrong");
-
-            }
-        });
-        if (filePath != null) {
-            request.addFile("image", filePath);
-        } else {
-            request.addFile("image", "");
-        }
-        request.addMultipartParam("team", "text/plain", teams);
-        queue.add(request);
-
     }
 
     private void uploadImage(String id) {

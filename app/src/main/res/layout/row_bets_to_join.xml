@@ -57,7 +57,6 @@
                         android:id="@+id/textViewName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ronie sing"
                         android:textColor="@color/colorText"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -87,7 +86,7 @@
                         android:id="@+id/textViewSelectedName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Italy"
+                        android:text="@string/italy"
                         android:textColor="@color/colorText"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -227,7 +226,7 @@
                                     android:id="@+id/textViewTeamA"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Italy"
+                                    android:text="@string/italy"
                                     android:textColor="@color/colorText"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -273,7 +272,7 @@
                                     android:id="@+id/textViewTeamB"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Germany"
+                                    android:text="@string/germany"
                                     android:textColor="@color/colorText"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -311,7 +310,7 @@
                 android:background="@drawable/circular_bg_fill"
                 android:elevation="6dp"
                 android:gravity="center"
-                android:text="Join"
+                android:text="@string/join"
                 android:textColor="@color/colorText"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -325,7 +324,7 @@
                     android:id="@+id/textViewDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="View Detail"
+                    android:text="@string/view_detail"
                     android:textColor="@color/colorText"
                     android:textStyle="bold" />
             </com.balysv.materialripple.MaterialRippleLayout>

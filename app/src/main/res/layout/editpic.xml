@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Take Picture" />
+                android:text="@string/take_picture" />
         </LinearLayout>
     </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="Pick from galary" />
+                android:text="@string/pick_from_galary" />
         </LinearLayout>
     </com.balysv.materialripple.MaterialRippleLayout>
 

@@ -19,12 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.WhoWillWinActivity;
@@ -58,7 +55,8 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
     private String betamountString;
     public static String home_name, away_name, home_logo, away_logo;
     public static String match_id = "";
-    public static String home_id,away_id;
+    public static String home_id, away_id;
+
     public CurrentGameFragment() {
         // Required empty public constructor
     }
@@ -85,86 +83,74 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String token = userSessionManager.getApitoken();
         String url = "https://api.soccerama.pro/v1.1/livescore?api_token=" + token + "&include=homeTeam,awayTeam,competition";
-        Log.i("kunsang_url",url);
-        RequestQueue queue = Volley.newRequestQueue(context);
-
-        JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET,
-                url,
-                null,
-                createMyReqSuccessListener(),
-                createMyReqErrorListener());
-
-        queue.add(myReq);
-    }
-
-    private Response.Listener<JSONObject> createMyReqSuccessListener() {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                linearLayout.setVisibility(View.GONE);
-                try {
-                    Log.i("kunsang_result", response.toString());
-                    try {
-                        JSONArray data = response.getJSONArray("data");
-                        if (data.length() == 0) {
-                            showMessage("No match available");
+        Log.i("kunsang_url", url);
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        Log.i("kunsangresponse", result.toString());
+                        if (result == null) {
+                            showMessage("Something wrong");
                         } else {
-                            for (int i = 0; i < data.length(); i++) {
-                                JSONObject jsonObject = data.getJSONObject(i);
-                                String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
-                                if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
-                                    matchid = jsonObject.getString("id");
-                                    home_team_id = jsonObject.getString("home_team_id");
-                                    away_team_id = jsonObject.getString("away_team_id");
-                                    JSONObject homeTeam, awayTeam, competition;
-                                    if (!(jsonObject.get("homeTeam") == null || jsonObject.get("awayTeam") == null)) {
-                                        homeTeam = jsonObject.getJSONObject("homeTeam");
-                                        awayTeam = jsonObject.getJSONObject("awayTeam");
-                                        competition = jsonObject.getJSONObject("competition");
-                                        home_team_name = homeTeam.getString("name");
-                                        away_team_name = awayTeam.getString("name");
-                                        competition_id = competition.getString("id");
-                                        competition_name = competition.getString("name");
 
-                                        if (!(homeTeam.get("logo") == null)) {
-                                            home_team_logo = homeTeam.getString("logo");
-                                        }
-                                        if (!(awayTeam.get("logo") == null)) {
-                                            away_team_logo = awayTeam.getString("logo");
-                                        }
-
-                                    }
-                                    //luug
-                                    currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name));
-                                }
-
-                            }
-
-
-                            adapter.notifyDataSetChanged();
-
+                            setUpData(result);
                         }
-                    } catch (Exception ex) {
-                        showMessage("Error occur while fetching data");
-                        ex.printStackTrace();
                     }
-
-                } catch (Exception e) {
-
-                }
-            }
-        };
+                });
     }
 
+    private void setUpData(JsonObject result) {
+            linearLayout.setVisibility(View.GONE);
+            try {
+                Log.i("kunsang_result", result.toString());
+                JsonArray data = result.getAsJsonArray("data");
+                if (data.size() == 0) {
+                    showMessage("No match available");
+                } else {
+                    for (int i = 0; i < data.size(); i++) {
+                        JsonObject jsonObject = data.get(i).getAsJsonObject();
+                        String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
+                        JsonObject homeTeam=jsonObject.getAsJsonObject("homeTeam");
+                        JsonObject awayTeam=jsonObject.getAsJsonObject("awayTeam");
+                        if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
+                            matchid = jsonObject.get("id").getAsString();
+                            home_team_id = jsonObject.get("home_team_id").getAsString();
+                            away_team_id = jsonObject.get("away_team_id").getAsString();
+                            try {
+                                home_team_name = homeTeam.get("name").getAsString();
+                            } catch (Exception ex) {
+                                home_team_name = "";
+                            }
+                            try {
+                                away_team_name = awayTeam.get("name").getAsString();
+                            } catch (Exception ex) {
+                                away_team_name = "";
+                            }
+                            try {
+                                home_team_logo = homeTeam.get("logo").getAsString();
+                            } catch (Exception ex) {
+                                home_team_logo = "";
+                            }
+                            try {
+                                away_team_logo = awayTeam.get("logo").getAsString();
 
-    private Response.ErrorListener createMyReqErrorListener() {
-        return new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                linearLayout.setVisibility(View.GONE);
-                error.printStackTrace();
+                            } catch (Exception ex) {
+                                away_team_logo = "";
+                            }
+                            currentGameDatas.add(new CurrentGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name));
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            } catch (Exception ex) {
+                showMessage("json parsing exception");
+                ex.printStackTrace();
             }
-        };
+
+
     }
 
     private void setupRecyclerView(View view) {
@@ -204,7 +190,7 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
                 Intent intent = new Intent(context, WhoWillWinActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("match_id", match_id);
-                bundle.putString("away_id", home_id);
+                bundle.putString("home_id", home_id);
                 bundle.putString("away_id", away_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);

@@ -16,7 +16,6 @@
             android:id="@+id/textViewBetAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 
@@ -31,7 +30,6 @@
             android:id="@+id/textViewTeamSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Team Selected :"
             android:textColor="@color/colorAccent" />
 
     </LinearLayout>
@@ -47,7 +45,6 @@
             android:id="@+id/textViewScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Score prediction :"
             android:textColor="@color/colorAccent" />
 
     </LinearLayout>
@@ -62,7 +59,6 @@
             android:id="@+id/textViewFriendInvited"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Friend invited : "
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 
@@ -76,7 +72,6 @@
             android:id="@+id/textViewScope"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Scope : Any one can join"
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 
@@ -90,7 +85,6 @@
             android:id="@+id/textViewLoserMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loser Message : "
             android:textColor="@color/colorAccent" />
     </LinearLayout>
 

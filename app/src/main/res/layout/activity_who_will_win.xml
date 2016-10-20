@@ -60,7 +60,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:paddingTop="6dp"
-                    android:text="Choose who will win" />
+                    android:text="@string/choose_who_will_win" />
 
 
                 <LinearLayout
@@ -214,7 +214,7 @@
                                     android:layout_height="60dp"
                                     android:background="@drawable/circular_bg"
                                     android:gravity="center"
-                                    android:text="WIN"
+                                    android:text="@string/win"
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
                             </LinearLayout>
@@ -231,7 +231,7 @@
                                     android:layout_height="50dp"
                                     android:background="@drawable/circular_bg"
                                     android:gravity="center"
-                                    android:text="Draw"
+                                    android:text="@string/draw"
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
                             </LinearLayout>
@@ -248,7 +248,7 @@
                                     android:layout_height="60dp"
                                     android:background="@drawable/circular_bg"
                                     android:gravity="center"
-                                    android:text="WIN"
+                                    android:text="@string/win"
                                     android:textColor="@color/white"
                                     android:textSize="14sp" />
 
@@ -307,7 +307,7 @@
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:paddingTop="6dp"
-                        android:text="Or By Score" />
+                        android:text="@string/or_by_score" />
 
                     <View
                         android:layout_width="40dp"
@@ -519,7 +519,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
-                        android:text="Participants can join on any result"
+                        android:text="@string/participants_can_join_on_any_result"
                         android:textColor="@color/colorText"
                         android:textSize="14sp" />
 
@@ -541,7 +541,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Set Bet Ammount"
+                        android:text="@string/set_bet_ammount"
                         android:textColor="@color/colorText" />
 
                     <ImageView
