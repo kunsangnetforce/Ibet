@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.currentbet.livebet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,9 @@ import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.currentbet.betarena.EnterBetArenaActivity;
 import com.netforceinfotech.ibet1.dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -54,62 +58,70 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        Log.i("ibet_position", "" + position);
-        LiveBetHolder betsToJoinHolder = (LiveBetHolder) holder;
-        betsToJoinHolder.textViewEnterBetArena.setOnClickListener(new View.OnClickListener() {
+        LiveBetHolder upcomingBetHolder = (LiveBetHolder) holder;
+        upcomingBetHolder.textViewEnterBetArena.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EnterBetArenaActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("away_id", itemList.get(position).away_id);
+                bundle.putString("home_id", itemList.get(position).home_id);
+                bundle.putString("home_logo", itemList.get(position).teamalogo);
+                bundle.putString("away_logo", itemList.get(position).teamblogo);
+                bundle.putString("bet_id", itemList.get(position).betid);
+                bundle.putString("match_id", itemList.get(position).matchid);
+                bundle.putString("home_name", itemList.get(position).teamaname);
+                bundle.putString("away_name", itemList.get(position).teambname);
+                bundle.putString("season_id", itemList.get(position).seasonid);
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });
+
         if (itemList.get(position).userdp.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).userdp)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
-                    .into(betsToJoinHolder.imageViewDp);
+                    .into(upcomingBetHolder.imageViewDp);
         } else {
-            betsToJoinHolder.imageViewDp.setImageResource(R.drawable.ic_error);
+            upcomingBetHolder.imageViewDp.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).selectedteamlogo.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).selectedteamlogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
-                    .into(betsToJoinHolder.imageViewSelectedTeamLogo);
+                    .into(upcomingBetHolder.imageViewSelectedTeamLogo);
         } else {
-            betsToJoinHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
+            upcomingBetHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).teamalogo.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).teamalogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
-                    .into(betsToJoinHolder.imageViewTeamA);
+                    .into(upcomingBetHolder.imageViewTeamA);
         } else {
-            betsToJoinHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
+            upcomingBetHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).teamblogo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
-                    .into(betsToJoinHolder.imageViewTeamB);
+                    .into(upcomingBetHolder.imageViewTeamB);
         } else {
-            betsToJoinHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
+            upcomingBetHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
         }
-        betsToJoinHolder.textViewName.setText(itemList.get(position).name);
-        betsToJoinHolder.textViewTeamA.setText(itemList.get(position).teamaname);
-        betsToJoinHolder.textViewTeamB.setText(itemList.get(position).teambname);
-        betsToJoinHolder.textViewDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailFinishedBet.class);
-                context.startActivity(intent);
-            }
-        });
-        //  betsToJoinHolder.textViewBetStatus.setText(itemList.get(position).betstatus);
+
+        upcomingBetHolder.textViewName.setText(itemList.get(position).name);
+        upcomingBetHolder.textViewTeamA.setText(itemList.get(position).teamaname);
+        upcomingBetHolder.textViewTeamB.setText(itemList.get(position).teambname);
+        upcomingBetHolder.textViewParticipants.setText(itemList.get(position).numberparticipant);
+        upcomingBetHolder.textViewTime.setText(getFormatdedDate(itemList.get(position).time));
+
+
     }
 
     private void showMessage(String s) {
@@ -121,5 +133,24 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getItemCount() {
         //  return 5;
         return itemList.size();
+    }
+
+
+    private String getFormatdedDate(String date) {
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date2 = null;
+        try {
+            date2 = date_format.parse(date);
+        } catch (ParseException e) {
+
+            showMessage("error parsing date");
+            e.printStackTrace();
+            return "";
+        }
+
+        SimpleDateFormat outDate = new SimpleDateFormat("EEE dd MMM  yyyy hh:mm a");
+
+        return outDate.format(date2);
+
     }
 }

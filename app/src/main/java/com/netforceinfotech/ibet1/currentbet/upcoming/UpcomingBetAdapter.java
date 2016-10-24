@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.currentbet.upcoming;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,9 @@ import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.currentbet.betarena.EnterBetArenaActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,6 +62,17 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EnterBetArenaActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("away_id", itemList.get(position).away_id);
+                bundle.putString("home_id", itemList.get(position).home_id);
+                bundle.putString("home_logo", itemList.get(position).teamalogo);
+                bundle.putString("away_logo", itemList.get(position).teamblogo);
+                bundle.putString("bet_id", itemList.get(position).betid);
+                bundle.putString("match_id", itemList.get(position).matchid);
+                bundle.putString("home_name", itemList.get(position).teamaname);
+                bundle.putString("away_name", itemList.get(position).teambname);
+                bundle.putString("season_id", itemList.get(position).seasonid);
+                intent.putExtras(bundle);
                 context.startActivity(intent);
             }
         });
@@ -102,6 +117,8 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         upcomingBetHolder.textViewName.setText(itemList.get(position).name);
         upcomingBetHolder.textViewTeamA.setText(itemList.get(position).teamaname);
         upcomingBetHolder.textViewTeamB.setText(itemList.get(position).teambname);
+        upcomingBetHolder.textViewParticipants.setText(itemList.get(position).numberparticipant);
+        upcomingBetHolder.textViewTime.setText(getFormatdedDate(itemList.get(position).time));
 
 
     }
@@ -115,5 +132,23 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemCount() {
 //        return 5;
         return itemList.size();
+    }
+
+    private String getFormatdedDate(String date) {
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date2 = null;
+        try {
+            date2 = date_format.parse(date);
+        } catch (ParseException e) {
+
+            showMessage("error parsing date");
+            e.printStackTrace();
+            return "";
+        }
+
+            SimpleDateFormat outDate = new SimpleDateFormat("EEE dd MMM  yyyy hh:mm a");
+
+        return outDate.format(date2);
+
     }
 }

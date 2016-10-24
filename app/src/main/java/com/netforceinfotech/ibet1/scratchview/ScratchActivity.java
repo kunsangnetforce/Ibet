@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.JsonArray;
@@ -60,7 +61,6 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     private TextView textViewCounter;
     private GifImageView gif;
     private Button buttonColloect;
-    private MaterialDialog.Builder dialog;
     private ParticleSystem confetti_top_right;
     private ParticleSystem confetti_top_left;
     UserSessionManager userSessionManager;
@@ -73,6 +73,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     private int price;
     private CountDownTimer countdonw;
     private MaterialDialog progressDialog;
+    long wait_hours = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         userSessionManager = new UserSessionManager(context);
         initView();
 
+/*
 
         try {
             String from = getIntent().getStringExtra("from");
@@ -94,6 +96,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         } catch (Exception ex) {
 
         }
+*/
         getTime();
         updatecoin(0);
         setupStatusBar();
@@ -145,11 +148,6 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         textViewCounter = (TextView) findViewById(R.id.textViewCounter);
         relativeLayoutCounter = (RelativeLayout) findViewById(R.id.relativeLayoutCounter);
         gif = (GifImageView) findViewById(R.id.gif);
-        dialog = new MaterialDialog.Builder(this)
-                .title("You can Choose Only Three Bonus")
-                .content("Hi")
-                .positiveText("Agree");
-
         buttonColloect = (Button) findViewById(R.id.buttonCollect);
         buttonColloect.setVisibility(View.GONE);
         linearLayoutScrach.setVisibility(View.GONE);
@@ -174,6 +172,12 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         scratchView6 = (WScratchView) findViewById(R.id.scratchView6);
         scratchView7 = (WScratchView) findViewById(R.id.scratchView7);
         scratchView8 = (WScratchView) findViewById(R.id.scratchView8);
+        try {
+            revealedList.clear();
+            types.clear();
+        } catch (Exception ex) {
+
+        }
 
         scratchView0.setOnScratchCallback(new WScratchView.OnScratchCallback() {
             @Override
@@ -346,7 +350,6 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, 1);
-            setupTimeThread(86400);
             // revealAll();
         }
     }
@@ -372,8 +375,8 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String teams = title;
-        getSupportActionBar().setTitle(teams);
+        TextView textViewTitle = (TextView) toolbar.findViewById(R.id.textViewTitle);
+        textViewTitle.setText(title);
         textviewCoins = (TextView) toolbar.findViewById(R.id.textViewCoins);
         linearLayoutToolbar = (LinearLayout) toolbar.findViewById(R.id.linearLayoutToolbar);
 
@@ -401,6 +404,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void showPopUpMessage(String s, final int value) {
+        Glide.with(context).load(R.drawable.bonus_bggif).asGif().into(gif);
         boolean wrapInScrollView = true;
         customdialog = new MaterialDialog.Builder(this)
                 .customView(R.layout.custom_dialog, wrapInScrollView).show();
@@ -474,6 +478,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                             Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                                 updatecoin(price);
+                                getTime();
                                 confetti = new ParticleSystem(ScratchActivity.this, 100, R.drawable.confeti2, 5000)
                                         .setSpeedRange(0.1f, 0.25f);
                                 confetti.oneShot(view, 900);
@@ -502,6 +507,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         } catch (Exception ex) {
 
         }
+        Log.i("wait_time_thread", time_diff + "");
 
         countdonw = new CountDownTimer(time_diff * 1000, 1000) {
 
@@ -526,6 +532,9 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         long minutes = seconds / 60;
         long hours = minutes / 60;
         long days = hours / 24;
+        this.wait_hours = hours % 24;
+        wait_hours++;
+        buttonBuyScratch.setText("Buy scratch for " + this.wait_hours + " coins");
         String time = hours % 24 + " : " + minutes % 60 + " : " + seconds % 60;
         return time;
     }
@@ -666,7 +675,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     private void buyScratch() {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=add_coin&custid=15&amt_new=50
         String baseUrl = getString(R.string.url);
-        String updatecointsurl = "/services.php?opt=add_coin&custid=" + userSessionManager.getCustomerId() + "&amt_new=" + -20;
+        String updatecointsurl = "/services.php?opt=buy_coins&custid=" + userSessionManager.getCustomerId() + "&hours=" + -wait_hours;
         String url = baseUrl + updatecointsurl;
         setupSelfSSLCert();
         Log.i("kunsangurl", url);
@@ -684,7 +693,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                                 refreshPage();
                                 Log.i("kunsangcoins", result.toString());
                             } else {
-                                showMessage("Could not set team. Try again");
+                                showMessage("something went wrong. Please try again");
                             }
                         }
                     }
@@ -692,9 +701,10 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void refreshPage() {
-        Intent intent = getIntent();
         finish();
+        Intent intent = new Intent(this, ScratchActivity.class);
         startActivity(intent);
+
 
     }
 
@@ -720,7 +730,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                                 refreshCoin(result);
                                 Log.i("kunsangcoins", result.toString());
                             } else {
-                                showMessage("Could not set team. Try again");
+                                showMessage("Something went wrong");
                             }
                         }
                     }
@@ -735,12 +745,12 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         JsonArray data = result.getAsJsonArray("data");
         JsonObject object = data.get(0).getAsJsonObject();
         String coins = object.get("Current Coin").getAsString();
+        userSessionManager.setCoins(coins);
         textviewCoins.setText(coins);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, 1);
-        setupTimeThread(86400);
         YoYo.with(Techniques.Tada)
                 .duration(700)
                 .playOn(linearLayoutToolbar);
@@ -793,6 +803,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void getTime() {
+        progressDialog.show();
         //https://netforcesales.com/ibet_admin/api/services.php?opt=get_scratch_time&user_id=137
         String baseUrl = getString(R.string.url);
         String updatecointsurl = "/services.php?opt=get_scratch_time&user_id=" + userSessionManager.getCustomerId();
@@ -805,8 +816,10 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        progressDialog.dismiss();
                         if (result == null) {
                             showMessage("Something is wrong");
+                            finish();
                         } else {
                             Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
@@ -814,6 +827,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                                 JsonArray data = result.getAsJsonArray("data");
                                 JsonObject object = data.get(0).getAsJsonObject();
                                 int wait_time = object.get("wait_time").getAsInt();
+                                Log.i("wait_time_server", wait_time + "");
                                 int time_diff = 86400 - wait_time;
                                 if (time_diff > 0) {
                                     hideContent(time_diff);

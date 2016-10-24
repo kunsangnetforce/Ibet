@@ -122,6 +122,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
+        textviewCoins.setText(userSessionManager.getCoins());
     }
 
     private void initView() {
@@ -528,6 +529,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
         JsonObject object = data.get(0).getAsJsonObject();
         String coins = object.get("Current Coin").getAsString();
         textviewCoins.setText(coins);
+        userSessionManager.setCoins(coins);
         YoYo.with(Techniques.Tada)
                 .duration(700)
                 .playOn(linearLayoutToolbar);

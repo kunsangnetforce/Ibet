@@ -16,10 +16,11 @@ import com.netforceinfotech.ibet1.currentbet.betarena.stats.StateFragment;
 public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
     private final Bundle bundle;
     int mNumOfTabs;
-    String bet_id, match_id, home_id, away_id, home_name, away_name, home_logo, away_logo;
+    String bet_id, match_id, home_id, away_id, home_name, away_name, home_logo, away_logo, season_id;
 
-    public PagerAdapterBetArena(FragmentManager fm, int NumOfTabs, String bet_id, String match_id, String home_id, String away_id, String home_name, String away_name, String home_logo, String away_logo) {
+    public PagerAdapterBetArena(FragmentManager fm, int NumOfTabs, String bet_id, String match_id, String home_id, String away_id, String home_name, String away_name, String home_logo, String away_logo, String season_id) {
         super(fm);
+        this.season_id = season_id;
         this.mNumOfTabs = NumOfTabs;
         this.away_id = away_id;
         this.home_id = home_id;
@@ -39,49 +40,50 @@ public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
             case 0:
                 LiveEventFragment home = new LiveEventFragment();
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("match_id", bet_id);
-                bundle.putString("away_id", bet_id);
-                bundle.putString("away_id", bet_id);
-                bundle.putString("home_name", bet_id);
-                bundle.putString("away_name", bet_id);
-                bundle.putString("home_logo", bet_id);
-                bundle.putString("away_logo", bet_id);
+                bundle.putString("match_id", match_id);
+                bundle.putString("away_id", away_id);
+                bundle.putString("home_id", home_id);
+                bundle.putString("home_name", home_name);
+                bundle.putString("away_name", away_name);
+                bundle.putString("home_logo", home_logo);
+                bundle.putString("away_logo", away_logo);
                 home.setArguments(bundle);
                 return home;
             case 1:
                 StateFragment currentBet = new StateFragment();
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("match_id", bet_id);
-                bundle.putString("away_id", bet_id);
-                bundle.putString("away_id", bet_id);
-                bundle.putString("home_name", bet_id);
-                bundle.putString("away_name", bet_id);
-                bundle.putString("home_logo", bet_id);
-                bundle.putString("away_logo", bet_id);
+                bundle.putString("match_id", match_id);
+                bundle.putString("away_id", away_id);
+                bundle.putString("home_id", home_id);
+                bundle.putString("home_name", home_name);
+                bundle.putString("away_name", away_name);
+                bundle.putString("home_logo", home_logo);
+                bundle.putString("season_id", season_id);
+                bundle.putString("away_logo", away_logo);
                 currentBet.setArguments(bundle);
                 return currentBet;
             case 2:
                 BetDetailFragment betDetailFragment = new BetDetailFragment();
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("match_id", bet_id);
-                bundle.putString("away_id", bet_id);
-                bundle.putString("away_id", bet_id);
-                bundle.putString("home_name", bet_id);
-                bundle.putString("away_name", bet_id);
-                bundle.putString("home_logo", bet_id);
-                bundle.putString("away_logo", bet_id);
+                bundle.putString("match_id", match_id);
+                bundle.putString("away_id", away_id);
+                bundle.putString("home_id", home_id);
+                bundle.putString("home_name", home_name);
+                bundle.putString("away_name", away_name);
+                bundle.putString("home_logo", home_logo);
+                bundle.putString("away_logo", away_logo);
                 betDetailFragment.setArguments(bundle);
                 return betDetailFragment;
             case 3:
                 TheArenaFragment theArenaFragment = new TheArenaFragment();
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("match_id", bet_id);
-                bundle.putString("away_id", bet_id);
-                bundle.putString("away_id", bet_id);
-                bundle.putString("home_name", bet_id);
-                bundle.putString("away_name", bet_id);
-                bundle.putString("home_logo", bet_id);
-                bundle.putString("away_logo", bet_id);
+                bundle.putString("match_id", match_id);
+                bundle.putString("away_id", away_id);
+                bundle.putString("home_id", home_id);
+                bundle.putString("home_name", home_name);
+                bundle.putString("away_name", away_name);
+                bundle.putString("home_logo", home_name);
+                bundle.putString("away_logo", away_logo);
                 theArenaFragment.setArguments(bundle);
                 return theArenaFragment;
 

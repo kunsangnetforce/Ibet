@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -34,7 +35,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -75,8 +79,21 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
         setupRecycler(view);
-        getLiveMatch1();
+        String date1 = getDate(0);
+        String date2 = getDate(4);
+        getLiveMatch1(date1, date2);
         return view;
+    }
+
+    private String getDate(int i) {
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time => " + c.getTime());
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        c.add(Calendar.DATE, i);
+        String formattedDate = df.format(c.getTime());
+        return formattedDate;
+
     }
 
 
@@ -129,26 +146,11 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void getLiveMatch1() {
+    private void getLiveMatch1(String date1, String date2) {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String token = userSessionManager.getApitoken();
-        //https://netforcesales.com/ibet_admin/api/upcoming_matches.php
-        String url = getResources().getString(R.string.url) + "/upcoming_matches.php";
+        String url = "https://api.soccerama.pro/v1.1/matches/" + date1 + "/" + date2 + "?api_token=" + token + "&include=homeTeam,awayTeam,competition";
         Log.i("kunsang_url", url);
-
-        final Trust trust = new Trust();
-        final TrustManager[] trustmanagers = new TrustManager[]{trust};
-        SSLContext sslContext;
-        try {
-            sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, trustmanagers, new SecureRandom());
-            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setTrustManagers(trustmanagers);
-            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setSSLContext(sslContext);
-        } catch (final NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (final KeyManagementException e) {
-            e.printStackTrace();
-        }
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
@@ -160,68 +162,63 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
                         if (result == null) {
                             showMessage("Something wrong");
                         } else {
-                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                                setUpData(result);
-                            } else {
-                                showMessage("Authentication failure. Login again");
-                            }
-                        }
 
+                            setUpData(result);
+                        }
                     }
                 });
     }
 
     private void setUpData(JsonObject result) {
-        if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-            linearLayout.setVisibility(View.GONE);
-            try {
-                Log.i("kunsang_result", result.toString());
-                JsonArray data = result.getAsJsonArray("data");
-                if (data.size() == 0) {
-                    showMessage("No match available");
-                } else {
-                    for (int i = 0; i < data.size(); i++) {
-                        JsonObject jsonObject = data.get(i).getAsJsonObject();
-                        String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
-                        if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
-                            matchid = jsonObject.get("matchid").getAsString();
-                            home_team_id = jsonObject.get("home_team_id").getAsString();
-                            away_team_id = jsonObject.get("away_team_id").getAsString();
-                            try {
-                                home_team_name = jsonObject.get("home_teamname").getAsString();
-                            } catch (Exception ex) {
-                                home_team_name = "";
-                            }
-                            try {
-                                away_team_name = jsonObject.get("away_teamname").getAsString();
-                            } catch (Exception ex) {
-                                away_team_name = "";
-                            }
-                            try {
-                                home_team_logo = jsonObject.get("home_teamlogo").getAsString();
-                            } catch (Exception ex) {
-                                home_team_logo = "";
-                            }
-                            try {
-                                away_team_logo = jsonObject.get("away_teamlogo").getAsString();
-
-                            } catch (Exception ex) {
-                                away_team_logo = "";
-                            }
-                            upcomingGameDatas.add(new UpcomingGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name));
+        linearLayout.setVisibility(View.GONE);
+        try {
+            Log.i("kunsang_result", result.toString());
+            JsonArray data = result.getAsJsonArray("data");
+            if (data.size() == 0) {
+                showMessage("No match available");
+            } else {
+                for (int i = 0; i < data.size(); i++) {
+                    JsonObject jsonObject = data.get(i).getAsJsonObject();
+                    String matchid, home_team_id = "", away_team_id = "", home_team_logo = "", away_team_logo = "", home_team_name = "", away_team_name = "", competition_id = "", competition_name = "";
+                    JsonObject homeTeam = jsonObject.getAsJsonObject("homeTeam");
+                    JsonObject awayTeam = jsonObject.getAsJsonObject("awayTeam");
+                    if (!(jsonObject.get("id") == null || jsonObject.get("home_team_id") == null || jsonObject.get("away_team_id") == null)) {
+                        matchid = jsonObject.get("id").getAsString();
+                        home_team_id = jsonObject.get("home_team_id").getAsString();
+                        away_team_id = jsonObject.get("away_team_id").getAsString();
+                        try {
+                            home_team_name = homeTeam.get("name").getAsString();
+                        } catch (Exception ex) {
+                            home_team_name = "";
                         }
+                        try {
+                            away_team_name = awayTeam.get("name").getAsString();
+                        } catch (Exception ex) {
+                            away_team_name = "";
+                        }
+                        try {
+                            home_team_logo = homeTeam.get("logo").getAsString();
+                        } catch (Exception ex) {
+                            home_team_logo = "";
+                        }
+                        try {
+                            away_team_logo = awayTeam.get("logo").getAsString();
+
+                        } catch (Exception ex) {
+                            away_team_logo = "";
+                        }
+                        upcomingGameDatas.add(new UpcomingGameData(matchid, home_team_name, away_team_name, home_team_logo, away_team_logo, home_team_id, away_team_id, competition_id, competition_name));
                     }
-                    upcomingGameAdapter.notifyDataSetChanged();
                 }
-            } catch (Exception ex) {
-                showMessage("json parsing exception");
-                ex.printStackTrace();
+                upcomingGameAdapter.notifyDataSetChanged();
             }
-
-
+        } catch (Exception ex) {
+            showMessage("json parsing exception");
+            ex.printStackTrace();
         }
-    }
 
+
+    }
 
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();

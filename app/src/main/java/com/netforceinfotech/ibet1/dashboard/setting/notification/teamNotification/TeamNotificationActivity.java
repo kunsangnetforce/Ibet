@@ -19,7 +19,13 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.setting.notification.teamNotification.teamlist.TeamData;
 import com.netforceinfotech.ibet1.dashboard.setting.notification.teamNotification.teamlist.TeamlistActivity;
@@ -59,6 +65,59 @@ public class TeamNotificationActivity extends AppCompatActivity {
         setupTheme();
         setupBackground();
         setupRecyclerView();
+        getFavTeam();
+    }
+
+    private void getFavTeam() {
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=get_fav_team_top&user_id=25
+        String baseUrl = getString(R.string.url);
+        String url = baseUrl + "/services.php?opt=get_fav_team_top&user_id" + userSessionManager.getCustomerId();
+        Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                if (result == null) {
+                    showMessage("Something went wrong");
+                } else {
+                    setFavTeam(result);
+                }
+            }
+        });
+    }
+
+    private void setFavTeam(JsonObject result) {
+        Debugger.i("kresult", result.toString());
+        /* teamDatas.add(new TeamData("1", "Man U", "http://man.png"));
+        teamDatas.add(new TeamData("2", "Man City", "http://man.png"));
+        teamDatas.add(new TeamData("3", "Barca", "http://man.png"));
+        teamDatas.add(new TeamData("4", "Inter Minlan", "http://man.png"));
+
+        * */
+        try {
+            teamDatas.clear();
+        } catch (Exception ex) {
+
+        }
+        if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+            JsonArray data = result.getAsJsonArray("data");
+            int size = data.size();
+            if (size < -0) {
+                showMessage("no favourite team selected");
+                return;
+            }
+            for (int i = 0; i < size; i++) {
+                JsonObject object = data.get(i).getAsJsonObject();
+                String fav_team_id = object.get("fav_team_id").getAsString();
+                String name = object.get("name").getAsString();
+                String logo = object.get("logo").getAsString();
+                teamDatas.add(new TeamData(fav_team_id, name, logo));
+            }
+            adapter.notifyDataSetChanged();
+        }
+
+    }
+
+    private void showMessage(String s) {
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
     private void initView() {
@@ -156,11 +215,6 @@ public class TeamNotificationActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layoutManager);
-        teamDatas.add(new TeamData("1", "Man U", "http://man.png"));
-        teamDatas.add(new TeamData("2", "Man City", "http://man.png"));
-        teamDatas.add(new TeamData("3", "Barca", "http://man.png"));
-        teamDatas.add(new TeamData("4", "Inter Minlan", "http://man.png"));
-
         adapter = new TeamNotificationAdapter(getApplicationContext(), teamDatas);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

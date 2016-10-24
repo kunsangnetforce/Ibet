@@ -11,6 +11,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -97,7 +101,10 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             upcomingGameHolder.teama.setImageResource(R.drawable.ic_error);
         }
+
+
     }
+
 
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();

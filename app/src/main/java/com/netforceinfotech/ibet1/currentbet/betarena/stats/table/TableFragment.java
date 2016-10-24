@@ -64,17 +64,15 @@ public class TableFragment extends Fragment {
         imageViewError = (ImageView) view.findViewById(R.id.imageViewError);
         Glide.with(context).load(R.drawable.gs_stadium).into(imageViewError);
         linearLayoutError.setVisibility(View.GONE);
-        String seasonId = "", home_id, away_id;
+        String seasonId = "", home_id = null, away_id = null;
         try {
             seasonId = this.getArguments().getString("season_id");
             home_id = this.getArguments().getString("home_id");
             away_id = this.getArguments().getString("away_id");
         } catch (Exception ex) {
             Log.i("kunsang_exception", "paramenter not set");
+            showMessage("bundl error table");
         }
-        seasonId = "636";
-        home_id = "40";
-        away_id = "53";
         setupRecyclerView(view, home_id, away_id);
         getTable(seasonId);
         return view;

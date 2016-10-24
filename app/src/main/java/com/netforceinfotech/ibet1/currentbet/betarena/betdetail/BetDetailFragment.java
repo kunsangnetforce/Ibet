@@ -14,8 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -49,11 +54,59 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragmentet_bet_detail, container, false);
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
+        try {
+            String bet_id = this.getArguments().getString("bet_id");
+            getBetDetail(bet_id);
+        } catch (Exception ex) {
+
+        }
         initView(view);
         setupTheme();
         setupBackground();
         setupRecyclerView(view);
         return view;
+    }
+
+    private void getBetDetail(String bet_id) {
+        //https://netforcesales.com/ibet_admin/api/upcoming_bet_detail.php?&bet_id=237
+        String baseUrl = getString(R.string.url);
+        String url = baseUrl + "/upcoming_bet_detail.php?&bet_id=" + bet_id;
+        Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                if (result == null) {
+                    showMessage("Something went wrong");
+                    return;
+                } else {
+                    setupBetDetail(result);
+                }
+            }
+        });
+    }
+
+    private void setupBetDetail(JsonObject result) {
+        try {
+            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                JsonObject bet_detail = result.getAsJsonObject("bet_detail");
+                JsonObject bet = bet_detail.getAsJsonObject("bet");
+                JsonArray users = bet_detail.getAsJsonArray("users");
+                String home_id = bet.get("team_home").getAsString();
+                String away_id = bet.get("team_away").getAsString();
+                String team_away_flag = bet.get("team_away_flag").getAsString();
+                String team_home_flag = bet.get("team_home_flag").getAsString();
+                String away_name = bet.get("away_name").getAsString();
+                String home_name = bet.get("home_name").getAsString();
+                String betammoount=bet.get("bet_ammount").getAsString();
+            } else {
+                showMessage("No data");
+            }
+        } catch (Exception ex) {
+            showMessage("something went wrong");
+        }
+    }
+
+    private void showMessage(String s) {
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
     private void setupRecyclerView(View view) {

@@ -44,7 +44,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
-                android:gravity="center">
+                android:gravity="center"
+                android:padding="7dp">
 
                 <TextView
                     android:id="@+id/textViewName"
@@ -64,7 +65,8 @@
                     android:id="@+id/imageViewSelectedLogo"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_margin="3dp" />
+                    android:layout_margin="3dp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +83,8 @@
                     android:layout_height="wrap_content"
                     android:text="Italy"
                     android:textColor="@color/colorText"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
         </LinearLayout>
@@ -100,6 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="100">
 
@@ -134,7 +138,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/textViewPost"
@@ -171,16 +176,16 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_centerInParent="true"
                 android:id="@+id/linearLayoutRoundCornor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="17dp"
+                android:layout_marginRight="17dp"
                 android:background="@drawable/roundcornor"
                 android:gravity="center"
                 android:padding="6dp"
-                android:weightSum="115">
+                android:weightSum="120">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -191,6 +196,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:weightSum="120">
@@ -214,11 +220,11 @@
                             android:gravity="left|center_vertical">
 
                             <TextView
-                                android:maxLines="1"
-                                android:ellipsize="end"
                                 android:id="@+id/textViewTeamA"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:text="Italy"
                                 android:textColor="@color/colorText"
                                 android:textSize="12sp" />
@@ -231,7 +237,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="15"
+                    android:layout_weight="20"
                     android:gravity="center">
 
                     <ImageView
@@ -249,6 +255,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:weightSum="120">
@@ -260,11 +267,11 @@
                             android:gravity="right">
 
                             <TextView
-                                android:ellipsize="end"
-                                android:maxLines="1"
                                 android:id="@+id/textViewTeamB"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
                                 android:text="Germany"
                                 android:textColor="@color/colorText"
                                 android:textSize="12sp" />
@@ -287,19 +294,19 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerInParent="true"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ball"
-                />
+                android:src="@drawable/ball" />
         </RelativeLayout>
 
         <TextView
-            android:layout_marginTop="6dp"
             android:id="@+id/textViewEnterBetArena"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/circular_bg_fill"
             android:elevation="6dp"
             android:gravity="center"
@@ -317,9 +324,11 @@
                 android:id="@+id/textViewDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/italy"
+                android:text="@string/view_detail"
                 android:textColor="@color/colorText"
                 android:textStyle="bold" />
         </com.balysv.materialripple.MaterialRippleLayout>
     </LinearLayout>
+
+
 </LinearLayout>

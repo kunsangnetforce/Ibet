@@ -64,7 +64,6 @@ public class GeneralNotificationActivity extends AppCompatActivity {
     private void setupTab() {
 
         tabLayout.addTab(tabLayout.newTab().setText("Notification"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sounds"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

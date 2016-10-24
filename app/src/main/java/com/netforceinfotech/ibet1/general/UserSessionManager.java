@@ -31,6 +31,7 @@ public class UserSessionManager {
     private static final String WINBET = "winbet";
     private static final String LOSEBET = "losebet";
     private static final String BACKGROUND = "background";
+    private static final String COINS = "coins";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -279,5 +280,13 @@ public class UserSessionManager {
 
     public int getBackground() {
         return pref.getInt(BACKGROUND, 5);
+    }
+
+    public void setCoins(String coins) {
+        editor.putString(COINS, coins);
+        editor.commit();
+    }
+    public String getCoins(){
+        return pref.getString(COINS, "0");
     }
 }

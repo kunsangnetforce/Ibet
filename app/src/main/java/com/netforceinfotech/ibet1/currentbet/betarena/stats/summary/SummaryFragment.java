@@ -59,8 +59,8 @@ public class SummaryFragment extends Fragment {
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
         initview(view);
-        //String matchid = this.getArguments().getString("match_id");
-        String matchid = "691136";
+        String matchid = this.getArguments().getString("match_id");
+       // String matchid = "691136";
         getStatistic(matchid);
         setupTheme();
         setupBackground();

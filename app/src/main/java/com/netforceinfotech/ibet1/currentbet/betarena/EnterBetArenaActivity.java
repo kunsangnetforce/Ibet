@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.CustomViewPager;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
@@ -24,11 +25,12 @@ public class EnterBetArenaActivity extends AppCompatActivity {
     private UserSessionManager userSessionManager;
     private int theme;
     Toolbar toolbar;
-    String home_name, away_name, home_logo, away_logo, home_id, away_id, bet_id, match_id;
+    String home_name, away_name, home_logo, away_logo, home_id, away_id, bet_id, match_id,season_id;
     public static TextView title;
     Context context;
     CoordinatorLayout coordinatorLayout;
     View view1;
+    private String betid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,17 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         try {
             home_id = bundle.getString("away_id");
-            away_id = bundle.getString("away_id");
+            away_id = bundle.getString("home_id");
             home_logo = bundle.getString("home_logo");
             away_logo = bundle.getString("away_logo");
             home_name = bundle.getString("home_name");
             away_name = bundle.getString("away_name");
             bet_id = bundle.getString("bet_id");
             match_id = bundle.getString("match_id");
+            season_id=bundle.getString("season_id");
+            Debugger.i("kbundle", home_name);
         } catch (Exception ex) {
-            showMessage("Bundle error");
+            showMessage("Bundle error enter bet arena");
         }
         try {
 
@@ -95,7 +99,7 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);
         final PagerAdapterBetArena adapter = new PagerAdapterBetArena
-                (getSupportFragmentManager(), tabLayout.getTabCount(), bet_id, match_id, home_id, away_id, home_name, away_name, home_logo, away_id);
+                (getSupportFragmentManager(), tabLayout.getTabCount(), bet_id, match_id, home_id, away_id, home_name, away_name, home_logo, away_id,season_id);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -252,6 +256,7 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
     }
+
     private void setupStatusBar() {
         Window window = getWindow();
 

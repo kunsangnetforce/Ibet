@@ -65,7 +65,7 @@ public class LineupFragmentNew extends Fragment {
         String match_id;
         try {
             match_id = this.getArguments().getString("match_id");
-            match_id = "691136";
+          //  match_id = "691136";
             getLineUp(match_id);
         } catch (Exception ex) {
             showMessage("bundleError");

@@ -41,7 +41,7 @@ public class LiveEventFragment extends Fragment {
         try {
             // home_id = this.getArguments().getString("home_id");
             home_id = this.getArguments().getString("away_id");
-            away_id = this.getArguments().getString("away_id");
+            away_id = this.getArguments().getString("home_id");
             home_name = this.getArguments().getString("home_name");
             away_name = this.getArguments().getString("away_name");
             home_logo = this.getArguments().getString("home_logo");

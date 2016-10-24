@@ -24,7 +24,7 @@ public class StateFragment extends Fragment {
     Context context;
     private TabLayout tabLayout;
     private int theme;
-    private String home_id, away_id, home_name, away_name, match_id;
+    private String home_id, away_id, home_name, away_name, match_id,season_id;
     UserSessionManager userSessionManager;
 
     public StateFragment() {
@@ -40,6 +40,7 @@ public class StateFragment extends Fragment {
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
         try {
+            season_id=this.getArguments().getString("season_id");
             home_id = this.getArguments().getString("away_id");
             away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
@@ -67,7 +68,7 @@ public class StateFragment extends Fragment {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
         final PagerAdapterState adapter = new PagerAdapterState
-                (getChildFragmentManager(), tabLayout.getTabCount(), match_id, home_id, away_id);
+                (getChildFragmentManager(), tabLayout.getTabCount(), match_id, home_id, away_id,season_id);
         viewPager.setPagingEnabled(true);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

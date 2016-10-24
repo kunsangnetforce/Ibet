@@ -30,6 +30,7 @@ import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +55,6 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
     NestedScrollView nestedScrollView;
     LinearLayout linearLayoutProgress;
-    LinearLayout linearLayoutVote, linearLayoutVoteButton;
     TextView textViewTeamAVote, textViewTeamBVote, textViewDrawVote;
     TextView textViewGoal;
     private String voted;
@@ -78,23 +78,24 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         context = getActivity();
         try {
-         /*   home_id = this.getArguments().getString("away_id");
-            away_id = this.getArguments().getString("away_id");
+            home_id = this.getArguments().getString("away_id");
+            away_id = this.getArguments().getString("home_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");
-            away_name = this.getArguments().getString("away_name");*/
-            home_id = "40";
+            away_name = this.getArguments().getString("away_name");
+           /* home_id = "40";
             away_id = "53";
             match_id = "691136";
             home_name = "Wolfsburg";
-            away_name = "Borussia Dortmund";
+            away_name = "Borussia Dortmund";*/
 
         } catch (Exception ex) {
-            home_id = "40";
+           /* home_id = "40";
             away_id = "53";
             match_id = "691136";
             home_name = "Wolfsburg";
-            away_name = "Borussia Dortmund";
+            away_name = "Borussia Dortmund";*/
+            showMessage("bundle error");
             Log.i("kunsang_exception", "paramenter not yet set");
         }
         initView(view);
@@ -129,8 +130,6 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         textViewTeamAVote = (TextView) view.findViewById(R.id.textViewTeamAVote);
         textViewTeamBVote = (TextView) view.findViewById(R.id.textViewTeamBVote);
         textViewDrawVote = (TextView) view.findViewById(R.id.textViewDrawVote);
-        linearLayoutVote = (LinearLayout) view.findViewById(R.id.linearLayoutVote);
-        linearLayoutVoteButton = (LinearLayout) view.findViewById(R.id.linearLayoutVoteButton);
         textViewTeamAVote.setOnClickListener(this);
         textViewTeamBVote.setOnClickListener(this);
         textViewDrawVote.setOnClickListener(this);
@@ -482,21 +481,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
             } else {
                 showMessage("json error");
             }
-            if (matchstatus.equalsIgnoreCase("NS")) {
-                if (login_mode.equalsIgnoreCase("0")) {
-                    linearLayoutVoteButton.setVisibility(View.INVISIBLE);
-                    linearLayoutVote.setVisibility(View.VISIBLE);
-                } else if (login_mode.equalsIgnoreCase("1") && voted.equalsIgnoreCase("1")) {
-                    linearLayoutVoteButton.setVisibility(View.INVISIBLE);
-                    linearLayoutVote.setVisibility(View.VISIBLE);
-                } else {
-                    linearLayoutVoteButton.setVisibility(View.VISIBLE);
-                    linearLayoutVote.setVisibility(View.INVISIBLE);
-                }
-            } else {
-                linearLayoutVoteButton.setVisibility(View.INVISIBLE);
-                linearLayoutVote.setVisibility(View.VISIBLE);
-            }
+
         } catch (Exception ex) {
             Log.i("kunsangException", "error");
             ex.printStackTrace();
@@ -600,17 +585,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.textViewTeamAVote:
-                vote("home_name");
-                break;
-            case R.id.textViewTeamBVote:
-                vote("away_name");
-                break;
-            case R.id.textViewDrawVote:
-                vote("draw");
-                linearLayoutVote.setVisibility(View.VISIBLE);
-                linearLayoutVoteButton.setVisibility(View.INVISIBLE);
-                break;
+
         }
     }
 
