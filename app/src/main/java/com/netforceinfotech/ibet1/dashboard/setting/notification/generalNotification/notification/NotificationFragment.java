@@ -99,7 +99,6 @@ public class NotificationFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        icon_list.add(R.drawable.match_reminder);
         icon_list.add(R.drawable.goal_icon);
         icon_list.add(R.drawable.red_cardicon);
         icon_list.add(R.drawable.yellow_card);
@@ -107,7 +106,6 @@ public class NotificationFragment extends Fragment {
         icon_list.add(R.drawable.half_timeicon);
         icon_list.add(R.drawable.final_icon);
 
-        notificationDatas.add(new NotificationData("Match Reminder", userSessionManager.getGeneralNotification("Match Reminder" + "general")));
         notificationDatas.add(new NotificationData("Goal", userSessionManager.getGeneralNotification("Goal" + "general")));
         notificationDatas.add(new NotificationData("Red Card", userSessionManager.getGeneralNotification("Red Card" + "general")));
         notificationDatas.add(new NotificationData("Yellow Card", userSessionManager.getGeneralNotification("Yellow card" + "general")));

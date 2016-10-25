@@ -13,9 +13,11 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.netforceinfotech.ibet1.MainActivity;
 import com.netforceinfotech.ibet1.R;
+import com.netforceinfotech.ibet1.general.UserSessionManager;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
+    UserSessionManager userSessionManager;
     private static final String TAG = "MyFirebaseMsgService";
 
     /**
@@ -26,10 +28,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        userSessionManager = new UserSessionManager(getApplicationContext());
         Log.i(TAG, remoteMessage.getData().toString());
         String message = remoteMessage.getData().get("message");
         String title = remoteMessage.getData().get("title");
-        sendNotification(title, message);
+        String event = "Goal";
+        String team = "manu";
+        if (event.equalsIgnoreCase(userSessionManager.getGeneralNotificationFileName(event + "general")) && userSessionManager.getTeamNotification(team)) {
+            sendNotification(title, message);
+        }
     }
 
     private void sendNotification(String title, String message) {

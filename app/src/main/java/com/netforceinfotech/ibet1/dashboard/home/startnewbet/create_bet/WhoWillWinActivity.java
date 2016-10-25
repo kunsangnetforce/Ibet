@@ -202,6 +202,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         viewTeam = findViewById(R.id.viewTeam);
         viewTeam.setOnClickListener(this);
         viewScore.setOnClickListener(this);
+        viewScore.setVisibility(View.VISIBLE);
         radiobuttonScore = (RadioButton) findViewById(R.id.radiobuttonScore);
         radiobuttonTeam = (RadioButton) findViewById(R.id.radiobuttonTeam);
         switchButton = (SwitchButton) findViewById(R.id.switchJoin);
@@ -387,7 +388,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             case R.id.radioDraw:
                 if (b) {
                     textviewselectDraw.setBackgroundResource(R.drawable.circular_bg_fill);
-                    selectedteam = "D";
+                    selectedteam = "draw";
                 } else {
                     textviewselectDraw.setBackgroundResource(R.drawable.circular_bg);
                 }
@@ -395,7 +396,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             case R.id.radioTeama:
                 if (b) {
                     textviewselectHome.setBackgroundResource(R.drawable.circular_bg_fill);
-                    selectedteam = "H";
+                    selectedteam = "home_win";
                 } else {
                     textviewselectHome.setBackgroundResource(R.drawable.circular_bg);
                 }
@@ -403,7 +404,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             case R.id.radioTeamb:
                 if (b) {
                     textviewselectAway.setBackgroundResource(R.drawable.circular_bg_fill);
-                    selectedteam = "A";
+                    selectedteam = "away_win";
                 } else {
                     textviewselectAway.setBackgroundResource(R.drawable.circular_bg);
                 }
@@ -454,6 +455,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         }
 
     }
+
     private void setupStatusBar() {
         Window window = getWindow();
 

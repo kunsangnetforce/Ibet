@@ -26,6 +26,9 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
@@ -373,9 +376,9 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
             linearLayoutScore.setVisibility(View.VISIBLE);
             linearLayoutTeam.setVisibility(View.VISIBLE);
         }
-        if (selectedteam.equalsIgnoreCase("H")) {
+        if (selectedteam.equalsIgnoreCase("home_win")) {
             textViewSelectedTeam.setText("Selected Team : " + home_name);
-        } else if (selectedteam.equalsIgnoreCase("A")) {
+        } else if (selectedteam.equalsIgnoreCase("away_win")) {
             textViewSelectedTeam.setText("Selected Team : " + away_name);
         } else {
             textViewSelectedTeam.setText("Selected Team : " + "Draw");
@@ -436,27 +439,56 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     }
 
     private void createbet() {
-        //https://netforcesales.com/ibet_admin/api/create_bet.php?match_id=647654&participants=4
-        // &comments=5&home_team_id=1150&away_team_id=1232&bet_amount=5&bet_status=win
-        // &bet_match_date=2016-09-15&bet_option=0&bet_options_to_user=0&user_id=136&bet_remarks=test
+      /*
+     https://netforcesales.com/ibet_admin/api/create_bet.php?match_id=638898
+     &friends_id=162,163,164&comments=5&home_team_id=1228&away_team_id=2150
+     &bet_amount=10.0&bet_option=0&bet_options_to_user=0&user_id=152&bet_remarks=test
+      * */
         String baseUrl = getString(R.string.url);
-        String betUrl = "/create_bet.php?match_id=" + match_id + "&participants=" + friendsidstring + "&comments=" + losercomment
+        String betUrl = "/create_bet.php?match_id=" + match_id + "&friends_id=" + friendsidstring + "&comments=" + losercomment
                 + "&home_team_id=" + home_id + "&away_team_id=" + away_id + "&bet_amount=" + betamount + "&bet_status=&bet_match_date=" +
                 "&bet_option=" + betoption + "&bet_option_to_user=" + switchOption + "&user_id=" + userSessionManager.getCustomerId() +
-                "bet_remark=";
+                "bet_remark=" + losercomment;
         String url = baseUrl + betUrl;
         showMessage("bet losic will be created");
+        Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                if (result == null) {
+                    showMessage("Something went wrong could not create bet");
+                } else {
+                    try {
+                        if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                            showMessage("bet create successfully");
+                            String bet_id = result.get("bet_id").getAsString();
+                            String bet_option = result.get("bet_option").getAsString();
+                            String bet_amount = result.get("bet_amount").getAsString();
+                            String team_home = result.get("team_home").getAsString();
+                            String team_away = result.get("team_away").getAsString();
+                            joinBet(bet_id, bet_amount, bet_option, "0");
+                        }
+                    } catch (Exception ex) {
+
+                    }
+                }
+            }
+        });
         Log.i("kunsangurl", url);
         //joinbet()
     }
 
 
-    private void joinBet(String bet_id, String bet_amount, String bet_option) {
-        // String url = baseUrl + betUrl;
-        //http://localhost/betting/api/accept_bet_request.php?team_status=draw&option=2&user_id=114&bet_id=200&user_bet_amt=50&away_scrore=2&home_scrore=3
+    private void joinBet(String bet_id, String bet_amount, String bet_option, String request_type) {
+
+        /*
+        * https://netforcesales.com/ibet_admin/api/accept_bet_request.php?
+        * match_status=home_win&option=0&user_id=164&bet_id=237&user_bet_amt=10&away_scrore=0&home_s
+        * */
         String baseUrl = getString(R.string.url);
-        String joinBetUrl = "/accept_bet_request.php?team_status=" + selectedteam + "&option=" + bet_option + "&user_id" + userSessionManager.getCustomerId() +
-                "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore=" + awayscore + "&home_scrore=" + awayscore;
+        String joinBetUrl = "/accept_bet_request.php?match_status=" + selectedteam + "&option=" + bet_option
+                + "&user_id" + userSessionManager.getCustomerId() +
+                "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore="
+                + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type;
         String url = baseUrl + joinBetUrl;
         Log.i("kunsang_url", url);
         showMessage("bet losic will be created");

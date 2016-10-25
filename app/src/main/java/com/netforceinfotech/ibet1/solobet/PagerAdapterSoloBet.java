@@ -3,42 +3,31 @@ package com.netforceinfotech.ibet1.solobet;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-
-import com.netforceinfotech.ibet1.solobet.Single.SingleFragment;
+import com.netforceinfotech.ibet1.solobet.currentgame.CurrentGameFragment;
+import com.netforceinfotech.ibet1.solobet.upcominggame.UpComingGamesFragment;
 
 /**
  * Created by John on 8/8/2016.
  */
-public class PagerAdapterSoloBet  extends FragmentStatePagerAdapter
-{
+public class PagerAdapterSoloBet extends FragmentStatePagerAdapter {
 
     int mNumOfTabs;
 
-    public PagerAdapterSoloBet(FragmentManager fm, int NumOfTabs)
-    {
+    public PagerAdapterSoloBet(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
 
     @Override
-    public Fragment getItem(int position)
-    {
+    public Fragment getItem(int position) {
 
-        switch (position)
-        {
+        switch (position) {
             case 0:
-
-                SingleFragment home = new SingleFragment();
+                CurrentGameFragment home = new CurrentGameFragment();
                 return home;
-
             case 1:
-                SingleFragment currentBet = new SingleFragment();
+                UpComingGamesFragment currentBet = new UpComingGamesFragment();
                 return currentBet;
-
-            case 2:
-                SingleFragment currentBet2 = new SingleFragment();
-                return currentBet2;
-
             default:
                 return null;
         }
@@ -46,8 +35,7 @@ public class PagerAdapterSoloBet  extends FragmentStatePagerAdapter
 
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return mNumOfTabs;
     }
 }

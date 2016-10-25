@@ -21,7 +21,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="com.netforceinfotech.ibet1.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,92 +30,92 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.netforceinfotech.ibet1.login.LoginActivity"
+            android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.login.EmailLogin"
+            android:name=".login.EmailLogin"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.Dashboard"
+            android:name=".dashboard.Dashboard"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet"
+            android:name=".dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin"
+            android:name=".dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.WhoWillWinActivity"
+            android:name=".dashboard.home.startnewbet.create_bet.WhoWillWinActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity"
+            android:name=".dashboard.home.startnewbet.StartNewBetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.profilesetting.ProfileSettingActivity"
+            android:name=".profilesetting.ProfileSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.profilesetting.selectteam.SelectTeamActivity"
+            android:name=".profilesetting.selectteam.SelectTeamActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.profile.selectteam.SelectTeamActivity"
+            android:name=".dashboard.profile.selectteam.SelectTeamActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.chart.highest.HighestTabActivity"
+            android:name=".dashboard.chart.highest.HighestTabActivity"
             android:label="@string/title_activity_chart_tab"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.notification.teamNotification.soundlist.SoundlistActivity"
+            android:name=".dashboard.setting.notification.teamNotification.soundlist.SoundlistActivity"
             android:label="@string/title_activity_soundlist"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.notification.generalNotification.soundlist.SoundlistActivity"
+            android:name=".dashboard.setting.notification.generalNotification.soundlist.SoundlistActivity"
             android:label="@string/title_activity_soundlist"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.feedback.FeedbackActivity"
+            android:name=".dashboard.setting.feedback.FeedbackActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.notification.teamNotification.teamlist.TeamlistActivity"
+            android:name=".dashboard.setting.notification.teamNotification.teamlist.TeamlistActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.purchase.PurchaseActivity"
+            android:name=".dashboard.purchase.PurchaseActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.chart.richestrank.RichestTabActivity"
+            android:name=".dashboard.chart.richestrank.RichestTabActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.odds.OddsActivity"
+            android:name=".dashboard.setting.odds.OddsActivity"
             android:label="@string/title_activity_odds"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.notification.generalNotification.GeneralNotificationActivity"
+            android:name=".dashboard.setting.notification.generalNotification.GeneralNotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.notification.teamNotification.TeamNotificationActivity"
+            android:name=".dashboard.setting.notification.teamNotification.TeamNotificationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.language.LanguageActivity"
+            android:name=".dashboard.setting.language.LanguageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.theme.ThemeActivity"
+            android:name=".dashboard.setting.theme.ThemeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.netforceinfotech.ibet1.dashboard.setting.sounds.SoundActivity"
+            android:name=".dashboard.setting.sounds.SoundActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.netforceinfotech.ibet1.dashboard.setting.theme.themeColor.ThemeColorActivity" />
-        <activity android:name="com.netforceinfotech.ibet1.currentbet.betarena.EnterBetArenaActivity" />
-        <activity android:name="com.netforceinfotech.ibet1.currentbet.betarena.thearena.TheArenaActivity" />
-        <activity android:name="com.netforceinfotech.ibet1.currentbet.betarena.thearena.StandActivity" />
-        <activity android:name="com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.CreateBet" />
+        <activity android:name=".dashboard.setting.theme.themeColor.ThemeColorActivity" />
+        <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
+        <activity android:name=".currentbet.betarena.thearena.TheArenaActivity" />
+        <activity android:name=".currentbet.betarena.thearena.StandActivity" />
+        <activity android:name=".dashboard.home.startnewbet.create_bet.CreateBet" />
         <activity
-            android:name="com.netforceinfotech.ibet1.scratchview.ImageOverlayDrawable"
+            android:name=".scratchview.ImageOverlayDrawable"
             android:label="Image Overlay Drawable (Experimental)">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -123,31 +123,30 @@
                 <category android:name="com.winsontan520.testwscratchview.SAMPLE" />
             </intent-filter>
         </activity>
-        <activity android:name="com.netforceinfotech.ibet1.live_event_main.LiveEventActivity" />
-        <activity android:name="com.netforceinfotech.ibet1.profilesetting.tutorial.TutorialActivity" />
-        <activity android:name="com.netforceinfotech.ibet1.profilesetting.tutorial.DefaultIntro" />
+        <activity android:name=".live_event_main.LiveEventActivity" />
+        <activity android:name=".profilesetting.tutorial.TutorialActivity" />
+        <activity android:name=".profilesetting.tutorial.DefaultIntro" />
 
-        <service android:name="com.netforceinfotech.ibet1.general.firebasegcm.MyFirebaseIDService">
+        <service android:name=".general.firebasegcm.MyFirebaseIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.netforceinfotech.ibet1.general.firebasegcm.MyFirebaseMessagingService">
+        <service android:name=".general.firebasegcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <activity android:name="com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.StandActivity" />
 
-
-
-        <activity android:name="com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
-        <activity android:name="com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity" />
+        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.StandActivity" />
+        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
+        <activity android:name=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity" />
         <activity
-            android:name="com.netforceinfotech.ibet1.scratchview.ScratchActivity"
+            android:name=".scratchview.ScratchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.netforceinfotech.ibet1.dashboard.setting.theme.background.BackgroundActivity"></activity>
+        <activity android:name=".dashboard.setting.theme.background.BackgroundActivity" />
+        <activity android:name=".solobet.recycler.SoloBetActivity"></activity>
     </application>
 
 </manifest>
