@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.even
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -20,12 +21,14 @@ import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.bumptech.glide.Glide;
+import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -64,8 +67,10 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     String home_logo, away_logo;
     TextView textViewMatchStatus;
     CircleProgressView cpvLevel;
+    CircleProgress circle_progressA, circle_progressD, circle_progressB;
     TickTockView tickTockView;
     SwipyRefreshLayout swipeRefreshLayout;
+    TextView textViewNoVB, textViewNoVA, textViewNoVD;
     private boolean firstTime = true;
 
     public EventsFragment() {
@@ -99,6 +104,12 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
+        textViewNoVB = (TextView) view.findViewById(R.id.textViewNoVB);
+        textViewNoVA = (TextView) view.findViewById(R.id.textViewNoVA);
+        textViewNoVD = (TextView) view.findViewById(R.id.textViewNoVD);
+        circle_progressA = (CircleProgress) view.findViewById(R.id.circle_progressA);
+        circle_progressB = (CircleProgress) view.findViewById(R.id.circle_progressB);
+        circle_progressD = (CircleProgress) view.findViewById(R.id.circle_progressD);
         swipeRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
@@ -184,6 +195,19 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                     voted = result.get("voted").getAsString();
                 }
                 JsonObject dataObject = result.getAsJsonObject("data");
+                try {
+                    JsonArray vote_count = dataObject.getAsJsonArray("vote_count");
+                    JsonObject vote_object = vote_count.get(0).getAsJsonObject();
+                    int teamA = Integer.parseInt(vote_object.get("teamA").getAsString());
+                    int teamB = Integer.parseInt(vote_object.get("teamB").getAsString());
+                    int draw = Integer.parseInt(vote_object.get("draw").getAsString());
+                    setupCircieProgress(teamA, teamB, draw);
+                } catch (Exception ex) {
+                    Debugger.i("kvote", "someerror");
+                    ex.printStackTrace();
+                }
+
+
                 JsonArray data_event = dataObject.get("data_event").getAsJsonArray();
                 if (data_event.size() == 0) {
                     linearLayout.setVisibility(View.VISIBLE);
@@ -463,6 +487,29 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void setupCircieProgress(int teamA, int teamB, int draw) {
+        int total = teamA + teamB + draw;
+        if (total == 0) {
+            circle_progressA.setProgress(0);
+            circle_progressB.setProgress(0);
+            circle_progressD.setProgress(0);
+            textViewNoVA.setText("" + teamA);
+            textViewNoVB.setText("" + teamB);
+            textViewNoVD.setText("" + draw);
+            return;
+        }
+        int teamAprogress = (teamA * 100) / total;
+        int teamBprogress = (teamB * 100) / total;
+        int drawProgress = (draw * 100) / total;
+        circle_progressA.setProgress(teamAprogress);
+        circle_progressB.setProgress(teamBprogress);
+        circle_progressD.setProgress(drawProgress);
+        textViewNoVA.setText("" + teamA);
+        textViewNoVB.setText("" + teamB);
+        textViewNoVD.setText("" + draw);
+
+    }
+
     private void setupProgressThread(String minute, String extra_minute, int i) {
         handler.postDelayed(new Runnable() {
             @Override
@@ -608,5 +655,15 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
     private void setupVote(JsonObject result) {
         Log.i("kunsang_vote", result.toString());
+        try {
+            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                int teamACount = Integer.parseInt(result.get("teama count").getAsString());
+                int teamBCount = Integer.parseInt(result.get("teamb count").getAsString());
+                int teamDCount = Integer.parseInt(result.get("draw count").getAsString());
+                setupCircieProgress(teamACount, teamBCount, teamDCount);
+            }
+        } catch (Exception ex) {
+            showMessage(getString(R.string.something_went_wrong));
+        }
     }
 }

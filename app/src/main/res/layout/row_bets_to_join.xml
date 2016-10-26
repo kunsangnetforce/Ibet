@@ -51,7 +51,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:padding="7dp">
 
                     <TextView
                         android:id="@+id/textViewName"
@@ -71,7 +72,8 @@
                         android:id="@+id/imageViewSelectedLogo"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_margin="3dp" />
+                        android:layout_margin="3dp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -86,9 +88,10 @@
                         android:id="@+id/textViewSelectedName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/italy"
+                        android:text="Italy"
                         android:textColor="@color/colorText"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -104,6 +107,7 @@
             android:paddingBottom="16dp">
 
             <LinearLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -137,6 +141,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
@@ -144,6 +149,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/textViewPost"
                         android:layout_width="50dp"
                         android:layout_height="50dp"

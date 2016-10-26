@@ -184,5 +184,6 @@
     <string name="bet_has_been_placed">Bet has been placed !</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="no_odds">No odds for this match</string>
+    <string name="no_bets_to_join">No bets to join</string>
 
 </resources>

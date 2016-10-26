@@ -73,15 +73,7 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else {
             finishedBetHolder.imageViewDp.setImageResource(R.drawable.ic_error);
         }
-        if (itemList.get(position).selectedteamlogo.length() > 1) {
-            Glide.with(context)
-                    .load(itemList.get(position).selectedteamlogo)
-                    .placeholder(R.drawable.ic_holder)
-                    .error(R.drawable.ic_error)
-                    .into(finishedBetHolder.imageViewSelectedTeamLogo);
-        } else {
-            finishedBetHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
-        }
+
         if (itemList.get(position).teamalogo.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).teamalogo)

@@ -16,6 +16,9 @@ import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -80,15 +83,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             betsToJoinHolder.imageViewDp.setImageResource(R.drawable.ic_error);
         }
-        if (itemList.get(position).selectedteamlogo.length() > 1) {
-            Glide.with(context)
-                    .load(itemList.get(position).selectedteamlogo)
-                    .placeholder(R.drawable.ic_holder)
-                    .error(R.drawable.ic_error)
-                    .into(betsToJoinHolder.imageViewSelectedTeamLogo);
-        } else {
-            betsToJoinHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
-        }
+
         if (itemList.get(position).teamalogo.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).teamalogo)
@@ -110,10 +105,14 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         betsToJoinHolder.textViewName.setText(itemList.get(position).name);
         betsToJoinHolder.textViewParticipants.setText(itemList.get(position).numberparticipant);
-        betsToJoinHolder.textViewPost.setText(itemList.get(position).numberpost);
         betsToJoinHolder.textViewTeamA.setText(itemList.get(position).teamaname);
         betsToJoinHolder.textViewTeamB.setText(itemList.get(position).teambname);
-      //  betsToJoinHolder.textViewBetStatus.setText(itemList.get(position).betstatus);
+        String formattedTime = getFormattedDate(itemList.get(position).time);
+        if (formattedTime == null) {
+            betsToJoinHolder.textViewTime.setText("NA");
+        } else {
+            betsToJoinHolder.textViewTime.setText(formattedTime);
+        }
     }
 
     private void showMessage(String s) {
@@ -125,5 +124,26 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemCount() {
         return itemList.size();
 //        return itemList.size();
+    }
+
+    public String getFormattedDate(String date) {
+        Date date2 = new Date();
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            date2 = date_format.parse(date);
+            SimpleDateFormat outDate = new SimpleDateFormat("EEE dd MMM yyyy hh:mm");
+            return outDate.format(date2);
+        } catch (ParseException e) {
+            SimpleDateFormat date_format1 = new SimpleDateFormat("yyyy-MM-dd ");
+            try {
+                date2 = date_format1.parse(date);
+                SimpleDateFormat outDate1 = new SimpleDateFormat("EEE dd MMM yyyy");
+                return outDate1.format(date2);
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+        }
+
+        return null;
     }
 }

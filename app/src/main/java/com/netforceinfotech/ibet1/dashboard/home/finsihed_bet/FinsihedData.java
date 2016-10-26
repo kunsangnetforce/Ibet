@@ -4,15 +4,13 @@ package com.netforceinfotech.ibet1.dashboard.home.finsihed_bet;
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
 public class FinsihedData {
-    String userdp,name, selectedteamlogo, selectedteamname, numberparticipant, numberpost, time, teamalogo, teamblogo, teamaname, teambname, betstatus, betid;
+    String userdp, name, numberparticipant, time, teamalogo, teamblogo, teamaname, teambname, betstatus, betid, match_id;
 
-    FinsihedData(String userdp, String name, String selectedteamlogo, String selectedteamname, String numberparticipant, String numberpost, String time, String teamalogo, String teamblogo, String teamaname, String teambname, String betstatus, String betid) {
+    FinsihedData(String userdp, String name, String numberparticipant, String time, String teamalogo, String teamblogo, String teamaname, String teambname, String betstatus, String betid, String match_id) {
         this.name = name;
-        this.userdp=userdp;
-        this.selectedteamlogo = selectedteamlogo;
-        this.selectedteamname = selectedteamname;
+        this.userdp = userdp;
+        this.match_id = match_id;
         this.numberparticipant = numberparticipant;
-        this.numberpost = numberpost;
         this.time = time;
         this.teamalogo = teamalogo;
         this.teamblogo = teamblogo;

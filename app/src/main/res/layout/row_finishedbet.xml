@@ -51,7 +51,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:padding="7dp">
 
                     <TextView
                         android:id="@+id/textViewName"
@@ -71,7 +72,8 @@
                         android:id="@+id/imageViewSelectedLogo"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_margin="3dp" />
+                        android:layout_margin="3dp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -86,8 +88,10 @@
                         android:id="@+id/textViewSelectedName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Italy"
                         android:textColor="@color/colorText"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -106,6 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="100">
 
@@ -140,7 +145,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/textViewPost"
@@ -177,10 +183,10 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_centerInParent="true"
                     android:id="@+id/linearLayoutRoundCornor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
                     android:background="@drawable/roundcornor"
@@ -220,11 +226,11 @@
                                 android:gravity="left|center_vertical">
 
                                 <TextView
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
                                     android:id="@+id/textViewTeamA"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
                                     android:text="Italy"
                                     android:textColor="@color/colorText"
                                     android:textSize="12sp" />
@@ -266,11 +272,11 @@
                                 android:gravity="right">
 
                                 <TextView
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
                                     android:id="@+id/textViewTeamB"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
                                     android:text="Germany"
                                     android:textColor="@color/colorText"
                                     android:textSize="12sp" />
@@ -293,12 +299,12 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <ImageView
-                    android:layout_centerInParent="true"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/ball"
-                    />
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ball" />
             </RelativeLayout>
 
             <TextView

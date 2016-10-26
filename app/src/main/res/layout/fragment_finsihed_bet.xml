@@ -8,6 +8,28 @@
     tools:context=".dashboard.home.finsihed_bet.FinsihedBet">
 
     <LinearLayout
+        android:id="@+id/linearLayoutNoBets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageViewNoBets"
+            android:layout_width="match_parent"
+            android:layout_height="240dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="No Bet Found"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,8 +38,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-          >
+            android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>

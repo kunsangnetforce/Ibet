@@ -307,7 +307,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:text="600 votes"
                     android:textColor="@color/colorText"
                     android:textSize="12sp" />
 
@@ -315,7 +314,7 @@
                     android:id="@+id/circle_progressA"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    custom:circle_progress="60" />
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -330,7 +329,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:text="200 votes"
                     android:textColor="@color/colorText"
                     android:textSize="12sp" />
 
@@ -338,7 +336,7 @@
                     android:id="@+id/circle_progressD"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    custom:circle_progress="20" />
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -353,7 +351,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="3dp"
-                    android:text="200 votes"
                     android:textColor="@color/colorText"
                     android:textSize="12sp" />
 
@@ -361,7 +358,7 @@
                     android:id="@+id/circle_progressB"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    custom:circle_progress="20" />
+                     />
             </LinearLayout>
         </LinearLayout>
 
