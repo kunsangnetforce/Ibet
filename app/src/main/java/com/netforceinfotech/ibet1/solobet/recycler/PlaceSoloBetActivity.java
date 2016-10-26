@@ -1,7 +1,6 @@
-package com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet;
+package com.netforceinfotech.ibet1.solobet.recycler;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,7 +16,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,37 +24,39 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
-import com.kyleduo.switchbutton.SwitchButton;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
-public class WhoWillWinActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-
-    private Toolbar toolbar;
-    ImageView imageViewTeamA, imageViewTeamB, imageViewHomeIncrement, imageViewHomeDecrement, imageViewAwayIncrement, imageViewAwayDecrement;
-    RelativeLayout relativeLayoutBetAmount, relativeLayoutScore, relativeLayoutTeam;
-    TextView textViewBetamount, textViewTeamA, textViewTeamB, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway;
-    String match_id;
-    double betamount = 0;
-    private EditText editTextPopupBetAmount;
-    String home_name, home_logo, away_logo, away_name, home_id, away_id;
-    int homescore = 0, awayscore = 0;
-    RadioButton radioButtonHome, radioButtonDraw, radioButtonAway;
-    public static String selectedteam = "", stringbetoption = "0";
-    SwitchButton switchButton;
-    RadioButton radiobuttonScore, radiobuttonTeam;
+public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+    String selectedteam = "";
+    Toolbar toolbar;
     Context context;
-    View viewTeam, viewScore;
+    String match_id, home_name, home_logo, away_name, away_logo, draw_odds, home_odds, away_odds;
+    UserSessionManager userSessionManager;
+    ImageView imageViewTeamA, imageViewTeamB;
+    TextView textViewTeamA, textViewTeamB, textviewselectAway, textviewselectDraw, textviewselectHome, textViewBetamount;
+    RelativeLayout relativeLayoutBetAmount;
+    EditText editTextPopupBetAmount;
+    private double betamount;
     private MaterialDialog dialogbox;
+    RadioButton radioButtonHome, radioButtonDraw, radioButtonAway;
+    Button buttonPlaceBet;
+    private String selectedOdds = "", bookerid, bookername;
+    TextView textViewHomeOdds, textviewAwayOdds, textViewDrawOdds;
     CoordinatorLayout coordinatorLayout;
-    private UserSessionManager userSessionManager;
-    private View view1;
-    LinearLayout linearLayoutHome, linearLayoutAway;
+    View view1;
+    private MaterialDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_who_will_win);
+        setContentView(R.layout.activity_place_solo_bet);
         final Bundle bundle = getIntent().getExtras();
         context = this;
         userSessionManager = new UserSessionManager(this);
@@ -66,8 +66,12 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             away_name = bundle.getString("away_name");
             home_logo = bundle.getString("home_logo");
             away_logo = bundle.getString("away_logo");
-            home_id = bundle.getString("home_id");
-            away_id = bundle.getString("away_id");
+            draw_odds = bundle.getString("draw_odds");
+            home_odds = bundle.getString("home_odds");
+            away_odds = bundle.getString("away_odds");
+            bookerid = bundle.getString("bookerid");
+            bookername = bundle.getString("bookername");
+
 
         } catch (Exception ex) {
             showMessage("Bundle error");
@@ -77,89 +81,45 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         setupStatusBar();
         setupTheme();
         setupBackbround();
-
-    }
-
-
-
-    private boolean validate() {
-        if (betamount == 0) {
-            showMessage("enter bet amount");
-            return false;
-        }
-        if (stringbetoption.equalsIgnoreCase("0")) {
-            if (selectedteam.equalsIgnoreCase("")) {
-                showMessage("select a team");
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void showMessage(String s) {
-        Toast.makeText(WhoWillWinActivity.this, s, Toast.LENGTH_SHORT).show();
     }
 
     private void initView() {
-        linearLayoutAway = (LinearLayout) findViewById(R.id.linearLayoutAway);
-        linearLayoutHome = (LinearLayout) findViewById(R.id.linearLayoutHome);
+/*
+*   ImageView imageViewTeamA,imageViewTeamB;
+    TextView textViewTeamA,textViewTeamB,textviewselectAway,textviewselectDraw,textviewselectHome,textViewBetamount;
+    RelativeLayout relativeLayoutBetAmount;
+
+* */
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
         view1 = findViewById(R.id.view);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
-        relativeLayoutScore = (RelativeLayout) findViewById(R.id.relativeLayoutScore);
-        relativeLayoutTeam = (RelativeLayout) findViewById(R.id.relativeLayoutTeam);
-        relativeLayoutTeam.setOnClickListener(this);
-        relativeLayoutScore.setOnClickListener(this);
-        viewScore = findViewById(R.id.viewScore);
-        viewTeam = findViewById(R.id.viewTeam);
-        viewTeam.setOnClickListener(this);
-        viewScore.setOnClickListener(this);
-        viewScore.setVisibility(View.VISIBLE);
-        radiobuttonScore = (RadioButton) findViewById(R.id.radiobuttonScore);
-        radiobuttonTeam = (RadioButton) findViewById(R.id.radiobuttonTeam);
-        switchButton = (SwitchButton) findViewById(R.id.switchJoin);
-        relativeLayoutBetAmount = (RelativeLayout) findViewById(R.id.relativeLayoutBetAmount);
+        textViewHomeOdds = (TextView) findViewById(R.id.textviewHomeOdds);
+        textviewAwayOdds = (TextView) findViewById(R.id.textviewAwayOdds);
+        textViewDrawOdds = (TextView) findViewById(R.id.textviewDrawOdds);
+        textViewHomeOdds.setText(home_odds);
+        textviewAwayOdds.setText(away_odds);
+        textViewDrawOdds.setText(draw_odds);
+        buttonPlaceBet = (Button) findViewById(R.id.buttonPlaceBet);
+        buttonPlaceBet.setOnClickListener(this);
         imageViewTeamA = (ImageView) findViewById(R.id.imageViewTeamA);
         imageViewTeamB = (ImageView) findViewById(R.id.imageViewTeamB);
-        imageViewHomeIncrement = (ImageView) findViewById(R.id.imageViewHomeIncrement);
-        imageViewHomeDecrement = (ImageView) findViewById(R.id.imageViewHomeDecrement);
-        imageViewAwayIncrement = (ImageView) findViewById(R.id.imageviewAwayincrement);
-        imageViewAwayDecrement = (ImageView) findViewById(R.id.imageViewAwayDecrement);
         textViewTeamA = (TextView) findViewById(R.id.textViewTeamA);
         textViewTeamB = (TextView) findViewById(R.id.textViewTeamB);
-        textviewselectHome = (TextView) findViewById(R.id.textviewselectHome);
-        textviewselectDraw = (TextView) findViewById(R.id.textviewselectDraw);
         textviewselectAway = (TextView) findViewById(R.id.textviewselectAway);
-        textViewScoreHome = (TextView) findViewById(R.id.textViewHomeScore);
-        textViewScoreAway = (TextView) findViewById(R.id.textViewAwayScore);
+        textviewselectDraw = (TextView) findViewById(R.id.textviewselectDraw);
+        textviewselectHome = (TextView) findViewById(R.id.textviewselectHome);
+        textviewselectAway.setOnClickListener(this);
+        textviewselectDraw.setOnClickListener(this);
+        textviewselectHome.setOnClickListener(this);
         textViewBetamount = (TextView) findViewById(R.id.textViewBetamount);
+        relativeLayoutBetAmount = (RelativeLayout) findViewById(R.id.relativeLayoutBetAmount);
+        relativeLayoutBetAmount.setOnClickListener(this);
         radioButtonAway = (RadioButton) findViewById(R.id.radioTeamb);
         radioButtonDraw = (RadioButton) findViewById(R.id.radioDraw);
         radioButtonHome = (RadioButton) findViewById(R.id.radioTeama);
-        radiobuttonTeam.setChecked(true);
-        radiobuttonScore.setChecked(false);
-        Button next = (Button) findViewById(R.id.buttonNext);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validate()) {
-                    Intent i = new Intent(WhoWillWinActivity.this, CreateBet.class);
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("betoption", stringbetoption);
-                    bundle1.putInt("homescore", homescore);
-                    bundle1.putInt("awayscore", awayscore);
-                    bundle1.putString("selectedteam", selectedteam);
-                    bundle1.putDouble("betamount", betamount);
-                    bundle1.putString("home_name", home_name);
-                    bundle1.putString("away_name", away_name);
-                    bundle1.putString("match_id", match_id);
-                    bundle1.putString("home_id", home_id);
-                    bundle1.putString("away_id", away_id);
-                    i.putExtras(bundle1);
-                    startActivity(i);
-                }
-
-            }
-        });
         try {
             Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
         } catch (Exception ex) {
@@ -172,21 +132,14 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         }
         textViewTeamA.setText(home_name);
         textViewTeamB.setText(away_name);
-
         radioButtonAway.setOnCheckedChangeListener(this);
         radioButtonHome.setOnCheckedChangeListener(this);
         radioButtonDraw.setOnCheckedChangeListener(this);
-        radiobuttonScore.setOnCheckedChangeListener(this);
-        radiobuttonTeam.setOnCheckedChangeListener(this);
-        switchButton.setOnCheckedChangeListener(this);
-        imageViewAwayIncrement.setOnClickListener(this);
-        imageViewHomeIncrement.setOnClickListener(this);
-        imageViewAwayDecrement.setOnClickListener(this);
-        imageViewHomeDecrement.setOnClickListener(this);
-        textviewselectAway.setOnClickListener(this);
-        textviewselectHome.setOnClickListener(this);
-        textviewselectDraw.setOnClickListener(this);
-        relativeLayoutBetAmount.setOnClickListener(this);
+
+    }
+
+    private void showMessage(String s) {
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
     private void setupToolBar(String title) {
@@ -216,7 +169,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
 
     private void showPopup() {
         boolean wrapInScrollView = true;
-        dialogbox = new MaterialDialog.Builder(WhoWillWinActivity.this)
+        dialogbox = new MaterialDialog.Builder(PlaceSoloBetActivity.this)
                 .title("Set bet amount")
                 .customView(R.layout.setbetamount, wrapInScrollView)
                 .positiveText("Set").onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -247,36 +200,6 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.relativeLayoutScore:
-            case R.id.viewScore:
-                radiobuttonScore.setChecked(true);
-                break;
-            case R.id.relativeLayoutTeam:
-            case R.id.viewTeam:
-                radiobuttonTeam.setChecked(true);
-                break;
-            case R.id.imageViewHomeIncrement:
-                homescore++;
-                textViewScoreHome.setText("" + homescore);
-                break;
-            case R.id.imageviewAwayincrement:
-                awayscore++;
-                textViewScoreAway.setText("" + awayscore);
-                break;
-            case R.id.imageViewHomeDecrement:
-                homescore--;
-                if (homescore < 0) {
-                    homescore = 0;
-                }
-                textViewScoreHome.setText("" + homescore);
-                break;
-            case R.id.imageViewAwayDecrement:
-                awayscore--;
-                if (awayscore < 0) {
-                    awayscore = 0;
-                }
-                textViewScoreAway.setText("" + awayscore);
-                break;
             case R.id.textviewselectHome:
                 radioButtonHome.setChecked(true);
                 break;
@@ -289,8 +212,50 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             case R.id.relativeLayoutBetAmount:
                 showPopup();
                 break;
+            case R.id.buttonPlaceBet:
+                if (validate()) {
+                    placeSoloBet(selectedteam, betamount, selectedOdds, bookername, bookerid);
+                }
+                break;
         }
+    }
 
+    private void placeSoloBet(String selectedteam, double betamount, String selectedOdds, String bookername, String bookerid) {
+        /*
+        * https://netforcesales.com/ibet_admin/api/services.php?opt=solo_bet&user_id=152
+        * &match_id=121&selected_team=254&amt=250&match_status=NS&odds=1x2&bookmaker_id=1&bookmaker_name=10Bet
+        * */
+        progressDialog.show();
+        String baseUrl = getString(R.string.url);
+        String url = baseUrl + "/services.php?opt=solo_bet&user_id=" + userSessionManager.getCustomerId() + "&match_id=" + match_id
+                + "&selected_team=" + selectedteam + "&amt=" + betamount + "&match_status=NS&odds=" + selectedOdds + "&bookmaker_id=" +
+                bookerid + "&bookermaker_name=" + bookername;
+        Debugger.i("kurl", url);
+        Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                progressDialog.dismiss();
+                if (result == null) {
+                    showMessage(getString(R.string.something_went_wrong));
+                    return;
+                } else {
+                    if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                        showMessage(getString(R.string.bet_has_been_placed));
+                    } else {
+                        try {
+                            JsonArray data = result.getAsJsonArray("data");
+                            JsonObject jsonObject = data.get(0).getAsJsonObject();
+                            String msg = jsonObject.get("Message").getAsString();
+                            showMessage(msg);
+                            return;
+                        } catch (Exception ex) {
+
+                        }
+                        showMessage(getString(R.string.bet_not_placed));
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -299,7 +264,8 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             case R.id.radioDraw:
                 if (b) {
                     textviewselectDraw.setBackgroundResource(R.drawable.circular_bg_fill);
-                    selectedteam = "draw";
+                    selectedteam = "X";
+                    selectedOdds = draw_odds;
                 } else {
                     textviewselectDraw.setBackgroundResource(R.drawable.circular_bg);
                 }
@@ -307,7 +273,8 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             case R.id.radioTeama:
                 if (b) {
                     textviewselectHome.setBackgroundResource(R.drawable.circular_bg_fill);
-                    selectedteam = "home_win";
+                    selectedOdds = home_odds;
+                    selectedteam = "1";
                 } else {
                     textviewselectHome.setBackgroundResource(R.drawable.circular_bg);
                 }
@@ -315,56 +282,28 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             case R.id.radioTeamb:
                 if (b) {
                     textviewselectAway.setBackgroundResource(R.drawable.circular_bg_fill);
-                    selectedteam = "away_win";
+                    selectedOdds = away_odds;
+                    selectedteam = "2";
                 } else {
                     textviewselectAway.setBackgroundResource(R.drawable.circular_bg);
                 }
                 break;
-            case R.id.switchJoin:
-                if (b) {
-                    viewScore.setVisibility(View.GONE);
-                    viewTeam.setVisibility(View.GONE);
-                    radiobuttonScore.setChecked(true);
-                    radiobuttonTeam.setChecked(true);
-                } else {
-                    viewTeam.setVisibility(View.GONE);
-                    viewScore.setVisibility(View.VISIBLE);
-                    radiobuttonTeam.setChecked(true);
-                    radiobuttonScore.setChecked(false);
-                }
-                break;
-            case R.id.radiobuttonScore:
-                if (switchButton.isChecked()) {
-                    viewTeam.setVisibility(View.GONE);
-                    viewScore.setVisibility(View.GONE);
-                    stringbetoption = "2";
 
-                } else {
-                    if (b) {
-                        radiobuttonTeam.setChecked(false);
-                        stringbetoption = "1";
-                        viewScore.setVisibility(View.GONE);
-                        viewTeam.setVisibility(View.VISIBLE);
-                    }
-                }
-                break;
-            case R.id.radiobuttonTeam:
-                if (switchButton.isChecked()) {
-                    viewTeam.setVisibility(View.GONE);
-                    viewScore.setVisibility(View.GONE);
-                    stringbetoption = "2";
+        }
+    }
 
-                } else {
-                    if (b) {
-                        radiobuttonScore.setChecked(false);
-                        stringbetoption = "0";
-                        viewScore.setVisibility(View.VISIBLE);
-                        viewTeam.setVisibility(View.GONE);
-                    }
-                }
-                break;
+    private boolean validate() {
+        if (betamount == 0) {
+            showMessage("enter bet amount");
+            return false;
         }
 
+        if (selectedteam.equalsIgnoreCase("")) {
+            showMessage("select a team");
+            return false;
+        }
+
+        return true;
     }
 
     private void setupStatusBar() {
@@ -410,6 +349,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         }
 
     }
+
     private void setupBackbround() {
 
         switch (userSessionManager.getBackground()) {
@@ -460,45 +400,32 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setupBrownTheme() {
-        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
-        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
     }
 
     private void setupPurlpleTheme() {
-        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
-        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
     }
 
     private void setupGreenTheme() {
-        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
-        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
     }
 
     private void setupMarronTheme() {
-        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
-        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
     }
 
     private void setupLightBlueTheme() {
-        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
-        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
     }
 
     private void setupDefaultTheme() {
-        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
-        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
     }
 }
-

@@ -246,7 +246,6 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     }
 
     private void getLiveMatch() {
-        showMessage("create methoud");
         //https://api.soccerama.pro/v1.2/livescore/now?api_token=__YOURTOKEN__
         String url = "https://api.soccerama.pro/v1.2/livescore/now?api_token=" + userSessionManager.getApitoken() + "&include=homeTeam,awayTeam,competition";
         Log.i("kunsangurl", url);
@@ -270,9 +269,9 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     }
 
     private void setupData(JsonObject result) {
-        try{
+        try {
             currentGameDatas.clear();
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
         mSwipyRefreshLayout.setRefreshing(false);

@@ -96,7 +96,7 @@ public class Home extends Fragment implements View.OnClickListener {
         setupBackground(userSessionManager.getBackground());
         return view;
     }
-
+   
     private void setupBackground(int background) {
         switch (background) {
             case 0:

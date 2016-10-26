@@ -188,7 +188,7 @@ public class StartNewBetActivity extends AppCompatActivity {
     }
 
     private void setupBrownTheme() {
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
@@ -197,7 +197,7 @@ public class StartNewBetActivity extends AppCompatActivity {
     }
 
     private void setupPurlpleTheme() {
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
@@ -205,7 +205,7 @@ public class StartNewBetActivity extends AppCompatActivity {
     }
 
     private void setupGreenTheme() {
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
@@ -213,7 +213,7 @@ public class StartNewBetActivity extends AppCompatActivity {
     }
 
     private void setupMarronTheme() {
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));

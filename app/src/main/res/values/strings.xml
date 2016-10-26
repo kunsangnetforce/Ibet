@@ -179,5 +179,10 @@
     <string name="bag">Bag</string>
     <string name="please_wait">Please wait...</string>
     <string name="progress_dialog">Saving Data</string>
+    <string name="pick_a_bet"><b>Pick a booker</b></string>
+    <string name="bet_not_placed">could not place bet</string>
+    <string name="bet_has_been_placed">Bet has been placed !</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="no_odds">No odds for this match</string>
 
 </resources>

@@ -146,7 +146,8 @@
             android:name=".scratchview.ScratchActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".dashboard.setting.theme.background.BackgroundActivity" />
-        <activity android:name=".solobet.recycler.SoloBetActivity"></activity>
+        <activity android:name=".solobet.recycler.SoloBetActivity" />
+        <activity android:name=".solobet.recycler.PlaceSoloBetActivity"></activity>
     </application>
 
 </manifest>

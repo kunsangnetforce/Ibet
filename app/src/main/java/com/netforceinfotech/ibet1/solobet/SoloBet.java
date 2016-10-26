@@ -4,8 +4,10 @@ package com.netforceinfotech.ibet1.solobet;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,8 @@ public class SoloBet extends Fragment implements View.OnClickListener {
     private int theme;
     String loinmode;
     private Context context;
+    CoordinatorLayout coordinatorLayout;
+    View view1;
 
     public SoloBet() {
         // Required empty public constructor
@@ -44,11 +48,15 @@ public class SoloBet extends Fragment implements View.OnClickListener {
         theme = userSessionManager.getTheme();
         initView(view);
         setupTab(view);
+        setupTheme();
+        setupBackground();
         return view;
 
     }
 
     private void initView(View view) {
+        view1=view.findViewById(R.id.view);
+        coordinatorLayout= (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         view.findViewById(R.id.buttonLogin).setOnClickListener(SoloBet.this);
@@ -102,6 +110,100 @@ public class SoloBet extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(context, LoginActivity.class);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+        }
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                //  setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
+    }
+
+    private void setupGreenTheme() {
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
+    }
+
+    private void setupMarronTheme() {
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentMarron));
+
+    }
+
+    private void setupLightBlueTheme() {
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLight));
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+
+
+    }
+
+    private void setupDefaultTheme() {
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccent));
+        tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccent));
+
+    }
+    private void setupBackground() {
+        UserSessionManager userSessionManager = new UserSessionManager(getActivity());
+        int background = userSessionManager.getBackground();
+        switch (background) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
                 break;
         }
     }

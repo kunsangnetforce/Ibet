@@ -401,6 +401,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setupLightBlueTheme() {
+        drawerLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
@@ -408,6 +409,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setupMarronTheme() {
+        drawerLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
@@ -415,6 +417,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setupGreenTheme() {
+        drawerLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
@@ -422,6 +425,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setupPurlpleTheme() {
+        drawerLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
@@ -429,6 +433,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void setupBrownTheme() {
+        drawerLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         navigationView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
         navigationView.getHeaderView(0).setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));

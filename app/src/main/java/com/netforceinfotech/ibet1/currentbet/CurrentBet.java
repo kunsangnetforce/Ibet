@@ -53,30 +53,7 @@ public class CurrentBet extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    private void setupBackground() {
-        UserSessionManager userSessionManager = new UserSessionManager(getActivity());
-        int background = userSessionManager.getBackground();
-        switch (background) {
-            case 0:
-                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
-                break;
-            case 1:
-                coordinatorLayout.setBackgroundResource(R.drawable.france240);
-                break;
-            case 2:
-                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
-                break;
-            case 3:
-                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
-                break;
-            case 4:
-                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
-                break;
-            case 5:
-                view1.setVisibility(View.GONE);
-                break;
-        }
-    }
+
 
 
     private void initView(View view) {
@@ -221,5 +198,29 @@ public class CurrentBet extends Fragment implements View.OnClickListener {
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccent));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccent));
 
+    }
+    private void setupBackground() {
+        UserSessionManager userSessionManager = new UserSessionManager(getActivity());
+        int background = userSessionManager.getBackground();
+        switch (background) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
     }
 }

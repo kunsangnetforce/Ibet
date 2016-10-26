@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
+
+    <View
+        android:id="@id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transulation" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +26,74 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="Pick a bet"
-            android:textColor="@color/colorAccent" />
+            android:text="@string/pick_a_bet"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Booker Name"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 odds"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="X odds"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 odds"
+                    android:textColor="@color/colorAccent" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="16dp"
+            android:background="@color/md_divider_white" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
