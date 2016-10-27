@@ -184,6 +184,7 @@ public class FinsihedBet extends Fragment {
             }
 
         }
+        adapter.notifyDataSetChanged();
     }
 
 

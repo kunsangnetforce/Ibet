@@ -709,6 +709,11 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
+
+
+    private void hideProgressDialog() {
+        progressDialog.dismiss();
+    }
     private void updatecoin(int coins) {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=add_coin&custid=15&amt_new=50
         String baseUrl = getString(R.string.url);
@@ -736,11 +741,6 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
     }
-
-    private void hideProgressDialog() {
-        progressDialog.dismiss();
-    }
-
     private void refreshCoin(JsonObject result) {
         JsonArray data = result.getAsJsonArray("data");
         JsonObject object = data.get(0).getAsJsonObject();
@@ -823,7 +823,16 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                         } else {
                             Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+
                                 // refreshPage(result);
+                                try {
+                                    if (result.get("data").getAsString().equalsIgnoreCase("No result found"))
+                                        ;
+                                    showContent();
+                                    return;
+                                } catch (Exception ex) {
+
+                                }
                                 JsonArray data = result.getAsJsonArray("data");
                                 JsonObject object = data.get(0).getAsJsonObject();
                                 int wait_time = object.get("wait_time").getAsInt();

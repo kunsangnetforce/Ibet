@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -67,6 +69,7 @@ public class BetsToJoin extends Fragment {
         //https://netforcesales.com/ibet_admin/api/bets_to_join.php?&user_id=163
         String baseUrl = getString(R.string.url);
         String url = baseUrl + "/bets_to_join.php?&user_id=" + userSessionManager.getCustomerId();
+        Debugger.i("kurl", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -100,16 +103,7 @@ public class BetsToJoin extends Fragment {
         } catch (Exception ex) {
 
         }
-       /* betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-        betsToJoinDatas.add(new BetsToJoinData("", "Roney Singh", "", "Barcelona", "20", "44", "12:30", "", "", "Barcelona", "Realmadreid", "You Win", "23"));
-*/
+
         try {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                 JsonArray data = result.getAsJsonArray("data");
@@ -132,15 +126,17 @@ public class BetsToJoin extends Fragment {
                     String away_logo = jsonObject.get("team_away_flag").getAsString();
                     String bet_match_date = jsonObject.get("bet_match_date").getAsString();
                     String bet_match_time = jsonObject.get("bet_match_time").getAsString();
+                    String matchid = jsonObject.get("bet_match_id").getAsString();
                     String betid = jsonObject.get("betid").getAsString();
                     String time = bet_match_date + " " + bet_match_time;
 //String userdp, String name, String numberparticipant, String time, String teamalogo, String teamblogo,
 // String teamaname, String teambname, String betid) {
                     BetsToJoinData betsToJoin = new BetsToJoinData(userdp, name, participants, time, home_logo,
-                            away_logo, home_name, away_name, betid);
+                            away_logo, home_name, away_name, betid, matchid);
                     betsToJoinDatas.add(betsToJoin);
 
                 }
+                adapter.notifyDataSetChanged();
             } else {
                 linearLayoutNoBets.setVisibility(View.VISIBLE);
                 showMessage("something went wrong");

@@ -507,7 +507,6 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         textViewNoVA.setText("" + teamA);
         textViewNoVB.setText("" + teamB);
         textViewNoVD.setText("" + draw);
-
     }
 
     private void setupProgressThread(String minute, String extra_minute, int i) {

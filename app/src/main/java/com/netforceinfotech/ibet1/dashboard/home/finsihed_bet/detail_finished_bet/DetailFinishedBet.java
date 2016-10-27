@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.dashboard.home.finsihed_bet.detail_finished_b
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +17,22 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class DetailFinishedBet extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,7 +47,7 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
     ImageView imageViewTeamA, imageViewTeamB;
     UserSessionManager userSessionManager;
     View view1;
-    TextView textViewMSI, textViewBetamount, textViewPlayer, textViewResult, textViewTeam, textViewScore, textViewLoserMessage;
+    TextView textViewMSI, textViewBetamount, textViewPlayer, textViewResult, textViewTeam, textViewScore, textViewLoserMessage,textViewMatchCountdown,textViewTeamA,textViewTeamB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +66,10 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
     }
 
     private void initView() {
+        view1 = findViewById(R.id.view);
+        textViewMatchCountdown= (TextView) findViewById(R.id.textViewMatchCountdown);
+        textViewTeamA= (TextView) findViewById(R.id.textViewTeamA);
+        textViewTeamB= (TextView) findViewById(R.id.textViewTeamB);
         textViewPlayer = (TextView) findViewById(R.id.textViewPlayer);
         textViewResult = (TextView) findViewById(R.id.textViewResult);
         textViewScore = (TextView) findViewById(R.id.textViewScore);
@@ -222,26 +238,9 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
         recyclerView.setLayoutManager(layoutManager);
         adapter = new DetailBetAdapter(context, detailBetDatas);
         recyclerView.setAdapter(adapter);
-        setupFinsihedDatas();
         adapter.notifyDataSetChanged();
     }
 
-    private void setupFinsihedDatas() {
-        try {
-            detailBetDatas.clear();
-        } catch (Exception ex) {
-
-        }
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-        detailBetDatas.add(new DetailBetData("Tea", "imageurl"));
-    }
 
     private void setupToolBar(String app_name) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -305,5 +304,144 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
                 break;
         }
 
+    }
+    private void getBetDetail(String bet_id) {
+        //https://netforcesales.com/ibet_admin/api/upcoming_bet_detail.php?&bet_id=237
+        String baseUrl = getString(R.string.url);
+        String url = baseUrl + "/upcoming_bet_detail.php?&bet_id=" + bet_id;
+        Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                if (result == null) {
+                    showMessage("Something went wrong");
+                    return;
+                } else {
+                    setupBetDetail(result);
+                }
+            }
+        });
+    }
+
+    private void showMessage(String s) {
+
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setupBetDetail(JsonObject result) {
+        try {
+            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                if (!result.getAsJsonObject("bet_detail").isJsonNull()) {
+                    String home_id, away_id, team_away_flag, team_home_flag, away_name = "", home_name = "", bet_ammount, bet_match_time, bet_match_date;
+                    JsonObject bet_detail = result.getAsJsonObject("bet_detail");
+                    if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
+                        JsonObject bet = bet_detail.getAsJsonObject("bet");
+
+                        if (!bet.get("team_home").isJsonNull()) {
+                            home_id = bet.get("team_home").getAsString();
+                        }
+                        if (!bet.get("team_away").isJsonNull()) {
+                            away_id = bet.get("team_away").getAsString();
+                        }
+                        if (!bet.get("team_away_flag").isJsonNull()) {
+                            team_away_flag = bet.get("team_away_flag").getAsString();
+                            Glide.with(context).load(team_away_flag).error(R.drawable.ic_error).into(imageViewTeamB);
+                        }
+                        if (!bet.get("team_home_flag").isJsonNull()) {
+                            team_home_flag = bet.get("team_home_flag").getAsString();
+                            Glide.with(context).load(team_home_flag).error(R.drawable.ic_error).into(imageViewTeamA);
+                        }
+                        if (!bet.get("away_name").isJsonNull()) {
+                            away_name = bet.get("away_name").getAsString();
+                            textViewTeamB.setText(away_name);
+                        }
+                        if (!bet.get("team_home").isJsonNull()) {
+                            home_name = bet.get("team_home").getAsString();
+                            textViewTeamA.setText(home_name);
+
+                        }
+                        if (!bet.get("bet_ammount").isJsonNull()) {
+                            bet_ammount = bet.get("bet_ammount").getAsString();
+                            textViewBetamount.setText(bet_ammount);
+                        }
+                        if (!bet.get("bet_match_time").isJsonNull() && !bet.get("bet_match_date").isJsonNull()) {
+                            bet_match_time = bet.get("bet_match_time").getAsString();
+                            bet_match_date = bet.get("bet_match_date").getAsString();
+                            setupTimeThread(bet_match_date, bet_match_time);
+                        }
+
+                    }
+                    if (!bet_detail.getAsJsonArray("users").isJsonNull()) {
+                        JsonArray users = bet_detail.getAsJsonArray("users");
+                        int size = users.size();
+                        if (size == 0) {
+                            return;
+                        } else {
+                            for (int i = 0; i < size; i++) {
+                                JsonObject user = users.get(i).getAsJsonObject();
+                                String userdp = user.get("profile_image").getAsString();
+                                String username = user.get("name").getAsString();
+                                String selectedTeam = user.get("match_status").getAsString();
+                                String bet_result = user.get("bet_result").getAsString();
+                                String score = user.get("home_scrore").getAsString() + "-" + user.get("away_scrore");
+                                if (selectedTeam.equalsIgnoreCase("home_win")) {
+                                    selectedTeam = home_name;
+                                } else if (selectedTeam.equalsIgnoreCase("away_win")) {
+                                    selectedTeam = away_name;
+                                } else {
+                                    selectedTeam = "draw";
+                                }
+                                DetailBetData detailBetData = new DetailBetData(userdp, username, bet_result, selectedTeam, score);
+                                detailBetDatas.add(detailBetData);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+
+            } else {
+                showMessage("No data");
+            }
+        } catch (Exception ex) {
+            showMessage("something went wrong");
+        }
+    }
+
+
+    private void setupTimeThread(String starting_date, String starting_time) {
+        String datetime = starting_date + " " + starting_time;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateNow = Calendar.getInstance().getTime();
+        Date myDate = null;
+        try {
+            myDate = simpleDateFormat.parse(datetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long milliseconds = (myDate.getTime() - dateNow.getTime());
+        new CountDownTimer(milliseconds, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                textViewMatchCountdown.setText("" + getFormatedTime(millisUntilFinished));
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                textViewMatchCountdown.setText("Live!");
+            }
+
+        }.start();
+    }
+
+    private String getFormatedTime(long millisUntilFinished) {
+        long seconds = millisUntilFinished / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        String time = days + "D : " + hours % 24 + " : " + minutes % 60 + " : " + seconds % 60;
+        return time;
     }
 }

@@ -92,7 +92,8 @@ public class LiveBetFragment extends Fragment {
 
 
     private void getrLiveBets() {
-        String url = "https://netforcesales.com/ibet_admin/api/upcoming_bets.php?&user_id=" + userSessionManager.getCustomerId();
+        //https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=163
+        String url = "https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=" + userSessionManager.getCustomerId();
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

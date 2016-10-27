@@ -77,13 +77,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonFacebook.setReadPermissions(permissions);
         buttonFacebook.registerCallback(mCallbackManager, mCallBack);
         profile = Profile.getCurrentProfile();
-
-        if (profile != null) {
-            //   LoginManager.getInstance().logOut();
-            Intent intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
+        if (userSessionManager.getIsLoogedIn()) {
+            Intent intent = new Intent(this, Dashboard.class);
             startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.enter, R.anim.exit);
         }
         sendRegId();
     }
@@ -259,17 +255,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 JsonObject object = data.get(0).getAsJsonObject();
                                 String api_token = result.get("api_token").getAsString();
                                 String customer_id = object.get("customer_id").getAsString();
-                                String msg=object.get("msg").getAsString();
-                                if(msg.equalsIgnoreCase("Facebook ID Already Exist")){
+                                String msg = object.get("msg").getAsString();
+                                if (msg.equalsIgnoreCase("Facebook ID Already Exist")) {
                                     userSessionManager.setIsFirstTime(false);
                                 }
                                 userSessionManager.setCustomerId(customer_id);
                                 userSessionManager.setApitoken(api_token);
                                 if (userSessionManager.getIsFirstTime()) {
+                                    userSessionManager.setIsLoggedIn(true);
                                     intent = new Intent(context, ProfileSettingActivity.class);
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.enter, R.anim.exit);
                                 } else {
+                                    userSessionManager.setIsLoggedIn(true);
                                     intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
                                     startActivity(intent);
                                     finish();

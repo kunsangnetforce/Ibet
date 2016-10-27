@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.dashboard.home.bets_to_join;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin;
 
@@ -62,6 +64,15 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailBetToJoin.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("home_logo", itemList.get(position).teamalogo);
+                bundle.putString("away_logo", itemList.get(position).teamblogo);
+                bundle.putString("bet_id", itemList.get(position).betid);
+                bundle.putString("home_name", itemList.get(position).teamaname);
+                bundle.putString("away_name", itemList.get(position).teambname);
+                bundle.putString("match_id",itemList.get(position).matchid);
+                Debugger.i("kbetid", itemList.get(position).betid);
+                intent.putExtras(bundle);
                 context.startActivity(intent);
                 ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }
@@ -70,6 +81,14 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailBetToJoin.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("home_logo", itemList.get(position).teamalogo);
+                bundle.putString("away_logo", itemList.get(position).teamblogo);
+                bundle.putString("bet_id", itemList.get(position).betid);
+                bundle.putString("home_name", itemList.get(position).teamaname);
+                bundle.putString("away_name", itemList.get(position).teambname);
+                Debugger.i("kbetid", itemList.get(position).betid);
+                intent.putExtras(bundle);
                 context.startActivity(intent);
                 ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }

@@ -185,5 +185,6 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="no_odds">No odds for this match</string>
     <string name="no_bets_to_join">No bets to join</string>
+    <string name="predict_score">Predict Score</string>
 
 </resources>

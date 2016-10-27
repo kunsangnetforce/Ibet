@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 
 import java.util.List;
@@ -45,7 +46,12 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.i("ibet_position", "" + position);
         DetailBetHolder detailBetHolder = (DetailBetHolder) holder;
-        detailBetHolder.imageView.setImageResource(R.drawable.ic_error);
+        DetailBetData detailBetData=itemList.get(position);
+        Glide.with(context).load(detailBetData.userdp).error(R.drawable.ic_error).into(detailBetHolder.imageViewDp);
+        detailBetHolder.textViewResult.setText(detailBetData.result);
+        detailBetHolder.textViewName.setText(detailBetData.username);
+        detailBetHolder.textViewScore.setText(detailBetData.score);
+        detailBetHolder.textViewSelectedTeam.setText(detailBetData.selectedteam);
 
     }
 

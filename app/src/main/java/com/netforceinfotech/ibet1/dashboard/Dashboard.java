@@ -233,7 +233,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                         Toast.makeText(getApplicationContext(), "App url... yet to implement", Toast.LENGTH_SHORT).show();
                         return true;
                     case "Logout":
-
+                        userSessionManager.setIsLoggedIn(false);
                         LoginManager.getInstance().logOut();
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
@@ -529,6 +529,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                 });
     }
 
+
     private void refreshCoin(JsonObject result) {
         JsonArray data = result.getAsJsonArray("data");
         JsonObject object = data.get(0).getAsJsonObject();
@@ -539,6 +540,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                 .duration(700)
                 .playOn(linearLayoutToolbar);
     }
+
 
     public void setupSelfSSLCert() {
         final Trust trust = new Trust();

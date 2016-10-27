@@ -147,7 +147,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".dashboard.setting.theme.background.BackgroundActivity" />
         <activity android:name=".solobet.recycler.SoloBetActivity" />
-        <activity android:name=".solobet.recycler.PlaceSoloBetActivity"></activity>
+        <activity android:name=".solobet.recycler.PlaceSoloBetActivity" />
+        <activity android:name=".dashboard.home.bets_to_join.detail_bet_to_join.AcceptBetActivity"></activity>
     </application>
 
 </manifest>

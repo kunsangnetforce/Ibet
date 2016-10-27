@@ -54,7 +54,12 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         Log.i("ibet_position", "" + position);
         DetailBetHolder detailBetHolder = (DetailBetHolder) holder;
-        Glide.with(context).load(R.drawable.ic_error).into(detailBetHolder.imageView);
+        DetailBetData detailBetData=itemList.get(position);
+        Glide.with(context).load(detailBetData.userdp).error(R.drawable.ic_error).into(detailBetHolder.imageViewDp);
+        detailBetHolder.textViewResult.setText(detailBetData.result);
+        detailBetHolder.textViewName.setText(detailBetData.username);
+        detailBetHolder.textViewScore.setText(detailBetData.score);
+        detailBetHolder.textViewSelectedTeam.setText(detailBetData.selectedteam);
 
     }
 

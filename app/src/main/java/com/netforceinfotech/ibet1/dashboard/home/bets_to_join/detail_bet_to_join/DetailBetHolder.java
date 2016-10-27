@@ -12,16 +12,18 @@ import android.widget.TextView;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
-public class DetailBetHolder extends RecyclerView.ViewHolder {
+import de.hdodenhof.circleimageview.CircleImageView;
 
+public class DetailBetHolder extends RecyclerView.ViewHolder {
 
     LinearLayout linearLayout;
     TextView textViewName, textViewScore;
-    Button buttonClose;
     View view;
-    ImageView imageView;
+    CircleImageView imageViewDp;
+    TextView textViewResult, textViewSelectedTeam;
     UserSessionManager userSessionManager;
     Context context;
+
 
     public DetailBetHolder(View itemView) {
         super(itemView);
@@ -29,7 +31,9 @@ public class DetailBetHolder extends RecyclerView.ViewHolder {
         view = itemView;
         context = itemView.getContext();
         userSessionManager = new UserSessionManager(context);
-        imageView = (ImageView) view.findViewById(R.id.imageView);
+        imageViewDp = (CircleImageView) view.findViewById(R.id.imageViewDP);
+        textViewResult = (TextView) view.findViewById(R.id.textviewResult);
+        textViewSelectedTeam = (TextView) view.findViewById(R.id.textViewSelectedTeam);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         textViewName = (TextView) view.findViewById(R.id.textViewName);
         textViewScore = (TextView) view.findViewById(R.id.textViewScore);
@@ -62,6 +66,9 @@ public class DetailBetHolder extends RecyclerView.ViewHolder {
         linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         textViewName.setTextColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
         textViewScore.setTextColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        textViewResult.setTextColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+        textViewSelectedTeam.setTextColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
+
     }
 
     private void setMarronTheme() {
@@ -69,6 +76,8 @@ public class DetailBetHolder extends RecyclerView.ViewHolder {
         linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         textViewName.setTextColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
         textViewScore.setTextColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        textViewResult.setTextColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
+        textViewSelectedTeam.setTextColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
     }
 
     private void setGreenTheme() {
@@ -76,6 +85,8 @@ public class DetailBetHolder extends RecyclerView.ViewHolder {
         linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         textViewName.setTextColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
         textViewScore.setTextColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        textViewResult.setTextColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
+        textViewSelectedTeam.setTextColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
     }
 
     private void setPurpleTheme() {
@@ -83,6 +94,9 @@ public class DetailBetHolder extends RecyclerView.ViewHolder {
         linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         textViewName.setTextColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
         textViewScore.setTextColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        textViewResult.setTextColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+        textViewSelectedTeam.setTextColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
+
     }
 
     private void setBrownTheme() {
@@ -90,11 +104,15 @@ public class DetailBetHolder extends RecyclerView.ViewHolder {
         linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         textViewName.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
         textViewScore.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        textViewResult.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
+        textViewSelectedTeam.setTextColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
     }
 
     private void setDefaultTheme() {
         linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         textViewName.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         textViewScore.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+        textViewResult.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
+        textViewSelectedTeam.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
     }
 }
