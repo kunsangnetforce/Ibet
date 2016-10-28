@@ -5,12 +5,14 @@ package com.netforceinfotech.ibet1.dashboard.home.bets_to_join;
  */
 public class BetsToJoinData {
     String userdp, name, numberparticipant, time, teamalogo, teamblogo, teamaname, teambname, betid;
-    public String matchid;
+    public String matchid, bet_option, bet_amount;
 
-    BetsToJoinData(String userdp, String name, String numberparticipant, String time, String teamalogo, String teamblogo, String teamaname, String teambname, String betid,String matchid) {
+    BetsToJoinData(String userdp, String name, String numberparticipant, String time, String teamalogo, String teamblogo, String teamaname, String teambname, String betid, String matchid, String bet_option, String bet_amount) {
         this.name = name;
+        this.bet_amount = bet_amount;
+        this.bet_option = bet_option;
         this.userdp = userdp;
-        this.matchid=matchid;
+        this.matchid = matchid;
         this.numberparticipant = numberparticipant;
         this.time = time;
         this.teamalogo = teamalogo;

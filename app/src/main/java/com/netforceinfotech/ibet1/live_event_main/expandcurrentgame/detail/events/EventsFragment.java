@@ -159,7 +159,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         login_mode = userSessionManager.getLoginMode();
         String url = getResources().getString(R.string.url);
-        url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode;
+        url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode + "&user_id=" + userSessionManager.getCustomerId();
         // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
         Log.i("result url", url);
         setHeader();
@@ -611,10 +611,14 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
         switch (view.getId()) {
             case R.id.textViewTeamAVote:
-                vote("home_name");
+                vote("teama");
+                linearLayoutVote.setVisibility(View.VISIBLE);
+                linearLayoutVoteButton.setVisibility(View.INVISIBLE);
                 break;
             case R.id.textViewTeamBVote:
-                vote("away_name");
+                vote("teamb");
+                linearLayoutVote.setVisibility(View.VISIBLE);
+                linearLayoutVoteButton.setVisibility(View.INVISIBLE);
                 break;
             case R.id.textViewDrawVote:
                 vote("draw");
@@ -630,7 +634,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String url = getResources().getString(R.string.url);
         String user_id = userSessionManager.getCustomerId();
-        url = url + "/votes_by_match.php?matchid=" + match_id + "&user_id=" + user_id + "&vote=" + team;
+        url = url + "/votes_by_match.php?match_id=" + match_id + "&user_id=" + user_id + "&vote=" + team;
         Log.i("result url", url);
         setHeader();
         Ion.with(context)

@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transulation" />
 
     <LinearLayout
 
@@ -45,13 +51,14 @@
                 >
 
                 <EditText
-                    android:id="@+id/email_feedback"
+                    android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:background="@color/white"
-
                     android:hint="@string/feedback_email_hint"
+
+                    android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:textAllCaps="false"
                     android:textColor="#000000"
@@ -60,23 +67,24 @@
 
 
                 <EditText
-                    android:id="@+id/text_feedback"
+                    android:id="@+id/editTextFeedback"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:background="@color/white"
                     android:gravity="top"
-                    android:hint="jfhu hfejhfyuse f"
+                    android:hint="Feed here"
+                    android:inputType="text"
                     android:padding="15dp" />
 
                 <com.balysv.materialripple.MaterialRippleLayout
-                    app:mrl_rippleColor="@color/ripple"
-                    app:mrl_rippleOverlay="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="16dp"
+                    app:mrl_rippleColor="@color/ripple"
+                    app:mrl_rippleOverlay="true">
 
                     <Button
-                        android:id="@+id/buttonSend_feedback"
+                        android:id="@+id/bunttonSend"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="30dp"

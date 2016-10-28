@@ -67,7 +67,6 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     EditText editText;
     TextView friendslist;
     SwitchButton switchButtonCanJoin, switchButtonCantView, switchButtonCanView;
-    public static ArrayList<SearchFriendData> frindids = new ArrayList<>();
     private String switchOption = "0";
     String betoption, selectedteam, home_name, away_name;
     double betamount;
@@ -76,7 +75,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     String match_id;
     private String frindstring;
     Context context;
-    private String friendsidstring;
+    private String friendsidstring = "";
     private String home_id, away_id;
     UserSessionManager userSessionManager;
     private String losercomment = "";
@@ -84,6 +83,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     private Button buttonCreateBet;
     private View view1;
     LinearLayout linearLayoutToolbar;
+    private int FRIENDSLIST = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,20 +215,6 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-        frindstring = "";
-        friendsidstring = "";
-        frindids.add(new SearchFriendData(userSessionManager.getCustomerId(), userSessionManager.getName(), userSessionManager.getProfilePic()));
-        for (int i = 0; i < frindids.size(); i++) {
-            if (i == 0) {
-                frindstring = frindids.get(i).name;
-                friendsidstring = frindids.get(i).id;
-            } else {
-                frindstring += "," + frindids.get(i).name;
-                friendsidstring += "," + frindids.get(i).id;
-            }
-        }
-        friendslist.setText(frindstring);
-        textviewCoins.setText(userSessionManager.getCoins());
     }
 
     private void setuplayout() {
@@ -346,13 +332,28 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonInviteFriend:
-                startActivity(new Intent(CreateBet.this, SearchFriendActivity.class));
+                // startActivity(new Intent(CreateBet.this, SearchFriendActivity.class));
+                Intent i = new Intent(this, SearchFriendActivity.class);
+                startActivityForResult(i, FRIENDSLIST);
                 break;
             case R.id.buttoncreatebet:
                 if (validate()) {
                     showConfirmation();
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FRIENDSLIST) {
+            if (resultCode == RESULT_OK) {
+                friendsidstring = data.getStringExtra("friendsid");//friendsname
+                frindstring = data.getStringExtra("frindstring");
+                friendslist.setText(friendsidstring);
+                Debugger.i("kactivityresult", friendsidstring);
+            }
         }
     }
 
@@ -453,6 +454,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
         return true;
     }
 
@@ -466,6 +468,11 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
      &friends_id=162,163,164&comments=5&home_team_id=1228&away_team_id=2150
      &bet_amount=10.0&bet_option=0&bet_options_to_user=0&user_id=152&bet_remarks=test
       * */
+        if (friendsidstring.trim().length() == 0) {
+            friendsidstring = userSessionManager.getCustomerId();
+        } else {
+            friendsidstring = friendsidstring + "," + userSessionManager.getCustomerId();
+        }
         String baseUrl = getString(R.string.url);
         String betUrl = "/create_bet.php?match_id=" + match_id + "&friends_id=" + friendsidstring + "&comments=" + losercomment
                 + "&home_team_id=" + home_id + "&away_team_id=" + away_id + "&bet_amount=" + betamount + "&bet_status=&bet_match_date=" +

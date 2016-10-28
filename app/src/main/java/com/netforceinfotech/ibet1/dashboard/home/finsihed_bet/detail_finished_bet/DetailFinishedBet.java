@@ -24,6 +24,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -47,7 +48,8 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
     ImageView imageViewTeamA, imageViewTeamB;
     UserSessionManager userSessionManager;
     View view1;
-    TextView textViewMSI, textViewBetamount, textViewPlayer, textViewResult, textViewTeam, textViewScore, textViewLoserMessage,textViewMatchCountdown,textViewTeamA,textViewTeamB;
+    String home_logo, away_logo, bet_id, home_name, away_name;
+    TextView textViewMSI, textViewBetamount, textViewPlayer, textViewResult, textViewTeam, textViewScore, textViewLoserMessage, textViewMatchCountdown, textViewTeamA, textViewTeamB, textviewCoins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +58,28 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
         context = this;
         userSessionManager = new UserSessionManager(this);
         setupStatusBar();
+        /*
+        *   bundle.putString("home_logo", itemList.get(position).teamalogo);
+                bundle.putString("away_logo", itemList.get(position).teamblogo);
+                bundle.putString("bet_id", itemList.get(position).betid);
+                bundle.putString("home_name", itemList.get(position).teamaname);
+                bundle.putString("away_name", itemList.get(position).teambname);
+        * */
+        try {
+            Bundle bundle = getIntent().getExtras();
+            home_logo = bundle.getString("home_logo");
+            home_name = bundle.getString("home_name");
+            away_logo = bundle.getString("away_logo");
+            away_name = bundle.getString("away_name");
+            bet_id = bundle.getString("bet_id");
+            getBetDetail(bet_id);
+        } catch (Exception ex) {
+
+        }
         initView();
         view1 = findViewById(R.id.view);
         setupRecyclerView();
-        setupToolBar("Germany vs Italy");
+        setupToolBar(home_name + " vs " + away_name);
         setupTheme();
         setupBackground();
 
@@ -67,9 +87,9 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
 
     private void initView() {
         view1 = findViewById(R.id.view);
-        textViewMatchCountdown= (TextView) findViewById(R.id.textViewMatchCountdown);
-        textViewTeamA= (TextView) findViewById(R.id.textViewTeamA);
-        textViewTeamB= (TextView) findViewById(R.id.textViewTeamB);
+        textViewMatchCountdown = (TextView) findViewById(R.id.textViewMatchCountdown);
+        textViewTeamA = (TextView) findViewById(R.id.textViewTeamA);
+        textViewTeamB = (TextView) findViewById(R.id.textViewTeamB);
         textViewPlayer = (TextView) findViewById(R.id.textViewPlayer);
         textViewResult = (TextView) findViewById(R.id.textViewResult);
         textViewScore = (TextView) findViewById(R.id.textViewScore);
@@ -82,8 +102,10 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
         findViewById(R.id.buttonClose).setOnClickListener(this);
         imageViewTeamA = (ImageView) findViewById(R.id.imageViewTeamA);
         imageViewTeamB = (ImageView) findViewById(R.id.imageViewTeamB);
-        Glide.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
-        Glide.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
+        Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
+        Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+        textViewTeamA.setText(home_name);
+        textViewTeamB.setText(away_name);
     }
 
     private void setupBackground() {
@@ -250,6 +272,8 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(app_name);
         textView.setText(app_name);
+        textviewCoins = (TextView) toolbar.findViewById(R.id.textViewCoins);
+
 
     }
 
@@ -262,6 +286,14 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        textviewCoins.setText(userSessionManager.getCoins());
+
+    }
+
     private void setupStatusBar() {
         Window window = getWindow();
 
@@ -305,10 +337,12 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
         }
 
     }
+
     private void getBetDetail(String bet_id) {
         //https://netforcesales.com/ibet_admin/api/upcoming_bet_detail.php?&bet_id=237
         String baseUrl = getString(R.string.url);
         String url = baseUrl + "/upcoming_bet_detail.php?&bet_id=" + bet_id;
+        Debugger.i("kurl", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -335,7 +369,7 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
                     JsonObject bet_detail = result.getAsJsonObject("bet_detail");
                     if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
                         JsonObject bet = bet_detail.getAsJsonObject("bet");
-
+/*
                         if (!bet.get("team_home").isJsonNull()) {
                             home_id = bet.get("team_home").getAsString();
                         }
@@ -358,6 +392,10 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
                             home_name = bet.get("team_home").getAsString();
                             textViewTeamA.setText(home_name);
 
+                        }*/
+                        if (!bet.get("bet_remarks").isJsonNull()) {
+                            String bet_remarks = bet.get("bet_remarks").getAsString();
+                            textViewLoserMessage.setText(bet_remarks);
                         }
                         if (!bet.get("bet_ammount").isJsonNull()) {
                             bet_ammount = bet.get("bet_ammount").getAsString();

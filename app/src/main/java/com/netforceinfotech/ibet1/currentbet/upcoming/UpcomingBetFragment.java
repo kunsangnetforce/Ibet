@@ -20,6 +20,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -70,6 +71,7 @@ public class UpcomingBetFragment extends Fragment {
 
     private void getUpcomingBets() {
         String url = "https://netforcesales.com/ibet_admin/api/upcoming_bets.php?&user_id=" + userSessionManager.getCustomerId();
+        Debugger.i("kurl", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -131,7 +133,11 @@ public class UpcomingBetFragment extends Fragment {
             if (participantsCount.equalsIgnoreCase("") || participantsCount.trim().length() <= 0) {
                 participantsCount = "0";
             }
-            upcomingBetDatas.add(new UpcomingBetData(creatorDp, creatorName, "", "", participantsCount, "", date_time, homeLogo, awayLogo, homeName, awayName, "", betId, home_id, away_id, matchid, seasonid));
+            //String userdp, String name, String selectedteamlogo, String selectedteamname,
+            // String numberparticipant, String numberpost, String time, String teamalogo, String teamblogo,
+            // String teamaname, String teambname, String betstatus, String betid, String home_id, String away_id,String matchid,String seasonid) {
+            upcomingBetDatas.add(new UpcomingBetData(creatorDp, creatorName, "", "", participantsCount, "", date_time, homeLogo,
+                    awayLogo, homeName, awayName, "", betId, home_id, away_id, matchid, seasonid));
         }
         adapter.notifyDataSetChanged();
     }

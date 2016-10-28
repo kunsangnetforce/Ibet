@@ -9,6 +9,7 @@
     android:orientation="vertical"
     android:paddingBottom="16dp"
     tools:context=".dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet">
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -135,6 +136,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:gravity="center"
+                            android:text="@string/bet_amount"
                             android:textColor="@color/colorText"
                             android:textSize="12sp" />
 
@@ -145,17 +147,18 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:src="@drawable/img_dollor_small" />
-
                             <TextView
                                 android:id="@+id/textViewBetamount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="12sp" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/img_dollor_small" />
+
 
                         </LinearLayout>
                     </LinearLayout>

@@ -63,6 +63,8 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     CoordinatorLayout coordinatorLayout;
     TextView textViewNoData;
     View view1;
+    boolean clickedLivematch = true;
+    private String stringDate = "";
 
     public LiveEventsFragment() {
         // Required empty public constructor
@@ -196,7 +198,11 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                 expandHeaderDatas.clear();
                 listDataChild.clear();
                 buttonDate.setText("Select Date");
-                getLiveMatch();
+                if (clickedLivematch) {
+                    getLiveMatch();
+                } else {
+                    getMatchBydate(stringDate);
+                }
             }
         });
         setupExpandableView(view);
@@ -270,7 +276,12 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
 
     private void setupData(JsonObject result) {
         try {
+            expandHeaderDatas.clear();
+            listDataChild.clear();
             currentGameDatas.clear();
+            listAdapter.notifyDataSetChanged();
+            currentGameDatas.clear();
+            currentGameAdapter.notifyDataSetChanged();
         } catch (Exception ex) {
 
         }
@@ -398,7 +409,9 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         }
         buttonDate.setText(day_txt + " " + dayOfMonth + " " + month_txt);
         linearLayoutProgress.setVisibility(View.VISIBLE);
-        getMatchBydate(year + "-" + formattedMonth + "-" + dayOfMonth);
+        clickedLivematch = false;
+        stringDate = year + "-" + formattedMonth + "-" + dayOfMonth;
+        getMatchBydate(stringDate);
         Log.i("kunsang_date", year + "-" + monthOfYear + "-" + dayOfMonth);
 
     }

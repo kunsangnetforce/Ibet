@@ -78,8 +78,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         context = getActivity();
         try {
-            home_id = this.getArguments().getString("away_id");
-            away_id = this.getArguments().getString("home_id");
+            home_id = this.getArguments().getString("home_id");
+            away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");
             away_name = this.getArguments().getString("away_name");
@@ -195,25 +195,25 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                 String teamalogo = "";
                 String teamblogo = "";
                 try {
-                    if (teamObject.get("hm_teamname").isJsonNull()) {
+                    if (teamObject.get("home_teamname").isJsonNull()) {
                         teama = "";
                     } else {
-                        teama = teamObject.get("hm_teamname").getAsString();
+                        teama = teamObject.get("home_teamname").getAsString();
                     }
-                    if (teamObject.get("aw_teamname").isJsonNull()) {
+                    if (teamObject.get("away_teamname").isJsonNull()) {
                         teamb = "";
                     } else {
-                        teamb = teamObject.get("aw_teamname").getAsString();
+                        teamb = teamObject.get("away_teamname").getAsString();
                     }
-                    if (teamObject.get("hm_teamlogo").isJsonNull()) {
+                    if (teamObject.get("home_teamlogo").isJsonNull()) {
                         teamalogo = "";
                     } else {
-                        teamalogo = teamObject.get("hm_teamlogo").getAsString();
+                        teamalogo = teamObject.get("home_teamlogo").getAsString();
                     }
-                    if (teamObject.get("aw_teamlogo").isJsonNull()) {
+                    if (teamObject.get("away_teamlogo").isJsonNull()) {
                         teamblogo = "";
                     } else {
-                        teamblogo = teamObject.get("aw_teamlogo").getAsString();
+                        teamblogo = teamObject.get("away_teamlogo").getAsString();
                     }
 
 

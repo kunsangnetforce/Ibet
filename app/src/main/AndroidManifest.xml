@@ -30,6 +30,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".currentbet.livebet.detail_live_bet.DetailLiveBet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".currentbet.upcoming.detail_upcoming_bet.DetailUpcomingBet"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -109,23 +115,40 @@
         <activity
             android:name=".dashboard.setting.sounds.SoundActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".dashboard.setting.theme.themeColor.ThemeColorActivity" />
-        <activity android:name=".currentbet.betarena.EnterBetArenaActivity" />
-        <activity android:name=".currentbet.betarena.thearena.TheArenaActivity" />
-        <activity android:name=".currentbet.betarena.thearena.StandActivity" />
-        <activity android:name=".dashboard.home.startnewbet.create_bet.CreateBet" />
+        <activity
+            android:name=".dashboard.setting.theme.themeColor.ThemeColorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".currentbet.betarena.EnterBetArenaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".currentbet.betarena.thearena.TheArenaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".currentbet.betarena.thearena.StandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dashboard.home.startnewbet.create_bet.CreateBet"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".scratchview.ImageOverlayDrawable"
-            android:label="Image Overlay Drawable (Experimental)">
+            android:label="Image Overlay Drawable (Experimental)"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="com.winsontan520.testwscratchview.SAMPLE" />
             </intent-filter>
         </activity>
-        <activity android:name=".live_event_main.LiveEventActivity" />
-        <activity android:name=".profilesetting.tutorial.TutorialActivity" />
-        <activity android:name=".profilesetting.tutorial.DefaultIntro" />
+        <activity
+            android:name=".live_event_main.LiveEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profilesetting.tutorial.TutorialActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".profilesetting.tutorial.DefaultIntro"
+            android:screenOrientation="portrait" />
 
         <service android:name=".general.firebasegcm.MyFirebaseIDService">
             <intent-filter>
@@ -139,16 +162,30 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.StandActivity" />
-        <activity android:name=".live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments" />
-        <activity android:name=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity" />
+        <activity
+            android:name=".live_event_main.expandcurrentgame.detail.stand.StandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".scratchview.ScratchActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".dashboard.setting.theme.background.BackgroundActivity" />
-        <activity android:name=".solobet.recycler.SoloBetActivity" />
-        <activity android:name=".solobet.recycler.PlaceSoloBetActivity" />
-        <activity android:name=".dashboard.home.bets_to_join.detail_bet_to_join.AcceptBetActivity"></activity>
+        <activity
+            android:name=".dashboard.setting.theme.background.BackgroundActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".solobet.recycler.SoloBetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".solobet.recycler.PlaceSoloBetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".dashboard.home.bets_to_join.detail_bet_to_join.AcceptBetActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

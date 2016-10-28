@@ -22,6 +22,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -29,6 +30,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.expandteam.ExpandHeaderData;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.expandteam.ExpandableListAdapter;
@@ -64,7 +66,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     LinearLayout linearLayoutProgress;
     public static LinearLayout linearlayoutMain, linearLayoutSelectedTeams, linearLayoutTeams;
     EditText editTextSearch;
-    public static ArrayList<SelectedTeamData> selectTeamDatas = new ArrayList<>();
+    public static ArrayList<TeamListData> selectTeamDatas = new ArrayList<>();
     public ArrayList<String> selectedTeams = new ArrayList<>();
     public static SelectTeamAdapter selectTeamAdapter;
     private MaterialSearchView searchView;
@@ -76,6 +78,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     UserSessionManager userSessionManager;
     CoordinatorLayout coordinatorLayout;
     private View view1;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,10 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView() {
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
         linearLayoutATL = (LinearLayout) findViewById(R.id.linearLayoutATL);
         linearLayoutSTL = (LinearLayout) findViewById(R.id.linearLayoutSTL);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
@@ -118,6 +125,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         String baseUrl = getString(R.string.url);
         String richestListUrl = "/services.php?opt=get_fav_team_top&user_id=" + customerId;
         String url = baseUrl + richestListUrl;
+        Debugger.i("kurl", url);
         setupSelfSSLCert();
         Ion.with(context)
                 .load(url)
@@ -141,16 +149,19 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setupSelectedTeam(JsonObject result) {
-        JsonObject data = result.getAsJsonObject("data");
-        JsonArray fav_list = data.getAsJsonArray("fav_team_id");
+        JsonArray data = result.getAsJsonArray("data");
         try {
             selectedTeams.clear();
         } catch (Exception ex) {
 
         }
-        for (int i = 0; i < fav_list.size(); i++) {
-            String id = fav_list.get(i).getAsString();
-            selectedTeams.add(id);
+        int size=data.size();
+        for(int i=0;i<size;i++){
+            JsonObject jsonObject=data.get(i).getAsJsonObject();
+            //
+            String fav_team_id=jsonObject.get("fav_team_id").getAsString();
+            selectedTeams.add(fav_team_id);
+
         }
         getTeams();
     }
@@ -412,6 +423,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void updateTeam(String teams) {
+        progressDialog.show();
         UserSessionManager userSessionManager = new UserSessionManager(context);
         //https://netforcesales.com/ibet_admin/api/services.php?opt=insert_team_list&customer_id=46&team=1,2,3
         String baseUrl = getString(R.string.url);
@@ -426,6 +438,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        progressDialog.dismiss();
                         if (result == null) {
                             showMessage("Something is wrong");
                         } else {

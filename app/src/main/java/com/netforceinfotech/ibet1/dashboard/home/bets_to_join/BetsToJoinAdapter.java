@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
+import com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join.AcceptBetActivity;
 import com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin;
 
 
@@ -63,14 +64,29 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         betsToJoinHolder.textViewResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DetailBetToJoin.class);
+                Intent intent = new Intent(context, AcceptBetActivity.class);
                 Bundle bundle = new Bundle();
+                 /*
+            *  Bundle bundle = new Bundle();
+                bundle.putString("match_id", match_id);
+                bundle.putString("bet_id", bet_id);
+                bundle.putString("home_name", home_name);
+                bundle.putString("home_id", home_id);
+                bundle.putString("home_logo", home_logo);
+                bundle.putString("away_name", away_name);
+                bundle.putString("away_id", away_id);
+                bundle.putString("away_logo", away_logo);
+                bundle.putString("bet_option", "0");
+            * */
+
                 bundle.putString("home_logo", itemList.get(position).teamalogo);
                 bundle.putString("away_logo", itemList.get(position).teamblogo);
                 bundle.putString("bet_id", itemList.get(position).betid);
                 bundle.putString("home_name", itemList.get(position).teamaname);
                 bundle.putString("away_name", itemList.get(position).teambname);
-                bundle.putString("match_id",itemList.get(position).matchid);
+                bundle.putString("match_id", itemList.get(position).matchid);
+                bundle.putString("bet_option", itemList.get(position).bet_option);
+                bundle.putString("bet_amount",itemList.get(position).bet_amount);
                 Debugger.i("kbetid", itemList.get(position).betid);
                 intent.putExtras(bundle);
                 context.startActivity(intent);

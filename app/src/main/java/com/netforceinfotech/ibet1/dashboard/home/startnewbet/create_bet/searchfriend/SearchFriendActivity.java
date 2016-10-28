@@ -1,11 +1,12 @@
 package com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +27,6 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.netforceinfotech.ibet1.R;
-import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.CreateBet;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.friend.SearchFriendAdapter;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.selectedfrind.SelectFriendAdapter;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
@@ -34,6 +34,7 @@ import com.netforceinfotech.ibet1.general.UserSessionManager;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+
 
 public class SearchFriendActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,6 +51,8 @@ public class SearchFriendActivity extends AppCompatActivity implements View.OnCl
     Button buttonDone;
     View view1;
     UserSessionManager userSessionManager;
+    private String frindstring="";
+    private String friendsidstring="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,16 +233,23 @@ public class SearchFriendActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonDone:
-                CreateBet.frindids.clear();
-                for (int i = 0; i < selectedDatas.size(); i++) {
 
-                    if (!CreateBet.frindids.contains(selectedDatas.get(i))) {
-                        CreateBet.frindids.add(selectedDatas.get(i));
-                    }
-                }
                 if (selectedDatas.size() == 0) {
                     showMessage("No friend selected");
                 }
+                for (int i = 0; i < selectedDatas.size(); i++) {
+                    if (i == 0) {
+                        frindstring = selectedDatas.get(i).name;
+                        friendsidstring = selectedDatas.get(i).id;
+                    } else {
+                        frindstring += "," + selectedDatas.get(i).name;
+                        friendsidstring += "," + selectedDatas.get(i).id;
+                    }
+                }
+                Intent intent = new Intent();
+                intent.putExtra("friendsid", friendsidstring);
+                intent.putExtra("friendsname", frindstring);
+                setResult(RESULT_OK, intent);
                 finish();
                 break;
         }
@@ -333,6 +343,7 @@ public class SearchFriendActivity extends AppCompatActivity implements View.OnCl
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
     }
+
     private void setupStatusBar() {
         Window window = getWindow();
 

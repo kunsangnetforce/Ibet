@@ -1,12 +1,17 @@
 package com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -46,8 +51,8 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
     int homescore = 0, awayscore = 0;
 
     Button buttonPlaceBet;
-    LinearLayout linearLayoutScoreMain, linearLayoutToolbar;
-    String bet_option, bet_id, home_id, home_name, home_logo, away_id, away_name, away_logo, match_id, bet_amount;
+    LinearLayout linearLayoutScoreMain, linearLayoutToolbar, linearLayoutHome, linearLayoutAway;
+    String bet_option, bet_id, home_name, home_logo, away_name, away_logo, match_id, bet_amount;
     String selectedteam = "";
     TextView textViewBetAmount, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway, textviewCoins;
     RadioButton radioButtonHome, radioButtonDraw, radioButtonAway;
@@ -55,6 +60,8 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
     UserSessionManager userSessionManager;
     Context context;
     Toolbar toolbar;
+    CoordinatorLayout coordinatorLayout;
+    View view1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,29 +70,20 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
         context = this;
         userSessionManager = new UserSessionManager(context);
         try {
-            /*
-            *  Bundle bundle = new Bundle();
-                bundle.putString("match_id", match_id);
-                bundle.putString("bet_id", bet_id);
-                bundle.putString("home_name", home_name);
-                bundle.putString("home_id", home_id);
-                bundle.putString("home_logo", home_logo);
-                bundle.putString("away_name", away_name);
-                bundle.putString("away_id", away_id);
-                bundle.putString("away_logo", away_logo);
-                bundle.putString("bet_option", "0");
-            * */
             Bundle bundle = getIntent().getExtras();
             bet_option = bundle.getString("bet_option");
             bet_id = bundle.getString("bet_id");
             bet_amount = bundle.getString("bet_amount");
             match_id = bundle.getString("match_id");
-            home_id = bundle.getString("home_id");
             home_name = bundle.getString("home_name");
             home_logo = bundle.getString("home_logo");
-            away_id = bundle.getString("away_id");
             away_name = bundle.getString("away_name");
             away_logo = bundle.getString("away_logo");
+            try {
+                bet_amount = bundle.getString("bet_amount");
+            } catch (Exception ex) {
+
+            }
 
 
         } catch (Exception ex) {
@@ -94,6 +92,9 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
         }
         initView();
         setupToolBar(home_name + " vs" + away_name);
+        setupStatusBar();
+        setupTheme();
+        setupBackbround();
 
     }
 
@@ -128,6 +129,10 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
 
 
     private void initView() {
+        linearLayoutAway = (LinearLayout) findViewById(R.id.linearLayoutAway);
+        linearLayoutHome = (LinearLayout) findViewById(R.id.linearLayoutHome);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+        view1 = findViewById(R.id.view);
         buttonPlaceBet = (Button) findViewById(R.id.buttonPlaceBet);
         buttonPlaceBet.setOnClickListener(this);
         textViewScoreHome = (TextView) findViewById(R.id.textViewHomeScore);
@@ -156,6 +161,7 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
         textviewselectHome.setOnClickListener(this);
         textviewselectDraw.setOnClickListener(this);
         textViewBetAmount = (TextView) findViewById(R.id.textViewBetamount);
+        textViewBetAmount.setText(bet_amount);
         relativeLayoutTeam = (RelativeLayout) findViewById(R.id.relativeLayoutTeam);
         linearLayoutScoreMain = (LinearLayout) findViewById(R.id.linearLayoutScoreMain);
         if (bet_option.equalsIgnoreCase("0")) {
@@ -383,4 +389,138 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
         return true;
     }
 
+    private void setupStatusBar() {
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        switch (userSessionManager.getTheme()) {
+            case 0:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                }
+                break;
+            case 1:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+                }
+                break;
+            case 2:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+                }
+                break;
+            case 3:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+                }
+                break;
+            case 4:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+                }
+                break;
+            case 5:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+                }
+                break;
+        }
+
+    }
+
+    private void setupBackbround() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+    }
+
+    private void setupGreenTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+    }
+
+    private void setupMarronTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+    }
+
+    private void setupLightBlueTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        linearLayoutHome.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        linearLayoutAway.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+    }
 }

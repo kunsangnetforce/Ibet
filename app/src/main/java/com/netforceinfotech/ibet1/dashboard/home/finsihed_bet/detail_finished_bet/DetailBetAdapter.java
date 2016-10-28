@@ -70,7 +70,7 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return 5;
+        return itemList.size();
 //        return itemList.size();
     }
 }

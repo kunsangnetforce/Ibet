@@ -4,8 +4,8 @@ package com.netforceinfotech.ibet1.currentbet.livebet;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.currentbet.betarena.EnterBetArenaActivity;
-import com.netforceinfotech.ibet1.dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet;
+import com.netforceinfotech.ibet1.currentbet.livebet.detail_live_bet.DetailLiveBet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -77,7 +77,22 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 context.startActivity(intent);
             }
         });
+        upcomingBetHolder.textViewDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailLiveBet.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("home_logo", itemList.get(position).teamalogo);
+                bundle.putString("away_logo", itemList.get(position).teamblogo);
+                bundle.putString("bet_id", itemList.get(position).betid);
+                bundle.putString("home_name", itemList.get(position).teamaname);
+                bundle.putString("away_name", itemList.get(position).teambname);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+                ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
 
+            }
+        });
         if (itemList.get(position).userdp.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).userdp)

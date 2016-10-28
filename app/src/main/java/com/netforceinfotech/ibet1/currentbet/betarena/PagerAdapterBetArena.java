@@ -82,7 +82,7 @@ public class PagerAdapterBetArena extends FragmentStatePagerAdapter {
                 bundle.putString("home_id", home_id);
                 bundle.putString("home_name", home_name);
                 bundle.putString("away_name", away_name);
-                bundle.putString("home_logo", home_name);
+                bundle.putString("home_logo", home_logo);
                 bundle.putString("away_logo", away_logo);
                 theArenaFragment.setArguments(bundle);
                 return theArenaFragment;

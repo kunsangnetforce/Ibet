@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
+import com.netforceinfotech.ibet1.general.UserSessionManager;
 
 import java.util.List;
 
@@ -25,12 +26,14 @@ public class TableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<TableData> itemList;
     private Context context;
     String home_id, away_id;
+    UserSessionManager userSessionManager;
 
     public TableAdapter(Context context, List<TableData> itemList, String home_id, String away_id) {
         this.itemList = itemList;
         this.context = context;
         this.home_id = home_id;
         this.away_id = away_id;
+        userSessionManager = new UserSessionManager(context);
         inflater = LayoutInflater.from(context);
     }
 
@@ -69,7 +72,30 @@ public class TableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (itemList.get(position).id.equalsIgnoreCase(home_id) || itemList.get(position).id.equalsIgnoreCase(away_id)) {
             tableHolder.view.setBackgroundColor(ContextCompat.getColor(context, R.color.black));
         } else {
-            tableHolder.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            switch (userSessionManager.getTheme()) {
+                case 0:
+                    tableHolder.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                    break;
+                case 1:
+                    tableHolder.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+
+                    break;
+                case 2:
+                    tableHolder.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+
+                    break;
+                case 3:
+                    tableHolder.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+                    break;
+                case 4:
+                    tableHolder.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+
+                    break;
+                case 5:
+                    tableHolder.view.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+
+                    break;
+            }
         }
 
     }

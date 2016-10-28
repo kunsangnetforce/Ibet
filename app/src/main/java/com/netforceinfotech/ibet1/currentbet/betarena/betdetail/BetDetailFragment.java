@@ -22,6 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -46,6 +47,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
     ImageView imageViewTeamA, imageViewTeamB;
     UserSessionManager userSessionManager;
     View view1;
+    String home_name, away_name;
     TextView textViewMSI, textViewBetamount, textViewPlayer, textViewResult, textViewTeam, textViewScore, textViewLoserMessage, textViewMatchCountdown, textViewTeamA, textViewTeamB;
 
     public BetDetailFragment() {
@@ -61,10 +63,16 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
         try {
+            /*
+            *    bundle.putString("home_name", home_name);
+                bundle.putString("away_name", away_name);
+            * */
             String bet_id = this.getArguments().getString("bet_id");
+            home_name = this.getArguments().getString("home_name");
+            away_name = this.getArguments().getString("away_name");
             getBetDetail(bet_id);
         } catch (Exception ex) {
-
+            ex.printStackTrace();
         }
         initView(view);
         setupTheme();
@@ -77,6 +85,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         //https://netforcesales.com/ibet_admin/api/upcoming_bet_detail.php?&bet_id=237
         String baseUrl = getString(R.string.url);
         String url = baseUrl + "/upcoming_bet_detail.php?&bet_id=" + bet_id;
+        Debugger.i("kurl", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -99,12 +108,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                     if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
                         JsonObject bet = bet_detail.getAsJsonObject("bet");
 
-                        if (!bet.get("team_home").isJsonNull()) {
-                            home_id = bet.get("team_home").getAsString();
-                        }
-                        if (!bet.get("team_away").isJsonNull()) {
-                            away_id = bet.get("team_away").getAsString();
-                        }
+
                         if (!bet.get("team_away_flag").isJsonNull()) {
                             team_away_flag = bet.get("team_away_flag").getAsString();
                             Glide.with(context).load(team_away_flag).error(R.drawable.ic_error).into(imageViewTeamB);
@@ -113,15 +117,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                             team_home_flag = bet.get("team_home_flag").getAsString();
                             Glide.with(context).load(team_home_flag).error(R.drawable.ic_error).into(imageViewTeamA);
                         }
-                        if (!bet.get("away_name").isJsonNull()) {
-                            away_name = bet.get("away_name").getAsString();
-                            textViewTeamB.setText(away_name);
-                        }
-                        if (!bet.get("team_home").isJsonNull()) {
-                            home_name = bet.get("team_home").getAsString();
-                            textViewTeamA.setText(home_name);
 
-                        }
                         if (!bet.get("bet_ammount").isJsonNull()) {
                             bet_ammount = bet.get("bet_ammount").getAsString();
                             textViewBetamount.setText(bet_ammount);
@@ -177,7 +173,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        DetailBetAdapter detailBetAdapter = new DetailBetAdapter(context, null);
+        DetailBetAdapter detailBetAdapter = new DetailBetAdapter(context, detailBetDatas);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(detailBetAdapter);
     }
@@ -190,6 +186,8 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         textViewTeam = (TextView) view.findViewById(R.id.textViewTeam);
         textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
         textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
+        textViewTeamA.setText(home_name);
+        textViewTeamB.setText(away_name);
         textViewMatchCountdown = (TextView) view.findViewById(R.id.textViewMatchCountdown);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         textViewBetamount = (TextView) view.findViewById(R.id.textViewBetamount);
@@ -250,6 +248,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                 break;
         }
     }
+
     private void setupBrownTheme() {
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         textViewMSI.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));

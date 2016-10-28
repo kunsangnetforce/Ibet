@@ -127,12 +127,14 @@ public class BetsToJoin extends Fragment {
                     String bet_match_date = jsonObject.get("bet_match_date").getAsString();
                     String bet_match_time = jsonObject.get("bet_match_time").getAsString();
                     String matchid = jsonObject.get("bet_match_id").getAsString();
+                    String bet_option = jsonObject.get("bet_option").getAsString();
+                    String bet_amount = jsonObject.get("bet_amount").getAsString();
                     String betid = jsonObject.get("betid").getAsString();
                     String time = bet_match_date + " " + bet_match_time;
 //String userdp, String name, String numberparticipant, String time, String teamalogo, String teamblogo,
 // String teamaname, String teambname, String betid) {
                     BetsToJoinData betsToJoin = new BetsToJoinData(userdp, name, participants, time, home_logo,
-                            away_logo, home_name, away_name, betid, matchid);
+                            away_logo, home_name, away_name, betid, matchid, bet_option, bet_amount);
                     betsToJoinDatas.add(betsToJoin);
 
                 }

@@ -93,11 +93,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             public void onClick(View view) {
                 Log.i("kunsangmessage", "clicked");
                 TeamListData teamListData = expandChildDatas.get(expandHeaderDatas.get(groupPosition)).get(childPosition);
-                SelectedTeamData selectedTeamData = new SelectedTeamData(teamListData.id, teamListData.name, teamListData.logo, teamListData.compid, teamListData.compName);
 
-                if (!SelectTeamActivity.selectTeamDatas.contains(selectedTeamData)) {
+                if (!SelectTeamActivity.selectTeamDatas.contains(teamListData)) {
 
-                    SelectTeamActivity.selectTeamDatas.add(selectedTeamData);
+                    SelectTeamActivity.selectTeamDatas.add(teamListData);
                 }
                 imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
                 SelectTeamActivity.selectTeamAdapter.notifyDataSetChanged();

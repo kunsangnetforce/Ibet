@@ -109,7 +109,7 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         finishedBetHolder.textViewTeamA.setText(itemList.get(position).teamaname);
         finishedBetHolder.textViewTeamB.setText(itemList.get(position).teambname);
         finishedBetHolder.textViewParticipants.setText(itemList.get(position).numberparticipant);
-        finishedBetHolder.textViewTime.setText(itemList.get(position).time);
+        finishedBetHolder.textViewTime.setText(getFormatdedDate(itemList.get(position).time));
     }
 
     private void showMessage(String s) {
@@ -140,5 +140,22 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemCount() {
         //return 5;
         return itemList.size();
+    }
+    private String getFormatdedDate(String date) {
+        SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date2 = null;
+        try {
+            date2 = date_format.parse(date);
+        } catch (ParseException e) {
+
+            showMessage("error parsing date");
+            e.printStackTrace();
+            return "";
+        }
+
+        SimpleDateFormat outDate = new SimpleDateFormat("EEE dd MMM  yyyy hh:mm a");
+
+        return outDate.format(date2);
+
     }
 }

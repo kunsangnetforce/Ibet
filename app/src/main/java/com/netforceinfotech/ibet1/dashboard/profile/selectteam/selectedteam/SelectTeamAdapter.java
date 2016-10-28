@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.SelectTeamActivity;
+import com.netforceinfotech.ibet1.dashboard.profile.selectteam.listofteam.TeamListData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +24,11 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<SelectedTeamData> itemList;
+    private List<TeamListData> itemList;
     private Context context;
     ArrayList<Boolean> booleanGames = new ArrayList<>();
 
-    public SelectTeamAdapter(Context context, List<SelectedTeamData> itemList) {
+    public SelectTeamAdapter(Context context, List<TeamListData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -66,6 +68,7 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 SelectTeamActivity.listAdapter.notifyDataSetChanged();
             }
         });
+
     }
 
     private void showMessage(String s) {

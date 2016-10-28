@@ -1,4 +1,4 @@
-package com.netforceinfotech.ibet1.currentbet.betarena.betdetail;
+package com.netforceinfotech.ibet1.currentbet.livebet.detail_live_bet;
 
 
 import android.content.Context;
@@ -31,7 +31,15 @@ public class DetailBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         inflater = LayoutInflater.from(context);
     }
 
-
+    /*  @Override
+      public int getItemViewType(int position) {
+          if (itemList.get(position).image.isEmpty()) {
+              return SIMPLE_TYPE;
+          } else {
+              return IMAGE_TYPE;
+          }
+      }
+  */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

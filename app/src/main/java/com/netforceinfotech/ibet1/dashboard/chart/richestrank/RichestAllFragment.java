@@ -58,7 +58,6 @@ public class RichestAllFragment extends Fragment {
         theme = userSessionManager.getTheme();
         setupRecyclerView(view);
         getRichestList();
-
         return view;
     }
 
