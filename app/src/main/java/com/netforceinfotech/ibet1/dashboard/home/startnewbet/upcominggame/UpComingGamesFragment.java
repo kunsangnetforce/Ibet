@@ -23,6 +23,7 @@ import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.WhoWillWinActivity;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
@@ -150,7 +151,7 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
         UserSessionManager userSessionManager = new UserSessionManager(context);
         String token = userSessionManager.getApitoken();
         String url = "https://api.soccerama.pro/v1.1/matches/" + date1 + "/" + date2 + "?api_token=" + token + "&include=homeTeam,awayTeam,competition";
-        Log.i("kunsang_url", url);
+        Debugger.i("kunsang_url_upcoming", url);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()

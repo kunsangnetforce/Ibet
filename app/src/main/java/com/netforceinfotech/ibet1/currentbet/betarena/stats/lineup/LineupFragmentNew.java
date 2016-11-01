@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -113,7 +114,8 @@ public class LineupFragmentNew extends Fragment {
         String url = "https://api.soccerama.pro/v1.1/matches/" + matchid + "?api_token=" + token + "&include=lineup,homeTeam,awayTeam";
         // url = url + "/events_by_match_id.php?match_id=" + match_id + "&home_team_id=" + home_id + "&away_team_id=" + away_id;
         // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
-        Log.i("kunsangurl", url);
+        Debugger.i("kunsang_url_lineup", url);
+
         Ion.with(context)
                 .load(url)
                 .asJsonObject()

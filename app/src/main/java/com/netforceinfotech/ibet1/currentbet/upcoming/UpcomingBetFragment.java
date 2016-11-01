@@ -71,7 +71,8 @@ public class UpcomingBetFragment extends Fragment {
 
     private void getUpcomingBets() {
         String url = "https://netforcesales.com/ibet_admin/api/upcoming_bets.php?&user_id=" + userSessionManager.getCustomerId();
-        Debugger.i("kurl", url);
+        Debugger.i("kunsang_url_upcomingbets", url);
+
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

@@ -25,6 +25,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity;
@@ -125,7 +126,7 @@ public class Home extends Fragment implements View.OnClickListener {
         final String baseUrl = getString(R.string.url);
         String profileUrl = "/services.php?opt=get_home_by_userid&custid=" + customerId;
         String url = baseUrl + profileUrl;
-        Log.i("kunsang_url", url);
+        Debugger.i("kunsang_url_getprofiledetail", url);
 
         setupSelfSSLCert();
         Ion.with(context)

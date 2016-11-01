@@ -11,6 +11,8 @@ import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
+import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,40 +28,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imageView = (ImageView) findViewById(R.id.splash);
         Glide.with(getApplicationContext()).load(R.drawable.splash).into(imageView);
-        new AccessTokenTracker() {
+        new Handler().postDelayed(new Runnable() {
+
             @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-                updateWithToken(newAccessToken);
+            public void run() {
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+
+                finish();
             }
-        };
-        updateWithToken(AccessToken.getCurrentAccessToken());
+        }, SPLASH_TIME_OUT);
 
     }
 
-    private void updateWithToken(AccessToken currentAccessToken) {
+   /* private void updateWithToken(AccessToken currentAccessToken) {
 
         if (currentAccessToken != null) {
             new Handler().postDelayed(new Runnable() {
 
                 @Override
                 public void run() {
-                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    Debugger.i("kwhick", "splash dash");
+                    Intent i = new Intent(MainActivity.this, Dashboard.class);
                     startActivity(i);
 
                     finish();
                 }
             }, SPLASH_TIME_OUT);
         } else {
-            new Handler().postDelayed(new Runnable() {
 
-                @Override
-                public void run() {
-                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(i);
-
-                    finish();
-                }
-            }, SPLASH_TIME_OUT);
         }
-    }
+    }*/
 }

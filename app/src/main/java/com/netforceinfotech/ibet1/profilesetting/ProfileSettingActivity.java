@@ -30,6 +30,7 @@ import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
@@ -57,7 +58,8 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
     private String filePath;
     UserSessionManager userSessionManager;
     public static ArrayList<String> arrayListTeamids = new ArrayList<>();
-    LinearLayout linearLayoutProgress;
+    private MaterialDialog progressDialog;
+    //  LinearLayout linearLayoutProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,17 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         }
         getPermission();
 
+        initView();
+
+        //   linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgress);
+    }
+
+    private void initView() {
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
+        progressDialog.setCanceledOnTouchOutside(false);
         imageViewDP = (ImageView) findViewById(R.id.imageViewDP);
 
         findViewById(R.id.buttonSkip).setOnClickListener(this);
@@ -79,7 +92,6 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         findViewById(R.id.buttonDone).setOnClickListener(this);
         findViewById(R.id.imageViewDP).setOnClickListener(this);
         findViewById(R.id.rippleText).setOnClickListener(this);
-        linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgress);
     }
 
     @Override
@@ -112,7 +124,7 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                 startActivity(intent);
                 break;
             case R.id.buttonDone:
-                linearLayoutProgress.setVisibility(View.VISIBLE);
+                //    linearLayoutProgress.setVisibility(View.VISIBLE);
                 String id = userSessionManager.getCustomerId();
                 uploadImage(id);
                 userSessionManager.setIsFirstTime(false);
@@ -136,13 +148,13 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
     }
 
     private void uploadImage(String id) {
+        progressDialog.show();
         //https://netforcesales.com/ibet_admin/api/services.php?opt=update_profile&customer_id=46
         String url = getResources().getString(R.string.url);
         String uploadurl = "/services.php?opt=update_profile&customer_id=" + id;
         String teams = TextUtils.join(",", arrayListTeamids);
         url = url + uploadurl;
-        Log.i("result_url", url);
-        Log.i("result_url", filePath + "   " + teams);
+        Debugger.i("kunsang_url_uploadImage", url);
         File file = null;
         setHeader();
         if (filePath == null || filePath.length() == 0) {
@@ -154,10 +166,10 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
+                            progressDialog.dismiss();
                             if (result == null) {
-                                showMessage("nothing is happening");
+                                showMessage(getString(R.string.server_down));
                             } else {
-                                Log.i("result_kunsang", result.toString());
                                 String status = result.get("status").getAsString();
                                 if (status.equalsIgnoreCase("success")) {
                                     showMessage("Successfully uploaded");
@@ -179,17 +191,17 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
+                            progressDialog.dismiss();
                             if (result == null) {
-                                showMessage("nothing is happening");
+                                showMessage(getString(R.string.server_down));
                             } else {
-                                Log.i("result_kunsang", result.toString());
                                 String status = result.get("status").getAsString();
                                 if (status.equalsIgnoreCase("success")) {
                                     showMessage("Successfully uploaded");
                                     Intent intent = new Intent(context, Dashboard.class);
                                     startActivity(intent);
                                 } else {
-                                    showMessage("Failed to upload data");
+                                    showMessage(getString(R.string.failed_to_upload));
                                 }
                             }
                         }
@@ -245,7 +257,6 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         switch (requestCode) {
             case TAKE_PHOTO_CODE:
                 if (resultCode == RESULT_OK) {
-                    Log.i("result picture", "clicked");
                     imageViewDP.setImageURI(fileUri);
                 }
                 break;
@@ -265,7 +276,6 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Log.i("result picture", "picked");
                 }
                 break;
         }
@@ -347,15 +357,12 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                Log.d(IMAGE_DIRECTORY_NAME, "Oops! Failed create "
-                        + IMAGE_DIRECTORY_NAME + " directory");
                 return null;
             } else {
-                Log.d(IMAGE_DIRECTORY_NAME, mediaStorageDir.getAbsolutePath());
+
             }
 
         } else {
-            Log.d(IMAGE_DIRECTORY_NAME, mediaStorageDir.getAbsolutePath());
         }
 
         // Create a media file name
@@ -365,7 +372,6 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
                     + "IMG_" + timeStamp + ".jpg");
-            Log.i("result imagepath", mediaFile.getAbsolutePath());
         } else {
         }
 

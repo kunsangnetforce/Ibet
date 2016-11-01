@@ -22,6 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -94,6 +95,7 @@ public class LiveBetFragment extends Fragment {
     private void getrLiveBets() {
         //https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=163
         String url = "https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=" + userSessionManager.getCustomerId();
+        Debugger.i("kunsang_url_LiveBets", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

@@ -263,7 +263,7 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
                 "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore="
                 + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type + "&match_id=" + match_id;
         String url = baseUrl + joinBetUrl;
-        Log.i("kunsang_url", url);
+        Debugger.i("kunsang_url_JoinBet", url);
         showMessage("bet losic will be created");
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override

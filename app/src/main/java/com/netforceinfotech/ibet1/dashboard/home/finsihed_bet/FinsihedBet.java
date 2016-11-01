@@ -76,7 +76,7 @@ public class FinsihedBet extends Fragment {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=finished_bet&user_id=137
         String baseUrl = getString(R.string.url);
         String url = baseUrl + "/services.php?opt=finished_bet&user_id=" + userSessionManager.getCustomerId();
-        Debugger.i("kurl", url);
+        Debugger.i("kunsang_url_finishbet", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

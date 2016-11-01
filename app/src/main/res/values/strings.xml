@@ -188,5 +188,7 @@
     <string name="predict_score">Predict Score</string>
     <string name="bet_amount">Bet Amount</string>
     <string name="feedbackerror">Some error occur while sending feedback</string>
+    <string name="server_down">Server is down. Please try again</string>
+    <string name="failed_to_upload">Failed to upload</string>
 
 </resources>

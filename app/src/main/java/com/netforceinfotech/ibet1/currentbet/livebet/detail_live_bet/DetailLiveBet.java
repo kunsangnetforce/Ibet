@@ -340,7 +340,7 @@ public class DetailLiveBet extends AppCompatActivity implements View.OnClickList
         //https://netforcesales.com/ibet_admin/api/upcoming_bet_detail.php?&bet_id=237
         String baseUrl = getString(R.string.url);
         String url = baseUrl + "/upcoming_bet_detail.php?&bet_id=" + bet_id;
-        Debugger.i("kurl", url);
+        Debugger.i("kunsang_url_betdetail", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

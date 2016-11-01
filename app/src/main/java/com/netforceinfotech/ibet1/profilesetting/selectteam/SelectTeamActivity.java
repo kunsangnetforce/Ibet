@@ -18,6 +18,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
@@ -25,6 +26,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.profilesetting.ProfileSettingActivity;
@@ -59,7 +61,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     ArrayList<TeamListData> teamListDatas1 = new ArrayList<>();
     private Toolbar toolbar;
     public static TeamListAdapter upcomingGameAdapter;
-    LinearLayout linearLayoutProgress;
+   // LinearLayout linearLayoutProgress;
     public static LinearLayout linearlayoutMain, linearLayoutSelectedTeams, linearLayoutTeams;
     EditText editTextSearch;
     public static ArrayList<TeamListData> selectTeamDatas = new ArrayList<>();
@@ -70,20 +72,15 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     ArrayList<ExpandHeaderData> expandHeaderDatas = new ArrayList<>();
     HashMap<ExpandHeaderData, List<TeamListData>> expandChildDatas = new HashMap<>();
     LinearLayout linearLayoutSearch;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_team1);
         selectTeamDatas.clear();
-        linearLayoutSearch = (LinearLayout) findViewById(R.id.linearLayoutSearch);
-        linearLayoutSearch.setVisibility(View.GONE);
-        findViewById(R.id.buttonDone).setOnClickListener(this);
-        linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutInput);
-        linearlayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
-        linearLayoutSelectedTeams = (LinearLayout) findViewById(R.id.linearLayoutSelectedTeams);
-        linearLayoutTeams = (LinearLayout) findViewById(R.id.linearLayoutTeams);
         context = this;
+        initView();
         setSearchView();
         setupToolBar("Select Team");
         setupSelectedRecyler();
@@ -92,13 +89,22 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         getTeams();
     }
 
-    private void getTeams1() {
-        UserSessionManager userSessionManager = new UserSessionManager(context);
-        String token = userSessionManager.getApitoken();
-        String url = "https://api.soccerama.pro/v1.1/competitions?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP&include=currentSeason";
-        Log.i("kunsangresult", url);
-        showMessage("implement get team");
+    private void initView() {
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
+        progressDialog.setCanceledOnTouchOutside(false);
+        linearLayoutSearch = (LinearLayout) findViewById(R.id.linearLayoutSearch);
+        linearLayoutSearch.setVisibility(View.GONE);
+        findViewById(R.id.buttonDone).setOnClickListener(this);
+        //   linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutInput);
+        linearlayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
+        linearLayoutSelectedTeams = (LinearLayout) findViewById(R.id.linearLayoutSelectedTeams);
+        linearLayoutTeams = (LinearLayout) findViewById(R.id.linearLayoutTeams);
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -140,7 +146,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
                 linearLayoutTeams.setVisibility(View.GONE);
-                linearLayoutProgress.setVisibility(View.VISIBLE);
+         //       linearLayoutProgress.setVisibility(View.VISIBLE);
                 linearLayoutTeams.setVisibility(View.GONE);
                 teamListDatas1.clear();
                 upcomingGameAdapter.notifyDataSetChanged();
@@ -161,7 +167,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                     teamListDatas1.clear();
                     upcomingGameAdapter.notifyDataSetChanged();
                     linearLayoutTeams.setVisibility(View.GONE);
-                    linearLayoutProgress.setVisibility(View.VISIBLE);
+                 //   linearLayoutProgress.setVisibility(View.VISIBLE);
                     getTeam(newText);
                 }
 
@@ -187,9 +193,10 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getTeam(String string) {
+        progressDialog.show();
         String url = getResources().getString(R.string.urlsearch);
         url = url + "?sstr=" + string;
-        Log.i("result url", url);
+        Debugger.i("kunsang_url_getteamByName", string);
         setHeader();
         Ion.with(context)
                 .load(url)
@@ -197,15 +204,15 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        linearLayoutProgress.setVisibility(View.GONE);
+                        progressDialog.dismiss();
+                       // linearLayoutProgress.setVisibility(View.GONE);
                         linearlayoutMain.setVisibility(View.VISIBLE);
                         linearLayoutSearch.setVisibility(View.VISIBLE);
                         teamListDatas1.clear();
                         upcomingGameAdapter.notifyDataSetChanged();
                         if (result == null) {
-                            showMessage("nothings is here");
+                            showMessage(getString(R.string.server_down));
                         } else {
-                            Log.i("kunsang_test_login", result.toString());
                             String status = result.get("status").getAsString().toLowerCase();
                             if (status.equalsIgnoreCase("success")) {
                                 JsonArray data = result.getAsJsonArray("data");
@@ -227,10 +234,11 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getTeams() {
+        progressDialog.show();
         //https://netforcesales.com/ibet_admin/api/services.php?opt=team_list
         String url = getResources().getString(R.string.url);
         url = url + "/services.php?opt=team_list";
-        Log.i("result url", url);
+        Debugger.i("kunsang_url_getAllteams", url);
         setHeader();
         Ion.with(context)
                 .load(url)
@@ -238,14 +246,14 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        linearLayoutProgress.setVisibility(View.GONE);
+                        progressDialog.dismiss();
+                       // linearLayoutProgress.setVisibility(View.GONE);
                         linearlayoutMain.setVisibility(View.VISIBLE);
                         linearLayoutTeams.setVisibility(View.VISIBLE);
 
                         if (result == null) {
-                            showMessage("nothings is here");
+                            showMessage(getString(R.string.server_down));
                         } else {
-                            Log.i("kunsang_test_login", result.toString());
                             String status = result.get("status").getAsString().toLowerCase();
                             if (status.equalsIgnoreCase("success")) {
                                 JsonArray data = result.getAsJsonArray("data");
@@ -358,13 +366,14 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void updateTeam(String teams) {
+        progressDialog.show();
         UserSessionManager userSessionManager = new UserSessionManager(context);
         //https://netforcesales.com/ibet_admin/api/services.php?opt=insert_team_list&customer_id=46&team=1,2,3
         String baseUrl = getString(R.string.url);
         String updateTeamUrl = "/services.php?opt=insert_team_list&customer_id=" + userSessionManager.getCustomerId()
                 + "&team=" + teams;
         String url = baseUrl + updateTeamUrl;
-        Log.i("kunsangurl", url);
+        Debugger.i("kunsang_url_updateFavTeam",url);
         setupSelfSSLCert();
         Ion.with(context)
                 .load(url)
@@ -372,10 +381,10 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        progressDialog.dismiss();
                         if (result == null) {
-                            showMessage("Something is wrong");
+                            showMessage(getString(R.string.server_down));
                         } else {
-                            Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                                 showMessage("Favourite Team Selected");
                                 finish();

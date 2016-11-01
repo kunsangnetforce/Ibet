@@ -371,7 +371,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         //https://netforcesales.com/ibet_admin/api/bets_to_join_detail.php?&bet_id=237
         String baseUrl = getString(R.string.url);
         String url = baseUrl + "/bets_to_join_detail.php?&bet_id=" + bet_id;
-        Debugger.i("kurl", url);
+        Debugger.i("kunsang_url_BetdetailJoin", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

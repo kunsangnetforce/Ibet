@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -28,6 +29,7 @@ import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
@@ -51,8 +53,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private UserSessionManager userSessionManager;
     Context context;
     RelativeLayout relative_login;
-    LinearLayout linearLayoutProgress;
+   // LinearLayout linearLayoutProgress;
     private String TAG = "MyFirebaseIIDService";
+    private MaterialDialog progressDialog;
 
 
     @Override
@@ -62,8 +65,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
         setContentView(R.layout.activity_login);
+        initView();
+        sendRegId();
+    }
+
+    private void initView() {
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
+        progressDialog.setCanceledOnTouchOutside(false);
+
         context = this;
-        linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgress);
+     //   linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgress);
         userSessionManager = new UserSessionManager(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         findViewById(R.id.textViewRegister).setOnClickListener(this);
@@ -81,13 +95,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(this, Dashboard.class);
             startActivity(intent);
         }
-        sendRegId();
+
     }
 
     private void sendRegId() {
         String url = getResources().getString(R.string.url);
         String pushurl = "/push_notification.php?user_id=" + userSessionManager.getCustomerId() + "&regid=" + userSessionManager.getRegId();
-
+        Debugger.i("kunsang_url_updateGCM", url);
         Ion.with(getApplicationContext())
                 .load(url + pushurl)
                 .asJsonObject()
@@ -96,10 +110,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onCompleted(Exception e, JsonObject result) {
 
                         if (result == null) {
-                            Log.i(TAG, "not sending");
+                            Debugger.i("sendRegId", "couldnot send");
                             userSessionManager.setGCMRegistered(false);
                         } else {
-                            Log.i(TAG, "successfully registered");
+                            Debugger.i("sendRegId", "sent successful");
 
                         }
 
@@ -156,12 +170,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         public void onCompleted(
                                 JSONObject object,
                                 GraphResponse response) {
-                            Log.i("facebook", response.toString());
                             // Application code
                             if (object != null) {
                                 //parameters.putString("fields", "id,name,email,gender, birthday,picture ");
                                 AccessToken accessToken = loginResult.getAccessToken();
-                                Profile profile = Profile.getCurrentProfile();
                                 String fbName;
                                 try {
                                     fbName = object.getString("name");
@@ -222,30 +234,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         @Override
         public void onError(FacebookException error) {
-            Log.i("LoginActivity", error.toString());
         }
     };
 
     private void login(String fbToken, String fbName, final String fbId, String reg_id, String email) {
+        progressDialog.show();
         //https://netforcesales.com/ibet_admin/api/services.php?opt=register&email=kunwangyal15@yahoo.com&fb_token=qwerty1&name=Kunsang%20Wangyal&facebook=1&fb_id=1sdfasdf232324&device_id=asdf23232322&reg_id=asdfasdf232324
         String url = getResources().getString(R.string.url);
         String device_id = getDeviceId();
         fbName = fbName.replace(" ", "%20");
         url = url + "/services.php?opt=register&email=" + email + "&fb_token=" + fbToken + "&name=" + fbName + "&fb_id=" + fbId + "&device_id=" + device_id + "&reg_id=" + userSessionManager.getRegId() + "&login_mode=1";
-        Log.i("result url", url);
+        Debugger.i("kunsang_login_url", url);
         setHeader();
-        linearLayoutProgress.setVisibility(View.VISIBLE);
+     //   linearLayoutProgress.setVisibility(View.VISIBLE);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        linearLayoutProgress.setVisibility(View.GONE);
+                        progressDialog.dismiss();
+                    //    linearLayoutProgress.setVisibility(View.GONE);
                         if (result == null) {
-                            showMessage("nothings is here");
+                            showMessage(getString(R.string.server_down));
                         } else {
-                            Log.i("kunsang_test_login", result.toString());
                             String status = result.get("status").getAsString().toLowerCase();
                             if (status.equalsIgnoreCase("success")) {
                                 String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
@@ -265,11 +277,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     userSessionManager.setIsLoggedIn(true);
                                     intent = new Intent(context, ProfileSettingActivity.class);
                                     startActivity(intent);
+                                    finish();
                                     overridePendingTransition(R.anim.enter, R.anim.exit);
+                                    Debugger.i("kwhich", "profilesetting");
                                 } else {
                                     userSessionManager.setIsLoggedIn(true);
-                                    intent = new Intent(getApplicationContext(), ProfileSettingActivity.class);
+                                    intent = new Intent(getApplicationContext(), Dashboard.class);
                                     startActivity(intent);
+                                    Debugger.i("kwhich", "dashboard");
                                     finish();
                                     overridePendingTransition(R.anim.enter, R.anim.exit);
                                 }

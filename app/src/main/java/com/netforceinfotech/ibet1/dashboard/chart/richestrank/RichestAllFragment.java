@@ -16,6 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -77,7 +78,9 @@ public class RichestAllFragment extends Fragment {
         String baseUrl = getString(R.string.url);
         String richestListUrl = "/services.php?opt=get_rishest_Ranking";
         String url = baseUrl + richestListUrl;
+        Debugger.i("kunsang_url_richestList", url);
         setupSelfSSLCert();
+
         Ion.with(context)
                 .load(url)
                 .asJsonObject()

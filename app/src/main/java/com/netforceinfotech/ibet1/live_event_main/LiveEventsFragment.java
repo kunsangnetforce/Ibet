@@ -26,6 +26,7 @@ import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.ExpandHeaderData;
@@ -254,7 +255,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     private void getLiveMatch() {
         //https://api.soccerama.pro/v1.2/livescore/now?api_token=__YOURTOKEN__
         String url = "https://api.soccerama.pro/v1.2/livescore/now?api_token=" + userSessionManager.getApitoken() + "&include=homeTeam,awayTeam,competition";
-        Log.i("kunsangurl", url);
+        Debugger.i("kunsang_url_getlivescore", url);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()

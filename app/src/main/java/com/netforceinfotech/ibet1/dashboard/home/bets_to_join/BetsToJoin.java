@@ -69,7 +69,7 @@ public class BetsToJoin extends Fragment {
         //https://netforcesales.com/ibet_admin/api/bets_to_join.php?&user_id=163
         String baseUrl = getString(R.string.url);
         String url = baseUrl + "/bets_to_join.php?&user_id=" + userSessionManager.getCustomerId();
-        Debugger.i("kurl", url);
+        Debugger.i("kunsang_url_betstoJoin", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

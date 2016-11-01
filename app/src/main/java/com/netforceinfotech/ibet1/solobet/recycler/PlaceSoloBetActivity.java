@@ -253,7 +253,7 @@ public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnCl
         String url = baseUrl + "/services.php?opt=solo_bet&user_id=" + userSessionManager.getCustomerId() + "&match_id=" + match_id
                 + "&selected_team=" + selectedteam + "&amt=" + betamount + "&match_status=NS&odds=" + selectedOdds + "&bookmaker_id=" +
                 bookerid + "&bookermaker_name=" + bookername;
-        Debugger.i("kurl", url);
+        Debugger.i("kunsang_url_placesolobebet", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

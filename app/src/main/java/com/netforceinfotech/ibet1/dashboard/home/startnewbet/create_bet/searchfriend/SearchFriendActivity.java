@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.friend.SearchFriendAdapter;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.selectedfrind.SelectFriendAdapter;
@@ -184,7 +185,7 @@ public class SearchFriendActivity extends AppCompatActivity implements View.OnCl
             e.printStackTrace();
             showMessage("url error");
         }
-        Log.i("kunsangurl", url + searchurl);
+        Debugger.i("kunsang_url_getFriend", url);
         Ion.with(context).load(url + searchurl)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
