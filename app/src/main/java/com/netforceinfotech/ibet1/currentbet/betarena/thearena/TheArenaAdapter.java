@@ -241,7 +241,7 @@ public class TheArenaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } catch (Exception ex) {
             try {
                 Glide.with(context).load(R.drawable.ic_error).into(theArenaHolder.circleImageView);
-            }catch (Exception ex){
+            }catch (Exception ex1){
 
             }
         }
