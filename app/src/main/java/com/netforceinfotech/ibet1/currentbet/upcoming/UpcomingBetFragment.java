@@ -58,7 +58,9 @@ public class UpcomingBetFragment extends Fragment {
         theme = userSessionManager.getTheme();
         initView(view);
         setupRecyclerView(view);
-        getUpcomingBets();
+        if (!userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
+            getUpcomingBets();
+        }
         return view;
     }
 

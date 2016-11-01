@@ -63,7 +63,9 @@ public class LiveBetFragment extends Fragment {
         initView(view);
         setupRecyclerView(view);
         //   setupRecyclerView(view);
-        getrLiveBets();
+        if (!userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
+            getrLiveBets();
+        }
         return view;
 
 

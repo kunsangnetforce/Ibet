@@ -34,6 +34,7 @@ import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.PagerAdapterMainChat;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.all.AllAdapter;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.all.AllFragment;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StandActivity extends AppCompatActivity implements View.OnClickListener {
@@ -266,6 +267,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
                     case 0:
                         if (editText.getText().length() > 0) {
                             AllFragment.sendMessage(editText.getText().toString());
+                            editText.setText("");
 
                         } else {
                             showMessage("enter text");

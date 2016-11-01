@@ -28,6 +28,9 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
     Context context;
     String season_id, home_id, away_id, match_id, home_name, away_name, away_logo, home_logo;
     private String tagName;
+    private String bet_id;
+    private Intent intent;
+    Bundle bundle;
 
     public TheArenaFragment() {
         // Required empty public constructor
@@ -42,14 +45,15 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
         context = getActivity();
         try {
             season_id = this.getArguments().getString("season_id");
-            home_id = this.getArguments().getString("away_id");
+            home_id = this.getArguments().getString("home_id");
             away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");
             away_name = this.getArguments().getString("away_name");
             home_logo = this.getArguments().getString("home_logo");
             away_logo = this.getArguments().getString("away_logo");
-            Debugger.i("kteam",home_id+" "+away_id);
+            bet_id = this.getArguments().getString("bet_id");
+            Debugger.i("klogo", home_logo + " " + away_logo);
         } catch (Exception ex) {
             Log.i("kunsang_exception", "paramenter not set");
         }
@@ -60,7 +64,7 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
     private void initView(View view) {
         circleImageViewTeamA = (CircleImageView) view.findViewById(R.id.imageViewTeamA);
         circleImageViewTeamB = (CircleImageView) view.findViewById(R.id.imageViewTeamB);
-        Debugger.i("kimage", home_logo+"   "+away_logo);
+        Debugger.i("kimage", home_logo + "   " + away_logo);
         Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(circleImageViewTeamA);
         Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(circleImageViewTeamB);
         buttonNeutral = (Button) view.findViewById(R.id.buttonNeutral);
@@ -73,10 +77,37 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonNeutral:
+                intent = new Intent(context, TheArenaActivity.class);
+                bundle = new Bundle();
+                  /* match_id = bundle.getString("match_id");
+            bet_id = bundle.getString("bet_id");
+            team = bundle.getString("team");*/
+                bundle.putString("match_id", match_id);
+                bundle.putString("bet_id", bet_id);
+                bundle.putString("team", "draw");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
             case R.id.imageViewTeamA:
+                intent = new Intent(context, TheArenaActivity.class);
+                bundle = new Bundle();
+                  /* match_id = bundle.getString("match_id");
+            bet_id = bundle.getString("bet_id");
+            team = bundle.getString("team");*/
+                bundle.putString("match_id", match_id);
+                bundle.putString("bet_id", bet_id);
+                bundle.putString("team", "home");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
             case R.id.imageViewTeamB:
-                startActivity(new Intent(context, TheArenaActivity.class));
-                //   setupArenaFragment();
+                intent = new Intent(context, TheArenaActivity.class);
+                bundle = new Bundle();
+                bundle.putString("match_id", match_id);
+                bundle.putString("bet_id", bet_id);
+                bundle.putString("team", "away");
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
         }
     }

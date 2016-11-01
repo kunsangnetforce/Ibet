@@ -90,7 +90,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
-                    showMessage("Something went wrong");
+                    showMessage(getString(R.string.server_down));
                     return;
                 } else {
                     setupBetDetail(result);
@@ -158,10 +158,10 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                 }
 
             } else {
-                showMessage("No data");
+                showMessage(getString(R.string.no_data));
             }
         } catch (Exception ex) {
-            showMessage("something went wrong");
+            showMessage(getString(R.string.something_went_wrong));
         }
     }
 

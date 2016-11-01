@@ -72,7 +72,9 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
         setupRecyclerView(view);
-        getLiveMatch1();
+        if(!userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
+            getLiveMatch1();
+        }
         return view;
     }
 

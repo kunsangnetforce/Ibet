@@ -130,15 +130,15 @@
     <string name="all_teams">All teams</string>
     <string name="add_team">Add Team</string>
     <string name="welcome_to_the_arena">Welcome to the Arena</string>
-    <string name="well_no_message_yet">Well no message yet</string>
-    <string name="well_be_the_first_to_start_it">Well be the first to start it</string>
+    <string name="well_no_message_yet">No message yet</string>
+    <string name="well_be_the_first_to_start_it">Well, be the first to start it</string>
     <string name="default_intro">Default Intro</string>
     <string name="choose_who_will_win">Choose who will win</string>
     <string name="win">WIN</string>
     <string name="draw">Draw</string>
     <string name="or_by_score">Or By Score</string>
     <string name="participants_can_join_on_any_result">Participants can join on any result</string>
-    <string name="set_bet_ammount">Set Bet Ammount</string>
+    <string name="set_bet_ammount">Set Bet Amount</string>
     <string name="ok">OK</string>
     <string name="take_picture">Take Picture</string>
     <string name="pick_from_galary">Pick from galary</string>
@@ -190,5 +190,6 @@
     <string name="feedbackerror">Some error occur while sending feedback</string>
     <string name="server_down">Server is down. Please try again</string>
     <string name="failed_to_upload">Failed to upload</string>
+    <string name="no_data">No data</string>
 
 </resources>

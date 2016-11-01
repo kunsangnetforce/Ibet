@@ -88,14 +88,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_bet);/*
-          bundle1.putString("betoption", stringbetoption);
-                    bundle1.putInt("homescore", homescore);
-                    bundle1.putInt("awayscore", awayscore);
-                    bundle1.putString("selectedteam", selectedteam);
-                    bundle1.putDouble("betamount", betamount);
-
-        */
+        setContentView(R.layout.activity_create_bet);
         Bundle bundle = getIntent().getExtras();
         userSessionManager = new UserSessionManager(getApplicationContext());
         context = this;
@@ -105,12 +98,14 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
             match_id = bundle.getString("match_id");
             betamount = bundle.getDouble("betamount");
             betoption = bundle.getString("betoption");
-            homescore = bundle.getInt("homescroe");
+            homescore = bundle.getInt("homescore");
             awayscore = bundle.getInt("awayscore");
             selectedteam = bundle.getString("selectedteam");
             home_name = bundle.getString("home_name");
             away_name = bundle.getString("away_name");
+            Debugger.i("kerror", "happened not " + homescore);
         } catch (Exception ex) {
+            Debugger.i("kerror", "happened");
 
         }
         setupStatusBar();
@@ -367,6 +362,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         createbet();
+                        dialogConfirmation.dismiss();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -524,10 +520,9 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         String joinBetUrl = "/accept_bet_request.php?match_status=" + selectedteam + "&option=" + bet_option
                 + "&user_id=" + userSessionManager.getCustomerId() +
                 "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore="
-                + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type + "&match_id=" + match_id;
+                + awayscore + "&home_scrore=" + homescore + "&request_type=" + request_type + "&match_id=" + match_id;
         String url = baseUrl + joinBetUrl;
         Debugger.i("kunsang_url_JoinBet", url);
-        showMessage("bet losic will be created");
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

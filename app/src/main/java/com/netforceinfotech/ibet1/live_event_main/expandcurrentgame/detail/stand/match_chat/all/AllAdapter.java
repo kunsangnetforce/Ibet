@@ -279,6 +279,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 map1.put("id", userSessionManager.getCustomerId());
                 map1.put("image", userSessionManager.getProfilePic());
                 message_root.updateChildren(map1);
+                shareData(itemList.get(position).comment, itemList.get(position).name);
             }
         });
         allHolder.imageViewDislike.setOnClickListener(new View.OnClickListener() {

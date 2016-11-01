@@ -61,12 +61,9 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
         setContentView(R.layout.activity_the_arena);
         Bundle bundle = getIntent().getExtras();
         try {
-           /* match_id = bundle.getString("match_id");
+            match_id = bundle.getString("match_id");
             bet_id = bundle.getString("bet_id");
-            team = bundle.getString("team");*/
-            match_id = "123";
-            bet_id = "123";
-            team = "draw";
+            team = bundle.getString("team");
 
         } catch (Exception ex) {
 
@@ -326,7 +323,6 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
     }
 
     public void sendMessage(String chat_message) {
-        showMessage("clicked");
         Map<String, Object> map = new HashMap<String, Object>();
         tempKey = _comments.push().getKey();
         _comments.updateChildren(map);
@@ -346,6 +342,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
     public void onClick(View view) {
         if (editText.length() > 0) {
             sendMessage(editText.getText().toString());
+            editText.setText("");
         } else {
             showMessage("Enter text");
         }
