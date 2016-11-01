@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.SelectTeamActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,15 +57,10 @@ public class TeamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         teamListHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (SelectTeamActivity.selectTeamDatas.size() > 0) {
-                    boolean present = false;
-                    for (int i = 0; i < SelectTeamActivity.selectTeamDatas.size(); i++) {
-                        if (id.equalsIgnoreCase(SelectTeamActivity.selectTeamDatas.get(i).id)) {
-                            present = true;
-                            break;
-                        }
-                    }
 
+                if (!SelectTeamActivity.selectTeamDatas.contains(itemList.get(position))) {
+
+                    SelectTeamActivity.selectTeamDatas.add(itemList.get(position));
                 }
                 teamListHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
                 SelectTeamActivity.selectTeamAdapter.notifyDataSetChanged();

@@ -41,7 +41,7 @@ public class StateFragment extends Fragment {
         userSessionManager = new UserSessionManager(context);
         try {
             season_id=this.getArguments().getString("season_id");
-            home_id = this.getArguments().getString("away_id");
+            home_id = this.getArguments().getString("home_id");
             away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");

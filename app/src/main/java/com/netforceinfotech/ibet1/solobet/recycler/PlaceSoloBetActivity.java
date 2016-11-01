@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +26,8 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -31,6 +35,22 @@ import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
+import com.netforceinfotech.ibet1.scratchview.ScratchActivity;
+
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import static com.netforceinfotech.ibet1.R.drawable.coins;
 
 public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     String selectedteam = "";
@@ -51,6 +71,8 @@ public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnCl
     CoordinatorLayout coordinatorLayout;
     View view1;
     private MaterialDialog progressDialog;
+    TextView textviewCoins;
+    LinearLayout linearLayoutToolbar;
 
 
     @Override
@@ -81,6 +103,7 @@ public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnCl
         setupStatusBar();
         setupTheme();
         setupBackbround();
+        updatecoin(0);
     }
 
     private void initView() {
@@ -144,13 +167,13 @@ public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnCl
 
     private void setupToolBar(String title) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TextView textViewTitle = (TextView) toolbar.findViewById(R.id.textViewTitle);
-        textViewTitle.setText(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String teams = title;
-        getSupportActionBar().setTitle(teams);
+        TextView textViewTitle = (TextView) toolbar.findViewById(R.id.textViewTitle);
+        textViewTitle.setText(title);
+        textviewCoins = (TextView) toolbar.findViewById(R.id.textViewCoins);
+        linearLayoutToolbar = (LinearLayout) toolbar.findViewById(R.id.linearLayoutToolbar);
 
     }
 
@@ -220,7 +243,7 @@ public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void placeSoloBet(String selectedteam, double betamount, String selectedOdds, String bookername, String bookerid) {
+    private void placeSoloBet(String selectedteam, final double betamount, String selectedOdds, String bookername, String bookerid) {
         /*
         * https://netforcesales.com/ibet_admin/api/services.php?opt=solo_bet&user_id=152
         * &match_id=121&selected_team=254&amt=250&match_status=NS&odds=1x2&bookmaker_id=1&bookmaker_name=10Bet
@@ -230,7 +253,7 @@ public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnCl
         String url = baseUrl + "/services.php?opt=solo_bet&user_id=" + userSessionManager.getCustomerId() + "&match_id=" + match_id
                 + "&selected_team=" + selectedteam + "&amt=" + betamount + "&match_status=NS&odds=" + selectedOdds + "&bookmaker_id=" +
                 bookerid + "&bookermaker_name=" + bookername;
-        Debugger.i("kurl", url);
+        Debugger.i("kunsang_url_placesolobebet", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -240,7 +263,9 @@ public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnCl
                     return;
                 } else {
                     if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                        updatecoin(0);
                         showMessage(getString(R.string.bet_has_been_placed));
+
                     } else {
                         try {
                             JsonArray data = result.getAsJsonArray("data");
@@ -427,5 +452,90 @@ public class PlaceSoloBetActivity extends AppCompatActivity implements View.OnCl
     private void setupDefaultTheme() {
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+    }
+
+    private void updatecoin(int coins) {
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=add_coin&custid=15&amt_new=50
+        String baseUrl = getString(R.string.url);
+        String updatecointsurl = "/services.php?opt=add_coin&custid=" + userSessionManager.getCustomerId() + "&amt_new=" + coins;
+        String url = baseUrl + updatecointsurl;
+        setupSelfSSLCert();
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        if (result == null) {
+                            showMessage("Something is wrong");
+                        } else {
+                            Log.i("kunsangresult", result.toString());
+                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                                refreshCoin(result);
+                                Log.i("kunsangcoins", result.toString());
+                            } else {
+                                showMessage("Something went wrong");
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void refreshCoin(JsonObject result) {
+        JsonArray data = result.getAsJsonArray("data");
+        JsonObject object = data.get(0).getAsJsonObject();
+        String coins = object.get("Current Coin").getAsString();
+        userSessionManager.setCoins(coins);
+        textviewCoins.setText(coins);
+        YoYo.with(Techniques.Tada)
+                .duration(700)
+                .playOn(linearLayoutToolbar);
+    }
+
+    public void setupSelfSSLCert() {
+        final Trust trust = new Trust();
+        final TrustManager[] trustmanagers = new TrustManager[]{trust};
+        SSLContext sslContext;
+        try {
+            sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustmanagers, new SecureRandom());
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setTrustManagers(trustmanagers);
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setSSLContext(sslContext);
+        } catch (final NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (final KeyManagementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class Trust implements X509TrustManager {
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+
     }
 }

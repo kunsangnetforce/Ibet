@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.currentbet.betarena.betdetail;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -21,10 +22,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +47,8 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
     ImageView imageViewTeamA, imageViewTeamB;
     UserSessionManager userSessionManager;
     View view1;
-    TextView textViewMSI, textViewBetamount, textViewPlayer, textViewResult, textViewTeam, textViewScore, textViewLoserMessage;
+    String home_name, away_name;
+    TextView textViewMSI, textViewBetamount, textViewPlayer, textViewResult, textViewTeam, textViewScore, textViewLoserMessage, textViewMatchCountdown, textViewTeamA, textViewTeamB;
 
     public BetDetailFragment() {
         // Required empty public constructor
@@ -55,10 +63,16 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
         try {
+            /*
+            *    bundle.putString("home_name", home_name);
+                bundle.putString("away_name", away_name);
+            * */
             String bet_id = this.getArguments().getString("bet_id");
+            home_name = this.getArguments().getString("home_name");
+            away_name = this.getArguments().getString("away_name");
             getBetDetail(bet_id);
         } catch (Exception ex) {
-
+            ex.printStackTrace();
         }
         initView(view);
         setupTheme();
@@ -71,6 +85,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         //https://netforcesales.com/ibet_admin/api/upcoming_bet_detail.php?&bet_id=237
         String baseUrl = getString(R.string.url);
         String url = baseUrl + "/upcoming_bet_detail.php?&bet_id=" + bet_id;
+        Debugger.i("kunsang_url_betdetail", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -87,16 +102,61 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
     private void setupBetDetail(JsonObject result) {
         try {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                JsonObject bet_detail = result.getAsJsonObject("bet_detail");
-                JsonObject bet = bet_detail.getAsJsonObject("bet");
-                JsonArray users = bet_detail.getAsJsonArray("users");
-                String home_id = bet.get("team_home").getAsString();
-                String away_id = bet.get("team_away").getAsString();
-                String team_away_flag = bet.get("team_away_flag").getAsString();
-                String team_home_flag = bet.get("team_home_flag").getAsString();
-                String away_name = bet.get("away_name").getAsString();
-                String home_name = bet.get("home_name").getAsString();
-                String betammoount=bet.get("bet_ammount").getAsString();
+                if (!result.getAsJsonObject("bet_detail").isJsonNull()) {
+                    String home_id, away_id, team_away_flag, team_home_flag, away_name = "", home_name = "", bet_ammount, bet_match_time, bet_match_date;
+                    JsonObject bet_detail = result.getAsJsonObject("bet_detail");
+                    if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
+                        JsonObject bet = bet_detail.getAsJsonObject("bet");
+
+
+                        if (!bet.get("team_away_flag").isJsonNull()) {
+                            team_away_flag = bet.get("team_away_flag").getAsString();
+                            Glide.with(context).load(team_away_flag).error(R.drawable.ic_error).into(imageViewTeamB);
+                        }
+                        if (!bet.get("team_home_flag").isJsonNull()) {
+                            team_home_flag = bet.get("team_home_flag").getAsString();
+                            Glide.with(context).load(team_home_flag).error(R.drawable.ic_error).into(imageViewTeamA);
+                        }
+
+                        if (!bet.get("bet_ammount").isJsonNull()) {
+                            bet_ammount = bet.get("bet_ammount").getAsString();
+                            textViewBetamount.setText(bet_ammount);
+                        }
+                        if (!bet.get("bet_match_time").isJsonNull() && !bet.get("bet_match_date").isJsonNull()) {
+                            bet_match_time = bet.get("bet_match_time").getAsString();
+                            bet_match_date = bet.get("bet_match_date").getAsString();
+                            setupTimeThread(bet_match_date, bet_match_time);
+                        }
+
+                    }
+                    if (!bet_detail.getAsJsonArray("users").isJsonNull()) {
+                        JsonArray users = bet_detail.getAsJsonArray("users");
+                        int size = users.size();
+                        if (size == 0) {
+                            return;
+                        } else {
+                            for (int i = 0; i < size; i++) {
+                                JsonObject user = users.get(i).getAsJsonObject();
+                                String userdp = user.get("profile_image").getAsString();
+                                String username = user.get("name").getAsString();
+                                String selectedTeam = user.get("match_status").getAsString();
+                                String bet_result = user.get("bet_result").getAsString();
+                                String score = user.get("home_scrore").getAsString() + "-" + user.get("away_scrore");
+                                if (selectedTeam.equalsIgnoreCase("home_win")) {
+                                    selectedTeam = home_name;
+                                } else if (selectedTeam.equalsIgnoreCase("away_win")) {
+                                    selectedTeam = away_name;
+                                } else {
+                                    selectedTeam = "draw";
+                                }
+                                DetailBetData detailBetData = new DetailBetData(userdp, username, bet_result, selectedTeam, score);
+                                detailBetDatas.add(detailBetData);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+
             } else {
                 showMessage("No data");
             }
@@ -113,7 +173,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        DetailBetAdapter detailBetAdapter = new DetailBetAdapter(context, null);
+        DetailBetAdapter detailBetAdapter = new DetailBetAdapter(context, detailBetDatas);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(detailBetAdapter);
     }
@@ -124,6 +184,11 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         textViewResult = (TextView) view.findViewById(R.id.textViewResult);
         textViewScore = (TextView) view.findViewById(R.id.textViewScore);
         textViewTeam = (TextView) view.findViewById(R.id.textViewTeam);
+        textViewTeamA = (TextView) view.findViewById(R.id.textViewTeamA);
+        textViewTeamB = (TextView) view.findViewById(R.id.textViewTeamB);
+        textViewTeamA.setText(home_name);
+        textViewTeamB.setText(away_name);
+        textViewMatchCountdown = (TextView) view.findViewById(R.id.textViewMatchCountdown);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         textViewBetamount = (TextView) view.findViewById(R.id.textViewBetamount);
         textViewMSI = (TextView) view.findViewById(R.id.textViewMSI);
@@ -268,4 +333,43 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
 
         }
     }
+
+    private void setupTimeThread(String starting_date, String starting_time) {
+        String datetime = starting_date + " " + starting_time;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateNow = Calendar.getInstance().getTime();
+        Date myDate = null;
+        try {
+            myDate = simpleDateFormat.parse(datetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long milliseconds = (myDate.getTime() - dateNow.getTime());
+        new CountDownTimer(milliseconds, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                textViewMatchCountdown.setText("" + getFormatedTime(millisUntilFinished));
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                textViewMatchCountdown.setText("Live!");
+            }
+
+        }.start();
+    }
+
+    private String getFormatedTime(long millisUntilFinished) {
+        long seconds = millisUntilFinished / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        String time = days + "D : " + hours % 24 + " : " + minutes % 60 + " : " + seconds % 60;
+        return time;
+    }
+
 }

@@ -59,6 +59,8 @@ public class RichestTabActivity extends AppCompatActivity {
         if (theme == 0) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme1));
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme1));
+
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme1));
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme1));
 
@@ -67,6 +69,8 @@ public class RichestTabActivity extends AppCompatActivity {
 
         } else if (theme == 1) {
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme2));
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme2));
+
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme2));
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme2));
 
@@ -74,6 +78,8 @@ public class RichestTabActivity extends AppCompatActivity {
 
         } else if (theme == 2) {
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme3));
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme3));
+
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme3));
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme3));
 
@@ -83,6 +89,8 @@ public class RichestTabActivity extends AppCompatActivity {
         } else if (theme == 3) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme4));
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme4));
+
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme4));
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme4));
 
@@ -91,6 +99,8 @@ public class RichestTabActivity extends AppCompatActivity {
         } else if (theme == 4) {
 
             toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme5));
+            coordinatorLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.toolbar_background_theme5));
+
             tabLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_background_theme5));
             tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(getApplicationContext(), R.color.tab_seclector_highlitedcolor_theme5));
 
@@ -171,7 +181,7 @@ public class RichestTabActivity extends AppCompatActivity {
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-              //  setupDefaultTheme();
+                //  setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

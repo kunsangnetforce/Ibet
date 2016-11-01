@@ -32,6 +32,7 @@ public class UserSessionManager {
     private static final String LOSEBET = "losebet";
     private static final String BACKGROUND = "background";
     private static final String COINS = "coins";
+    private static final String ISLOGGEDIN = "isloggedin";
     // Shared Preferences reference
     SharedPreferences pref;
     // Editor reference for Shared preferences
@@ -286,7 +287,24 @@ public class UserSessionManager {
         editor.putString(COINS, coins);
         editor.commit();
     }
-    public String getCoins(){
+
+    public String getCoins() {
         return pref.getString(COINS, "0");
     }
+
+    public void setIsLoggedIn(boolean b) {
+        editor.putBoolean(ISLOGGEDIN, b);
+        editor.commit();
+    }
+
+    public boolean getIsLoogedIn() {
+        return pref.getBoolean(ISLOGGEDIN, false);
+    }
+
+    public void clearSession() {
+        editor.clear();
+        editor.commit();
+    }
+
+
 }

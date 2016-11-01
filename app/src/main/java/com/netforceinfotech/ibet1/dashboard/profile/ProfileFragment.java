@@ -36,8 +36,11 @@ import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.SelectTeamActivity;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -71,6 +74,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private String filePath;
     Button buttonSetTeam, buttonDone;
     private View view1;
+    private MaterialDialog progressDialog;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -86,6 +90,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.activity_profile, container, false);
         Dashboard.title.setText("Profile");
         setupLayout(view);
+        getPermission();
         setupTheme();
         setupBackground();
         getProfile();
@@ -93,9 +98,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getProfile() {
+        progressDialog.show();
         //https://netforcesales.com/ibet_admin/api/services.php?opt=get_home_by_userid&custid=137
         String baseUrl = getString(R.string.url);
-        String profileUrl = "/services.php?opt=get_home_by_userid&custid=" + userSessionManager.getCustomerId();
+        final String profileUrl = "/services.php?opt=get_home_by_userid&custid=" + userSessionManager.getCustomerId();
         String url = baseUrl + profileUrl;
         setupSelfSSLCert();
         Ion.with(context)
@@ -104,6 +110,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        progressDialog.dismiss();
                         if (result == null) {
                             showMessage("Something is wrong");
                         } else {
@@ -145,7 +152,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 
     private void setupLayout(View view) {
-
+        progressDialog = new MaterialDialog.Builder(context)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
         view1 = view.findViewById(R.id.view);
         textViewLevel = (TextView) view.findViewById(R.id.textViewLevel);
@@ -422,10 +432,69 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void uploadImage1() {
+        progressDialog.show();
         String url = getResources().getString(R.string.url);
         String uploadurl = "/services.php?opt=update_profile&customer_id=" + userSessionManager.getCustomerId();
         url = url + uploadurl;
         Log.i("result_url", url);
+        File file = null;
+        if (filePath == null) {
+            showMessage("No Image Selected");
+        } else {
+            file = savebitmap(filePath);
+            if (file == null) {
+                showMessage("Image not valid");
+                return;
+            }
+            Ion.with(context)
+                    .load(url)
+                    .setHeader("ENCTYPE", "multipart/form-data")
+                    .setTimeout(60 * 60 * 1000)
+                    .setMultipartFile("upload", "image/*", file)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            progressDialog.dismiss();
+                            if (result == null) {
+                                showMessage("nothing is happening");
+                            } else {
+                                Log.i("result_kunsang", result.toString());
+                                String status = result.get("status").getAsString();
+                                if (status.equalsIgnoreCase("success")) {
+                                    showMessage("Profile edited successfully");
+                                }
+                            }
+                        }
+                    });
+        }
+
+    }
+
+    private File savebitmap(String filePath) {
+        File file = new File(filePath);
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath, bmOptions);
+        OutputStream outStream = null;
+        try {
+            // make a new bitmap from your file
+            outStream = new FileOutputStream(file);
+            if (extension.equalsIgnoreCase("png")) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream);
+            } else if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg")) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream);
+            } else {
+                return null;
+            }
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return file;
+
 
     }
 
@@ -433,7 +502,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-              //  setupDefaultTheme();
+                //  setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

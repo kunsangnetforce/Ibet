@@ -11,12 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -35,6 +39,8 @@ public class UpcomingBetFragment extends Fragment {
     int theme;
     FrameLayout upcomminhg_bet_latout;
     private UpcomingBetAdapter adapter;
+    LinearLayout linearLayoutNoBets;
+    ImageView imageViewNoBets;
 
     public UpcomingBetFragment() {
         // Required empty public constructor
@@ -50,17 +56,28 @@ public class UpcomingBetFragment extends Fragment {
 
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
+        initView(view);
         setupRecyclerView(view);
         getUpcomingBets();
         return view;
     }
 
+    private void initView(View view) {
+        linearLayoutNoBets = (LinearLayout) view.findViewById(R.id.linearLayoutNoBets);
+        imageViewNoBets = (ImageView) view.findViewById(R.id.imageViewNoBets);
+        Glide.with(context).load(R.drawable.gs_stadium).into(imageViewNoBets);
+        linearLayoutNoBets.setVisibility(View.GONE);
+    }
+
     private void getUpcomingBets() {
         String url = "https://netforcesales.com/ibet_admin/api/upcoming_bets.php?&user_id=" + userSessionManager.getCustomerId();
+        Debugger.i("kunsang_url_upcomingbets", url);
+
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
+                    linearLayoutNoBets.setVisibility(View.VISIBLE);
                     showMessage("Something went wrong");
                 } else {
                     setupupcomingBetDatas(result);
@@ -80,14 +97,18 @@ public class UpcomingBetFragment extends Fragment {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                 data = result.getAsJsonArray("data");
             } else {
+                linearLayoutNoBets.setVisibility(View.VISIBLE);
                 showMessage("No bet found");
                 return;
             }
         } catch (Exception ex) {
+            linearLayoutNoBets.setVisibility(View.VISIBLE);
             showMessage("No bet found");
             return;
         }
         int size = data.size();
+        linearLayoutNoBets.setVisibility(View.GONE);
+
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
 //String userdp, String name, String selectedteamlogo, String selectedteamname, String numberparticipant,
@@ -113,7 +134,11 @@ public class UpcomingBetFragment extends Fragment {
             if (participantsCount.equalsIgnoreCase("") || participantsCount.trim().length() <= 0) {
                 participantsCount = "0";
             }
-            upcomingBetDatas.add(new UpcomingBetData(creatorDp, creatorName, "", "", participantsCount, "", date_time, homeLogo, awayLogo, homeName, awayName, "", betId, home_id, away_id, matchid, seasonid));
+            //String userdp, String name, String selectedteamlogo, String selectedteamname,
+            // String numberparticipant, String numberpost, String time, String teamalogo, String teamblogo,
+            // String teamaname, String teambname, String betstatus, String betid, String home_id, String away_id,String matchid,String seasonid) {
+            upcomingBetDatas.add(new UpcomingBetData(creatorDp, creatorName, "", "", participantsCount, "", date_time, homeLogo,
+                    awayLogo, homeName, awayName, "", betId, home_id, away_id, matchid, seasonid));
         }
         adapter.notifyDataSetChanged();
     }

@@ -34,9 +34,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String title = remoteMessage.getData().get("title");
         String event = "Goal";
         String team = "manu";
-        if (event.equalsIgnoreCase(userSessionManager.getGeneralNotificationFileName(event + "general")) && userSessionManager.getTeamNotification(team)) {
-            sendNotification(title, message);
-        }
+        sendNotification(title, message);
     }
 
     private void sendNotification(String title, String message) {

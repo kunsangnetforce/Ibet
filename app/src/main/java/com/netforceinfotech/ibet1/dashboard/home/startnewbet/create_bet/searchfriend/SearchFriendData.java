@@ -6,7 +6,7 @@ package com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchf
 public class SearchFriendData {
     public String id, name, profilepic;
 
-    SearchFriendData(String id, String name, String profilepic) {
+    public SearchFriendData(String id, String name, String profilepic) {
         this.id = id;
         this.name = name;
         this.profilepic = profilepic;

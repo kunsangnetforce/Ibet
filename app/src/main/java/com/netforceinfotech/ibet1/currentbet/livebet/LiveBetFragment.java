@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.currentbet.livebet;
 
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,14 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +43,8 @@ public class LiveBetFragment extends Fragment {
     FrameLayout livebet;
     private ExpandableListView expListView;
     HashMap<String, List<LiveBetData>> listDataChild = new HashMap<String, List<LiveBetData>>();
+    LinearLayout linearLayoutNoBets;
+    ImageView imageViewNoBets;
 
     public LiveBetFragment() {
         // Required empty public constructor
@@ -52,12 +60,20 @@ public class LiveBetFragment extends Fragment {
 
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
+        initView(view);
         setupRecyclerView(view);
-     //   setupRecyclerView(view);
+        //   setupRecyclerView(view);
         getrLiveBets();
         return view;
 
 
+    }
+
+    private void initView(View view) {
+        linearLayoutNoBets = (LinearLayout) view.findViewById(R.id.linearLayoutNoBets);
+        imageViewNoBets = (ImageView) view.findViewById(R.id.imageViewNoBets);
+        Glide.with(context).load(R.drawable.gs_stadium).into(imageViewNoBets);
+        linearLayoutNoBets.setVisibility(View.GONE);
     }
 
 
@@ -77,11 +93,14 @@ public class LiveBetFragment extends Fragment {
 
 
     private void getrLiveBets() {
-        String url = "https://netforcesales.com/ibet_admin/api/upcoming_bets.php?&user_id="+userSessionManager.getCustomerId();
+        //https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=163
+        String url = "https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=" + userSessionManager.getCustomerId();
+        Debugger.i("kunsang_url_LiveBets", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
+                    linearLayoutNoBets.setVisibility(View.VISIBLE);
                     showMessage("Something went wrong");
                 } else {
                     setupupcomingBetDatas(result);
@@ -105,14 +124,17 @@ public class LiveBetFragment extends Fragment {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                 data = result.getAsJsonArray("data");
             } else {
+                linearLayoutNoBets.setVisibility(View.VISIBLE);
                 showMessage("No bet found");
                 return;
             }
         } catch (Exception ex) {
+            linearLayoutNoBets.setVisibility(View.VISIBLE);
             showMessage("No bet found");
             return;
         }
         int size = data.size();
+        linearLayoutNoBets.setVisibility(View.GONE);
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
 //String userdp, String name, String selectedteamlogo, String selectedteamname, String numberparticipant,
@@ -127,18 +149,18 @@ public class LiveBetFragment extends Fragment {
             String awayName = jsonObject.get("away_teamname").getAsString();
             String betId = jsonObject.get("betid").getAsString();
             String matchid = jsonObject.get("bet_match_id").getAsString();
-            String home_id = "", away_id = "",seasonid="";
+            String home_id = "", away_id = "", seasonid = "";
             try {
                 home_id = jsonObject.get("team_home").getAsString();
                 away_id = jsonObject.get("team_away").getAsString();
-                seasonid=jsonObject.get("season_id").getAsString();
+                seasonid = jsonObject.get("season_id").getAsString();
             } catch (Exception ex) {
 
             }
             if (participantsCount.equalsIgnoreCase("") || participantsCount.trim().length() <= 0) {
                 participantsCount = "0";
             }
-            liveBetDatas.add(new LiveBetData(creatorDp, creatorName, "", "", participantsCount, "", date_time, homeLogo, awayLogo, homeName, awayName, "", betId, home_id, away_id, matchid,seasonid));
+            liveBetDatas.add(new LiveBetData(creatorDp, creatorName, "", "", participantsCount, "", date_time, homeLogo, awayLogo, homeName, awayName, "", betId, home_id, away_id, matchid, seasonid));
         }
         adapter.notifyDataSetChanged();
     }

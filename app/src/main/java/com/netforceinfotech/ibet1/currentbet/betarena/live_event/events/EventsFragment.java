@@ -26,6 +26,7 @@ import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -78,8 +79,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
         context = getActivity();
         try {
-            home_id = this.getArguments().getString("away_id");
-            away_id = this.getArguments().getString("home_id");
+            home_id = this.getArguments().getString("home_id");
+            away_id = this.getArguments().getString("away_id");
             match_id = this.getArguments().getString("match_id");
             home_name = this.getArguments().getString("home_name");
             away_name = this.getArguments().getString("away_name");
@@ -155,7 +156,8 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
         String url = getResources().getString(R.string.url);
         url = url + "/events_by_match_id.php?matchid=" + matchid + "&home_team_id=" + teamaid + "&away_team_id=" + teambid + "&login_mode=" + login_mode;
         // url = url + "/events_by_match_id.php?match_id=" + "736799" + "&home_team_id=" + "6722" + "&away_team_id=" + "6724";
-        Log.i("result url", url);
+        Debugger.i("kunsang_url_getvents", url);
+
         setHeader();
         Ion.with(context)
                 .load(url)
@@ -195,25 +197,25 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                 String teamalogo = "";
                 String teamblogo = "";
                 try {
-                    if (teamObject.get("hm_teamname").isJsonNull()) {
+                    if (teamObject.get("home_teamname").isJsonNull()) {
                         teama = "";
                     } else {
-                        teama = teamObject.get("hm_teamname").getAsString();
+                        teama = teamObject.get("home_teamname").getAsString();
                     }
-                    if (teamObject.get("aw_teamname").isJsonNull()) {
+                    if (teamObject.get("away_teamname").isJsonNull()) {
                         teamb = "";
                     } else {
-                        teamb = teamObject.get("aw_teamname").getAsString();
+                        teamb = teamObject.get("away_teamname").getAsString();
                     }
-                    if (teamObject.get("hm_teamlogo").isJsonNull()) {
+                    if (teamObject.get("home_teamlogo").isJsonNull()) {
                         teamalogo = "";
                     } else {
-                        teamalogo = teamObject.get("hm_teamlogo").getAsString();
+                        teamalogo = teamObject.get("home_teamlogo").getAsString();
                     }
-                    if (teamObject.get("aw_teamlogo").isJsonNull()) {
+                    if (teamObject.get("away_teamlogo").isJsonNull()) {
                         teamblogo = "";
                     } else {
-                        teamblogo = teamObject.get("aw_teamlogo").getAsString();
+                        teamblogo = teamObject.get("away_teamlogo").getAsString();
                     }
 
 

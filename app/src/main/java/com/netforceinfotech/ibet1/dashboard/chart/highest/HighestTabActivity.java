@@ -145,6 +145,7 @@ public class HighestTabActivity extends AppCompatActivity {
 
     private void setupBrownTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentBrown));
@@ -152,6 +153,8 @@ public class HighestTabActivity extends AppCompatActivity {
 
     private void setupPurlpleTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentPurple));
@@ -159,6 +162,8 @@ public class HighestTabActivity extends AppCompatActivity {
 
     private void setupGreenTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentGreen));
@@ -166,6 +171,8 @@ public class HighestTabActivity extends AppCompatActivity {
 
     private void setupMarronTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentMarron));
@@ -174,6 +181,8 @@ public class HighestTabActivity extends AppCompatActivity {
 
     private void setupLightBlueTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+
         tabLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
         tabLayout.setTabTextColors(ContextCompat.getColor(context, R.color.white), ContextCompat.getColor(context, R.color.colorAccentLightBlue));

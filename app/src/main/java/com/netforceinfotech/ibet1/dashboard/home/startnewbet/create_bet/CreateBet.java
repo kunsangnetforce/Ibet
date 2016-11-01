@@ -26,11 +26,16 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.kyleduo.switchbutton.SwitchButton;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
+import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendData;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
@@ -39,18 +44,29 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class CreateBet extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     Toolbar toolbar;
     ImageView setting_list1, setting_list2, setting_list3;
     private MaterialDialog dailog;
-    TextView textViewRemaining;
+    TextView textViewRemaining, textviewCoins;
     EditText editText;
     TextView friendslist;
     SwitchButton switchButtonCanJoin, switchButtonCantView, switchButtonCanView;
-    public static ArrayList<SearchFriendData> frindids = new ArrayList<>();
     private String switchOption = "0";
     String betoption, selectedteam, home_name, away_name;
     double betamount;
@@ -59,13 +75,15 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     String match_id;
     private String frindstring;
     Context context;
-    private String friendsidstring;
+    private String friendsidstring = "";
     private String home_id, away_id;
     UserSessionManager userSessionManager;
     private String losercomment = "";
     private CoordinatorLayout coordinatorLayout;
     private Button buttonCreateBet;
     private View view1;
+    LinearLayout linearLayoutToolbar;
+    private int FRIENDSLIST = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,19 +215,6 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-        frindstring = "";
-        friendsidstring = "";
-
-        for (int i = 0; i < frindids.size(); i++) {
-            if (i == 0) {
-                frindstring = frindids.get(i).name;
-                friendsidstring = frindids.get(i).id;
-            } else {
-                frindstring += "," + frindids.get(i).name;
-                friendsidstring += "," + frindids.get(i).id;
-            }
-        }
-        friendslist.setText(frindstring);
     }
 
     private void setuplayout() {
@@ -296,14 +301,17 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
 
     private void setupToolBar(String title) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView textViewTitle = (TextView) toolbar.findViewById(R.id.textViewTitle);
+        textViewTitle.setText(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String teams = title;
         getSupportActionBar().setTitle(teams);
+        textviewCoins = (TextView) toolbar.findViewById(R.id.textViewCoins);
+        linearLayoutToolbar = (LinearLayout) toolbar.findViewById(R.id.linearLayoutToolbar);
 
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -324,13 +332,28 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonInviteFriend:
-                startActivity(new Intent(CreateBet.this, SearchFriendActivity.class));
+                // startActivity(new Intent(CreateBet.this, SearchFriendActivity.class));
+                Intent i = new Intent(this, SearchFriendActivity.class);
+                startActivityForResult(i, FRIENDSLIST);
                 break;
             case R.id.buttoncreatebet:
                 if (validate()) {
                     showConfirmation();
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FRIENDSLIST) {
+            if (resultCode == RESULT_OK) {
+                friendsidstring = data.getStringExtra("friendsid");//friendsname
+                frindstring = data.getStringExtra("frindstring");
+                friendslist.setText(friendsidstring);
+                Debugger.i("kactivityresult", friendsidstring);
+            }
         }
     }
 
@@ -431,6 +454,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
         return true;
     }
 
@@ -444,13 +468,18 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
      &friends_id=162,163,164&comments=5&home_team_id=1228&away_team_id=2150
      &bet_amount=10.0&bet_option=0&bet_options_to_user=0&user_id=152&bet_remarks=test
       * */
+        if (friendsidstring.trim().length() == 0) {
+            friendsidstring = userSessionManager.getCustomerId();
+        } else {
+            friendsidstring = friendsidstring + "," + userSessionManager.getCustomerId();
+        }
         String baseUrl = getString(R.string.url);
         String betUrl = "/create_bet.php?match_id=" + match_id + "&friends_id=" + friendsidstring + "&comments=" + losercomment
                 + "&home_team_id=" + home_id + "&away_team_id=" + away_id + "&bet_amount=" + betamount + "&bet_status=&bet_match_date=" +
                 "&bet_option=" + betoption + "&bet_option_to_user=" + switchOption + "&user_id=" + userSessionManager.getCustomerId() +
-                "bet_remark=" + losercomment;
+                "&bet_remarks=" + losercomment;
         String url = baseUrl + betUrl;
-        showMessage("bet losic will be created");
+        Debugger.i("kunsang_url_createbet", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -466,6 +495,13 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
                             String team_home = result.get("team_home").getAsString();
                             String team_away = result.get("team_away").getAsString();
                             joinBet(bet_id, bet_amount, bet_option, "0");
+                        } else {
+                            try {
+                                String message = result.get("message").getAsString();
+                                showMessage(message);
+                            } catch (Exception ex) {
+                                showMessage("Something went wrong");
+                            }
                         }
                     } catch (Exception ex) {
 
@@ -486,12 +522,30 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         * */
         String baseUrl = getString(R.string.url);
         String joinBetUrl = "/accept_bet_request.php?match_status=" + selectedteam + "&option=" + bet_option
-                + "&user_id" + userSessionManager.getCustomerId() +
+                + "&user_id=" + userSessionManager.getCustomerId() +
                 "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore="
-                + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type;
+                + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type + "&match_id=" + match_id;
         String url = baseUrl + joinBetUrl;
-        Log.i("kunsang_url", url);
+        Debugger.i("kunsang_url_JoinBet", url);
         showMessage("bet losic will be created");
+        Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                if (result == null) {
+                    showMessage("Not able to join");
+                } else {
+                    try {
+                        if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                            updatecoin(0);
+                            Debugger.i("kjoinbet", "joinsuccessfull");
+                        }
+                    } catch (Exception ex) {
+
+                    }
+
+                }
+            }
+        });
     }
 
     @Override
@@ -567,6 +621,96 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
                     window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
                 }
                 break;
+        }
+
+    }
+
+
+    private void updatecoin(int coins) {
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=add_coin&custid=15&amt_new=50
+        String baseUrl = getString(R.string.url);
+        String updatecointsurl = "/services.php?opt=add_coin&custid=" + userSessionManager.getCustomerId() + "&amt_new=" + coins;
+        String url = baseUrl + updatecointsurl;
+        setupSelfSSLCert();
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            showMessage("Something is wrong");
+                        } else {
+                            Log.i("kunsangresult", result.toString());
+                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                                refreshCoin(result);
+                                Log.i("kunsangcoins", result.toString());
+                            } else {
+                                showMessage("Something went wrong");
+                            }
+                        }
+                    }
+                });
+    }
+
+
+    private void refreshCoin(JsonObject result) {
+        JsonArray data = result.getAsJsonArray("data");
+        JsonObject object = data.get(0).getAsJsonObject();
+        String coins = object.get("Current Coin").getAsString();
+        userSessionManager.setCoins(coins);
+        textviewCoins.setText(coins);
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        YoYo.with(Techniques.Tada)
+                .duration(700)
+                .playOn(linearLayoutToolbar);
+    }
+
+    public void setupSelfSSLCert() {
+        final Trust trust = new Trust();
+        final TrustManager[] trustmanagers = new TrustManager[]{trust};
+        SSLContext sslContext;
+        try {
+            sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustmanagers, new SecureRandom());
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setTrustManagers(trustmanagers);
+            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setSSLContext(sslContext);
+        } catch (final NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (final KeyManagementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class Trust implements X509TrustManager {
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
         }
 
     }

@@ -20,12 +20,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="45"
-            android:gravity="center">
+            android:gravity="left">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:elevation="6dp"
+                android:id="@+id/imageViewDP"
                 android:src="@drawable/david" />
 
             <TextView
@@ -45,12 +46,12 @@
             android:layout_weight="25"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="5dp"
-                android:padding="7dp"
-                android:src="@drawable/img_win" />
+            <TextView
+                android:id="@+id/textviewResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textColor="@color/colorAccent" />
         </LinearLayout>
 
         <LinearLayout
@@ -59,10 +60,16 @@
             android:layout_weight="25"
             android:gravity="center">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="50dp"
-                android:layout_height="30dp" />
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/textViewSelectedTeam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="SelectedTeam"
+                android:textColor="@color/colorAccent" />
+
         </LinearLayout>
 
         <LinearLayout

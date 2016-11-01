@@ -27,6 +27,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.plattysoft.leonids.ParticleSystem;
@@ -465,6 +466,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     private void saveTime(final int price, final View view) {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=save_scratch_time&user_id=137
         String url = getString(R.string.url) + "/services.php?opt=save_scratch_time&user_id=" + userSessionManager.getCustomerId();
+        Debugger.i("kunsang_url_saveTime", url);
         showProgressDialog();
         Ion.with(context)
                 .load(url)
@@ -678,7 +680,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         String updatecointsurl = "/services.php?opt=buy_coins&custid=" + userSessionManager.getCustomerId() + "&hours=" + -wait_hours;
         String url = baseUrl + updatecointsurl;
         setupSelfSSLCert();
-        Log.i("kunsangurl", url);
+        Debugger.i("kunsang_url_buyscratch", url);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
@@ -709,6 +711,11 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
+
+
+    private void hideProgressDialog() {
+        progressDialog.dismiss();
+    }
     private void updatecoin(int coins) {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=add_coin&custid=15&amt_new=50
         String baseUrl = getString(R.string.url);
@@ -736,11 +743,6 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
     }
-
-    private void hideProgressDialog() {
-        progressDialog.dismiss();
-    }
-
     private void refreshCoin(JsonObject result) {
         JsonArray data = result.getAsJsonArray("data");
         JsonObject object = data.get(0).getAsJsonObject();
@@ -809,7 +811,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         String updatecointsurl = "/services.php?opt=get_scratch_time&user_id=" + userSessionManager.getCustomerId();
         String url = baseUrl + updatecointsurl;
         setupSelfSSLCert();
-        Log.i("kunsangurl", url);
+        Debugger.i("kunsang_url_getTime", url);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
@@ -823,7 +825,16 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                         } else {
                             Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+
                                 // refreshPage(result);
+                                try {
+                                    if (result.get("data").getAsString().equalsIgnoreCase("No result found"))
+                                        ;
+                                    showContent();
+                                    return;
+                                } catch (Exception ex) {
+
+                                }
                                 JsonArray data = result.getAsJsonArray("data");
                                 JsonObject object = data.get(0).getAsJsonObject();
                                 int wait_time = object.get("wait_time").getAsInt();

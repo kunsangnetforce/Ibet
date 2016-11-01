@@ -36,6 +36,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.mikepenz.materialdrawer.AccountHeader;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.MainActivity;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.chart.ChartFragment;
@@ -83,6 +84,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     private ParticleSystem confetti_top_right, confetti_top_left;
     TextView textviewCoins;
     LinearLayout linearLayoutToolbar;
+    private MaterialDialog progressDialog;
 
 
     @Override
@@ -126,6 +128,11 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void initView() {
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
+        progressDialog.setCanceledOnTouchOutside(false);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         header_background = (LinearLayout) findViewById(R.id.header_relative);
@@ -233,7 +240,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                         Toast.makeText(getApplicationContext(), "App url... yet to implement", Toast.LENGTH_SHORT).show();
                         return true;
                     case "Logout":
-
+                        userSessionManager.setIsLoggedIn(false);
                         LoginManager.getInstance().logOut();
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
@@ -507,6 +514,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
         String baseUrl = getString(R.string.url);
         String updatecointsurl = "/services.php?opt=add_coin&custid=" + userSessionManager.getCustomerId() + "&amt_new=" + coins;
         String url = baseUrl + updatecointsurl;
+        Debugger.i("kunsang_url_updatecoin", url);
         setupSelfSSLCert();
         Ion.with(context)
                 .load(url)
@@ -529,6 +537,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                 });
     }
 
+
     private void refreshCoin(JsonObject result) {
         JsonArray data = result.getAsJsonArray("data");
         JsonObject object = data.get(0).getAsJsonObject();
@@ -539,6 +548,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                 .duration(700)
                 .playOn(linearLayoutToolbar);
     }
+
 
     public void setupSelfSSLCert() {
         final Trust trust = new Trust();

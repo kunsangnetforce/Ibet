@@ -98,8 +98,11 @@ public class EnterBetArenaActivity extends AppCompatActivity {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);
+        //ragmentManager fm, int NumOfTabs, String bet_id, String match_id,
+        // String home_id, String away_id, String home_name, String away_name, String home_logo, String away_logo, String season_id) {
         final PagerAdapterBetArena adapter = new PagerAdapterBetArena
-                (getSupportFragmentManager(), tabLayout.getTabCount(), bet_id, match_id, home_id, away_id, home_name, away_name, home_logo, away_id,season_id);
+                (getSupportFragmentManager(), tabLayout.getTabCount(), bet_id, match_id, home_id,
+                        away_id, home_name, away_name, home_logo, away_logo,season_id);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

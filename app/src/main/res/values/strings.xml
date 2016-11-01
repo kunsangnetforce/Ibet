@@ -107,7 +107,7 @@
     <string name="login">Login</string>
     <string name="choose_app_bg_msg">Choose a background for application</string>
     <string name="highest_rank">Highest Rank</string>
-    <string name="rishest_rank">Rishest Rank</string>
+    <string name="rishest_rank">Richest Rank</string>
     <string name="invite_friends_to_bet">Invite friends to Bet</string>
     <string name="friends1">Friends:</string>
     <string name="other_user_s_can_view_the_bet_and_join">Other user/s can view the bet and join</string>
@@ -184,5 +184,11 @@
     <string name="bet_has_been_placed">Bet has been placed !</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="no_odds">No odds for this match</string>
+    <string name="no_bets_to_join">No bets to join</string>
+    <string name="predict_score">Predict Score</string>
+    <string name="bet_amount">Bet Amount</string>
+    <string name="feedbackerror">Some error occur while sending feedback</string>
+    <string name="server_down">Server is down. Please try again</string>
+    <string name="failed_to_upload">Failed to upload</string>
 
 </resources>

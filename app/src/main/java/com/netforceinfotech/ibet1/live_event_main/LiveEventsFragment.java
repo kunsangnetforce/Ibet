@@ -26,6 +26,7 @@ import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.AsyncHttpClientMiddleware;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.ExpandHeaderData;
@@ -63,6 +64,8 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     CoordinatorLayout coordinatorLayout;
     TextView textViewNoData;
     View view1;
+    boolean clickedLivematch = true;
+    private String stringDate = "";
 
     public LiveEventsFragment() {
         // Required empty public constructor
@@ -196,7 +199,11 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
                 expandHeaderDatas.clear();
                 listDataChild.clear();
                 buttonDate.setText("Select Date");
-                getLiveMatch();
+                if (clickedLivematch) {
+                    getLiveMatch();
+                } else {
+                    getMatchBydate(stringDate);
+                }
             }
         });
         setupExpandableView(view);
@@ -248,7 +255,7 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
     private void getLiveMatch() {
         //https://api.soccerama.pro/v1.2/livescore/now?api_token=__YOURTOKEN__
         String url = "https://api.soccerama.pro/v1.2/livescore/now?api_token=" + userSessionManager.getApitoken() + "&include=homeTeam,awayTeam,competition";
-        Log.i("kunsangurl", url);
+        Debugger.i("kunsang_url_getlivescore", url);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
@@ -270,7 +277,12 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
 
     private void setupData(JsonObject result) {
         try {
+            expandHeaderDatas.clear();
+            listDataChild.clear();
             currentGameDatas.clear();
+            listAdapter.notifyDataSetChanged();
+            currentGameDatas.clear();
+            currentGameAdapter.notifyDataSetChanged();
         } catch (Exception ex) {
 
         }
@@ -398,7 +410,9 @@ public class LiveEventsFragment extends Fragment implements View.OnClickListener
         }
         buttonDate.setText(day_txt + " " + dayOfMonth + " " + month_txt);
         linearLayoutProgress.setVisibility(View.VISIBLE);
-        getMatchBydate(year + "-" + formattedMonth + "-" + dayOfMonth);
+        clickedLivematch = false;
+        stringDate = year + "-" + formattedMonth + "-" + dayOfMonth;
+        getMatchBydate(stringDate);
         Log.i("kunsang_date", year + "-" + monthOfYear + "-" + dayOfMonth);
 
     }

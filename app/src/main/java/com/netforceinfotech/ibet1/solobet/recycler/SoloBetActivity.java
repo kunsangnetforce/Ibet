@@ -80,7 +80,7 @@ public class SoloBetActivity extends AppCompatActivity {
         progressDialog.show();
         //https://api.soccerama.pro/v1.2/odds/match/{id}?api_token=__YOURTOKEN__
         String url = "https://api.soccerama.pro/v1.2/odds/match/" + match_id + "?api_token=" + userSessionManager.getApitoken();
-        Debugger.i("kresult", url);
+        Debugger.i("kunsang_url_getOdds", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {

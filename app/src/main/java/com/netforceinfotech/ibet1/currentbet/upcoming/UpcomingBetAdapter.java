@@ -4,6 +4,7 @@ package com.netforceinfotech.ibet1.currentbet.upcoming;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.currentbet.betarena.EnterBetArenaActivity;
+import com.netforceinfotech.ibet1.currentbet.upcoming.detail_upcoming_bet.DetailUpcomingBet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -77,6 +79,22 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         });
 
+        upcomingBetHolder.textViewDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DetailUpcomingBet.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("home_logo", itemList.get(position).teamalogo);
+                bundle.putString("away_logo", itemList.get(position).teamblogo);
+                bundle.putString("bet_id", itemList.get(position).betid);
+                bundle.putString("home_name", itemList.get(position).teamaname);
+                bundle.putString("away_name", itemList.get(position).teambname);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+                ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+
+            }
+        });
         if (itemList.get(position).userdp.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).userdp)

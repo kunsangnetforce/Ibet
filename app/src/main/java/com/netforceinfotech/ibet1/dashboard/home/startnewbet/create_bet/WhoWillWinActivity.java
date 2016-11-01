@@ -35,7 +35,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
     private Toolbar toolbar;
     ImageView imageViewTeamA, imageViewTeamB, imageViewHomeIncrement, imageViewHomeDecrement, imageViewAwayIncrement, imageViewAwayDecrement;
     RelativeLayout relativeLayoutBetAmount, relativeLayoutScore, relativeLayoutTeam;
-    TextView textViewBetamount, textViewTeamA, textViewTeamB, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway;
+    TextView textViewBetamount, textViewTeamA, textViewTeamB, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway, textviewCoins;
     String match_id;
     double betamount = 0;
     private EditText editTextPopupBetAmount;
@@ -51,7 +51,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
     CoordinatorLayout coordinatorLayout;
     private UserSessionManager userSessionManager;
     private View view1;
-    LinearLayout linearLayoutHome, linearLayoutAway;
+    LinearLayout linearLayoutHome, linearLayoutAway, linearLayoutToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,11 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        textviewCoins.setText(userSessionManager.getCoins());
+    }
 
     private boolean validate() {
         if (betamount == 0) {
@@ -198,6 +202,8 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String teams = title;
         getSupportActionBar().setTitle(teams);
+        textviewCoins = (TextView) toolbar.findViewById(R.id.textViewCoins);
+        linearLayoutToolbar = (LinearLayout) toolbar.findViewById(R.id.linearLayoutToolbar);
 
     }
 
@@ -410,6 +416,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
         }
 
     }
+
     private void setupBackbround() {
 
         switch (userSessionManager.getBackground()) {
