@@ -55,6 +55,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     private String bet_id, match_id, home_name, away_name, home_logo, away_logo, home_id, away_id;
     private String bet_ammount;
     private String bet_option;
+    private TextView textviewCoins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +65,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         userSessionManager = new UserSessionManager(this);
         setupStatusBar();
         initView();
-        setupToolBar("Germany vs Italy");
-        setupRecyclerView();
-        setupTheme();
-        setupBackground();
+
         try {
             /*
             * match_id = bundle.getString("match_id");
@@ -79,6 +77,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
             away_id = bundle.getString("away_id");
             * */
             Bundle bundle = getIntent().getExtras();
+
             bet_id = bundle.getString("bet_id");
             match_id = bundle.getString("match_id");
             home_id = bundle.getString("home_id");
@@ -90,12 +89,23 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
             bet_option = bundle.getString("bet_option");
 
             Debugger.i("kbundle", bet_id);
+
             getBetDetail(bet_id);
         } catch (Exception ex) {
             Debugger.e("kbundle", "bundle error");
 
         }
+        setupToolBar(home_name + " vs " + away_name);
+        setupRecyclerView();
+        setupTheme();
+        setupBackground();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        textviewCoins.setText(userSessionManager.getCoins());
     }
 
     private void initView() {
@@ -283,7 +293,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(app_name);
         textView.setText(app_name);
-
+        textviewCoins = (TextView) toolbar.findViewById(R.id.textViewCoins);
     }
 
     @Override
@@ -291,15 +301,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.buttonJoin:
                 Intent intent = new Intent(context, AcceptBetActivity.class);
-                /*
-                * match_id = bundle.getString("match_id");
-            home_name = bundle.getString("home_name");
-            away_name = bundle.getString("away_name");
-            home_logo = bundle.getString("home_logo");
-            away_logo = bundle.getString("away_logo");
-            home_id = bundle.getString("home_id");
-            away_id = bundle.getString("away_id");
-                * */
+
                 Bundle bundle = new Bundle();
                 bundle.putString("match_id", match_id);
                 bundle.putString("bet_id", bet_id);
@@ -310,7 +312,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
                 bundle.putString("away_id", away_id);
                 bundle.putString("away_logo", away_logo);
                 bundle.putString("bet_option", bet_option);
-                bundle.putString("bet_ammount", bet_ammount);
+                bundle.putString("bet_amount", bet_ammount);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -396,11 +398,15 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         if (result.get("status").getAsString().equalsIgnoreCase("success")) {
             if (!result.getAsJsonObject("bets_detail").isJsonNull()) {
                 Debugger.i("kexecuted?", "executed");
-                String home_id, away_id, team_away_flag, team_home_flag, away_name = "", home_name = "", bet_match_time, bet_match_date;
+                String home_id, away_id, team_away_flag, team_home_flag, bet_match_time, bet_match_date;
                 JsonObject bet_detail = result.getAsJsonObject("bets_detail");
                 if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
                     JsonObject bet = bet_detail.getAsJsonObject("bet");
 
+                    if (!bet.get("bet_remarks").isJsonNull()) {
+                        String bet_remarks = bet.get("bet_remarks").getAsString();
+                        textViewLoserMessage.setText(bet_remarks);
+                    }
                     if (!bet.get("team_home_id").isJsonNull()) {
                         home_id = bet.get("team_home_id").getAsString();
                     }
@@ -448,7 +454,9 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
                         String username = user.get("name").getAsString();
                         String selectedTeam = user.get("match_status").getAsString();
                         String bet_result = user.get("bet_result").getAsString();
-                        String score = user.get("home_scrore").getAsString() + "-" + user.get("away_scrore");
+                        String home_score = user.get("home_scrore").getAsString();
+                        String away_score = user.get("away_scrore").getAsString();
+                        String score = home_score + "-" + away_score;
                         if (selectedTeam.equalsIgnoreCase("home_win")) {
                             selectedTeam = home_name;
                         } else if (selectedTeam.equalsIgnoreCase("away_win")) {

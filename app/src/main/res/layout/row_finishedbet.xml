@@ -43,14 +43,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="80"
+                android:layout_marginRight="16dp"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
                 android:weightSum="130">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:orientation="horizontal"
                     android:layout_height="wrap_content"
-                    android:layout_weight="50"
+                    android:layout_width="wrap_content"
                     android:gravity="center"
                     android:padding="7dp">
 
@@ -192,7 +193,7 @@
                     android:background="@drawable/roundcornor"
                     android:gravity="center"
                     android:padding="6dp"
-                    android:weightSum="115">
+                    android:weightSum="120">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -222,6 +223,7 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="16dp"
                                 android:layout_weight="70"
                                 android:gravity="left|center_vertical">
 
@@ -243,7 +245,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="15"
+                        android:layout_weight="20"
                         android:gravity="center">
 
                         <ImageView
@@ -268,6 +270,7 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
                                 android:layout_weight="70"
                                 android:gravity="right">
 
@@ -301,8 +304,8 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ball" />
             </RelativeLayout>

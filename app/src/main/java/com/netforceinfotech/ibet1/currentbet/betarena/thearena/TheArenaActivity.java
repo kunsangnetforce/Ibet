@@ -254,7 +254,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
             _bet = _root.child("bet");
             _bet.updateChildren(map_betid);
             _bet.addChildEventListener(TheArenaActivity.this);
-        } else if (dataSnapshot.getKey().equalsIgnoreCase(match_id)) {
+        } else if (dataSnapshot.getKey().equalsIgnoreCase(bet_id)) {
             _betid = _bet.child(bet_id);
             _betid.updateChildren(map_team);
             _betid.addChildEventListener(TheArenaActivity.this);
@@ -335,6 +335,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
         map1.put("timestamp", ServerValue.TIMESTAMP);
         map1.put("image", userSessionManager.getProfilePic());
         message_root.updateChildren(map1);
+        editText.setText("");
 
     }
 

@@ -65,6 +65,12 @@ public class BetsToJoin extends Fragment {
         linearLayoutNoBets.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBetsToJoin();
+    }
+
     private void getBetsToJoin() {
         //https://netforcesales.com/ibet_admin/api/bets_to_join.php?&user_id=163
         String baseUrl = getString(R.string.url);
@@ -75,7 +81,6 @@ public class BetsToJoin extends Fragment {
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
-                    showMessage("No bets to join");
                 } else {
                     setupbetsToJoinDatas(result);
                 }
@@ -83,9 +88,6 @@ public class BetsToJoin extends Fragment {
         });
     }
 
-    private void showMessage(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-    }
 
     private void setupRecyclerView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
@@ -110,7 +112,6 @@ public class BetsToJoin extends Fragment {
                 int size = data.size();
                 if (size == 0) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
-                    showMessage(getString(R.string.no_bets_to_join));
                     return;
                 }
                 linearLayoutNoBets.setVisibility(View.GONE);
@@ -141,11 +142,9 @@ public class BetsToJoin extends Fragment {
                 adapter.notifyDataSetChanged();
             } else {
                 linearLayoutNoBets.setVisibility(View.VISIBLE);
-                showMessage("something went wrong");
                 return;
             }
         } catch (Exception ex) {
-            showMessage("something went wrong");
             return;
         }
     }

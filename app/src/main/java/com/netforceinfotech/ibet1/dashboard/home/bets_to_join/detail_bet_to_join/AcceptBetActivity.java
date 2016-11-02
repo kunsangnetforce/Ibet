@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.JsonArray;
@@ -54,7 +56,7 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
     LinearLayout linearLayoutScoreMain, linearLayoutToolbar, linearLayoutHome, linearLayoutAway;
     String bet_option, bet_id, home_name, home_logo, away_name, away_logo, match_id, bet_amount;
     String selectedteam = "";
-    TextView textViewBetAmount, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway, textviewCoins;
+    TextView textViewBetAmount, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway, textviewCoins, textViewTeamA, textViewTeamB;
     RadioButton radioButtonHome, radioButtonDraw, radioButtonAway;
     ImageView imageViewTeamA, imageViewTeamB, imageViewHomeIncrement, imageViewHomeDecrement, imageViewAwayIncrement, imageViewAwayDecrement;
     UserSessionManager userSessionManager;
@@ -62,6 +64,7 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
     Toolbar toolbar;
     CoordinatorLayout coordinatorLayout;
     View view1;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +94,8 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
 
         }
         initView();
-        setupToolBar(home_name + " vs" + away_name);
+        setupToolBar(home_name + " vs " + away_name);
+        updatecoin(0);
         setupStatusBar();
         setupTheme();
         setupBackbround();
@@ -129,6 +133,12 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
 
 
     private void initView() {
+        textViewTeamA = (TextView) findViewById(R.id.textViewTeamA);
+        textViewTeamB = (TextView) findViewById(R.id.textViewTeamB);
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
         linearLayoutAway = (LinearLayout) findViewById(R.id.linearLayoutAway);
         linearLayoutHome = (LinearLayout) findViewById(R.id.linearLayoutHome);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
@@ -174,6 +184,10 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
             relativeLayoutTeam.setVisibility(View.VISIBLE);
             linearLayoutScoreMain.setVisibility(View.VISIBLE);
         }
+        Glide.with(context).load(home_logo).into(imageViewTeamA);
+        Glide.with(context).load(away_logo).into(imageViewTeamB);
+        textViewTeamA.setText(home_name);
+        textViewTeamB.setText(away_name);
     }
 
     @Override
@@ -252,7 +266,7 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
     }
 
     private void joinBet(String bet_id, String bet_amount, String bet_option, String request_type) {
-
+        progressDialog.show();
         /*
         * https://netforcesales.com/ibet_admin/api/accept_bet_request.php?
         * match_status=home_win&option=0&user_id=164&bet_id=237&user_bet_amt=10&away_scrore=0&home_s
@@ -264,17 +278,18 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
                 + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type + "&match_id=" + match_id;
         String url = baseUrl + joinBetUrl;
         Debugger.i("kunsang_url_JoinBet", url);
-        showMessage("bet losic will be created");
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
+                progressDialog.dismiss();
                 if (result == null) {
                     showMessage("Not able to join");
                 } else {
                     try {
                         if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                             updatecoin(0);
-                            Debugger.i("kjoinbet", "joinsuccessfull");
+                            showMessage("Join successfully");
+                            finish();
                         }
                     } catch (Exception ex) {
 

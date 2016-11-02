@@ -249,7 +249,7 @@ public class SearchFriendActivity extends AppCompatActivity implements View.OnCl
                 }
                 Intent intent = new Intent();
                 intent.putExtra("friendsid", friendsidstring);
-                intent.putExtra("friendsname", frindstring);
+                intent.putExtra("frindstring", frindstring);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

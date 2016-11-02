@@ -252,6 +252,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                         startActivity(bonus);
                         return true;
                     case "Login":
+                        userSessionManager.setIsLoggedIn(false);
                         Intent login = new Intent(Dashboard.this, LoginActivity.class);
                         startActivity(login);
                         finish();

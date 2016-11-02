@@ -346,7 +346,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
             if (resultCode == RESULT_OK) {
                 friendsidstring = data.getStringExtra("friendsid");//friendsname
                 frindstring = data.getStringExtra("frindstring");
-                friendslist.setText(friendsidstring);
+                friendslist.setText(frindstring);
                 Debugger.i("kactivityresult", friendsidstring);
             }
         }
@@ -413,7 +413,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         }
         textViewBetAmount.setText("Bet Amount : " + betamount);
         textViewLoserMessage.setText("Loser Message : " + editText.getText().toString());
-        textViewFriendInvited.setText("Friend Invited : " + friendslist.getText().toString());
+        textViewFriendInvited.setText("Friend Invited : " + frindstring);
         dialogConfirmation.show();
         switch (userSessionManager.getTheme()) {
             case 0:

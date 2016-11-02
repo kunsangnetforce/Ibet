@@ -103,7 +103,6 @@ public class LiveBetFragment extends Fragment {
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
-                    showMessage("Something went wrong");
                 } else {
                     setupupcomingBetDatas(result);
                 }
@@ -111,9 +110,6 @@ public class LiveBetFragment extends Fragment {
         });
     }
 
-    private void showMessage(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-    }
 
     private void setupupcomingBetDatas(JsonObject result) {
         try {
@@ -127,12 +123,10 @@ public class LiveBetFragment extends Fragment {
                 data = result.getAsJsonArray("data");
             } else {
                 linearLayoutNoBets.setVisibility(View.VISIBLE);
-                showMessage("No bet found");
                 return;
             }
         } catch (Exception ex) {
             linearLayoutNoBets.setVisibility(View.VISIBLE);
-            showMessage("No bet found");
             return;
         }
         int size = data.size();

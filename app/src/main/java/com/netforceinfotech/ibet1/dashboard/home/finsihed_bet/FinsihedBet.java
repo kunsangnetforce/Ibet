@@ -82,23 +82,24 @@ public class FinsihedBet extends Fragment {
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
-                    showMessage("No finished bets to show");
                 } else {
                     Debugger.i("kresult", result.toString());
                     if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                        linearLayoutNoBets.setVisibility(View.GONE);
+
                         setupFinsihedDatas(result);
                     } else {
                         linearLayoutNoBets.setVisibility(View.VISIBLE);
-                        showMessage("No finished bets to show");
                     }
                 }
             }
         });
     }
 
-    private void showMessage(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFinishedData();
     }
 
     private void setupRecyclerView(View view) {
@@ -141,6 +142,10 @@ public class FinsihedBet extends Fragment {
    */
         JsonArray data = result.getAsJsonArray("data");
         int size = data.size();
+        if (size == 0) {
+            linearLayoutNoBets.setVisibility(View.VISIBLE);
+            return;
+        }
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
             String bet_id = jsonObject.get("bet_id").getAsString();

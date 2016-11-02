@@ -233,6 +233,7 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
                     map1.put("timestamp", ServerValue.TIMESTAMP);
                     map1.put("image", userSessionManager.getProfilePic());
                     message_root.updateChildren(map1);
+                    editText.setText("");
                 } else {
                     showMessage("Type text");
                 }

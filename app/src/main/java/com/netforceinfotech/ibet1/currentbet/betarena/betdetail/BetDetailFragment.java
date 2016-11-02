@@ -62,6 +62,11 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragmentet_bet_detail, container, false);
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
+        initView(view);
+        setupTheme();
+        setupBackground();
+        setupRecyclerView(view);
+
         try {
             /*
             *    bundle.putString("home_name", home_name);
@@ -70,14 +75,12 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
             String bet_id = this.getArguments().getString("bet_id");
             home_name = this.getArguments().getString("home_name");
             away_name = this.getArguments().getString("away_name");
+            textViewTeamB.setText(away_name);
+            textViewTeamA.setText(home_name);
             getBetDetail(bet_id);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        initView(view);
-        setupTheme();
-        setupBackground();
-        setupRecyclerView(view);
         return view;
     }
 
@@ -103,12 +106,16 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         try {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                 if (!result.getAsJsonObject("bet_detail").isJsonNull()) {
-                    String home_id, away_id, team_away_flag, team_home_flag, away_name = "", home_name = "", bet_ammount, bet_match_time, bet_match_date;
+                    String home_id, away_id, team_away_flag, team_home_flag, bet_ammount, bet_match_time, bet_match_date;
                     JsonObject bet_detail = result.getAsJsonObject("bet_detail");
                     if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
                         JsonObject bet = bet_detail.getAsJsonObject("bet");
 
 
+                        if (!bet.get("bet_remarks").isJsonNull()) {
+                            String bet_remarks = bet.get("bet_remarks").getAsString();
+                            textViewLoserMessage.setText(bet_remarks);
+                        }
                         if (!bet.get("team_away_flag").isJsonNull()) {
                             team_away_flag = bet.get("team_away_flag").getAsString();
                             Glide.with(context).load(team_away_flag).error(R.drawable.ic_error).into(imageViewTeamB);
@@ -118,8 +125,8 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                             Glide.with(context).load(team_home_flag).error(R.drawable.ic_error).into(imageViewTeamA);
                         }
 
-                        if (!bet.get("bet_ammount").isJsonNull()) {
-                            bet_ammount = bet.get("bet_ammount").getAsString();
+                        if (!bet.get("bet_amount").isJsonNull()) {
+                            bet_ammount = bet.get("bet_amount").getAsString();
                             textViewBetamount.setText(bet_ammount);
                         }
                         if (!bet.get("bet_match_time").isJsonNull() && !bet.get("bet_match_date").isJsonNull()) {
@@ -141,7 +148,9 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                                 String username = user.get("name").getAsString();
                                 String selectedTeam = user.get("match_status").getAsString();
                                 String bet_result = user.get("bet_result").getAsString();
-                                String score = user.get("home_scrore").getAsString() + "-" + user.get("away_scrore");
+                                String homeScore = user.get("home_scrore").getAsString();
+                                String awayScore = user.get("away_scrore").getAsString();
+                                String score = homeScore + "-" + awayScore;
                                 if (selectedTeam.equalsIgnoreCase("home_win")) {
                                     selectedTeam = home_name;
                                 } else if (selectedTeam.equalsIgnoreCase("away_win")) {
@@ -161,6 +170,7 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                 showMessage(getString(R.string.no_data));
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             showMessage(getString(R.string.something_went_wrong));
         }
     }
@@ -173,9 +183,9 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setNestedScrollingEnabled(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        DetailBetAdapter detailBetAdapter = new DetailBetAdapter(context, detailBetDatas);
+        adapter = new DetailBetAdapter(context, detailBetDatas);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(detailBetAdapter);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initView(View view) {
