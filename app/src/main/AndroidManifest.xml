@@ -186,6 +186,7 @@
         <activity
             android:name=".dashboard.home.bets_to_join.detail_bet_to_join.AcceptBetActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".dashboard.setting.InfoActivity"></activity>
     </application>
 
 </manifest>

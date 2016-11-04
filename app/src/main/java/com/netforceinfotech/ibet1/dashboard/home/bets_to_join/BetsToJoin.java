@@ -117,21 +117,99 @@ public class BetsToJoin extends Fragment {
                 linearLayoutNoBets.setVisibility(View.GONE);
                 for (int i = 0; i < size; i++) {
                     JsonObject jsonObject = data.get(i).getAsJsonObject();
-                    String name = jsonObject.get("name").getAsString();
-                    String creator_id = jsonObject.get("bet_creator").getAsString();
-                    String userdp = jsonObject.get("profile_image").getAsString();
-                    String participants = jsonObject.get("participants").getAsString();
-                    String home_name = jsonObject.get("home_teamname").getAsString();
-                    String away_name = jsonObject.get("away_teamname").getAsString();
-                    String home_logo = jsonObject.get("team_home_flag").getAsString();
-                    String away_logo = jsonObject.get("team_away_flag").getAsString();
-                    String bet_match_date = jsonObject.get("bet_match_date").getAsString();
-                    String bet_match_time = jsonObject.get("bet_match_time").getAsString();
-                    String matchid = jsonObject.get("bet_match_id").getAsString();
-                    String bet_option = jsonObject.get("bet_option").getAsString();
-                    String bet_amount = jsonObject.get("bet_amount").getAsString();
-                    String betid = jsonObject.get("betid").getAsString();
+                    String name,creator_id,userdp,participants,home_name,away_name,home_logo,away_logo,bet_match_date,bet_match_time,matchid,bet_option,bet_amount,betid;
+                    if(jsonObject.get("name").isJsonNull()){
+                        name="";
+                    }
+                    else {
+                        name = jsonObject.get("name").getAsString();
+                    }
+
+                    if(jsonObject.get("bet_creator").isJsonNull()){
+                        creator_id="";
+                    }
+                    else {
+                        creator_id = jsonObject.get("bet_creator").getAsString();
+                    }
+                    if(jsonObject.get("profile_image").isJsonNull()){
+                        userdp="";
+                    }
+                    else {
+                        userdp = jsonObject.get("profile_image").getAsString();
+                    }
+
+                    if(jsonObject.get("participants").isJsonNull()){
+                        participants="";
+                    }
+                    else {
+                        participants = jsonObject.get("participants").getAsString();
+                    }
+
+                    if(jsonObject.get("home_teamname").isJsonNull()){
+                        home_name  ="";
+                    }
+                    else {
+                        home_name = jsonObject.get("home_teamname").getAsString();
+                    }
+                    if(jsonObject.get("away_teamname").isJsonNull()){
+                        away_name="";
+                    }
+                    else {
+                        away_name = jsonObject.get("away_teamname").getAsString();
+                    }
+                    if(jsonObject.get("team_home_flag").isJsonNull()){
+                        home_logo="";
+                    }
+                    else {
+                        home_logo = jsonObject.get("team_home_flag").getAsString();
+                    }
+
+                    if(jsonObject.get("team_away_flag").isJsonNull()){
+                        away_logo="";
+                    }
+                    else {
+                        away_logo = jsonObject.get("team_away_flag").getAsString();
+                    }
+                    if(jsonObject.get("bet_match_date").isJsonNull()){
+                        bet_match_date="";
+                    }
+                    else {
+                        bet_match_date = jsonObject.get("bet_match_date").getAsString();
+                    }
+
+                    if(jsonObject.get("name").isJsonNull()){
+                        bet_match_time="";
+                    }
+                    else {
+                        bet_match_time = jsonObject.get("bet_match_time").getAsString();
+                    }
+                    if(jsonObject.get("bet_match_id").isJsonNull()){
+                        matchid="";
+                    }
+                    else {
+                        matchid = jsonObject.get("bet_match_id").getAsString();
+                    }
+
+                    if(jsonObject.get("bet_option").isJsonNull()){
+                        bet_option="";
+                    }
+                    else {
+                        bet_option = jsonObject.get("bet_option").getAsString();
+                    }
+                    if(jsonObject.get("bet_amount").isJsonNull()){
+                        bet_amount="";
+                    }
+                    else {
+                        bet_amount = jsonObject.get("bet_amount").getAsString();
+                    }
+                    if(jsonObject.get("betid").isJsonNull()){
+                        betid="";
+                    }
+                    else {
+                        betid = jsonObject.get("betid").getAsString();
+                    }
                     String time = bet_match_date + " " + bet_match_time;
+
 //String userdp, String name, String numberparticipant, String time, String teamalogo, String teamblogo,
 // String teamaname, String teambname, String betid) {
                     BetsToJoinData betsToJoin = new BetsToJoinData(userdp, name, participants, time, home_logo,
@@ -145,6 +223,7 @@ public class BetsToJoin extends Fragment {
                 return;
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
             return;
         }
     }

@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
@@ -31,6 +32,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
+import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.CreateBet;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -289,7 +291,9 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
                         if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                             updatecoin(0);
                             showMessage("Join successfully");
-                            finish();
+                            Intent intent = new Intent(context, Dashboard.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         }
                     } catch (Exception ex) {
 

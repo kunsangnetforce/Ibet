@@ -77,7 +77,7 @@
     <string name="purchase_heading">Purchase more virtual money!</string>
     <string name="title_activity_richest_rank">RichestRankActivity</string>
     <string name="title_activity_odds">OddsActivity</string>
-    <string name="teamnotification_heading">Dummy Text Loreum Lipsum.Dummy Text Loreum Lipsum</string>
+    <string name="teamnotification_heading">\Which team would you like to get notification</string>
     <string name="muteallnotification">Mute all notifications</string>
     <string name="enter_bet_arena">Enter Bet Arena</string>
     <string name="events">Events</string>
@@ -95,7 +95,7 @@
     <string name="appkey">12334ddfdfdf</string>
     <string name="url">https://netforcesales.com/ibet_admin/api</string>
     <string name="urlsearch">https://netforcesales.com/ibet_admin/api/search_team.php</string>
-
+    <string name="legal_info">"All images and/or logos shown or represented in this game are protected by copyright and/or are trademarks of their respective corporations. The use of low resolution images and/or logos in this App for the use of identification in a positive and informational context qualifies as 'fair use' under copyright law. Any other usage of these images elsewhere may be copyright infringement."</string>
 
     <!-- Input demo slide -->
     <string name="slide_input_title">Slide: Input Demo</string>
@@ -191,5 +191,6 @@
     <string name="server_down">Server is down. Please try again</string>
     <string name="failed_to_upload">Failed to upload</string>
     <string name="no_data">No data</string>
+    <string name="about_app">About App</string>
 
 </resources>

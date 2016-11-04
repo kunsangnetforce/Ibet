@@ -35,12 +35,9 @@ import com.koushikdutta.ion.Ion;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
-import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity;
+import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
-import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendData;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -51,7 +48,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.net.ssl.SSLContext;
@@ -110,7 +106,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         }
         setupStatusBar();
         setupToolBar("Create Bet");
-        setuplayout();
+        initView();
         setupTheme();
         setupBackbround();
         findViewById(R.id.buttoncreatebet).setOnClickListener(this);
@@ -210,9 +206,10 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
+        textviewCoins.setText(userSessionManager.getCoins());
     }
 
-    private void setuplayout() {
+    private void initView() {
         view1 = findViewById(R.id.view);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         switchButtonCanJoin = (SwitchButton) findViewById(R.id.switchbuttonCanJoin);
@@ -531,7 +528,10 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
                 } else {
                     try {
                         if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                            updatecoin(0);
+                            //   updatecoin(0);
+                            Intent intent = new Intent(CreateBet.this, Dashboard.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                             Debugger.i("kjoinbet", "joinsuccessfull");
                         }
                     } catch (Exception ex) {

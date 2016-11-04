@@ -365,11 +365,14 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
         try {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                 if (!result.getAsJsonObject("bet_detail").isJsonNull()) {
-                    String home_id, away_id, team_away_flag, team_home_flag, bet_ammount, bet_match_time, bet_match_date;
+                    String home_id, away_id, team_away_flag, bet_option = "", bet_ammount, bet_match_time, bet_match_date;
                     JsonObject bet_detail = result.getAsJsonObject("bet_detail");
                     if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
                         JsonObject bet = bet_detail.getAsJsonObject("bet");
 
+                        if(!bet.get("bet_option").isJsonNull()){
+                            bet_option=bet.get("bet_option").getAsString();
+                        }
                         if (!bet.get("bet_remarks").isJsonNull()) {
                             String bet_remarks = bet.get("bet_remarks").getAsString();
                             textViewLoserMessage.setText(bet_remarks);
@@ -406,6 +409,13 @@ public class DetailFinishedBet extends AppCompatActivity implements View.OnClick
                                     selectedTeam = away_name;
                                 } else {
                                     selectedTeam = "draw";
+                                }
+                                if (bet_option.equalsIgnoreCase("0")) {
+                                    score = "NA";
+                                } else if (bet_option.equalsIgnoreCase("1")) {
+                                    selectedTeam = "NA";
+                                } else {
+
                                 }
                                 DetailBetData detailBetData = new DetailBetData(userdp, username, bet_result, selectedTeam, score);
                                 detailBetDatas.add(detailBetData);

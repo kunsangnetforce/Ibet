@@ -75,12 +75,9 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         userSessionManager.setSoundOnOff(b);
                         break;
                     case 1:
-                        userSessionManager.setBackgroundCrowd(b);
-                        break;
-                    case 2:
                         userSessionManager.setWinBet(b);
                         break;
-                    case 3:
+                    case 2:
                         userSessionManager.setLoseBet(b);
                         break;
                 }
@@ -98,7 +95,7 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 4;
+        return itemList.size();
 //        return itemList.size();
     }
 

@@ -151,22 +151,27 @@ public class FinsihedBet extends Fragment {
             String bet_id = jsonObject.get("bet_id").getAsString();
             String match_id = jsonObject.get("match_id").getAsString();
             JsonObject creator = jsonObject.getAsJsonObject("creator");
-            String creator_id = creator.get("user_id").getAsString();
+            String creator_id = creator.get("bet_creator").getAsString();
             String name = creator.get("name").getAsString();
             String creator_dp = creator.get("image").getAsString();
             try {
                 JsonObject home = jsonObject.getAsJsonObject("home");
                 JsonObject away = jsonObject.getAsJsonObject("away");
                 String home_id = home.get("id").getAsString();
-                String home_name = home.get("name").getAsString();
 
                 String home_logo = "";
                 if (!home.get("logo").isJsonNull()) {
                     home_logo = home.get("logo").getAsString();
                 }
 
+                String home_name = "", away_name = "";
                 String away_id = away.get("id").getAsString();
-                String away_name = away.get("name").getAsString();
+                if (!jsonObject.get("home_teamname").isJsonNull()) {
+                    home_name = jsonObject.get("home_teamname").getAsString();
+                }
+                if (!jsonObject.get("away_teamname").isJsonNull()) {
+                    away_name = jsonObject.get("away_teamname").getAsString();
+                }
                 String away_logo = "";
                 if (!away.get("logo").isJsonNull()) {
                     away_logo = away.get("logo").getAsString();

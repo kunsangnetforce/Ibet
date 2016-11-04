@@ -104,6 +104,9 @@ public class DetailUpcomingBet extends AppCompatActivity implements View.OnClick
         imageViewTeamB = (ImageView) findViewById(R.id.imageViewTeamB);
         Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
         Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+        textViewTeamA.setText(home_name);
+        textViewTeamB.setText(away_name);
+
     }
 
     private void setupBackground() {
@@ -363,34 +366,13 @@ public class DetailUpcomingBet extends AppCompatActivity implements View.OnClick
         try {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                 if (!result.getAsJsonObject("bet_detail").isJsonNull()) {
-                    String home_id, away_id, team_away_flag, team_home_flag, away_name = "", home_name = "", bet_ammount, bet_match_time, bet_match_date;
+                    String home_id, away_id, team_away_flag, bet_option = "", away_name = "", home_name = "", bet_ammount, bet_match_time, bet_match_date;
                     JsonObject bet_detail = result.getAsJsonObject("bet_detail");
                     if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
                         JsonObject bet = bet_detail.getAsJsonObject("bet");
-/*
-                        if (!bet.get("team_home").isJsonNull()) {
-                            home_id = bet.get("team_home").getAsString();
+                        if (!bet.get("bet_option").isJsonNull()) {
+                            bet_option = bet.get("bet_option").getAsString();
                         }
-                        if (!bet.get("team_away").isJsonNull()) {
-                            away_id = bet.get("team_away").getAsString();
-                        }
-                        if (!bet.get("team_away_flag").isJsonNull()) {
-                            team_away_flag = bet.get("team_away_flag").getAsString();
-                            Glide.with(context).load(team_away_flag).error(R.drawable.ic_error).into(imageViewTeamB);
-                        }
-                        if (!bet.get("team_home_flag").isJsonNull()) {
-                            team_home_flag = bet.get("team_home_flag").getAsString();
-                            Glide.with(context).load(team_home_flag).error(R.drawable.ic_error).into(imageViewTeamA);
-                        }
-                        if (!bet.get("away_name").isJsonNull()) {
-                            away_name = bet.get("away_name").getAsString();
-                            textViewTeamB.setText(away_name);
-                        }
-                        if (!bet.get("team_home").isJsonNull()) {
-                            home_name = bet.get("team_home").getAsString();
-                            textViewTeamA.setText(home_name);
-
-                        }*/
                         if (!bet.get("bet_remarks").isJsonNull()) {
                             String bet_remarks = bet.get("bet_remarks").getAsString();
                             textViewLoserMessage.setText(bet_remarks);
@@ -418,13 +400,22 @@ public class DetailUpcomingBet extends AppCompatActivity implements View.OnClick
                                 String username = user.get("name").getAsString();
                                 String selectedTeam = user.get("match_status").getAsString();
                                 String bet_result = user.get("bet_result").getAsString();
-                                String score = user.get("home_scrore").getAsString() + "-" + user.get("away_scrore");
+                                String home_score = user.get("home_scrore").getAsString();
+                                String away_score = user.get("away_scrore").getAsString();
+                                String score = home_score + "-" + away_score;
                                 if (selectedTeam.equalsIgnoreCase("home_win")) {
                                     selectedTeam = home_name;
                                 } else if (selectedTeam.equalsIgnoreCase("away_win")) {
                                     selectedTeam = away_name;
                                 } else {
                                     selectedTeam = "draw";
+                                }
+                                if (bet_option.equalsIgnoreCase("0")) {
+                                    score = "NA";
+                                } else if (bet_option.equalsIgnoreCase("1")) {
+                                    selectedTeam = "NA";
+                                } else {
+
                                 }
                                 DetailBetData detailBetData = new DetailBetData(userdp, username, bet_result, selectedTeam, score);
                                 detailBetDatas.add(detailBetData);

@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -56,6 +57,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     private String bet_ammount;
     private String bet_option;
     private TextView textviewCoins;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +111,10 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initView() {
+        progressDialog = new MaterialDialog.Builder(this)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
         view1 = findViewById(R.id.view);
         textViewMatchCountdown = (TextView) findViewById(R.id.textViewMatchCountdown);
         textViewTeamA = (TextView) findViewById(R.id.textViewTeamA);
@@ -318,8 +324,7 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 break;
             case R.id.buttonCancel:
-                finish();
-                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                joinBet(bet_id, bet_ammount, bet_option, "1");
                 break;
 
         }
@@ -439,6 +444,9 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
                         bet_match_date = bet.get("bet_match_date").getAsString();
                         setupTimeThread(bet_match_date, bet_match_time);
                     }
+                    if (!bet.get("bet_option").isJsonNull()) {
+                        bet_option = bet.get("bet_option").getAsString();
+                    }
 
                 }
                 JsonArray users = bet_detail.getAsJsonArray("users");
@@ -452,8 +460,8 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
                         JsonObject user = users.get(i).getAsJsonObject();
                         String userdp = user.get("profile_image").getAsString();
                         String username = user.get("name").getAsString();
-                        String selectedTeam = user.get("match_status").getAsString();
                         String bet_result = user.get("bet_result").getAsString();
+                        String selectedTeam = user.get("match_status").getAsString();
                         String home_score = user.get("home_scrore").getAsString();
                         String away_score = user.get("away_scrore").getAsString();
                         String score = home_score + "-" + away_score;
@@ -463,6 +471,13 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
                             selectedTeam = away_name;
                         } else {
                             selectedTeam = "draw";
+                        }
+                        if (bet_option.equalsIgnoreCase("0")) {
+                            score = "NA";
+                        } else if (bet_option.equalsIgnoreCase("1")) {
+                            selectedTeam = "NA";
+                        } else {
+
                         }
                         DetailBetData detailBetData = new DetailBetData(userdp, username, bet_result, selectedTeam, score);
                         detailBetDatas.add(detailBetData);
@@ -514,5 +529,39 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
         long days = hours / 24;
         String time = days + "D : " + hours % 24 + " : " + minutes % 60 + " : " + seconds % 60;
         return time;
+    }
+
+    private void joinBet(String bet_id, String bet_amount, String bet_option, String request_type) {
+        progressDialog.show();
+        /*
+        * https://netforcesales.com/ibet_admin/api/accept_bet_request.php?
+        * match_status=home_win&option=0&user_id=164&bet_id=237&user_bet_amt=10&away_scrore=0&home_s
+        * */
+        String baseUrl = getString(R.string.url);
+        String joinBetUrl = "/accept_bet_request.php?match_status=" + "" + "&option=" + bet_option
+                + "&user_id=" + userSessionManager.getCustomerId() +
+                "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore="
+                + "" + "&home_scrore=" + "" + "&request_type=" + request_type + "&match_id=" + match_id;
+        String url = baseUrl + joinBetUrl;
+        Debugger.i("kunsang_url_JoinBet", url);
+        Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                progressDialog.dismiss();
+                if (result == null) {
+                    showMessage("Not able to Reject. Try again");
+                } else {
+                    try {
+                        if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                            showMessage("Bet Rejected Successfully");
+                            finish();
+                        }
+                    } catch (Exception ex) {
+
+                    }
+
+                }
+            }
+        });
     }
 }

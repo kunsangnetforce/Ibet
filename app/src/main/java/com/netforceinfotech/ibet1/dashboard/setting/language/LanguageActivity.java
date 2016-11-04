@@ -77,8 +77,7 @@ public class LanguageActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         languageDatas.add("English");
-        languageDatas.add("Hindi");
-        languageDatas.add("Spanish");
+
 
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);

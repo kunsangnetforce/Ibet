@@ -19,5 +19,4 @@
         android:layout_alignParentTop="true"
         android:layout_margin="10dp"></android.support.v7.widget.RecyclerView>
 
-
 </android.support.design.widget.CoordinatorLayout>

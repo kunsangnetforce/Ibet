@@ -32,6 +32,8 @@ import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.general.WrapContentViewPager;
 import com.netforceinfotech.ibet1.login.LoginActivity;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -68,6 +70,8 @@ public class Home extends Fragment implements View.OnClickListener {
     RoundCornerProgressBar roundCornerProgressBarWin, roundCornerProgressBarLost;
     TextView textViewName, textViewWins, textViewLose, textviewLevelNumber, textViewLevel;
     private TabLayout tabLayout;
+    SwipyRefreshLayout swipyRefreshLayout;
+    private PagerAdapter adapter;
 
     public Home() {
         // Required empty public constructor
@@ -97,7 +101,7 @@ public class Home extends Fragment implements View.OnClickListener {
         setupBackground(userSessionManager.getBackground());
         return view;
     }
-   
+
     private void setupBackground(int background) {
         switch (background) {
             case 0:
@@ -176,6 +180,14 @@ public class Home extends Fragment implements View.OnClickListener {
 
     private void initView(View view) {
         view1 = view.findViewById(R.id.view);
+        swipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                adapter.notifyDataSetChanged();
+                swipyRefreshLayout.setRefreshing(false);
+            }
+        });
         coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
         roundCornerProgressBarLost = (RoundCornerProgressBar) view.findViewById(R.id.progressBarLost);
         roundCornerProgressBarWin = (RoundCornerProgressBar) view.findViewById(R.id.progressBarWin);
@@ -236,7 +248,7 @@ public class Home extends Fragment implements View.OnClickListener {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.bets_to_join));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final PagerAdapter adapter = new PagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+        adapter = new PagerAdapter(getChildFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

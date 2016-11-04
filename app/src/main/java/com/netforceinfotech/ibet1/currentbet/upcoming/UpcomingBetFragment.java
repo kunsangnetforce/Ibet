@@ -110,20 +110,23 @@ public class UpcomingBetFragment extends Fragment {
 
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
-//String userdp, String name, String selectedteamlogo, String selectedteamname, String numberparticipant,
-            // String numberpost, String time, String teamalogo, String teamblogo, String teamaname, String teambname, String betstatus, String betid) {
-            String creatorDp = jsonObject.get("profile_image").getAsString();
-            String creatorName = jsonObject.get("name").getAsString();
-            String participantsCount = jsonObject.get("participants").getAsString();
-            String date_time = jsonObject.get("bet_match_date").getAsString() + " " + jsonObject.get("bet_match_time").getAsString();
-            String homeLogo = jsonObject.get("team_home_flag").getAsString();
-            String awayLogo = jsonObject.get("team_away_flag").getAsString();
-            String homeName = jsonObject.get("home_teamname").getAsString();
-            String awayName = jsonObject.get("away_teamname").getAsString();
-            String betId = jsonObject.get("betid").getAsString();
-            String matchid = jsonObject.get("bet_match_id").getAsString();
-            String home_id = "", away_id = "", seasonid = "";
+            String creatorDp="",creatorName="",participantsCount = "",date_time="",homeLogo="",homeName="",home_id="",matchid="",awayLogo="",awayName="",away_id="",seasonid="",betId="";
             try {
+             creatorDp = jsonObject.get("profile_image").getAsString();
+             creatorName = jsonObject.get("name").getAsString();
+             participantsCount = jsonObject.get("participants").getAsString();
+             date_time = jsonObject.get("bet_match_date").getAsString() + " " + jsonObject.get("bet_match_time").getAsString();
+             homeLogo = jsonObject.get("team_home_flag").getAsString();
+             awayLogo = jsonObject.get("team_away_flag").getAsString();
+                if (!jsonObject.get("home_teamname").isJsonNull()) {
+                    homeName = jsonObject.get("home_teamname").getAsString();
+                }
+                if (!jsonObject.get("away_teamname").isJsonNull()) {
+                    awayName = jsonObject.get("away_teamname").getAsString();
+                }
+             betId = jsonObject.get("betid").getAsString();
+             matchid = jsonObject.get("bet_match_id").getAsString();
+
                 home_id = jsonObject.get("team_home").getAsString();
                 away_id = jsonObject.get("team_away").getAsString();
                 seasonid = jsonObject.get("season_id").getAsString();
