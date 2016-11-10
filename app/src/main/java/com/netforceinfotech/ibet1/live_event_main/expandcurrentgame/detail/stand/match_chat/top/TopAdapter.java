@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments;
 import com.netforceinfotech.ibet1.util.Util;
@@ -28,11 +29,13 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<TopData> itemList;
     private Context context;
     String matchid, team;
+    RequestManager glide;
 
-    public TopAdapter(Context context, List<TopData> itemList,String matchid,String team) {
+    public TopAdapter(Context context, List<TopData> itemList, String matchid, String team, RequestManager with) {
         this.itemList = itemList;
         this.context = context;
         this.team=team;
+        glide=with;
         this.matchid=matchid;
         inflater = LayoutInflater.from(context);
     }
@@ -61,9 +64,9 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TopHolder topHolder = (TopHolder) holder;
         TopData topData = itemList.get(position);
         try {
-            Glide.with(context).load(topData.imageurl).error(R.drawable.ic_error).into(topHolder.circleImageView);
+            glide.load(topData.imageurl).error(R.drawable.ic_error).into(topHolder.circleImageView);
         } catch (Exception ex) {
-            Glide.with(context).load(R.drawable.ic_error).into(topHolder.circleImageView);
+            glide.load(R.drawable.ic_error).into(topHolder.circleImageView);
         }
         topHolder.textViewCC.setText(topData.message);
         topHolder.textViewSC.setText(topData.share);

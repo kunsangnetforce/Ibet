@@ -241,6 +241,7 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                         return true;
                     case "Logout":
                         userSessionManager.setIsLoggedIn(false);
+                        userSessionManager.clearSession();
                         LoginManager.getInstance().logOut();
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);

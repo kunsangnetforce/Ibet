@@ -212,6 +212,7 @@ public class Home extends Fragment implements View.OnClickListener {
         textViewRemaining = (TextView) view.findViewById(R.id.textViewRemaining);
         buttonStartNewGame = (Button) view.findViewById(R.id.buttonStartnewBet);
         buttonStartNewGame.setOnClickListener(this);
+        textViewRemaining.setText(0 + "%\nto next level");
         circleProgressViewLevel.setOnProgressChangedListener(new CircleProgressView.OnProgressChangedListener() {
 
             @Override
@@ -222,8 +223,8 @@ public class Home extends Fragment implements View.OnClickListener {
 
 
         });
-        circleProgressViewLevel.setValueAnimated(88f, 1500);
-        circleProgressViewStatus.setValueAnimated(35f, 1500);
+        circleProgressViewLevel.setValueAnimated(0f, 1500);
+       circleProgressViewStatus.setValueAnimated(0f, 1500);
         String fbId = userSessionManager.getFBID();
         Log.i("ibet_fbid", fbId);
 

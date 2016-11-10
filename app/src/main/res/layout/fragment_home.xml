@@ -251,7 +251,7 @@
                             android:layout_marginTop="2dp"
                             app:rcBackgroundColor="#0a4273"
                             app:rcMax="100"
-                            app:rcProgress="43"
+                            app:rcProgress="0"
                             app:rcProgressColor="#D50000"
                             app:rcRadius="5dp"
                             app:rcReverse="false" />
@@ -278,6 +278,7 @@
                             CircleProgressView:cpv_maxValue="100"
                             CircleProgressView:cpv_rimColor="@color/colorPrimaryDark"
                             CircleProgressView:cpv_rimWidth="7dp"
+                            CircleProgressView:cpv_value="0"
                             CircleProgressView:cpv_seekMode="false"
                             CircleProgressView:cpv_showTextInSpinningMode="false"
                             CircleProgressView:cpv_showUnit="true"

@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet1.dashboard.setting.feedback;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -63,6 +64,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         view1 = findViewById(R.id.view);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextEmail.setText(R.string.ibet_email);
         editTextFeedback = (EditText) findViewById(R.id.editTextFeedback);
         bunttonSend = (Button) findViewById(R.id.bunttonSend);
         bunttonSend.setOnClickListener(this);
@@ -85,7 +87,20 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void sendFeedback(String s, String s1) {
+    private void sendFeedback(String email, String body) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+        i.putExtra(Intent.EXTRA_TEXT   , body);
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            showMessage("No email client installed");
+        }
+    }
+
+  /*  private void sendFeedback(String s, String s1) {
         progressDialog.show();
         //https://netforcesales.com/ibet_admin/api/services.php?opt=add_feedback&email
         // =ajay@netforce.co&feedback=dsgdfgdfg
@@ -119,7 +134,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         });
-    }
+    }*/
 
     private void showMessage(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();

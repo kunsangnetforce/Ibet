@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stan
 
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.StandActivity;
@@ -40,7 +42,6 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
     static Context context;
     String home_id, away_id, home_name, away_name, team, match_id, home_logo, away_logo;
     EditText editText;
-    CircleImageView imageViewSend;
     ArrayList<AllData> allDatas = new ArrayList<>();
     static UserSessionManager userSessionManager;
     String profileimage;
@@ -53,15 +54,14 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
     DatabaseReference _root;
     DatabaseReference _all;
     DatabaseReference _matchid;
-    DatabaseReference _team;
+
     static DatabaseReference _comment;
-    DatabaseReference _teamdetail;
-    Map<String, Object> map_all, map_matchid, map_team, map_comment, map_teamdetail;
+    Map<String, Object> map_all, map_matchid, map_comment, map_detail, map_fan;
     private static String tempKey;
     public static RecyclerView recyclerView;
     LinearLayout linearLayout, linearLayoutProgress;
     RelativeLayout relativeLayout;
-    private DatabaseReference _homeFan, _awayFan;
+    private boolean _allFlag = false, _matchidFlag = false, _commentFlag = false;
 
     public AllFragment() {
         // Required empty public constructor
@@ -77,11 +77,9 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutInput);
         linearLayoutProgress = (LinearLayout) view.findViewById(R.id.linearLayoutProgress);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.relativeLayout);
-        relativeLayout.setVisibility(View.GONE);
         userSessionManager = new UserSessionManager(context);
         editText = (EditText) view.findViewById(R.id.editText);
-        imageViewSend = (CircleImageView) view.findViewById(R.id.imageViewSend);
-        imageViewSend.setOnClickListener(this);
+        Debugger.i("kunsang", "test");
 
         try {
             home_id = this.getArguments().getString("away_id");
@@ -99,7 +97,7 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
             setupRecycler(view);
 
         } catch (Exception ex) {
-            Log.i("kunsang_exception", "paramenter not set");
+
         }
         setupFirebaseReferences();
         return view;
@@ -107,138 +105,223 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
 
     private void setupFirebaseReferences() {
         StandActivity.linearLayoutInput.setVisibility(View.GONE);
-        linearLayout.setVisibility(View.VISIBLE);
+
         _root = FirebaseDatabase.getInstance().getReference();
-        if (team.equalsIgnoreCase("home")) {
+        Debugger.i("kunsang", "inside setupfirebase");
+        //check weather all references  already exist?
+        try {
+            Debugger.i("kunsang", "inside try all");
+
+            _all = _root.child("all");
+            _allFlag = true;
             try {
-                _awayFan = _root.child("all").child(match_id).child("away").child("fan");
-                _awayFan.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.i("fancount_away", dataSnapshot.getChildrenCount() + "");
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                Debugger.i("kunsang", "inside try match");
+                _matchid = _all.child(match_id);
+                _matchidFlag = true;
+                try {
+                    Debugger.i("kunsang", "inside comment");
+                    _comment = _matchid.child("comments");
+                    _commentFlag = true;
+                } catch (Exception ex) {
+                    Debugger.i("kunsangfirebase", "no comment");
+                    _commentFlag = false;
+                }
             } catch (Exception ex) {
-                Log.i("fancount_away", "0");
+                Debugger.i("kunsangfirebase", "no match");
+                _matchidFlag = false;
             }
-        } else {
-            try {
-                _homeFan = _root.child("all").child(match_id).child("away").child("fan");
-                _homeFan.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.i("fancount_home", dataSnapshot.getChildrenCount() + "");
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            } catch (Exception ex) {
-                Log.i("fancount_home", "0");
-            }
+        } catch (Exception ex) {
+            Debugger.i("kunsangfirebase", "no all");
+            _allFlag = false;
         }
-        _root.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("all").exists()) {
-                    Log.i(TAG, "all exist");
-                    _all = _root.child("all");
+        setupReference();
+
+    }
+
+    private void setupReference() {
+        Debugger.i("kunsang", "setup Reference");
+        if (!_allFlag) {
+            Debugger.i("kunsangfirebase", "no all called");
+            _root.updateChildren(map_all);
+            _root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    _all.updateChildren(map_matchid);
                     _all.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.child(match_id).exists()) {
-                                Log.i(TAG, "match_id exist");
-                                _matchid = _all.child(match_id);
-                                _matchid.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.child(team).exists()) {
-                                            Log.i(TAG, "team exist");
-                                            _team = _matchid.child(team);
-                                            _team.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                @Override
-                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                    linearLayoutProgress.setVisibility(View.GONE);
-                                                    if (dataSnapshot.child("comments").exists()) {
-                                                        _comment = _team.child("comments");
-                                                        Log.i(TAG, "comments exist");
-                                                        _comment.addChildEventListener(AllFragment.this);
-                                                        linearLayout.setVisibility(View.GONE);
-                                                        relativeLayout.setVisibility(View.VISIBLE);
-                                                        StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+                            _matchid.updateChildren(map_detail);
+                            _matchid.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    //
+                                    linearLayoutProgress.setVisibility(View.GONE);
+                                    _comment = _matchid.child("comments");
+                                    _comment.addChildEventListener(AllFragment.this);
+                                    DatabaseReference _home_fan = _matchid.child("home_fan");
+                                    DatabaseReference _away_fan = _matchid.child("away_fan");
+                                    if (team.equalsIgnoreCase("home")) {
+                                        _home_fan.updateChildren(map_fan);
 
-                                                        StandActivity.chatloaded = true;
+                                    } else if (team.equalsIgnoreCase("away")) {
+                                        _away_fan.updateChildren(map_fan);
 
-                                                    } else {
-                                                        _team.updateChildren(map_teamdetail);
-                                                        _team.addChildEventListener(AllFragment.this);
-                                                    }
-                                                    if (dataSnapshot.child("fan").exists()) {
-                                                        if (team.equalsIgnoreCase("home")) {
-                                                            _homeFan = _team.child("fan");
-                                                            Map<String, Object> map = new HashMap<String, Object>();
-                                                            map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
-                                                            _homeFan.updateChildren(map);
-                                                            _homeFan.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                    Long fancount = dataSnapshot.getChildrenCount();
-                                                                    Log.i("fancount", fancount + "");
-                                                                }
+                                    }
 
-                                                                @Override
-                                                                public void onCancelled(DatabaseError databaseError) {
-
-                                                                }
-                                                            });
-                                                        } else {
-                                                            _awayFan = _team.child("fan");
-                                                            Map<String, Object> map = new HashMap<String, Object>();
-                                                            map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
-                                                            _awayFan.updateChildren(map);
-                                                            _awayFan.addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                    Long fancount = dataSnapshot.getChildrenCount();
-                                                                    Log.i("fancount", fancount + "");
-                                                                }
-
-                                                                @Override
-                                                                public void onCancelled(DatabaseError databaseError) {
-
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onCancelled(DatabaseError databaseError) {
-
-                                                }
-                                            });
-                                        } else {
-                                            _matchid.updateChildren(map_team);
-                                            _matchid.addChildEventListener(AllFragment.this);
+                                    _away_fan.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            long awayFanCount = dataSnapshot.getChildrenCount();
+                                            StandActivity.textViewAwayFan.setText("" + awayFanCount);
                                         }
-                                    }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
 
-                                    }
-                                });
-                            } else {
-                                _all.updateChildren(map_matchid);
-                                _all.addChildEventListener(AllFragment.this);
+                                        }
+                                    });
+
+                                    _home_fan.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+                                            StandActivity.chatloaded=true;
+                                            long homeFanCount = dataSnapshot.getChildrenCount();
+                                            StandActivity.textViewHomeFan.setText("" + homeFanCount);
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            showMessage(getString(R.string.something_went_wrong));
+                                        }
+                                    });
+                                }
+
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    linearLayoutProgress.setVisibility(View.GONE);
+                                    showMessage(getString(R.string.something_went_wrong));
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            linearLayoutProgress.setVisibility(View.GONE);
+                            showMessage(getString(R.string.something_went_wrong));
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    linearLayoutProgress.setVisibility(View.GONE);
+                    showMessage(getString(R.string.something_went_wrong));
+                }
+            });
+            return;
+        }
+
+        if (!_matchidFlag) {
+
+            Debugger.i("kunsangfirebase", "no match called");
+            _all.updateChildren(map_matchid);
+            _all.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    _matchid.updateChildren(map_detail);
+                    _matchid.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            //
+                            _comment = _matchid.child("comments");
+                            _comment.addChildEventListener(AllFragment.this);
+                            linearLayoutProgress.setVisibility(View.GONE);
+                            DatabaseReference _home_fan = _matchid.child("home_fan");
+                            DatabaseReference _away_fan = _matchid.child("away_fan");
+                            if (team.equalsIgnoreCase("home")) {
+                                _home_fan.updateChildren(map_fan);
+
+                            } else if (team.equalsIgnoreCase("away")) {
+                                _away_fan.updateChildren(map_fan);
+
                             }
+
+                            _away_fan.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    long awayFanCount = dataSnapshot.getChildrenCount();
+                                    StandActivity.textViewAwayFan.setText("" + awayFanCount);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                            _home_fan.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+                                    StandActivity.chatloaded=true;
+                                    long homeFanCount = dataSnapshot.getChildrenCount();
+                                    StandActivity.textViewHomeFan.setText("" + homeFanCount);
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    linearLayoutProgress.setVisibility(View.GONE);
+                                    showMessage(getString(R.string.something_went_wrong));
+                                }
+                            });
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            linearLayoutProgress.setVisibility(View.GONE);
+                            showMessage(getString(R.string.something_went_wrong));
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    linearLayoutProgress.setVisibility(View.GONE);
+                    showMessage(getString(R.string.something_went_wrong));
+                }
+            });
+            return;
+        }
+        if (!_commentFlag) {
+            Debugger.i("kunsangfirebase", "no comment called");
+            _matchid.updateChildren(map_detail);
+            _matchid.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //
+                    _comment = _matchid.child("comments");
+                    _comment.addChildEventListener(AllFragment.this);
+                    linearLayoutProgress.setVisibility(View.GONE);
+                    DatabaseReference _home_fan = _matchid.child("home_fan");
+                    DatabaseReference _away_fan = _matchid.child("away_fan");
+                    if (team.equalsIgnoreCase("home")) {
+                        _home_fan.updateChildren(map_fan);
+
+                    } else if (team.equalsIgnoreCase("away")) {
+                        _away_fan.updateChildren(map_fan);
+
+                    }
+
+                    _away_fan.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long awayFanCount = dataSnapshot.getChildrenCount();
+                            StandActivity.textViewAwayFan.setText("" + awayFanCount);
                         }
 
                         @Override
@@ -246,10 +329,50 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
 
                         }
                     });
-                } else {
-                    _root.updateChildren(map_all);
-                    _root.addChildEventListener(AllFragment.this);
+
+                    _home_fan.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+                            StandActivity.chatloaded=true;
+                            long homeFanCount = dataSnapshot.getChildrenCount();
+                            StandActivity.textViewHomeFan.setText("" + homeFanCount);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            linearLayoutProgress.setVisibility(View.GONE);
+                            showMessage(getString(R.string.something_went_wrong));
+                        }
+                    });
                 }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    linearLayoutProgress.setVisibility(View.GONE);
+                    showMessage(getString(R.string.something_went_wrong));
+                }
+            });
+            return;
+        }
+        _comment.addChildEventListener(AllFragment.this);
+        DatabaseReference _home_fan = _matchid.child("home_fan");
+        DatabaseReference _away_fan = _matchid.child("away_fan");
+        if (team.equalsIgnoreCase("home")) {
+            _home_fan.updateChildren(map_fan);
+
+        } else if (team.equalsIgnoreCase("away")) {
+            _away_fan.updateChildren(map_fan);
+
+        }
+
+        _away_fan.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long awayFanCount = dataSnapshot.getChildrenCount();
+                StandActivity.textViewAwayFan.setText("" + awayFanCount);
             }
 
             @Override
@@ -257,6 +380,28 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
 
             }
         });
+
+        _home_fan.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+                StandActivity.chatloaded=true;
+                long homeFanCount = dataSnapshot.getChildrenCount();
+                StandActivity.textViewHomeFan.setText("" + homeFanCount);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                linearLayoutProgress.setVisibility(View.GONE);
+                showMessage(getString(R.string.something_went_wrong));
+            }
+        });
+        linearLayoutProgress.setVisibility(View.GONE);
+        StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
+        StandActivity.chatloaded=true;
+
+
     }
 
     private void setupHashMap() {
@@ -266,34 +411,20 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
         map_matchid = new HashMap<>();
         map_matchid.put(match_id, "");
 
-        map_team = new HashMap<>();
-        map_team.put(team, "");
+        map_detail = new HashMap<>();
+        map_detail.put("comments", "");
+        map_detail.put("home_fan", "");
+        map_detail.put("away_fan", "");
 
-        if (team.equalsIgnoreCase("home")) {
-            map_teamdetail = new HashMap<>();
-            map_teamdetail.put("id", home_id);
-            map_teamdetail.put("name", home_name);
-            map_teamdetail.put("logo", home_logo);
-            map_teamdetail.put("comments", "");
-            map_teamdetail.put("fan", "");
-
-        } else if (team.equalsIgnoreCase("away")) {
-            map_teamdetail = new HashMap<>();
-            map_teamdetail.put("id", away_id);
-            map_teamdetail.put("name", away_name);
-            map_teamdetail.put("logo", away_logo);
-            map_teamdetail.put("comments", "");
-            map_teamdetail.put("fan", "");
-
+        map_fan = new HashMap<>();
+        if (userSessionManager.getCustomerId().equalsIgnoreCase("")) {
+            String android_id = Settings.Secure.getString(getContext().getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+            map_fan.put(android_id, userSessionManager.getName());
         } else {
-            map_teamdetail = new HashMap<>();
-            map_teamdetail.put("id", "0");
-            map_teamdetail.put("name", "draw");
-            map_teamdetail.put("logo", "draw");
-            map_teamdetail.put("comments", "");
-
-
+            map_fan.put(userSessionManager.getCustomerId(), userSessionManager.getName());
         }
+
 
         map_comment = new HashMap<>();
 
@@ -326,61 +457,14 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imageViewSend:
-                showMessage("clicked");
-                Map<String, Object> map = new HashMap<String, Object>();
-                tempKey = _comment.push().getKey();
-                _comment.updateChildren(map);
-                DatabaseReference message_root = _comment.child(tempKey);
-                Map<String, Object> map1 = new HashMap<String, Object>();
-                map1.put("name", userSessionManager.getName());
-                map1.put("message", editText.getText().toString());
-                map1.put("timestamp", ServerValue.TIMESTAMP);
-                map1.put("image", userSessionManager.getProfilePic());
-                map1.put("share", "");
-                map1.put("comments", "");
-                map1.put("like", "");
-                map1.put("message", "");
-                map1.put("dislike", "");
-                map1.put("count", "");
 
-                editText.setText("");
-
-                break;
-        }
 
     }
 
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-        linearLayoutProgress.setVisibility(View.GONE);
-        if (dataSnapshot.getKey().equalsIgnoreCase("all")) {
-            _all = _root.child("all");
-            _all.updateChildren(map_matchid);
-            _all.addChildEventListener(AllFragment.this);
-        } else if (dataSnapshot.getKey().equalsIgnoreCase(match_id)) {
-            _matchid = _all.child(match_id);
-            _matchid.updateChildren(map_team);
-            _matchid.addChildEventListener(AllFragment.this);
-        } else if (dataSnapshot.getKey().equalsIgnoreCase(team)) {
-            _team = _matchid.child(team);
-            _team.updateChildren(map_teamdetail);
-            _team.addChildEventListener(AllFragment.this);
-        } else if (dataSnapshot.getKey().equalsIgnoreCase(tempKey)) {
-            appendChatConversation(dataSnapshot);
-        } else if (dataSnapshot.getKey().equalsIgnoreCase("comments")) {
-            _comment = _team.child("comments");
-            relativeLayout.setVisibility(View.VISIBLE);
-            StandActivity.linearLayoutInput.setVisibility(View.VISIBLE);
-            StandActivity.chatloaded = true;
-            linearLayout.setVisibility(View.GONE);
-            _comment.addChildEventListener(AllFragment.this);
-        } else {
-            appendChatConversation(dataSnapshot);
-
-        }
-
+        Debugger.i("kunsangChildAdded","called"+s);
+        appendChatConversation(dataSnapshot);
     }
 
     private static void showMessage(String s) {
@@ -408,20 +492,8 @@ public class AllFragment extends Fragment implements View.OnClickListener, Child
 
     }
 
-    public class Comment {
-        String name, comment, image;
-        Long timestamp;
-
-        public Comment(String image, String name, String comment, Long timestamp) {
-            this.image = image;
-            this.name = name;
-            this.timestamp = timestamp;
-            this.comment = comment;
-        }
-    }
 
     public static void sendMessage(String chat_message) {
-        showMessage("clicked");
         Map<String, Object> map = new HashMap<String, Object>();
         tempKey = _comment.push().getKey();
         _comment.updateChildren(map);

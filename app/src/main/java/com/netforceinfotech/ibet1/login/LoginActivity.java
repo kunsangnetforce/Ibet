@@ -21,6 +21,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonArray;
@@ -90,10 +91,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         permissions.add("user_birthday");
         buttonFacebook.setReadPermissions(permissions);
         buttonFacebook.registerCallback(mCallbackManager, mCallBack);
-        profile = Profile.getCurrentProfile();
         if (userSessionManager.getIsLoogedIn()) {
             Intent intent = new Intent(this, Dashboard.class);
             startActivity(intent);
+            finish();
+        } else {
+            profile = Profile.getCurrentProfile();
+            if (profile != null) {
+                LoginManager.getInstance().logOut();
+            }
+        }
+
+        if (userSessionManager.getIsLoogedIn()) {
+            Intent intent = new Intent(this, Dashboard.class);
+            startActivity(intent);
+            finish();
         }
 
     }
@@ -136,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 userSessionManager.setName("User");
                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
             case R.id.textViewRegister:

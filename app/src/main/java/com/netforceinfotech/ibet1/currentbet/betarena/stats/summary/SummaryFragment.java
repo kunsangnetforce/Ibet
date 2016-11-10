@@ -3,6 +3,8 @@ package com.netforceinfotech.ibet1.currentbet.betarena.stats.summary;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.bumptech.glide.Glide;
 import com.daimajia.easing.Glider;
 import com.google.gson.JsonObject;
@@ -28,10 +31,19 @@ import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
+import at.grabner.circleprogress.CircleProgressView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SummaryFragment extends Fragment {
+    final Handler handler = new Handler();
     Context context;
     TextView textViewTSH, textViewSoTH, textViewFoulH, textViewOSH, textViewCornorH, textViewPossesionH, textViewYCH, textViewRCH, textViewSaveH;
     TextView textViewTSA, textViewSoTA, textViewFoulA, textViewOSA, textViewCornorA, textViewPossesionA, textViewYCA, textViewRCA, textViewSaveA;
@@ -39,13 +51,18 @@ public class SummaryFragment extends Fragment {
     RoundCornerProgressBar progressbarTSA, progressbarSoTA, progressbarFoulA, progressbarOSA, progressbarCornorA, progressbarPossesionA, progressbarYCA, progressbarRCA, progressbarSaveA;
     LinearLayout linearLayout;
     ScrollView scrollView;
-    TextView textViewGoal;
-
+    TextView textViewGoal, textViewMatchStatus;
+    TickTockView tickTockView;
     ImageView imageViewHome, imageViewAway;
     TextView textViewTeamA, textViewTeamB, textViewTime, textViewHomeGoal, textViewAwayGoal;
     UserSessionManager userSessionManager;
-    CoordinatorLayout coordinatorLayout;
     View view1;
+    ImageView imageViewError;
+    CircleProgressView cpvLevel;
+    CoordinatorLayout coordinatorLayout;
+    private String ftstatus = "";
+    private boolean firstTime = true;
+    String match_id;
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -69,8 +86,14 @@ public class SummaryFragment extends Fragment {
     }
 
     private void initview(View view) {
-        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
         view1 = view.findViewById(R.id.view);
+        tickTockView = (TickTockView) view.findViewById(R.id.tickTockView);
+        cpvLevel = (CircleProgressView) view.findViewById(R.id.cpvLevel);
+
+        textViewMatchStatus = (TextView) view.findViewById(R.id.textViewMatchStatus);
+        imageViewError = (ImageView) view.findViewById(R.id.imageViewError);
+        Glide.with(context).load(R.drawable.gs_stadium).into(imageViewError);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
         textViewGoal = (TextView) view.findViewById(R.id.textViewGoal);
         imageViewAway = (ImageView) view.findViewById(R.id.imageViewTeamB);
         imageViewHome = (ImageView) view.findViewById(R.id.imageViewTeamA);
@@ -81,6 +104,7 @@ public class SummaryFragment extends Fragment {
         textViewAwayGoal = (TextView) view.findViewById(R.id.textViewAwayGoal);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayoutError);
+        linearLayout.setVisibility(View.GONE);
 
         initHome(view);
         initAway(view);
@@ -136,8 +160,7 @@ public class SummaryFragment extends Fragment {
         //https://api.soccerama.pro/v1.1/statistics/match/690006?api_token=DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP
         String token = "DLhRgpl372eKkR1o7WzSDn3SlGntcDVQMTWn9HkrTaRwdFWVhveFfaH7K4QP";
         String url = "https://api.soccerama.pro/v1.1/statistics/match/" + matchid + "?api_token=" + token + "&include=match,team";
-        Debugger.i("kunsang_url_statistic", url);
-
+        Debugger.i("kunsang_url_getstatistic", url);
         setHeader();
         Ion.with(context)
                 .load(url)
@@ -171,7 +194,7 @@ public class SummaryFragment extends Fragment {
                                     String away_score = match.get("away_score").getAsString();
                                     String minute = "", goal = "";
                                     try {
-                                        String ftstatus = match.get("status").getAsString();
+                                        ftstatus = match.get("status").getAsString();
                                         if (ftstatus.equalsIgnoreCase("ft")) {
                                             goal = match.get("ft_score").getAsString();
                                         } else {
@@ -190,6 +213,9 @@ public class SummaryFragment extends Fragment {
                                     if (!match.get("extra_minute").isJsonNull()) {
                                         extra_minute = match.get("extra_minute").getAsString();
                                     }
+                                    String starting_date = match.get("starting_date").getAsString();
+                                    String starting_time = match.get("starting_time").getAsString();
+                                    setupProgress(ftstatus, minute, extra_minute, starting_date, starting_time);
                                     String hometeamlogo = "";
                                     String awayteamlogo = "";
                                     String hometeamname = "", awayteamname = "";
@@ -307,9 +333,203 @@ public class SummaryFragment extends Fragment {
                 });
     }
 
+    private void setupProgress(String ftstatus, String minute, String extra_minute, String starting_date, String starting_time) {
+        switch (ftstatus) {
+            case "NS":
+                setupTimeThread(starting_date, starting_time);
+                break;
+            case "LIVE":
+                if (firstTime) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.MINUTE, 100);
+                    tickTockView.start(calendar);
+                    firstTime = !firstTime;
+
+                }
+                setupProgressThread(minute, extra_minute, 5000);
+                textViewMatchStatus.setText("LIVE");
+                break;
+            case "HT":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                setupProgressThread(minute, extra_minute, 60000);
+                textViewMatchStatus.setText("HALF TIME");
+                break;
+            case "FT":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+
+                //  setupProgressThread(minute, extra_minute, 5000);
+                textViewMatchStatus.setText("FULL TIME");
+                break;
+            case "ET":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                setupProgressThread(minute, extra_minute, 60000);
+                cpvLevel.setMaxValue(120);
+                textViewMatchStatus.setText("EXTRA TIME");
+                break;
+            case "PEN_LIVE":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                setupProgressThread(minute, extra_minute, 5000);
+                textViewMatchStatus.setText("PENALTY SHOOTOUT");
+                break;
+            case "AET":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                cpvLevel.setMaxValue(120);
+                textViewMatchStatus.setText("FISHED AFTER EXTRA TIME");
+                break;
+            case "BREAK":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                setupProgressThread(minute, extra_minute, 60000);
+                cpvLevel.setMaxValue(120);
+                textViewMatchStatus.setText("Match finished, waiting for extra time to start");
+                break;
+            case "FT_PEN":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                textViewMatchStatus.setText("Full-Time after penalties");
+                break;
+            case "CANCL":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                textViewMatchStatus.setText("Cancelled");
+                break;
+            case "POSTP":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                textViewMatchStatus.setText("PostPhoned");
+                break;
+            case "INT":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                textViewMatchStatus.setText("Interrupted");
+                break;
+            case "ABAN":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                textViewMatchStatus.setText("Abandoned");
+                break;
+            case "SUSP":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                textViewMatchStatus.setText("Suspended");
+                break;
+            case "AWARDED":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                textViewMatchStatus.setText("Awarded");
+                break;
+            case "DELAY":
+                try {
+                    tickTockView.stop();
+                } catch (Exception ex) {
+
+                }
+                textViewMatchStatus.setText("Delayed");
+                break;
+        }
+    }
+
+    private void setupProgressThread(String minute, String extra_minute, int i) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+                try {
+                    getStatistic(match_id);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }, i);
+    }
+
+    private void setupTimeThread(String starting_date, String starting_time) {
+        String datetime = starting_date + " " + starting_time;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dateNow = Calendar.getInstance().getTime();
+        Date myDate = null;
+        try {
+            myDate = simpleDateFormat.parse(datetime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        long milliseconds = (myDate.getTime() - dateNow.getTime());
+        new CountDownTimer(milliseconds, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                textViewMatchStatus.setText("" + getFormatedTime(millisUntilFinished));
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                textViewMatchStatus.setText("Live!");
+                getStatistic(match_id);
+            }
+
+        }.start();
+    }
+
+    private String getFormatedTime(long millisUntilFinished) {
+        long seconds = millisUntilFinished / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        String time = days + "D : " + hours % 24 + " : " + minutes % 60 + " : " + seconds % 60;
+        return time;
+    }
+
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
+
 
     private void setHeader() {
         final String appkey = getResources().getString(R.string.appkey);

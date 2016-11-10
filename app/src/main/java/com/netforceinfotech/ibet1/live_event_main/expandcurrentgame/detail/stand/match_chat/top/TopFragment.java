@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -81,7 +82,7 @@ public class TopFragment extends Fragment {
         try {
             linearLayoutNoComment.setVisibility(View.GONE);
             linearLayoutProgress.setVisibility(View.GONE);
-            _comments = _root.child("all").child(match_id).child(team).child("comments");
+            _comments = _root.child("all").child(match_id).child("comments");
             // My top posts by number of stars
 
             Query myTopPostsQuery = _comments.orderByChild("count").limitToLast(4);
@@ -142,7 +143,7 @@ public class TopFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         linearLayoutManager.setReverseLayout(true);
-        adapter = new TopAdapter(getActivity(), topDatas, match_id, team);
+        adapter = new TopAdapter(getActivity(), topDatas, match_id, team,Glide.with(context));
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
     }
@@ -167,7 +168,11 @@ public class TopFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
         recyclerView.smoothScrollToPosition(topDatas.size());
-        Log.i("sizekunsang1", stringComment);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

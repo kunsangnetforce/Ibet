@@ -192,5 +192,14 @@
     <string name="failed_to_upload">Failed to upload</string>
     <string name="no_data">No data</string>
     <string name="about_app">About App</string>
+    <string name="small">SMALL</string>
+    <string name="pack">Pack</string>
+    <string name="large">LARGE</string>
+    <string name="medium">MEDIUM</string>
+    <string name="spuer">SUPER</string>
+    <string name="earn_coins">Earn Coins!!!</string>
+    <string name="upto_100k_coins">Upto 100K coins</string>
+    <string name="ibet_email">info@zandylabs.com</string>
+    <string name="sorry_try_later">Sorry try again later</string>
 
 </resources>

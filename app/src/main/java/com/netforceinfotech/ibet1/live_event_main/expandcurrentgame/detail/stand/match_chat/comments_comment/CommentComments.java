@@ -129,7 +129,7 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
         _root = FirebaseDatabase.getInstance().getReference();
         if (from.equalsIgnoreCase("all")) {
             try {
-                _comments = _root.child("all").child(matchid).child(team).child("comments").child(commentkey).child("comments");
+                _comments = _root.child("all").child(matchid).child("comments").child(commentkey).child("comments");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -248,9 +248,9 @@ public class CommentComments extends AppCompatActivity implements View.OnClickLi
     public void runTransaction() {
         DatabaseReference _count;
         if (from.equalsIgnoreCase("all")) {
-            _count = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(commentkey).child("count");
+            _count = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child("comments").child(commentkey).child("count");
         } else {
-            _count = FirebaseDatabase.getInstance().getReference().child("bet").child(betid).child(team).child("comments").child(commentkey).child("count");
+            _count = FirebaseDatabase.getInstance().getReference().child("bet").child(betid).child("comments").child(commentkey).child("count");
         }
         _count.runTransaction(new Transaction.Handler() {
             @Override

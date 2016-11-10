@@ -36,7 +36,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayoutInput"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
 
@@ -83,53 +82,5 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayoutInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            android:weightSum="100">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="80">
-
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/roundcornor_white"
-                    android:hint="@string/type_here"
-                    android:imeOptions="actionSend"
-                    android:padding="10dp"
-                    android:textColor="@color/colorAccent" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:gravity="center">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageViewSend"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/chat_send_icon" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
     </RelativeLayout>
 </FrameLayout>
