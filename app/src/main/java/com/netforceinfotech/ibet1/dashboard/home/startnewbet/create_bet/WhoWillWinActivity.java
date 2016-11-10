@@ -27,6 +27,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.kyleduo.switchbutton.SwitchButton;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -159,6 +160,7 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
                     bundle1.putString("home_id", home_id);
                     bundle1.putString("away_id", away_id);
                     i.putExtras(bundle1);
+                    Debugger.i("kerror","who "+homescore);
                     startActivity(i);
                 }
 

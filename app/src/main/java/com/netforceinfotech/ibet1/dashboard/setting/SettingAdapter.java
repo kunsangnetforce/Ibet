@@ -113,7 +113,7 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 case 2:
                 case 3:
                 case 4:
-                    textViewTitle.setTextColor(ContextCompat.getColor(context,R.color.white));
+                    textViewTitle.setTextColor(ContextCompat.getColor(context, R.color.white));
                     break;
                 case 5:
                     break;
@@ -125,40 +125,47 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public void onClick(View v) {
 
             int position = getAdapterPosition();
-            final Intent intent;
+            Intent intent = null;
 
             if (position == 0) {
                 intent = new Intent(context, LanguageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else if (position == 1) {
                 intent = new Intent(context, TeamNotificationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else if (position == 2) {
                 intent = new Intent(context, GeneralNotificationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else if (position == 3) {
                 intent = new Intent(context, SoundActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else if (position == 4) {
                 intent = new Intent(context, ThemeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else if (position == 5) {
                 intent = new Intent(context, OddsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else if (position == 6) {
-                intent = new Intent(context, OddsActivity.class);
+                intent = new Intent(context, InfoActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else if (position == 7) {
-                intent = new Intent(context, FeedbackActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                showMessage("Remove ads function will be called");
             } else if (position == 8) {
                 intent = new Intent(context, FeedbackActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } else {
                 intent = new Intent(context, TeamNotificationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
-            context.startActivity(intent);
 
 
         }

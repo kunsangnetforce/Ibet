@@ -82,23 +82,24 @@ public class FinsihedBet extends Fragment {
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
-                    showMessage("No finished bets to show");
                 } else {
                     Debugger.i("kresult", result.toString());
                     if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                        linearLayoutNoBets.setVisibility(View.GONE);
+
                         setupFinsihedDatas(result);
                     } else {
                         linearLayoutNoBets.setVisibility(View.VISIBLE);
-                        showMessage("No finished bets to show");
                     }
                 }
             }
         });
     }
 
-    private void showMessage(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFinishedData();
     }
 
     private void setupRecyclerView(View view) {
@@ -141,27 +142,36 @@ public class FinsihedBet extends Fragment {
    */
         JsonArray data = result.getAsJsonArray("data");
         int size = data.size();
+        if (size == 0) {
+            linearLayoutNoBets.setVisibility(View.VISIBLE);
+            return;
+        }
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
             String bet_id = jsonObject.get("bet_id").getAsString();
             String match_id = jsonObject.get("match_id").getAsString();
             JsonObject creator = jsonObject.getAsJsonObject("creator");
-            String creator_id = creator.get("user_id").getAsString();
+            String creator_id = creator.get("bet_creator").getAsString();
             String name = creator.get("name").getAsString();
             String creator_dp = creator.get("image").getAsString();
             try {
                 JsonObject home = jsonObject.getAsJsonObject("home");
                 JsonObject away = jsonObject.getAsJsonObject("away");
                 String home_id = home.get("id").getAsString();
-                String home_name = home.get("name").getAsString();
 
                 String home_logo = "";
                 if (!home.get("logo").isJsonNull()) {
                     home_logo = home.get("logo").getAsString();
                 }
 
+                String home_name = "", away_name = "";
                 String away_id = away.get("id").getAsString();
-                String away_name = away.get("name").getAsString();
+                if (!jsonObject.get("home_teamname").isJsonNull()) {
+                    home_name = jsonObject.get("home_teamname").getAsString();
+                }
+                if (!jsonObject.get("away_teamname").isJsonNull()) {
+                    away_name = jsonObject.get("away_teamname").getAsString();
+                }
                 String away_logo = "";
                 if (!away.get("logo").isJsonNull()) {
                     away_logo = away.get("logo").getAsString();

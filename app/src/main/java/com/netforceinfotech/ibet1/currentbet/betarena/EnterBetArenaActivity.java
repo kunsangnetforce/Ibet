@@ -41,8 +41,8 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         theme = userSessionManager.getTheme();
         Bundle bundle = getIntent().getExtras();
         try {
-            home_id = bundle.getString("away_id");
-            away_id = bundle.getString("home_id");
+            away_id = bundle.getString("away_id");
+            home_id = bundle.getString("home_id");
             home_logo = bundle.getString("home_logo");
             away_logo = bundle.getString("away_logo");
             home_name = bundle.getString("home_name");
@@ -98,8 +98,7 @@ public class EnterBetArenaActivity extends AppCompatActivity {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);
-        //ragmentManager fm, int NumOfTabs, String bet_id, String match_id,
-        // String home_id, String away_id, String home_name, String away_name, String home_logo, String away_logo, String season_id) {
+
         final PagerAdapterBetArena adapter = new PagerAdapterBetArena
                 (getSupportFragmentManager(), tabLayout.getTabCount(), bet_id, match_id, home_id,
                         away_id, home_name, away_name, home_logo, away_logo,season_id);

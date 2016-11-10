@@ -72,7 +72,9 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
         userSessionManager = new UserSessionManager(getActivity());
         theme = userSessionManager.getTheme();
         setupRecyclerView(view);
-        getLiveMatch1();
+        if(!userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
+            getLiveMatch1();
+        }
         return view;
     }
 
@@ -89,7 +91,6 @@ public class CurrentGameFragment extends Fragment implements View.OnClickListene
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
-                        Log.i("kunsangresponse", result.toString());
                         if (result == null) {
                             showMessage("Something wrong");
                         } else {

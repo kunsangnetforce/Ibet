@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class LineupFragmentNew extends Fragment {
     private String homeTeamLogo, awayTeamLogo;
     TextView textViewError, textViewHGK, textViewAGK;
     ImageView imageViewHGK, imageViewAGK;
+    int height, width;
 
     public LineupFragmentNew() {
         // Required empty public constructor
@@ -61,12 +63,14 @@ public class LineupFragmentNew extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.lineup_fragment_new, container, false);
         context = getActivity();
+        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics());
+        width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics());
         //setupDummyContent();
         initview(view);
         String match_id;
         try {
             match_id = this.getArguments().getString("match_id");
-          //  match_id = "691136";
+            //  match_id = "691136";
             getLineUp(match_id);
         } catch (Exception ex) {
             showMessage("bundleError");
@@ -237,6 +241,7 @@ public class LineupFragmentNew extends Fragment {
                 case "RF":
                 case "CF-L":
                 case "CF-R":
+                case "A":
 
                     arrayListHomeForward.add(lineUPDatasHome.get(i));
                     break;
@@ -280,6 +285,7 @@ public class LineupFragmentNew extends Fragment {
                 case "RF":
                 case "CF-L":
                 case "CF-R":
+                case "A":
                     arrayListAwayForward.add(lineUPDatasAway.get(i));
                     break;
             }
@@ -310,11 +316,11 @@ public class LineupFragmentNew extends Fragment {
             tv.setTypeface(Typeface.DEFAULT_BOLD);
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
-            LayoutParams paramsTv = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsTv = new LayoutParams(width, height);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
-            LayoutParams paramsImageView = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
             Glide.with(context).load(homeTeamLogo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
@@ -341,11 +347,11 @@ public class LineupFragmentNew extends Fragment {
             tv.setTypeface(Typeface.DEFAULT_BOLD);
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
-            LayoutParams paramsTv = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsTv = new LayoutParams(width, height);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
-            LayoutParams paramsImageView = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
             Glide.with(context).load(homeTeamLogo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
@@ -372,11 +378,11 @@ public class LineupFragmentNew extends Fragment {
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
             tv.setText(arrayListAwayDefender.get(i).name);
-            LayoutParams paramsTv = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsTv = new LayoutParams(width, height);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
-            LayoutParams paramsImageView = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
             Glide.with(context).load(awayTeamLogo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
@@ -404,11 +410,11 @@ public class LineupFragmentNew extends Fragment {
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
             tv.setText(arrayListAwayMid.get(i).name);
-            LayoutParams paramsTv = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsTv = new LayoutParams(width, height);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
-            LayoutParams paramsImageView = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
             Glide.with(context).load(awayTeamLogo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
@@ -437,11 +443,11 @@ public class LineupFragmentNew extends Fragment {
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
             tv.setText(arrayListAwayForward.get(i).name);
-            LayoutParams paramsTv = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsTv = new LayoutParams(width, height);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
-            LayoutParams paramsImageView = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
             Glide.with(context).load(awayTeamLogo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
@@ -470,11 +476,11 @@ public class LineupFragmentNew extends Fragment {
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
             tv.setText(arrayListHomeDefender.get(i).name);
-            LayoutParams paramsTv = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsTv = new LayoutParams(width, height);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
-            LayoutParams paramsImageView = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
             Glide.with(context).load(homeTeamLogo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);

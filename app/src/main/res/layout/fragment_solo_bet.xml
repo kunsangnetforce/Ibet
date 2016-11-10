@@ -12,6 +12,14 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:text="@string/in_order_to_enjoy_all_app_features_please_login_with_facebook"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/buttonLogin"

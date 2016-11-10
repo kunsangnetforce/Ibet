@@ -35,12 +35,9 @@ import com.koushikdutta.ion.Ion;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
-import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity;
+import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity;
-import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendData;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -51,7 +48,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.net.ssl.SSLContext;
@@ -88,14 +84,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_bet);/*
-          bundle1.putString("betoption", stringbetoption);
-                    bundle1.putInt("homescore", homescore);
-                    bundle1.putInt("awayscore", awayscore);
-                    bundle1.putString("selectedteam", selectedteam);
-                    bundle1.putDouble("betamount", betamount);
-
-        */
+        setContentView(R.layout.activity_create_bet);
         Bundle bundle = getIntent().getExtras();
         userSessionManager = new UserSessionManager(getApplicationContext());
         context = this;
@@ -105,17 +94,19 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
             match_id = bundle.getString("match_id");
             betamount = bundle.getDouble("betamount");
             betoption = bundle.getString("betoption");
-            homescore = bundle.getInt("homescroe");
+            homescore = bundle.getInt("homescore");
             awayscore = bundle.getInt("awayscore");
             selectedteam = bundle.getString("selectedteam");
             home_name = bundle.getString("home_name");
             away_name = bundle.getString("away_name");
+            Debugger.i("kerror", "happened not " + homescore);
         } catch (Exception ex) {
+            Debugger.i("kerror", "happened");
 
         }
         setupStatusBar();
         setupToolBar("Create Bet");
-        setuplayout();
+        initView();
         setupTheme();
         setupBackbround();
         findViewById(R.id.buttoncreatebet).setOnClickListener(this);
@@ -215,9 +206,10 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
+        textviewCoins.setText(userSessionManager.getCoins());
     }
 
-    private void setuplayout() {
+    private void initView() {
         view1 = findViewById(R.id.view);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         switchButtonCanJoin = (SwitchButton) findViewById(R.id.switchbuttonCanJoin);
@@ -351,7 +343,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
             if (resultCode == RESULT_OK) {
                 friendsidstring = data.getStringExtra("friendsid");//friendsname
                 frindstring = data.getStringExtra("frindstring");
-                friendslist.setText(friendsidstring);
+                friendslist.setText(frindstring);
                 Debugger.i("kactivityresult", friendsidstring);
             }
         }
@@ -367,6 +359,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         createbet();
+                        dialogConfirmation.dismiss();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -417,7 +410,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         }
         textViewBetAmount.setText("Bet Amount : " + betamount);
         textViewLoserMessage.setText("Loser Message : " + editText.getText().toString());
-        textViewFriendInvited.setText("Friend Invited : " + friendslist.getText().toString());
+        textViewFriendInvited.setText("Friend Invited : " + frindstring);
         dialogConfirmation.show();
         switch (userSessionManager.getTheme()) {
             case 0:
@@ -524,10 +517,9 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         String joinBetUrl = "/accept_bet_request.php?match_status=" + selectedteam + "&option=" + bet_option
                 + "&user_id=" + userSessionManager.getCustomerId() +
                 "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore="
-                + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type + "&match_id=" + match_id;
+                + awayscore + "&home_scrore=" + homescore + "&request_type=" + request_type + "&match_id=" + match_id;
         String url = baseUrl + joinBetUrl;
         Debugger.i("kunsang_url_JoinBet", url);
-        showMessage("bet losic will be created");
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -536,7 +528,10 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
                 } else {
                     try {
                         if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                            updatecoin(0);
+                            //   updatecoin(0);
+                            Intent intent = new Intent(CreateBet.this, Dashboard.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                             Debugger.i("kjoinbet", "joinsuccessfull");
                         }
                     } catch (Exception ex) {

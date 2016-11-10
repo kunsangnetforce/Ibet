@@ -1,152 +1,45 @@
-package com.netforceinfotech.ibet1.dashboard.setting.feedback;
+package com.netforceinfotech.ibet1.dashboard.setting;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
-import com.netforceinfotech.ibet1.util.Validation;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+public class InfoActivity extends AppCompatActivity {
 
-
-public class FeedbackActivity extends AppCompatActivity implements View.OnClickListener {
-
-
-    private Toolbar toolbar;
-    RelativeLayout feedback_layout;
-    UserSessionManager userSessionManager;
-    EditText editTextEmail, editTextFeedback;
     CoordinatorLayout coordinatorLayout;
     View view1;
-    Button bunttonSend;
+    Toolbar toolbar;
+    UserSessionManager userSessionManager;
     Context context;
-    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback);
+        setContentView(R.layout.activity_info);
         context = this;
-        userSessionManager = new UserSessionManager(getApplicationContext());
-        initView();
-        setupToolBar("Feedback");
+        userSessionManager = new UserSessionManager(this);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+        view1 = findViewById(R.id.view);
+        setupToolBar("Info");
         setupStatusBar();
         setupTheme();
         setupBackground();
-
     }
-
-    private void initView() {
-        progressDialog = new MaterialDialog.Builder(this)
-                .title(R.string.progress_dialog)
-                .content(R.string.please_wait)
-                .progress(true, 0).build();
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
-        view1 = findViewById(R.id.view);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextEmail.setText(R.string.ibet_email);
-        editTextFeedback = (EditText) findViewById(R.id.editTextFeedback);
-        bunttonSend = (Button) findViewById(R.id.bunttonSend);
-        bunttonSend.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bunttonSend:
-                if (!Validation.isEmailAddress(editTextEmail, true)) {
-                    showMessage("Email not valid");
-                    return;
-                }
-                if (editTextFeedback.getText().length() < 3) {
-                    showMessage("Feedback too short");
-                    return;
-                }
-                sendFeedback(editTextEmail.getText().toString(), editTextFeedback.getText().toString());
-                break;
-        }
-    }
-
-    private void sendFeedback(String email, String body) {
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
-        i.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
-        i.putExtra(Intent.EXTRA_TEXT   , body);
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            showMessage("No email client installed");
-        }
-    }
-
-  /*  private void sendFeedback(String s, String s1) {
-        progressDialog.show();
-        //https://netforcesales.com/ibet_admin/api/services.php?opt=add_feedback&email
-        // =ajay@netforce.co&feedback=dsgdfgdfg
-        try {
-            s1 = URLEncoder.encode(s1, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        try {
-            s = URLEncoder.encode(s, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        String baseUrl = getString(R.string.url);
-        String feedback = "/services.php?opt=add_feedback&email=" + s + "&feedback=" + s1;
-        String url = baseUrl + feedback;
-        Ion.with(this).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
-            @Override
-            public void onCompleted(Exception e, JsonObject result) {
-                progressDialog.dismiss();
-                if (result == null) {
-                    showMessage(getString(R.string.feedbackerror));
-                    return;
-                }
-                try {
-                    if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                        showMessage("Feedback sent successfully");
-                    }
-                } catch (Exception ex) {
-
-                }
-            }
-        });
-    }*/
-
-    private void showMessage(String s) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-
-    }
-
 
     private void setupToolBar(String title) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        feedback_layout = (RelativeLayout) findViewById(R.id.feedback_layout);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -221,44 +114,33 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
 
     private void setupBrownTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
-        bunttonSend.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentBrown));
     }
 
 
     private void setupPurlpleTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
-        bunttonSend.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentPurple));
     }
 
     private void setupGreenTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
-        bunttonSend.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentGreen));
     }
 
     private void setupMarronTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
-        bunttonSend.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentMarron));
     }
 
     private void setupLightBlueTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
-        bunttonSend.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccentLightBlue));
 
     }
 
     private void setupDefaultTheme() {
         toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
-        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
-        bunttonSend.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
         coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
     }
 

@@ -98,11 +98,15 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailBetToJoin.class);
                 Bundle bundle = new Bundle();
+
                 bundle.putString("home_logo", itemList.get(position).teamalogo);
                 bundle.putString("away_logo", itemList.get(position).teamblogo);
                 bundle.putString("bet_id", itemList.get(position).betid);
                 bundle.putString("home_name", itemList.get(position).teamaname);
                 bundle.putString("away_name", itemList.get(position).teambname);
+                bundle.putString("bet_option", itemList.get(position).bet_option);
+                bundle.putString("bet_amount",itemList.get(position).bet_amount);
+                bundle.putString("match_id",itemList.get(position).matchid);
                 Debugger.i("kbetid", itemList.get(position).betid);
                 intent.putExtras(bundle);
                 context.startActivity(intent);

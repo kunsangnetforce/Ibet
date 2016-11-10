@@ -139,7 +139,7 @@ public class UserSessionManager {
 
     public String getName() {
 
-        return pref.getString(NAME, "");
+        return pref.getString(NAME, "Android");
     }
 
     public void setName(String regid) {

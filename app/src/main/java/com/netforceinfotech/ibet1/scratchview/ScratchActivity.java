@@ -2,18 +2,24 @@ package com.netforceinfotech.ibet1.scratchview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +27,8 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.JsonArray;
@@ -75,6 +83,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
     private CountDownTimer countdonw;
     private MaterialDialog progressDialog;
     long wait_hours = 0;
+    FrameLayout frame_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +148,20 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
 
 
     private void initView() {
+        frame_layout= (FrameLayout) findViewById(R.id.frame_layout);
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+
+        Glide.with(this).load(R.drawable.scratch_bg).asBitmap().into(new SimpleTarget<Bitmap>(width, height) {
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                Drawable drawable = new BitmapDrawable(resource);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    frame_layout.setBackground(drawable);
+                }
+            }
+        });
         progressDialog = new MaterialDialog.Builder(this)
                 .title(R.string.progress_dialog)
                 .content(R.string.please_wait)
@@ -346,7 +369,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
         if (count == 9) {
-            showMessage("Sorry try again later");
+            showMessage(getString(R.string.sorry_try_later));
             relativeLayoutCounter.setVisibility(View.VISIBLE);
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Calendar cal = Calendar.getInstance();
@@ -409,6 +432,8 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         boolean wrapInScrollView = true;
         customdialog = new MaterialDialog.Builder(this)
                 .customView(R.layout.custom_dialog, wrapInScrollView).show();
+        customdialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
         Button button = (Button) customdialog.findViewById(R.id.button);
         TextView textViewCoins = (TextView) customdialog.findViewById(R.id.textViewCoins);
         textViewCoins.setText("Congrats!!! You got " + value + " coins");
@@ -454,7 +479,6 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                     ex.printStackTrace();
                 }
                 scratchView0.resetView();
-                showMessage("clicked");
                 break;
             case R.id.buttonBuyScratch:
                 buyScratch();
@@ -475,7 +499,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result == null) {
-                            showMessage("Something is wrong");
+                            showMessage(getString(R.string.something_went_wrong));
                         } else {
                             Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
@@ -491,7 +515,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                                 relativeLayoutCounter.setVisibility(View.VISIBLE);
                                 Log.i("kunsangcoins", result.toString());
                             } else {
-                                showMessage("Could not set team. Try again");
+                                showMessage(getString(R.string.something_went_wrong));
                             }
                         }
                     }
@@ -695,7 +719,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                                 refreshPage();
                                 Log.i("kunsangcoins", result.toString());
                             } else {
-                                showMessage("something went wrong. Please try again");
+                                showMessage(getString(R.string.something_went_wrong));
                             }
                         }
                     }
@@ -730,14 +754,14 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                     public void onCompleted(Exception e, JsonObject result) {
                         hideProgressDialog();
                         if (result == null) {
-                            showMessage("Something is wrong");
+                            showMessage(getString(R.string.something_went_wrong));
                         } else {
                             Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                                 refreshCoin(result);
                                 Log.i("kunsangcoins", result.toString());
                             } else {
-                                showMessage("Something went wrong");
+                                showMessage(getString(R.string.something_went_wrong));
                             }
                         }
                     }
@@ -820,7 +844,7 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
                     public void onCompleted(Exception e, JsonObject result) {
                         progressDialog.dismiss();
                         if (result == null) {
-                            showMessage("Something is wrong");
+                            showMessage(getString(R.string.something_went_wrong));
                             finish();
                         } else {
                             Log.i("kunsangresult", result.toString());
@@ -859,7 +883,6 @@ public class ScratchActivity extends AppCompatActivity implements View.OnClickLi
         relativeLayoutCounter.setVisibility(View.VISIBLE);
         linearLayoutScrach.setVisibility(View.GONE);
         setupTimeThread(time_diff);
-        showMessage("hide content");
     }
 }
 

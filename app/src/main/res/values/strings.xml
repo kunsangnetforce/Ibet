@@ -25,7 +25,7 @@
     <string name="posts">Posts</string>
     <string name="join">Join</string>
     <string name="country">COUNTRY</string>
-    <string name="best_ammount">Best ammount</string>
+    <string name="best_ammount">Bet amount</string>
     <string name="player">Player</string>
     <string name="result">Result</string>
     <string name="team">Team</string>
@@ -77,7 +77,7 @@
     <string name="purchase_heading">Purchase more virtual money!</string>
     <string name="title_activity_richest_rank">RichestRankActivity</string>
     <string name="title_activity_odds">OddsActivity</string>
-    <string name="teamnotification_heading">Dummy Text Loreum Lipsum.Dummy Text Loreum Lipsum</string>
+    <string name="teamnotification_heading">\Which team would you like to get notification</string>
     <string name="muteallnotification">Mute all notifications</string>
     <string name="enter_bet_arena">Enter Bet Arena</string>
     <string name="events">Events</string>
@@ -95,7 +95,7 @@
     <string name="appkey">12334ddfdfdf</string>
     <string name="url">https://netforcesales.com/ibet_admin/api</string>
     <string name="urlsearch">https://netforcesales.com/ibet_admin/api/search_team.php</string>
-
+    <string name="legal_info">"All images and/or logos shown or represented in this game are protected by copyright and/or are trademarks of their respective corporations. The use of low resolution images and/or logos in this App for the use of identification in a positive and informational context qualifies as 'fair use' under copyright law. Any other usage of these images elsewhere may be copyright infringement."</string>
 
     <!-- Input demo slide -->
     <string name="slide_input_title">Slide: Input Demo</string>
@@ -130,15 +130,15 @@
     <string name="all_teams">All teams</string>
     <string name="add_team">Add Team</string>
     <string name="welcome_to_the_arena">Welcome to the Arena</string>
-    <string name="well_no_message_yet">Well no message yet</string>
-    <string name="well_be_the_first_to_start_it">Well be the first to start it</string>
+    <string name="well_no_message_yet">No message yet</string>
+    <string name="well_be_the_first_to_start_it">Well, be the first to start it</string>
     <string name="default_intro">Default Intro</string>
     <string name="choose_who_will_win">Choose who will win</string>
     <string name="win">WIN</string>
     <string name="draw">Draw</string>
     <string name="or_by_score">Or By Score</string>
     <string name="participants_can_join_on_any_result">Participants can join on any result</string>
-    <string name="set_bet_ammount">Set Bet Ammount</string>
+    <string name="set_bet_ammount">Set Bet Amount</string>
     <string name="ok">OK</string>
     <string name="take_picture">Take Picture</string>
     <string name="pick_from_galary">Pick from galary</string>
@@ -190,5 +190,16 @@
     <string name="feedbackerror">Some error occur while sending feedback</string>
     <string name="server_down">Server is down. Please try again</string>
     <string name="failed_to_upload">Failed to upload</string>
+    <string name="no_data">No data</string>
+    <string name="about_app">About App</string>
+    <string name="small">SMALL</string>
+    <string name="pack">Pack</string>
+    <string name="large">LARGE</string>
+    <string name="medium">MEDIUM</string>
+    <string name="spuer">SUPER</string>
+    <string name="earn_coins">Earn Coins!!!</string>
+    <string name="upto_100k_coins">Upto 100K coins</string>
+    <string name="ibet_email">info@zandylabs.com</string>
+    <string name="sorry_try_later">Sorry try again later</string>
 
 </resources>

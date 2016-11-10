@@ -96,9 +96,9 @@ public class SoundActivity extends AppCompatActivity {
                     userSessionManager.setWinBet(false);
                     userSessionManager.setLoseBet(false);
                     soundDatas.get(0).status = false;
+             //       soundDatas.get(1).status = false;
                     soundDatas.get(1).status = false;
                     soundDatas.get(2).status = false;
-                    soundDatas.get(3).status = false;
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -174,10 +174,10 @@ public class SoundActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         soundDatas.add(new SoundData("Sound on/off", userSessionManager.getSoundOnOff()));
-        soundDatas.add(new SoundData("Background Crowded", userSessionManager.getBackgroundCrowd()));
+        //soundDatas.add(new SoundData("Background Crowded", userSessionManager.getBackgroundCrowd()));
         soundDatas.add(new SoundData("Win Bet", userSessionManager.getWinBet()));
         soundDatas.add(new SoundData("Lose Bet", userSessionManager.getLoseBet()));
-        soundDatas.add(new SoundData("Bonus", false));
+//        soundDatas.add(new SoundData("Bonus", false));
 
         adapter = new SoundAdapter(getApplicationContext(), soundDatas);
         recyclerView.setAdapter(adapter);

@@ -22,11 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet1.general.CustomViewPager;
@@ -34,6 +29,7 @@ import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.PagerAdapterMainChat;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.all.AllAdapter;
 import com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stand.match_chat.all.AllFragment;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class StandActivity extends AppCompatActivity implements View.OnClickListener {
@@ -50,7 +46,6 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
     private String tagName;
     private Toolbar toolbar;
     String home_name, away_name, home_id, away_id, team, match_id, home_logo, away_logo;
-    private DatabaseReference root, _matchid, _team;
     private String userid;
     NestedScrollView nestedScrollView;
     EditText editText;
@@ -59,9 +54,8 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
     private int tabposition = 0;
     public static LinearLayout linearLayoutInput;
     public static boolean chatloaded = false;
-    DatabaseReference _homefans, _awayfans;
     Long homefancount, awayfancount;
-    TextView textViewHomeFan, textViewAwayFan;
+    public static TextView textViewHomeFan, textViewAwayFan;
     View view1;
 
     @Override
@@ -105,7 +99,6 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         );
 
 
-        root = FirebaseDatabase.getInstance().getReference().getRoot();
         Bundle bundle = getIntent().getExtras();
         try
 
@@ -142,52 +135,9 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
         theme = userSessionManager.getTheme();
         setupToolBar(home_name + " vs " + away_name);
         setupTab();
-        setUpFirebase();
 
     }
 
-    private void setUpFirebase() {
-
-        try {
-            _awayfans = FirebaseDatabase.getInstance().getReference().child("all").child(match_id).child("away").child("fan");
-            _awayfans.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    awayfancount = dataSnapshot.getChildrenCount();
-                    textViewAwayFan.setText("" + awayfancount);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        } catch (Exception ex) {
-            awayfancount = 0l;
-            textViewAwayFan.setText("" + awayfancount);
-        }
-
-        try {
-            _homefans = FirebaseDatabase.getInstance().getReference().child("all").child(match_id).child("home").child("fan");
-            _homefans.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    homefancount = dataSnapshot.getChildrenCount();
-                    textViewHomeFan.setText("" + homefancount);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        } catch (Exception ex) {
-            homefancount = 0l;
-            textViewHomeFan.setText("" + homefancount);
-        }
-
-
-    }
 
     private void showMessage(String s) {
         Toast.makeText(StandActivity.this, s, Toast.LENGTH_SHORT).show();
@@ -266,6 +216,7 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
                     case 0:
                         if (editText.getText().length() > 0) {
                             AllFragment.sendMessage(editText.getText().toString());
+                            editText.setText("");
 
                         } else {
                             showMessage("enter text");

@@ -93,7 +93,7 @@ public class SoundlistActivity extends AppCompatActivity {
         }
         soundData.add(new SoundListData("A Tone", "A_tone.mp3"));
         soundData.add(new SoundListData("Air Horn", "Air_Horn.mp3"));
-        soundData.add(new SoundListData("Cheering", "Cheering.mp3"));
+        soundData.add(new SoundListData("cheering", "Cheering.mp3"));
         soundData.add(new SoundListData("Crowed Boo", "Crowd_Boo.mp3"));
         soundData.add(new SoundListData("Crowed Hole", "CrowedHole.wav"));
         soundData.add(new SoundListData("Doorbell", "Doorbell.mp3"));

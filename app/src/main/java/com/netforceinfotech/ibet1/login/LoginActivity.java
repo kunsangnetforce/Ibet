@@ -21,6 +21,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonArray;
@@ -53,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private UserSessionManager userSessionManager;
     Context context;
     RelativeLayout relative_login;
-   // LinearLayout linearLayoutProgress;
+    // LinearLayout linearLayoutProgress;
     private String TAG = "MyFirebaseIIDService";
     private MaterialDialog progressDialog;
 
@@ -77,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog.setCanceledOnTouchOutside(false);
 
         context = this;
-     //   linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgress);
+        //   linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutProgress);
         userSessionManager = new UserSessionManager(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
         findViewById(R.id.textViewRegister).setOnClickListener(this);
@@ -90,10 +91,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         permissions.add("user_birthday");
         buttonFacebook.setReadPermissions(permissions);
         buttonFacebook.registerCallback(mCallbackManager, mCallBack);
-        profile = Profile.getCurrentProfile();
         if (userSessionManager.getIsLoogedIn()) {
             Intent intent = new Intent(this, Dashboard.class);
             startActivity(intent);
+            finish();
+        } else {
+            profile = Profile.getCurrentProfile();
+            if (profile != null) {
+                LoginManager.getInstance().logOut();
+            }
+        }
+
+        if (userSessionManager.getIsLoogedIn()) {
+            Intent intent = new Intent(this, Dashboard.class);
+            startActivity(intent);
+            finish();
         }
 
     }
@@ -101,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void sendRegId() {
         String url = getResources().getString(R.string.url);
         String pushurl = "/push_notification.php?user_id=" + userSessionManager.getCustomerId() + "&regid=" + userSessionManager.getRegId();
-        Debugger.i("kunsang_url_updateGCM", url);
+        Debugger.i("kunsang_url_updateGCM", url + pushurl);
         Ion.with(getApplicationContext())
                 .load(url + pushurl)
                 .asJsonObject()
@@ -136,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 userSessionManager.setName("User");
                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 startActivity(intent);
+                finish();
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
             case R.id.textViewRegister:
@@ -246,7 +259,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         url = url + "/services.php?opt=register&email=" + email + "&fb_token=" + fbToken + "&name=" + fbName + "&fb_id=" + fbId + "&device_id=" + device_id + "&reg_id=" + userSessionManager.getRegId() + "&login_mode=1";
         Debugger.i("kunsang_login_url", url);
         setHeader();
-     //   linearLayoutProgress.setVisibility(View.VISIBLE);
+        //   linearLayoutProgress.setVisibility(View.VISIBLE);
         Ion.with(context)
                 .load(url)
                 .asJsonObject()
@@ -254,7 +267,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressDialog.dismiss();
-                    //    linearLayoutProgress.setVisibility(View.GONE);
+                        //    linearLayoutProgress.setVisibility(View.GONE);
                         if (result == null) {
                             showMessage(getString(R.string.server_down));
                         } else {

@@ -82,7 +82,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final DatabaseReference _key = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child(team).child("comments").child(itemList.get(position).key);
+        final DatabaseReference _key = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child("comments").child(itemList.get(position).key);
         final DatabaseReference _share = _key.child("share");
         final DatabaseReference _like = _key.child("like");
         final DatabaseReference _dislike = _key.child("dislike");
@@ -279,6 +279,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 map1.put("id", userSessionManager.getCustomerId());
                 map1.put("image", userSessionManager.getProfilePic());
                 message_root.updateChildren(map1);
+                shareData(itemList.get(position).comment, itemList.get(position).name);
             }
         });
         allHolder.imageViewDislike.setOnClickListener(new View.OnClickListener() {

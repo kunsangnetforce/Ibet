@@ -63,7 +63,9 @@ public class LiveBetFragment extends Fragment {
         initView(view);
         setupRecyclerView(view);
         //   setupRecyclerView(view);
-        getrLiveBets();
+        if (!userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
+            getrLiveBets();
+        }
         return view;
 
 
@@ -101,7 +103,6 @@ public class LiveBetFragment extends Fragment {
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
-                    showMessage("Something went wrong");
                 } else {
                     setupupcomingBetDatas(result);
                 }
@@ -109,9 +110,6 @@ public class LiveBetFragment extends Fragment {
         });
     }
 
-    private void showMessage(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-    }
 
     private void setupupcomingBetDatas(JsonObject result) {
         try {
@@ -125,28 +123,31 @@ public class LiveBetFragment extends Fragment {
                 data = result.getAsJsonArray("data");
             } else {
                 linearLayoutNoBets.setVisibility(View.VISIBLE);
-                showMessage("No bet found");
                 return;
             }
         } catch (Exception ex) {
             linearLayoutNoBets.setVisibility(View.VISIBLE);
-            showMessage("No bet found");
             return;
         }
         int size = data.size();
         linearLayoutNoBets.setVisibility(View.GONE);
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
-//String userdp, String name, String selectedteamlogo, String selectedteamname, String numberparticipant,
-            // String numberpost, String time, String teamalogo, String teamblogo, String teamaname, String teambname, String betstatus, String betid) {
+
             String creatorDp = jsonObject.get("profile_image").getAsString();
             String creatorName = jsonObject.get("name").getAsString();
             String participantsCount = jsonObject.get("participants").getAsString();
             String date_time = jsonObject.get("bet_match_date").getAsString() + " " + jsonObject.get("bet_match_time").getAsString();
             String homeLogo = jsonObject.get("team_home_flag").getAsString();
             String awayLogo = jsonObject.get("team_away_flag").getAsString();
-            String homeName = jsonObject.get("home_teamname").getAsString();
-            String awayName = jsonObject.get("away_teamname").getAsString();
+            String homeName = "";
+            if (!jsonObject.get("home_teamname").isJsonNull()) {
+                homeName = jsonObject.get("home_teamname").getAsString();
+            }
+            String awayName = "";
+            if (!jsonObject.get("away_teamname").isJsonNull()) {
+                awayName = jsonObject.get("away_teamname").getAsString();
+            }
             String betId = jsonObject.get("betid").getAsString();
             String matchid = jsonObject.get("bet_match_id").getAsString();
             String home_id = "", away_id = "", seasonid = "";

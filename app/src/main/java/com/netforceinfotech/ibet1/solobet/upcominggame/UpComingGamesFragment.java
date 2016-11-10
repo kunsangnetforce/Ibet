@@ -73,7 +73,9 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
         setupRecycler(view);
         String date1 = getDate(0);
         String date2 = getDate(4);
-        getLiveMatch1(date1, date2);
+        if (!userSessionManager.getLoginMode().equalsIgnoreCase("0")) {
+            getLiveMatch1(date1, date2);
+        }
         return view;
     }
 

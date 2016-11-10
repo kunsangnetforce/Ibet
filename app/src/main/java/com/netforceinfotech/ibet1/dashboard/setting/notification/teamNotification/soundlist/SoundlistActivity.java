@@ -121,7 +121,7 @@ public class SoundlistActivity extends AppCompatActivity {
         }
         soundData.add(new SoundListData("A Tone", "imageurl"));
         soundData.add(new SoundListData("Air Horn", "imageurl"));
-        soundData.add(new SoundListData("Cheering", "imageurl"));
+        soundData.add(new SoundListData("cheering", "imageurl"));
         soundData.add(new SoundListData("Crowed Boo", "imageurl"));
         soundData.add(new SoundListData("Crowed Hole", "imageurl"));
         soundData.add(new SoundListData("Doorbell", "imageurl"));

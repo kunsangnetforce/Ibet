@@ -121,8 +121,11 @@ public class TableFragment extends Fragment {
             String overall_loose = jsonObject.get("overall_loose").getAsString();
             String overall_played = jsonObject.get("overall_played").getAsString();
             JsonObject team = jsonObject.getAsJsonObject("team");
+            String logo = "";
             String name = team.get("name").getAsString();
-            String logo = team.get("logo").getAsString();
+            if (!team.get("logo").isJsonNull()) {
+                logo = team.get("logo").getAsString();
+            }
             String id = team.get("id").getAsString();
 
             TableData data = new TableData(name, logo, id, points, goalDiff, wins, overall_draw, overall_loose, overall_played, position);

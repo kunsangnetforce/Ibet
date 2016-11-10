@@ -239,7 +239,11 @@ public class TheArenaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         try {
             Glide.with(context).load(itemList.get(position).imageurl).placeholder(R.drawable.ic_holder).error(R.drawable.ic_error).into(theArenaHolder.circleImageView);
         } catch (Exception ex) {
-            Glide.with(context).load(R.drawable.ic_error).into(theArenaHolder.circleImageView);
+            try {
+                Glide.with(context).load(R.drawable.ic_error).into(theArenaHolder.circleImageView);
+            }catch (Exception ex1){
+
+            }
         }
         theArenaHolder.imageViewMessage.setOnClickListener(new View.OnClickListener() {
             @Override

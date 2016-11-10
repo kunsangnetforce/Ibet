@@ -335,7 +335,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
                         }
 
-                        setupProgressThread(minute, extra_minute, 5000);
+                        //  setupProgressThread(minute, extra_minute, 5000);
                         textViewMatchStatus.setText("FULL TIME");
                         break;
                     case "ET":

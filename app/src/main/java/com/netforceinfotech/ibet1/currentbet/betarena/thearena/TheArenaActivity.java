@@ -61,12 +61,9 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
         setContentView(R.layout.activity_the_arena);
         Bundle bundle = getIntent().getExtras();
         try {
-           /* match_id = bundle.getString("match_id");
+            match_id = bundle.getString("match_id");
             bet_id = bundle.getString("bet_id");
-            team = bundle.getString("team");*/
-            match_id = "123";
-            bet_id = "123";
-            team = "draw";
+            team = bundle.getString("team");
 
         } catch (Exception ex) {
 
@@ -257,7 +254,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
             _bet = _root.child("bet");
             _bet.updateChildren(map_betid);
             _bet.addChildEventListener(TheArenaActivity.this);
-        } else if (dataSnapshot.getKey().equalsIgnoreCase(match_id)) {
+        } else if (dataSnapshot.getKey().equalsIgnoreCase(bet_id)) {
             _betid = _bet.child(bet_id);
             _betid.updateChildren(map_team);
             _betid.addChildEventListener(TheArenaActivity.this);
@@ -326,7 +323,6 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
     }
 
     public void sendMessage(String chat_message) {
-        showMessage("clicked");
         Map<String, Object> map = new HashMap<String, Object>();
         tempKey = _comments.push().getKey();
         _comments.updateChildren(map);
@@ -339,6 +335,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
         map1.put("timestamp", ServerValue.TIMESTAMP);
         map1.put("image", userSessionManager.getProfilePic());
         message_root.updateChildren(map1);
+        editText.setText("");
 
     }
 
@@ -346,6 +343,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
     public void onClick(View view) {
         if (editText.length() > 0) {
             sendMessage(editText.getText().toString());
+            editText.setText("");
         } else {
             showMessage("Enter text");
         }

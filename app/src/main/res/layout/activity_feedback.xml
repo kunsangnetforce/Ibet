@@ -57,7 +57,8 @@
                     android:layout_marginBottom="16dp"
                     android:background="@color/white"
                     android:hint="@string/feedback_email_hint"
-
+                    android:focusable="false"
+                    android:clickable="false"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:textAllCaps="false"
