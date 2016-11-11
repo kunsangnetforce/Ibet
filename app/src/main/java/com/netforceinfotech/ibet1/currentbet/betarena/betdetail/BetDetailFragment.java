@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.currentbet.betarena.betdetail;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.CoordinatorLayout;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -93,7 +95,9 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onCompleted(Exception e, JsonObject result) {
                 if (result == null) {
-                    showMessage(getString(R.string.server_down));
+                    if (isAdded()) {
+                        showMessage(getString(R.string.server_down));
+                    }
                     return;
                 } else {
                     setupBetDetail(result);
@@ -106,13 +110,13 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
         try {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                 if (!result.getAsJsonObject("bet_detail").isJsonNull()) {
-                    String home_id, away_id,bet_option="", team_away_flag, team_home_flag, bet_ammount, bet_match_time, bet_match_date;
+                    String home_id, away_id, bet_option = "", team_away_flag, team_home_flag, bet_ammount, bet_match_time, bet_match_date;
                     JsonObject bet_detail = result.getAsJsonObject("bet_detail");
                     if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
                         JsonObject bet = bet_detail.getAsJsonObject("bet");
 
-                        if(!bet.get("bet_option").isJsonNull()){
-                            bet_option=bet.get("bet_option").getAsString();
+                        if (!bet.get("bet_option").isJsonNull()) {
+                            bet_option = bet.get("bet_option").getAsString();
                         }
                         if (!bet.get("bet_remarks").isJsonNull()) {
                             String bet_remarks = bet.get("bet_remarks").getAsString();
@@ -120,16 +124,22 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                         }
                         if (!bet.get("team_away_flag").isJsonNull()) {
                             team_away_flag = bet.get("team_away_flag").getAsString();
-                            Glide.with(context).load(team_away_flag).error(R.drawable.ic_error).into(imageViewTeamB);
+                            Glide.with(context).fromResource()
+                                    .asBitmap()
+                                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                                    .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
                         }
                         if (!bet.get("team_home_flag").isJsonNull()) {
                             team_home_flag = bet.get("team_home_flag").getAsString();
-                            Glide.with(context).load(team_home_flag).error(R.drawable.ic_error).into(imageViewTeamA);
+                            Glide.with(context).fromResource()
+                                    .asBitmap()
+                                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                                    .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
                         }
 
                         if (!bet.get("bet_amount").isJsonNull()) {
                             bet_ammount = bet.get("bet_amount").getAsString();
-                            textViewBetamount.setText(bet_ammount);
+                            textViewBetamount.setText(""+bet_ammount);
                         }
                         if (!bet.get("bet_match_time").isJsonNull() && !bet.get("bet_match_date").isJsonNull()) {
                             bet_match_time = bet.get("bet_match_time").getAsString();
@@ -153,13 +163,13 @@ public class BetDetailFragment extends Fragment implements View.OnClickListener 
                                 String homeScore = user.get("home_scrore").getAsString();
                                 String awayScore = user.get("away_scrore").getAsString();
                                 String score = homeScore + "-" + awayScore;
-                                if (selectedTeam.equalsIgnoreCase("home_win")) {
+                              /*  if (selectedTeam.equalsIgnoreCase("home_win")) {
                                     selectedTeam = home_name;
                                 } else if (selectedTeam.equalsIgnoreCase("away_win")) {
                                     selectedTeam = away_name;
                                 } else {
                                     selectedTeam = "draw";
-                                }
+                                }*/
                                 if (bet_option.equalsIgnoreCase("0")) {
                                     score = "NA";
                                 } else if (bet_option.equalsIgnoreCase("1")) {

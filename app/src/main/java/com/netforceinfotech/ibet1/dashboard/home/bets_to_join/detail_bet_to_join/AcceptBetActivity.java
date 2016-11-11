@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_joi
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.JsonArray;
@@ -186,8 +188,14 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
             relativeLayoutTeam.setVisibility(View.VISIBLE);
             linearLayoutScoreMain.setVisibility(View.VISIBLE);
         }
-        Glide.with(context).load(home_logo).into(imageViewTeamA);
-        Glide.with(context).load(away_logo).into(imageViewTeamB);
+        Glide.with(context) .fromResource()
+                .asBitmap()
+                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                .load(R.drawable.home_logo).into(imageViewTeamA);
+        Glide.with(context) .fromResource()
+                .asBitmap()
+                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                .load(R.drawable.away_logo).into(imageViewTeamB);
         textViewTeamA.setText(home_name);
         textViewTeamB.setText(away_name);
     }

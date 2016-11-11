@@ -48,6 +48,7 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         SelectTeamHolder selectTeamHolder = (SelectTeamHolder) holder;
+        selectTeamHolder.textViewName.setText(itemList.get(position).name);
         if (itemList.get(position).logo.length() > 1) {
             Glide.with(context)
                     .load(itemList.get(position).logo)

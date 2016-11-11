@@ -116,7 +116,7 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             //implementing onClickListener
             view = itemView;
             imageView = (ImageView) view.findViewById(R.id.imageViewCheck);
-            textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             layout_view = (View) itemView.findViewById(R.id.view);
 
         }

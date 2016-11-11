@@ -1,11 +1,8 @@
 package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -20,10 +17,15 @@ import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.live_event_main.CurrentGameData;
 import com.netforceinfotech.ibet1.live_event_main.LiveEventActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     UserSessionManager userSessionManager;
@@ -76,24 +78,41 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         textViewTeamB.setText(currentGameData.teamb);
         if (currentGameData.logoa.length() > 1) {
             Glide.with(_context)
-                    .load(currentGameData.logoa)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                    .load(R.drawable.home_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(imageViewTeamA);
         } else {
             Glide.with(_context)
-                    .load(R.drawable.ic_error)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
                     .into(imageViewTeamA);
         }
         if (currentGameData.logob.length() > 1) {
             Glide.with(_context)
-                    .load(currentGameData.logob)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(imageViewTeamB);
         } else {
             Glide.with(_context)
-                    .load(R.drawable.ic_error)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
                     .into(imageViewTeamB);
         }
         materialRippleLayout.setOnClickListener(new View.OnClickListener() {

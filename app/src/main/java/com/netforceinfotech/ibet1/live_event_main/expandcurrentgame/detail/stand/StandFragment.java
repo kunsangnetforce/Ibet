@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stan
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet1.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -55,8 +57,14 @@ public class StandFragment extends Fragment implements View.OnClickListener {
         bundle = new Bundle();
         imageViewTeamA = (CircleImageView) view.findViewById(R.id.imageViewTeamA);
         imageViewTeamB = (CircleImageView) view.findViewById(R.id.imageViewTeamB);
-        Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
-        Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+        Glide.with(context) .fromResource()
+                .asBitmap()
+                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
+        Glide.with(context) .fromResource()
+                .asBitmap()
+                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         initView(view);
         return view;
     }

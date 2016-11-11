@@ -28,7 +28,7 @@
             >
 
             <ImageView
-                android:id="@+id/setting_list_icon"
+                android:id="@+id/imageViewLogo"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:src="@drawable/ic_cart"
@@ -38,12 +38,12 @@
 
 
             <TextView
-                android:id="@+id/setting_list_text"
+                android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/setting_list_icon"
+                android:layout_toRightOf="@+id/imageViewLogo"
                 android:text="@string/language"
                 android:textColor="@color/black"
                 android:textSize="18dp"

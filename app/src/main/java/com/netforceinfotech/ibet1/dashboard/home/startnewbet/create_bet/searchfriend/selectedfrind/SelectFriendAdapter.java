@@ -37,7 +37,7 @@ public class SelectFriendAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.row_selectedteam, parent, false);
+        View view = inflater.inflate(R.layout.row_selectedfriend, parent, false);
         SelectFriendHolder viewHolder = new SelectFriendHolder(view);
         for (int i = 0; i < itemList.size(); i++) {
             booleanGames.add(false);

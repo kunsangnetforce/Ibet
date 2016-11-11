@@ -2,13 +2,13 @@ package com.netforceinfotech.ibet1.currentbet.betarena.stats.summary;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.bumptech.glide.Glide;
-import com.daimajia.easing.Glider;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
@@ -300,7 +300,10 @@ public class SummaryFragment extends Fragment {
                                     }
                                     if (hometeamlogo.length() > 0) {
                                         Glide.with(context)
-                                                .load(hometeamlogo)
+                                                .fromResource()
+                                                .asBitmap()
+                                                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                                                .load(R.drawable.home_logo)
                                                 .placeholder(R.drawable.ic_holder)
                                                 .error(R.drawable.ic_error)
                                                 .into(imageViewHome);
@@ -309,7 +312,11 @@ public class SummaryFragment extends Fragment {
                                     }
                                     if (awayteamlogo.length() > 0) {
                                         Glide.with(context)
-                                                .load(awayteamlogo)
+                                                .fromResource()
+                                                .asBitmap()
+                                                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                                                .load(R.drawable.away_logo)
                                                 .placeholder(R.drawable.ic_holder)
                                                 .error(R.drawable.ic_error)
                                                 .into(imageViewAway);

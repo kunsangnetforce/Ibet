@@ -1,18 +1,14 @@
 package com.netforceinfotech.ibet1;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.netforceinfotech.ibet1.Debugger.Debugger;
-import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {

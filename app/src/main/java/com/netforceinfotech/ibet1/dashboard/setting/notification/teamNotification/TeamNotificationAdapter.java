@@ -127,45 +127,10 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
         });
 
 
-       /* viewHolder.sound_icon.setOnClickListener(new View.OnClickListener()
-        {
 
-            @Override
-            public void onClick(View view)
-            {
-
-                String team_name = itemList.get(position);
-
-                boolean onof = userSessionManager.getTeamNotification(team_name);
-
-                if (onof)
-                {
-                    viewHolder.sound_icon.setImageResource(R.drawable.teammusic_icon);
-                }
-                else
-                {
-                    viewHolder.sound_icon.setImageResource(R.drawable.teammute_icon);
-                }
-
-                onof = !onof;
-
-                Toast.makeText(context, position, Toast.LENGTH_LONG).show();
-
-                userSessionManager.setTeamNotification(team_name, onof);
-
-                notifyItemChanged(position);
-
-
-            }
-        });
-*/
 
     }
 
-    private void showMessage(String s) {
-
-        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-    }
 
 
     @Override
@@ -190,9 +155,9 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
             //implementing onClickListener
             view = itemView;
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-            image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
+            image_icon = (ImageView) itemView.findViewById(R.id.imageViewLogo);
             sound_icon = (ImageView) itemView.findViewById(R.id.sound_icon);
-            textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             setting_image_icon = (ImageView) itemView.findViewById(R.id.setting_icon);
             layout_view = (View) itemView.findViewById(R.id.view);
 

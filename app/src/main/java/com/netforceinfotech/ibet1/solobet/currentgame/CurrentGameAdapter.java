@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.solobet.currentgame;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet1.R;
 
 import java.util.List;
@@ -72,7 +74,10 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         currentGameHolder.textView.setText(itemList.get(position).home_name + " vs " + itemList.get(position).away_name);
         if (itemList.get(position).away_logo.length() > 1) {
             Glide.with(context)
-                    .load(itemList.get(position).away_logo)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(currentGameHolder.teamb);
@@ -80,8 +85,11 @@ public class CurrentGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             currentGameHolder.teamb.setImageResource(R.drawable.ic_error);
         }
         if (itemList.get(position).home_logo.length() > 1) {
-            Glide.with(context)
-                    .load(itemList.get(position).home_logo)
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                    .load(R.drawable.home_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(currentGameHolder.teama);
