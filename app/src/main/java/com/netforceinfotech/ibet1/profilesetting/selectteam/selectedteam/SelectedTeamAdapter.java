@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SelectedTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
@@ -28,7 +28,7 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context context;
     ArrayList<Boolean> booleanGames = new ArrayList<>();
 
-    public SelectTeamAdapter(Context context, List<TeamListData> itemList) {
+    public SelectedTeamAdapter(Context context, List<TeamListData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -62,13 +62,11 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View view) {
                 SelectTeamActivity.selectTeamDatas.remove(position);
-                SelectTeamActivity.selectTeamAdapter.notifyDataSetChanged();
-                if (SelectTeamActivity.selectTeamDatas.size() < 1) {
-                    SelectTeamActivity.linearLayoutSelectedTeams.setVisibility(View.GONE);
-                }
+                SelectTeamActivity.selectedTeamAdapter.notifyDataSetChanged();
                 SelectTeamActivity.listAdapter.notifyDataSetChanged();
             }
         });
+
     }
 
     private void showMessage(String s) {

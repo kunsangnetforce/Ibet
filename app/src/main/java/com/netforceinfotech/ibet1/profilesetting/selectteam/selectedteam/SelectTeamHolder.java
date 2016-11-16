@@ -21,8 +21,8 @@ public class SelectTeamHolder extends RecyclerView.ViewHolder {
     public SelectTeamHolder(View itemView) {
         super(itemView);
         //implementing onClickListener
-        textViewName= (TextView) itemView.findViewById(R.id.textViewName);
         view = itemView;
+        textViewName= (TextView) itemView.findViewById(R.id.textViewName);
         ImageViewLogo = (ImageView) view.findViewById(R.id.imageViewLogo);
         imageViewClose = (ImageView) view.findViewById(R.id.imageViewClose);
     }

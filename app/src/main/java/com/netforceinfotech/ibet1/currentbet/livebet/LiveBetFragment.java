@@ -23,6 +23,8 @@ import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +45,7 @@ public class LiveBetFragment extends Fragment {
     HashMap<String, List<LiveBetData>> listDataChild = new HashMap<String, List<LiveBetData>>();
     LinearLayout linearLayoutNoBets;
     ImageView imageViewNoBets;
+    SwipyRefreshLayout swipyRefreshLayout;
 
     public LiveBetFragment() {
         // Required empty public constructor
@@ -70,6 +73,13 @@ public class LiveBetFragment extends Fragment {
     }
 
     private void initView(View view) {
+        swipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                getrLiveBets();
+            }
+        });
         linearLayoutNoBets = (LinearLayout) view.findViewById(R.id.linearLayoutNoBets);
         imageViewNoBets = (ImageView) view.findViewById(R.id.imageViewNoBets);
         Glide.with(context).load(R.drawable.gs_stadium).into(imageViewNoBets);
@@ -99,6 +109,11 @@ public class LiveBetFragment extends Fragment {
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
+                try {
+                    swipyRefreshLayout.setRefreshing(false);
+                } catch (Exception ex) {
+
+                }
                 if (result == null) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
                 } else {

@@ -124,7 +124,15 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     .error(R.drawable.ic_error)
                     .into(upcomingBetHolder.imageViewTeamA);
         } else {
-            upcomingBetHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                    .load(R.drawable.home_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewTeamA);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
             Glide.with(context)
@@ -136,7 +144,14 @@ public class LiveBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     .error(R.drawable.ic_error)
                     .into(upcomingBetHolder.imageViewTeamB);
         } else {
-            upcomingBetHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewTeamB);
         }
 
         upcomingBetHolder.textViewName.setText(itemList.get(position).name);

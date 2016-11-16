@@ -104,7 +104,11 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .error(R.drawable.ic_error)
                     .into(upcomingBetHolder.imageViewDp);
         } else {
-            upcomingBetHolder.imageViewDp.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .load(itemList.get(position).userdp)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewDp);
         }
         if (itemList.get(position).selectedteamlogo.length() > 1) {
             Glide.with(context)
@@ -113,7 +117,11 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .error(R.drawable.ic_error)
                     .into(upcomingBetHolder.imageViewSelectedTeamLogo);
         } else {
-            upcomingBetHolder.imageViewSelectedTeamLogo.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .load(itemList.get(position).selectedteamlogo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewSelectedTeamLogo);
         }
         if (itemList.get(position).teamalogo.length() > 1) {
             Glide.with(context)
@@ -125,7 +133,14 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .error(R.drawable.ic_error)
                     .into(upcomingBetHolder.imageViewTeamA);
         } else {
-            upcomingBetHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewTeamA);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
             Glide.with(context)
@@ -137,7 +152,14 @@ public class UpcomingBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .error(R.drawable.ic_error)
                     .into(upcomingBetHolder.imageViewTeamB);
         } else {
-            upcomingBetHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingBetHolder.imageViewTeamB);
         }
 
         upcomingBetHolder.textViewName.setText(itemList.get(position).name);

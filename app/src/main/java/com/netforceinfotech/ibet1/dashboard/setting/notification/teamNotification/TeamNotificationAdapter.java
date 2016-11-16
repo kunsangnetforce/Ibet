@@ -84,11 +84,6 @@ public class TeamNotificationAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         final SettingHolder settingHolder = (SettingHolder) holder;
         settingHolder.textViewTitle.setText(itemList.get(position).name);
-        try {
-            Glide.with(context).load(itemList.get(position).logo).error(R.drawable.ic_error).into(settingHolder.image_icon);
-        } catch (Exception ex) {
-            Glide.with(context).load(R.drawable.ic_error).into(settingHolder.image_icon);
-        }
 
 
         setlist_border();

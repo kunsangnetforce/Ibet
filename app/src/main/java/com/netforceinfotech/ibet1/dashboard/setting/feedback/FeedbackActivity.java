@@ -35,7 +35,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     private Toolbar toolbar;
     RelativeLayout feedback_layout;
     UserSessionManager userSessionManager;
-    EditText editTextEmail, editTextFeedback;
+    EditText editTextSubject, editTextFeedback;
     CoordinatorLayout coordinatorLayout;
     View view1;
     Button bunttonSend;
@@ -49,7 +49,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         context = this;
         userSessionManager = new UserSessionManager(getApplicationContext());
         initView();
-        setupToolBar("Feedback");
+        setupToolBar(getString(R.string.feeback));
         setupStatusBar();
         setupTheme();
         setupBackground();
@@ -63,8 +63,8 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
                 .progress(true, 0).build();
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         view1 = findViewById(R.id.view);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextEmail.setText(R.string.ibet_email);
+        editTextSubject = (EditText) findViewById(R.id.editTextSubject);
+        editTextSubject.setText(R.string.ibet_email);
         editTextFeedback = (EditText) findViewById(R.id.editTextFeedback);
         bunttonSend = (Button) findViewById(R.id.bunttonSend);
         bunttonSend.setOnClickListener(this);
@@ -74,20 +74,16 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bunttonSend:
-                if (!Validation.isEmailAddress(editTextEmail, true)) {
-                    showMessage("Email not valid");
+               if (editTextFeedback.getText().length() <= 0 || editTextSubject.getText().length()<=0) {
+                    showMessage(getString(R.string.feed_empty));
                     return;
                 }
-                if (editTextFeedback.getText().length() < 3) {
-                    showMessage("Feedback too short");
-                    return;
-                }
-                sendFeedback(editTextEmail.getText().toString(), editTextFeedback.getText().toString());
+                sendFeedback(editTextSubject.getText().toString(), editTextFeedback.getText().toString());
                 break;
         }
     }
 
-    private void sendFeedback(String email, String body) {
+   /* private void sendFeedback(String email, String body) {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
         i.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
@@ -98,9 +94,9 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
         } catch (android.content.ActivityNotFoundException ex) {
             showMessage("No email client installed");
         }
-    }
+    }*/
 
-  /*  private void sendFeedback(String s, String s1) {
+    private void sendFeedback(String s, String s1) {
         progressDialog.show();
         //https://netforcesales.com/ibet_admin/api/services.php?opt=add_feedback&email
         // =ajay@netforce.co&feedback=dsgdfgdfg
@@ -115,7 +111,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
             e.printStackTrace();
         }
         String baseUrl = getString(R.string.url);
-        String feedback = "/services.php?opt=add_feedback&email=" + s + "&feedback=" + s1;
+        String feedback = "/services.php?opt=add_feedback&subj=" + s + "&feedback=" + s1;
         String url = baseUrl + feedback;
         Ion.with(this).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
@@ -134,7 +130,7 @@ public class FeedbackActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         });
-    }*/
+    }
 
     private void showMessage(String s) {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();

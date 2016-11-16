@@ -80,6 +80,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     private View view1;
     LinearLayout linearLayoutToolbar;
     private int FRIENDSLIST = 101;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,6 +211,10 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     }
 
     private void initView() {
+        progressDialog = new MaterialDialog.Builder(context)
+                .title(R.string.progress_dialog)
+                .content(R.string.please_wait)
+                .progress(true, 0).build();
         view1 = findViewById(R.id.view);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         switchButtonCanJoin = (SwitchButton) findViewById(R.id.switchbuttonCanJoin);
@@ -456,6 +461,8 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
     }
 
     private void createbet() {
+        progressDialog.show();
+
       /*
      https://netforcesales.com/ibet_admin/api/create_bet.php?match_id=638898
      &friends_id=162,163,164&comments=5&home_team_id=1228&away_team_id=2150
@@ -523,8 +530,9 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
+                progressDialog.dismiss();
                 if (result == null) {
-                    showMessage("Not able to join");
+                   // showMessage("Not able to join");
                 } else {
                     try {
                         if (result.get("status").getAsString().equalsIgnoreCase("success")) {

@@ -51,15 +51,15 @@
                 >
 
                 <EditText
-                    android:id="@+id/editTextEmail"
+                    android:id="@+id/editTextSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:background="@color/white"
-                    android:hint="@string/feedback_email_hint"
+                    android:hint="@string/feedback_subject"
                     android:focusable="false"
                     android:clickable="false"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textEmailSubject"
                     android:padding="10dp"
                     android:textAllCaps="false"
                     android:textColor="#000000"

@@ -63,9 +63,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     ArrayList<TeamListData> teamListDatas1 = new ArrayList<>();
     private Toolbar toolbar;
     public static TeamListAdapter upcomingGameAdapter;
-    LinearLayout linearLayoutProgress;
     public static LinearLayout linearlayoutMain, linearLayoutSelectedTeams, linearLayoutTeams;
-    EditText editTextSearch;
     public static ArrayList<TeamListData> selectTeamDatas = new ArrayList<>();
     public ArrayList<String> selectedTeams = new ArrayList<>();
     public static SelectTeamAdapter selectTeamAdapter;
@@ -103,7 +101,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
 
     private void initView() {
         progressDialog = new MaterialDialog.Builder(this)
-                .title(R.string.progress_dialog)
+                .title(R.string.fetching_data)
                 .content(R.string.please_wait)
                 .progress(true, 0).build();
         linearLayoutATL = (LinearLayout) findViewById(R.id.linearLayoutATL);
@@ -113,7 +111,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         linearLayoutSearch = (LinearLayout) findViewById(R.id.linearLayoutSearch);
         linearLayoutSearch.setVisibility(View.GONE);
         findViewById(R.id.buttonDone).setOnClickListener(this);
-        linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutInput);
         linearlayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
         linearLayoutSelectedTeams = (LinearLayout) findViewById(R.id.linearLayoutSelectedTeams);
         linearLayoutTeams = (LinearLayout) findViewById(R.id.linearLayoutTeams);
@@ -155,15 +152,15 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         } catch (Exception ex) {
 
         }
-        int size=data.size();
-        for(int i=0;i<size;i++){
-            JsonObject jsonObject=data.get(i).getAsJsonObject();
+        int size = data.size();
+        for (int i = 0; i < size; i++) {
+            JsonObject jsonObject = data.get(i).getAsJsonObject();
             //
-            String fav_team_id=jsonObject.get("fav_team_id").getAsString();
+            String fav_team_id = jsonObject.get("fav_team_id").getAsString();
             selectedTeams.add(fav_team_id);
 
         }
-        getTeams();
+        selectTeamAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -206,7 +203,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
                 linearLayoutTeams.setVisibility(View.GONE);
-                linearLayoutProgress.setVisibility(View.VISIBLE);
                 linearLayoutTeams.setVisibility(View.GONE);
                 teamListDatas1.clear();
                 upcomingGameAdapter.notifyDataSetChanged();
@@ -227,7 +223,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                     teamListDatas1.clear();
                     upcomingGameAdapter.notifyDataSetChanged();
                     linearLayoutTeams.setVisibility(View.GONE);
-                    linearLayoutProgress.setVisibility(View.VISIBLE);
                     getTeam(newText);
                 }
 
@@ -263,7 +258,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        linearLayoutProgress.setVisibility(View.GONE);
                         linearlayoutMain.setVisibility(View.VISIBLE);
                         linearLayoutSearch.setVisibility(View.VISIBLE);
                         teamListDatas1.clear();
@@ -293,6 +287,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getTeams() {
+        progressDialog.show();
         //https://netforcesales.com/ibet_admin/api/services.php?opt=team_list
         String url = getResources().getString(R.string.url);
         url = url + "/services.php?opt=team_list";
@@ -304,7 +299,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        linearLayoutProgress.setVisibility(View.GONE);
+                        progressDialog.dismiss();
                         linearlayoutMain.setVisibility(View.VISIBLE);
                         linearLayoutTeams.setVisibility(View.VISIBLE);
 

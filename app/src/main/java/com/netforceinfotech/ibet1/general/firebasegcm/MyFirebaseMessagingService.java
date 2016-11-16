@@ -59,8 +59,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             home_logo = message.getString("home_team");
             away_logo = message.getString("away_team");
         } catch (Exception ex) {
-            subtitle = "Ibet Notification";
-            messageString = "You have got notification";
+            subtitle = getString(R.string.ibet_notification);
+            messageString = getString(R.string.you_got_notification);
             home_logo = "";
             away_logo = "";
 

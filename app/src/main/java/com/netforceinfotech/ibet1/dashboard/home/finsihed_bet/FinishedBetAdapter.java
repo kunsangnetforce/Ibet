@@ -98,7 +98,14 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .error(R.drawable.ic_error)
                     .into(finishedBetHolder.imageViewTeamA);
         } else {
-            finishedBetHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(finishedBetHolder.imageViewTeamA);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
             Glide.with(context)
@@ -110,7 +117,14 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     .error(R.drawable.ic_error)
                     .into(finishedBetHolder.imageViewTeamB);
         } else {
-            finishedBetHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(finishedBetHolder.imageViewTeamB);
         }
         finishedBetHolder.textViewResult.setText(itemList.get(position).betstatus);
         finishedBetHolder.textViewName.setText(itemList.get(position).name);

@@ -71,7 +71,7 @@ public class TeamNotificationActivity extends AppCompatActivity {
     private void getFavTeam() {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=get_fav_team_top&user_id=25
         String baseUrl = getString(R.string.url);
-        String url = baseUrl + "/services.php?opt=get_fav_team_top&user_id" + userSessionManager.getCustomerId();
+        String url = baseUrl + "/services.php?opt=get_fav_team_top&user_id=" + userSessionManager.getCustomerId();
         Debugger.i("kunsang_fav_team", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override

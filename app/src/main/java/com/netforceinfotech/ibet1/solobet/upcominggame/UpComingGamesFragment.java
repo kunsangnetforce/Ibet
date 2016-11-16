@@ -152,11 +152,9 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
-                        Log.i("kunsangresponse", result.toString());
                         if (result == null) {
-                            showMessage("Something wrong");
+                            showMessage(getString(R.string.something_went_wrong));
                         } else {
-
                             setUpData(result);
                         }
                     }
@@ -166,7 +164,6 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
     private void setUpData(JsonObject result) {
         linearLayout.setVisibility(View.GONE);
         try {
-            Log.i("kunsang_result", result.toString());
             JsonArray data = result.getAsJsonArray("data");
             if (data.size() == 0) {
                 showMessage("No match available");
