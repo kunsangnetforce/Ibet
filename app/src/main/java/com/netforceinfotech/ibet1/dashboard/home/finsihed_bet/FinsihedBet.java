@@ -151,30 +151,20 @@ public class FinsihedBet extends Fragment {
             String bet_id = jsonObject.get("bet_id").getAsString();
             String match_id = jsonObject.get("match_id").getAsString();
             JsonObject creator = jsonObject.getAsJsonObject("creator");
-            String creator_id = creator.get("bet_creator").getAsString();
+            String creator_id = creator.get("user_id").getAsString();
             String name = creator.get("name").getAsString();
             String creator_dp = creator.get("image").getAsString();
             try {
                 JsonObject home = jsonObject.getAsJsonObject("home");
                 JsonObject away = jsonObject.getAsJsonObject("away");
-                String home_id = home.get("id").getAsString();
-
-                String home_logo = "";
-                if (!home.get("logo").isJsonNull()) {
-                    home_logo = home.get("logo").getAsString();
-                }
 
                 String home_name = "", away_name = "";
-                String away_id = away.get("id").getAsString();
-                if (!jsonObject.get("home_teamname").isJsonNull()) {
-                    home_name = jsonObject.get("home_teamname").getAsString();
+
+                if (!home.get("name").isJsonNull()) {
+                    home_name = home.get("name").getAsString();
                 }
-                if (!jsonObject.get("away_teamname").isJsonNull()) {
-                    away_name = jsonObject.get("away_teamname").getAsString();
-                }
-                String away_logo = "";
-                if (!away.get("logo").isJsonNull()) {
-                    away_logo = away.get("logo").getAsString();
+                if (!away.get("name").isJsonNull()) {
+                    away_name = away.get("name").getAsString();
                 }
                 String match_start_time = jsonObject.get("match_start_time").getAsString();
                 String participants_count = jsonObject.get("participants_count").getAsString();
@@ -185,12 +175,12 @@ public class FinsihedBet extends Fragment {
                 //FinsihedData(String userdp, String name, String numberparticipant,
                 // String numberpost, String time, String teamalogo, String teamblogo,
                 // String teamaname, String teambname, String betstatus, String betid, String match_id) {
-                FinsihedData finsihedData = new FinsihedData(creator_dp, name, participants_count, match_start_time, home_logo, away_logo
+                FinsihedData finsihedData = new FinsihedData(creator_dp, name, participants_count, match_start_time, "", ""
                         , home_name, away_name, betresult, bet_id, match_id);
                 finsihedDatas.add(finsihedData);
 
             } catch (Exception ex) {
-
+                linearLayoutNoBets.setVisibility(View.VISIBLE);
             }
 
         }

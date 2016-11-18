@@ -207,5 +207,8 @@
     <string name="feeback">Feedback</string>
     <string name="feedback_subject">Feedback subject</string>
     <string name="feed_empty">Feed Cannot be empty</string>
+    <string name="got_notification">Got notification</string>
+    <string name="bet_accepted">Bet accepted</string>
+    <string name="bet_rejected">Bet Rejected</string>
 
 </resources>

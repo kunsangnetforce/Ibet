@@ -91,16 +91,16 @@ public class SoundlistActivity extends AppCompatActivity {
         } catch (Exception ex) {
 
         }
-        soundData.add(new SoundListData("A Tone", "A_tone.mp3"));
-        soundData.add(new SoundListData("Air Horn", "Air_Horn.mp3"));
-        soundData.add(new SoundListData("cheering", "Cheering.mp3"));
-        soundData.add(new SoundListData("Crowed Boo", "Crowd_Boo.mp3"));
-        soundData.add(new SoundListData("Crowed Hole", "CrowedHole.wav"));
-        soundData.add(new SoundListData("Doorbell", "Doorbell.mp3"));
-        soundData.add(new SoundListData("Japanese Temple Bell Small", "Japanese_Temple_Bell_Small.mp3"));
-        soundData.add(new SoundListData("Sad Trombone Joe Lamb", "Sad_Trombone-Joe_Lamb.mp3"));
-        soundData.add(new SoundListData("Store Door Chime", "Store_Door_Chime.mp3"));
-        soundData.add(new SoundListData("Ta Da", "Ta_Da.mp3"));
+        soundData.add(new SoundListData("A Tone", "a_tone"));
+        soundData.add(new SoundListData("Air Horn", "air_horn"));
+        soundData.add(new SoundListData("cheering", "cheering"));
+        soundData.add(new SoundListData("Crowed Boo", "crowd_boo"));
+        soundData.add(new SoundListData("Crowed Hole", "crowedhole"));
+        soundData.add(new SoundListData("Doorbell", "boorbell"));
+        soundData.add(new SoundListData("Japanese Temple Bell Small", "japanese_temple_bell_small"));
+        soundData.add(new SoundListData("Sad Trombone Joe Lamb", "sad_trombone_joe_lamb"));
+        soundData.add(new SoundListData("Store Door Chime", "store_door_chime"));
+        soundData.add(new SoundListData("Ta Da", "ta_da"));
 
 
     }
@@ -192,7 +192,7 @@ public class SoundlistActivity extends AppCompatActivity {
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-               // setupDefaultTheme();
+                // setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

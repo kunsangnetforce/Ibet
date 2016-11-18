@@ -213,7 +213,7 @@ public class BetsToJoin extends Fragment {
 //String userdp, String name, String numberparticipant, String time, String teamalogo, String teamblogo,
 // String teamaname, String teambname, String betid) {
                     BetsToJoinData betsToJoin = new BetsToJoinData(userdp, name, participants, time, home_logo,
-                            away_logo, home_name, away_name, betid, matchid, bet_option, bet_amount);
+                            away_logo, home_name, away_name, betid, matchid, bet_option, bet_amount,creator_id);
                     betsToJoinDatas.add(betsToJoin);
 
                 }

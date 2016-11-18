@@ -58,7 +58,7 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
 
     Button buttonPlaceBet;
     LinearLayout linearLayoutScoreMain, linearLayoutToolbar, linearLayoutHome, linearLayoutAway;
-    String bet_option, bet_id, home_name, home_logo, away_name, away_logo, match_id, bet_amount;
+    String bet_option, bet_id, home_name, home_logo, away_name, away_logo, match_id, bet_amount,creator_id;
     String selectedteam = "";
     TextView textViewBetAmount, textviewselectHome, textviewselectDraw, textviewselectAway, textViewScoreHome, textViewScoreAway, textviewCoins, textViewTeamA, textViewTeamB;
     RadioButton radioButtonHome, radioButtonDraw, radioButtonAway;
@@ -86,6 +86,7 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
             home_logo = bundle.getString("home_logo");
             away_name = bundle.getString("away_name");
             away_logo = bundle.getString("away_logo");
+            creator_id=bundle.getString("creator_id");
             try {
                 bet_amount = bundle.getString("bet_amount");
             } catch (Exception ex) {
@@ -285,7 +286,7 @@ public class AcceptBetActivity extends AppCompatActivity implements CompoundButt
         String joinBetUrl = "/accept_bet_request.php?match_status=" + selectedteam + "&option=" + bet_option
                 + "&user_id=" + userSessionManager.getCustomerId() +
                 "&bet_id=" + bet_id + "&user_bet_amt=" + bet_amount + "&away_scrore="
-                + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type + "&match_id=" + match_id;
+                + awayscore + "&home_scrore=" + awayscore + "&request_type=" + request_type + "&match_id=" + match_id+"&creator_id="+creator_id;
         String url = baseUrl + joinBetUrl;
         Debugger.i("kunsang_url_JoinBet", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {

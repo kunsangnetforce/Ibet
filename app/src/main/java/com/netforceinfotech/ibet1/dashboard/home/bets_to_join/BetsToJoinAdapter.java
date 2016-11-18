@@ -89,6 +89,7 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 bundle.putString("match_id", itemList.get(position).matchid);
                 bundle.putString("bet_option", itemList.get(position).bet_option);
                 bundle.putString("bet_amount", itemList.get(position).bet_amount);
+                bundle.putString("creator_id", itemList.get(position).creator_id);
                 Debugger.i("kbetid", itemList.get(position).betid);
                 intent.putExtras(bundle);
                 context.startActivity(intent);

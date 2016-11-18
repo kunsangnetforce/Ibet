@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Debugger.i("sendRegId", "couldnot send");
                             userSessionManager.setGCMRegistered(false);
                         } else {
-                            Debugger.i("sendRegId", "sent successful");
+                            Debugger.i("sendRegId", "sent successful  "+userSessionManager.getRegId());
 
                         }
 
@@ -276,6 +276,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
                                 userSessionManager.setProfilePic(imageURL);
                                 userSessionManager.setLoginMode("1");
+                                sendRegId();
                                 JsonArray data = result.getAsJsonArray("data");
                                 JsonObject object = data.get(0).getAsJsonObject();
                                 String api_token = result.get("api_token").getAsString();

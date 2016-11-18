@@ -131,34 +131,34 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         try {
             switch (position) {
                 case 0:
-                    descriptor = context.getAssets().openFd("A_tone.mp3");
+                    descriptor = context.getAssets().openFd("a_tone.mp3");
                     break;
                 case 1:
-                    descriptor = context.getAssets().openFd("Air_Horn.mp3");
+                    descriptor = context.getAssets().openFd("air_horn.mp3");
                     break;
                 case 2:
-                    descriptor = context.getAssets().openFd("Cheering.mp3");
+                    descriptor = context.getAssets().openFd("cheering.mp3");
                     break;
                 case 3:
                     descriptor = context.getAssets().openFd("Crowed_Boo.mp3");
                     break;
                 case 4:
-                    descriptor = context.getAssets().openFd("Cheering.mp3");
+                    descriptor = context.getAssets().openFd("cheering.mp3");
                     break;
                 case 5:
-                    descriptor = context.getAssets().openFd("Doorbell.mp3");
+                    descriptor = context.getAssets().openFd("boorbell.mp3");
                     break;
                 case 6:
-                    descriptor = context.getAssets().openFd("Store_Door_Chime.mp3");
+                    descriptor = context.getAssets().openFd("store_door_chime.mp3");
                     break;
                 case 7:
-                    descriptor = context.getAssets().openFd("Japanese_Temple_Bell_Small.mp3");
+                    descriptor = context.getAssets().openFd("japanese_temple_bell_small.mp3");
                     break;
                 case 8:
-                    descriptor = context.getAssets().openFd("Doorbell.mp3");
+                    descriptor = context.getAssets().openFd("boorbell.mp3");
                     break;
                 case 9:
-                    descriptor = context.getAssets().openFd("CrowedHole.wav");
+                    descriptor = context.getAssets().openFd("crowedhole.wav");
                     break;
 
             }
