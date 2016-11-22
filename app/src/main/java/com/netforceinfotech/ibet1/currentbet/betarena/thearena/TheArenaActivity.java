@@ -191,9 +191,6 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
 
         } else {
             map_teamdetail = new HashMap<>();
-            map_teamdetail.put("id", "0");
-            map_teamdetail.put("name", "draw");
-            map_teamdetail.put("logo", "draw");
             map_teamdetail.put("comments", "");
 
 
@@ -311,7 +308,10 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
         stringComment = dataSnapshot.child("message").getValue(String.class);
         timestamp = dataSnapshot.child("timestamp").getValue(Long.class);
         if (stringComment != null) {
-            theArenaDatas.add(new TheArenaData(stringImage, chatUsername, timestamp, stringComment, "0", "0", "0", "0", dataSnapshot.getKey()));
+            TheArenaData theArenaData = new TheArenaData(stringImage, chatUsername, timestamp, stringComment, "0", "0", "0", "0", dataSnapshot.getKey());
+            if (!theArenaDatas.contains(theArenaData)) {
+                theArenaDatas.add(theArenaData);
+            }
         }
         if (theArenaDatas.size() != 0) {
             linearLayoutNoComment.setVisibility(View.GONE);

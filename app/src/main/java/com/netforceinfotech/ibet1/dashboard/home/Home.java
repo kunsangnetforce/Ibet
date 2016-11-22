@@ -150,8 +150,8 @@ public class Home extends Fragment implements View.OnClickListener {
                                 String profile_image = jsonObject.get("profile_image").getAsString();
                                 String total_amt = jsonObject.get("total_amt").getAsString();
                                 String id = jsonObject.get("id").getAsString();
-                                String win = jsonObject.get("cust_win").getAsString();
-                                String lose = jsonObject.get("cust_lost").getAsString();
+                                String wins = jsonObject.get("wincount").getAsString();
+                                String losses = jsonObject.get("losscount").getAsString();
                                 String level = jsonObject.get("cust_level").getAsString();
                                 try {
                                     String levelString = jsonObject.get("level_string").getAsString();
@@ -174,9 +174,9 @@ public class Home extends Fragment implements View.OnClickListener {
                                 textViewName.setText(name);
                                 Dashboard.textViewName.setText(name);
                                 textviewLevelNumber.setText("Level\n" + level);
-                                textViewWins.setText(win);
-                                textViewLose.setText(lose);
-                                setupWinLose(win, lose);
+                                textViewWins.setText(wins);
+                                textViewLose.setText(losses);
+                                setupWinLose(wins, losses);
 
                             } else {
                                 showMessage("Authentication failure. Login again");

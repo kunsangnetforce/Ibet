@@ -144,30 +144,11 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     private void playSound(int position) {
-        try {
-            counter.cancel();
-        } catch (Exception ex) {
-
-        }
-        counter = new MyCount(3000, 1000);
-        counter.start();
-        AssetFileDescriptor descriptor = null;
 
         try {
-            descriptor = context.getAssets().openFd(itemList.get(position).filename);
-
-            if (m.isPlaying()) {
-                m.stop();
-                m.release();
-            }
-            m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
-            descriptor.close();
-            m.prepare();
-            m.setVolume(1f, 1f);
-            m.setLooping(false);
-            m.start();
-
-
+            int resID = context.getResources().getIdentifier(itemList.get(position).filename, "raw", context.getPackageName());
+            MediaPlayer mediaPlayer = MediaPlayer.create(context, resID);
+            mediaPlayer.start();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -201,7 +182,7 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private void setlist_border() {
 
         if (theme == 0) {
-          //  viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
+            //  viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
         } else if (theme == 1) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background2));
         } else if (theme == 2) {

@@ -67,7 +67,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         AppEventsLogger.activateApp(getApplication());
         setContentView(R.layout.activity_login);
         initView();
-        sendRegId();
+        if(userSessionManager.getRegId().length()>0) {
+            sendRegId();
+        }
     }
 
     private void initView() {
@@ -93,6 +95,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonFacebook.registerCallback(mCallbackManager, mCallBack);
         if (userSessionManager.getIsLoogedIn()) {
             Intent intent = new Intent(this, Dashboard.class);
+            if(userSessionManager.getRegId().length()>0) {
+                sendRegId();
+            }
             startActivity(intent);
             finish();
         } else {
@@ -276,7 +281,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String imageURL = "https://graph.facebook.com/" + fbId + "/picture?type=large";
                                 userSessionManager.setProfilePic(imageURL);
                                 userSessionManager.setLoginMode("1");
-                                sendRegId();
+                                if(userSessionManager.getRegId().length()>0) {
+                                    sendRegId();
+                                }
                                 JsonArray data = result.getAsJsonArray("data");
                                 JsonObject object = data.get(0).getAsJsonObject();
                                 String api_token = result.get("api_token").getAsString();

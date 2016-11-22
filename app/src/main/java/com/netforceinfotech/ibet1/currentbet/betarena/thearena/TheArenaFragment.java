@@ -93,7 +93,7 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
             team = bundle.getString("team");*/
                 bundle.putString("match_id", match_id);
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("team", "draw");
+                bundle.putString("team", "common");
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -105,7 +105,7 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
             team = bundle.getString("team");*/
                 bundle.putString("match_id", match_id);
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("team", "home");
+                bundle.putString("team", "common");
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -114,7 +114,7 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
                 bundle = new Bundle();
                 bundle.putString("match_id", match_id);
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("team", "away");
+                bundle.putString("team", "common");
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
