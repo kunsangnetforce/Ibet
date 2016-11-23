@@ -38,6 +38,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         userSessionManager = new UserSessionManager(getApplicationContext());
         Log.i(TAG, remoteMessage.getData().toString());
         String message = remoteMessage.getData().get("message");
+        Log.i("kunsangtest", userSessionManager.getSoundOnOff() + "");
         if (userSessionManager.getSoundOnOff()) {
             try {
                 JSONObject obj = new JSONObject(message);
@@ -68,7 +69,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 setupJoinBetNotification(message);
             }
         } catch (Exception ex) {
-
+            ex.printStackTrace();
         }
 
     }
@@ -82,6 +83,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } catch (Exception ex) {
             accept_bet = "Ibet Notification";
             title = "Ibet";
+            ex.printStackTrace();
 
         }
         if (accept_bet.equalsIgnoreCase("0")) {
@@ -130,6 +132,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             home_logo = "";
             away_logo = "";
             bet_creator = "";
+            ex.printStackTrace();
 
         }
         if (bet_creator.equalsIgnoreCase(userSessionManager.getCustomerId())) {
@@ -158,11 +161,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void setupEventNotification(String type, String team_id, String subtitle) {
+        Debugger.i("kunsang_team", userSessionManager.getTeamNotification(team_id) + "");
         if (!userSessionManager.getTeamNotification(team_id)) {
             return;
         }
         if (userSessionManager.getGeneralNotification(type + "general")) {
-            String soundName = userSessionManager.getGeneralNotificationSoundName(type + "soundname");
+            String soundName = userSessionManager.getGeneralNotificationFileName(type + "filename");
+            if (soundName.indexOf(".") > 0)
+                soundName = soundName.substring(0, soundName.lastIndexOf("."));
+            Debugger.i("kunsang_team", soundName);
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -176,9 +183,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setAutoCancel(true)
                     .setSound(path)
                     .setContentIntent(pendingIntent);
+            int time = (int) (System.currentTimeMillis());
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+            notificationManager.notify(time /* ID of notification */, notificationBuilder.build());
         }
     }
 
@@ -192,6 +200,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     winSubtitle = message.getString("subtitle");
                 } catch (JSONException e) {
                     winSubtitle = getString(R.string.got_notification);
+                    e.printStackTrace();
                 }
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -219,6 +228,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     loseSubtitle = message.getString("subtitle");
                 } catch (JSONException e) {
                     loseSubtitle = getString(R.string.got_notification);
+                    e.printStackTrace();
 
                 }
                 Intent intent = new Intent(this, MainActivity.class);

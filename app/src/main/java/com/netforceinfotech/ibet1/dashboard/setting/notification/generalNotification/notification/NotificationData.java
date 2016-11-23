@@ -4,11 +4,12 @@ package com.netforceinfotech.ibet1.dashboard.setting.notification.generalNotific
  * Created by Netforce on 9/20/2016.
  */
 public class NotificationData {
-    String name;
+    String name,type;
     boolean status;
 
-    public NotificationData(String name, boolean status) {
+    public NotificationData(String name, boolean status,String type) {
         this.name = name;
+        this.type=type;
         this.status = status;
     }
 }

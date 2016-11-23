@@ -82,7 +82,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 arrayListBoolean.set(position, b);
-                userSessionManager.setGeneralNotification(itemList.get(position).name + "general", b);
+                userSessionManager.setGeneralNotification(itemList.get(position).type + "general", b);
             }
         });
 

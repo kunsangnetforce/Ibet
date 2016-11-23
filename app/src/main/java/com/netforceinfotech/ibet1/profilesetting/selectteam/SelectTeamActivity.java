@@ -407,6 +407,8 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 for (int i = 0; i < selectTeamDatas.size(); i++) {
                     if (!ProfileSettingActivity.arrayListTeamids.contains(selectTeamDatas.get(i))) {
                         ProfileSettingActivity.arrayListTeamids.add(selectTeamDatas.get(i).id);
+                        userSessionManager.setTeamNotification(selectedTeams.get(i).id, true);
+
                     }
                 }
                 String teams = TextUtils.join(",", ProfileSettingActivity.arrayListTeamids);

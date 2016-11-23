@@ -106,12 +106,12 @@ public class NotificationFragment extends Fragment {
         icon_list.add(R.drawable.half_timeicon);
         icon_list.add(R.drawable.final_icon);
 
-        notificationDatas.add(new NotificationData("Goal", userSessionManager.getGeneralNotification("Goal" + "general")));
-        notificationDatas.add(new NotificationData("Red Card", userSessionManager.getGeneralNotification("Red Card" + "general")));
-        notificationDatas.add(new NotificationData("Yellow Card", userSessionManager.getGeneralNotification("Yellow card" + "general")));
-        notificationDatas.add(new NotificationData("Match Start", userSessionManager.getGeneralNotification("Match Start" + "general")));
-        notificationDatas.add(new NotificationData("Half Time", userSessionManager.getGeneralNotification("Half Time" + "general")));
-        notificationDatas.add(new NotificationData("Final", userSessionManager.getGeneralNotification("Final" + "general")));
+        notificationDatas.add(new NotificationData("Goal", userSessionManager.getGeneralNotification("Goal" + "general"),"goal"));
+        notificationDatas.add(new NotificationData("Red Card", userSessionManager.getGeneralNotification("Red Card" + "general"),"redcard"));
+        notificationDatas.add(new NotificationData("Yellow Card", userSessionManager.getGeneralNotification("Yellow card" + "general"),"yellowcard"));
+        notificationDatas.add(new NotificationData("Match Start", userSessionManager.getGeneralNotification("Match Start" + "general"),"LIVE"));
+        notificationDatas.add(new NotificationData("Half Time", userSessionManager.getGeneralNotification("Half Time" + "general"),"HT"));
+        notificationDatas.add(new NotificationData("Final", userSessionManager.getGeneralNotification("Final" + "general"),"FT"));
 
 
         adapter = new NotificationAdapter(getActivity(), notificationDatas, icon_list);

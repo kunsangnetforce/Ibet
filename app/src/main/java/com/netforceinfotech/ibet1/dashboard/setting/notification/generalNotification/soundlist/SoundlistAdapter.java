@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -24,9 +25,6 @@ import java.util.List;
  */
 public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
-    MyCount counter;
-    MediaPlayer m;
     SoundlistHolder viewHolder;
     private final LayoutInflater inflater;
     private List<SoundListData> itemList;
@@ -37,16 +35,17 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     AssetFileDescriptor descriptor;
     int lastClicked = 0;
     String event_name;
+    private MediaPlayer mediaPlayer;
 
-    public SoundlistAdapter(Context context, List<SoundListData> itemList, String event_name) {
+    public SoundlistAdapter(Context context, List<SoundListData> itemList, String event_name, MediaPlayer mediaPlayer) {
 
+        this.mediaPlayer = mediaPlayer;
         this.itemList = itemList;
         this.context = context;
         this.event_name = event_name;
         inflater = LayoutInflater.from(context);
         userSessionManager = new UserSessionManager(context);
         theme = userSessionManager.getTheme();
-        m = new MediaPlayer();
 
     }
 
@@ -97,7 +96,9 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void onClick(View view) {
                 lastClicked = position;
+                //setGeneralNotificationFileName
                 userSessionManager.setGeneralNotificationFileName(event_name + "filename", itemList.get(position).filename);
+                Debugger.i("filenotification", event_name + "filename  :" + itemList.get(position).filename);
                 userSessionManager.setGeneralNotificationSoundName(event_name + "soundname", itemList.get(position).title);
                 notifyDataSetChanged();
 
@@ -136,7 +137,6 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             imageView = (ImageView) view.findViewById(R.id.imageViewCheck);
             textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             layout_view = (View) itemView.findViewById(R.id.view);
-            m = new MediaPlayer();
 
         }
 
@@ -146,38 +146,20 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private void playSound(int position) {
 
         try {
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
+        } catch (Exception ex) {
+
+        }
+        try {
             int resID = context.getResources().getIdentifier(itemList.get(position).filename, "raw", context.getPackageName());
-            MediaPlayer mediaPlayer = MediaPlayer.create(context, resID);
+            mediaPlayer=MediaPlayer.create(context, resID);
             mediaPlayer.start();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public class MyCount extends CountDownTimer {
-
-        public MyCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onFinish() {
-            try {
-                m.stop();
-                m.release();
-            } catch (Exception ex) {
-
-            }
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            s1 = millisUntilFinished;
-
-        }
-
-
-    }
 
     private void setlist_border() {
 

@@ -81,7 +81,7 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             public void onClick(View view) {
                 Intent intent = new Intent(context, SoundlistActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("name", itemList.get(position).eventname);
+                bundle.putString("name", itemList.get(position).type);
                 intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
