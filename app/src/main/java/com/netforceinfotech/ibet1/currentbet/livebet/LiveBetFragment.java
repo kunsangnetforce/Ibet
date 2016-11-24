@@ -103,8 +103,10 @@ public class LiveBetFragment extends Fragment {
 
 
     private void getrLiveBets() {
-        //https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=163
-        String url = "https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=" + userSessionManager.getCustomerId();
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=live_bets&user_id=136
+        String baseUrl=getString(R.string.url);
+        String url=baseUrl+"/services.php?opt=live_bets&user_id="+ userSessionManager.getCustomerId();
+        //String url = "https://netforcesales.com/ibet_admin/api/services.php?opt=live_bets&user_id="
         Debugger.i("kunsang_url_LiveBets", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
@@ -146,31 +148,29 @@ public class LiveBetFragment extends Fragment {
         linearLayoutNoBets.setVisibility(View.GONE);
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
-
-            String creatorDp = jsonObject.get("profile_image").getAsString();
-            String creatorName = jsonObject.get("name").getAsString();
-            String participantsCount = jsonObject.get("participants").getAsString();
-            String date_time = jsonObject.get("bet_match_date").getAsString() + " " + jsonObject.get("bet_match_time").getAsString();
-            String homeLogo = jsonObject.get("team_home_flag").getAsString();
-            String awayLogo = jsonObject.get("team_away_flag").getAsString();
+            JsonObject creator=jsonObject.getAsJsonObject("creator");
+            String creatorDp = creator.get("image").getAsString();
+            String creatorName = creator.get("name").getAsString();
+            String participantsCount = jsonObject.get("participants_count").getAsString();
+            String date_time = jsonObject.get("match_start_time").getAsString();
+            String homeLogo = "";
+            String awayLogo = "";
+            JsonObject home=jsonObject.getAsJsonObject("home");
+            JsonObject away=jsonObject.getAsJsonObject("away");
             String homeName = "";
-            if (!jsonObject.get("home_teamname").isJsonNull()) {
-                homeName = jsonObject.get("home_teamname").getAsString();
+            if (!home.get("name").isJsonNull()) {
+                homeName = home.get("name").getAsString();
+                homeLogo=home.get("logo").getAsString();
             }
             String awayName = "";
-            if (!jsonObject.get("away_teamname").isJsonNull()) {
-                awayName = jsonObject.get("away_teamname").getAsString();
+            if (!away.get("name").isJsonNull()) {
+                awayName = away.get("name").getAsString();
+                awayLogo=away.get("logo").getAsString();
             }
-            String betId = jsonObject.get("betid").getAsString();
-            String matchid = jsonObject.get("bet_match_id").getAsString();
+            String betId = jsonObject.get("bet_id").getAsString();
+            String matchid = jsonObject.get("match_id").getAsString();
             String home_id = "", away_id = "", seasonid = "";
-            try {
-                home_id = jsonObject.get("team_home").getAsString();
-                away_id = jsonObject.get("team_away").getAsString();
-                seasonid = jsonObject.get("season_id").getAsString();
-            } catch (Exception ex) {
-
-            }
+            seasonid = jsonObject.get("season_id").getAsString();
             if (participantsCount.equalsIgnoreCase("") || participantsCount.trim().length() <= 0) {
                 participantsCount = "0";
             }

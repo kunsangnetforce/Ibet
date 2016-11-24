@@ -60,13 +60,6 @@ public class DetailLiveBet extends AppCompatActivity implements View.OnClickList
         context = this;
         userSessionManager = new UserSessionManager(this);
         setupStatusBar();
-        /*
-        *   bundle.putString("home_logo", itemList.get(position).teamalogo);
-                bundle.putString("away_logo", itemList.get(position).teamblogo);
-                bundle.putString("bet_id", itemList.get(position).betid);
-                bundle.putString("home_name", itemList.get(position).teamaname);
-                bundle.putString("away_name", itemList.get(position).teambname);
-        * */
         try {
             Bundle bundle = getIntent().getExtras();
             home_logo = bundle.getString("home_logo");
@@ -350,7 +343,7 @@ public class DetailLiveBet extends AppCompatActivity implements View.OnClickList
     private void getBetDetail(String bet_id) {
         //https://netforcesales.com/ibet_admin/api/upcoming_bet_detail.php?&bet_id=237
         String baseUrl = getString(R.string.url);
-        String url = baseUrl + "/upcoming_bet_detail.php?&bet_id=" + bet_id;
+        String url = baseUrl + "/live_bets_detail.php?&bet_id=" + bet_id;
         Debugger.i("kunsang_url_betdetail", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
@@ -373,9 +366,9 @@ public class DetailLiveBet extends AppCompatActivity implements View.OnClickList
     private void setupBetDetail(JsonObject result) {
         try {
             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
-                if (!result.getAsJsonObject("bet_detail").isJsonNull()) {
+                if (!result.getAsJsonObject("bets_detail").isJsonNull()) {
                     String home_id, away_id, team_away_flag, bet_option = "", away_name = "", home_name = "", bet_ammount, bet_match_time, bet_match_date;
-                    JsonObject bet_detail = result.getAsJsonObject("bet_detail");
+                    JsonObject bet_detail = result.getAsJsonObject("bets_detail");
                     if (!bet_detail.getAsJsonObject("bet").isJsonNull()) {
                         JsonObject bet = bet_detail.getAsJsonObject("bet");
                         if (!bet.get("bet_option").isJsonNull()) {
@@ -419,7 +412,8 @@ public class DetailLiveBet extends AppCompatActivity implements View.OnClickList
                                 } else {
                                     selectedTeam = "draw";
                                 }
-                               */ if (bet_option.equalsIgnoreCase("0")) {
+                               */
+                                if (bet_option.equalsIgnoreCase("0")) {
                                     score = "NA";
                                 } else if (bet_option.equalsIgnoreCase("1")) {
                                     selectedTeam = "NA";
@@ -439,6 +433,7 @@ public class DetailLiveBet extends AppCompatActivity implements View.OnClickList
             }
         } catch (Exception ex) {
             showMessage("something went wrong");
+            ex.printStackTrace();
         }
     }
 

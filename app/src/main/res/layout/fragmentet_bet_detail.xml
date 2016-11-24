@@ -141,7 +141,7 @@
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/img_dollor_small" />
+                                android:src="@drawable/img_dollor" />
 
                         </LinearLayout>
                     </LinearLayout>
