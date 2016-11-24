@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final long SPLASH_TIME_OUT = 3000;
     ImageView imageView;
+    //comment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
