@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.profilesetting.selectteam.SelectTeamActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,27 +57,14 @@ public class TeamListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         teamListHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (SelectTeamActivity.selectTeamDatas.size() > 0) {
-                    boolean present = false;
-                    for (int i = 0; i < SelectTeamActivity.selectTeamDatas.size(); i++) {
-                        if (id.equalsIgnoreCase(SelectTeamActivity.selectTeamDatas.get(i).id)) {
-                            present = true;
-                            break;
-                        }
-                    }
-                    if (!present) {
-                        SelectTeamActivity.selectTeamDatas.add(itemList.get(position));
-                    }
-                } else {
+
+                if (!SelectTeamActivity.selectTeamDatas.contains(itemList.get(position))) {
+
                     SelectTeamActivity.selectTeamDatas.add(itemList.get(position));
                 }
                 teamListHolder.imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
-                SelectTeamActivity.selectTeamAdapter.notifyDataSetChanged();
-                if (itemList.size() > 0) {
-                    SelectTeamActivity.linearLayoutSelectedTeams.setVisibility(View.VISIBLE);
-                }
-
-            }
+                SelectTeamActivity.selectedTeamAdapter.notifyDataSetChanged();
+                         }
         });
         teamListHolder.textViewTeamName.setText(itemList.get(position).name);
         if (itemList.get(position).logo.length() > 1) {

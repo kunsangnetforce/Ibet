@@ -104,8 +104,8 @@ public class SettingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             itemView.setOnClickListener(this);
             view = itemView;
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-            image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
-            textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            image_icon = (ImageView) itemView.findViewById(R.id.imageViewLogo);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             UserSessionManager userSessionManager = new UserSessionManager(context);
             switch (userSessionManager.getBackground()) {
                 case 0:

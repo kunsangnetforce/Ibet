@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stan
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.startnewbet.StartNewBetActivity;
 import com.netforceinfotech.ibet1.general.CustomViewPager;
@@ -121,12 +123,18 @@ public class StandActivity extends AppCompatActivity implements View.OnClickList
 
         }
         try {
-            Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
         } catch (Exception ex) {
 
         }
         try {
-            Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         } catch (Exception ex) {
 
         }

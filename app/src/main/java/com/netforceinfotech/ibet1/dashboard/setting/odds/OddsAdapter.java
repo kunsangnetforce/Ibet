@@ -102,7 +102,7 @@ public class OddsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
 
 
-            textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
 
             layout_view = (View)  itemView.findViewById(R.id.view);
 

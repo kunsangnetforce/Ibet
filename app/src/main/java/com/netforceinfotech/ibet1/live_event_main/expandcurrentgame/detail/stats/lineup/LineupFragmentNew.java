@@ -2,12 +2,12 @@ package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stat
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,19 +21,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.builder.MultipartBodyBuilder;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
-import org.json.JSONObject;
-
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -212,7 +208,11 @@ public class LineupFragmentNew extends Fragment {
                     textViewHGK.setText(lineUPDatasHome.get(i).name);
                     if (homeTeamLogo.length() > 0) {
                         Glide.with(context)
-                                .load(homeTeamLogo)
+                                .fromResource()
+                                .asBitmap()
+                                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                                .load(R.drawable.home_logo)
                                 .placeholder(R.drawable.ic_holder)
                                 .error(R.drawable.ic_error)
                                 .into(imageViewHGK);
@@ -257,7 +257,10 @@ public class LineupFragmentNew extends Fragment {
                     textViewAGK.setText(lineUPDatasAway.get(i).name);
                     if (homeTeamLogo.length() > 0) {
                         Glide.with(context)
-                                .load(awayTeamLogo)
+                                .fromResource()
+                                .asBitmap()
+                                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                                .load(R.drawable.away_logo)
                                 .placeholder(R.drawable.ic_holder)
                                 .error(R.drawable.ic_error)
                                 .into(imageViewAGK);
@@ -321,13 +324,16 @@ public class LineupFragmentNew extends Fragment {
             tv.setTypeface(Typeface.DEFAULT_BOLD);
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
-            LayoutParams paramsTv = new LayoutParams(width, height);
+            LayoutParams paramsTv = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
             LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
-            Glide.with(context).load(homeTeamLogo).error(R.drawable.ic_error).into(imageView);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
             linearLayout.addView(imageView);
             linearLayoutHM.addView(linearLayout);
@@ -352,13 +358,16 @@ public class LineupFragmentNew extends Fragment {
             tv.setTypeface(Typeface.DEFAULT_BOLD);
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
-            LayoutParams paramsTv = new LayoutParams(width, height);
+            LayoutParams paramsTv = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
             LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
-            Glide.with(context).load(homeTeamLogo).error(R.drawable.ic_error).into(imageView);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
             linearLayout.addView(imageView);
             linearLayoutHF.addView(linearLayout);
@@ -383,13 +392,16 @@ public class LineupFragmentNew extends Fragment {
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
             tv.setText(arrayListAwayDefender.get(i).name);
-            LayoutParams paramsTv = new LayoutParams(width, height);
+            LayoutParams paramsTv = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
             LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
-            Glide.with(context).load(awayTeamLogo).error(R.drawable.ic_error).into(imageView);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
             linearLayout.addView(imageView);
             linearLayoutAD.addView(linearLayout);
@@ -415,13 +427,17 @@ public class LineupFragmentNew extends Fragment {
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
             tv.setText(arrayListAwayMid.get(i).name);
-            LayoutParams paramsTv = new LayoutParams(width, height);
+            LayoutParams paramsTv = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
             LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
-            Glide.with(context).load(awayTeamLogo).error(R.drawable.ic_error).into(imageView);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
             linearLayout.addView(imageView);
             linearLayoutAM.addView(linearLayout);
@@ -448,13 +464,16 @@ public class LineupFragmentNew extends Fragment {
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
             tv.setText(arrayListAwayForward.get(i).name);
-            LayoutParams paramsTv = new LayoutParams(width, height);
+            LayoutParams paramsTv = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
             LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
-            Glide.with(context).load(awayTeamLogo).error(R.drawable.ic_error).into(imageView);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
             linearLayout.addView(imageView);
             linearLayoutAF.addView(linearLayout);
@@ -481,13 +500,16 @@ public class LineupFragmentNew extends Fragment {
             tv.setEllipsize(TextUtils.TruncateAt.END);
 
             tv.setText(arrayListHomeDefender.get(i).name);
-            LayoutParams paramsTv = new LayoutParams(width, height);
+            LayoutParams paramsTv = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tv.setLayoutParams(paramsTv);
 
             ImageView imageView = new ImageView(getActivity());
             LayoutParams paramsImageView = new LayoutParams(width, height);
             imageView.setLayoutParams(paramsImageView);
-            Glide.with(context).load(homeTeamLogo).error(R.drawable.ic_error).into(imageView);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageView);
             linearLayout.addView(tv);
             linearLayout.addView(imageView);
             linearLayoutHD.addView(linearLayout);

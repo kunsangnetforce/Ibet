@@ -202,7 +202,7 @@ public class UserSessionManager {
     }
 
     public String getGeneralNotificationFileName(String name) {
-        return pref.getString(name, "A_tone.mp3");
+        return pref.getString(name, "a_tone.mp3");
     }
 
     public void setGeneralNotificationFileName(String name, String filename) {
@@ -220,7 +220,7 @@ public class UserSessionManager {
     }
 
     public String getTeamNotificationFileName(String name) {
-        return pref.getString(name, "A_tone.mp3");
+        return pref.getString(name, "a_tone.mp3");
     }
 
     public void setTeamNotificationFileName(String name, String filename) {

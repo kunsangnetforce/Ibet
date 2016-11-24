@@ -29,9 +29,9 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.Dashboard;
 import com.netforceinfotech.ibet1.dashboard.profile.selectteam.SelectTeamActivity;
@@ -103,6 +103,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         String baseUrl = getString(R.string.url);
         final String profileUrl = "/services.php?opt=get_home_by_userid&custid=" + userSessionManager.getCustomerId();
         String url = baseUrl + profileUrl;
+        Debugger.i("kunsangprofile", url);
         setupSelfSSLCert();
         Ion.with(context)
                 .load(url)
@@ -133,8 +134,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         String name, profile_image, level, levelNumber, wins, losses;
         name = jsonObject.get("name").getAsString();
         profile_image = jsonObject.get("profile_image").getAsString();
-        wins = jsonObject.get("cust_win").getAsString();
-        losses = jsonObject.get("cust_lost").getAsString();
+        wins = jsonObject.get("wincount").getAsString();
+        losses = jsonObject.get("losscount").getAsString();
         levelNumber = jsonObject.get("cust_level").getAsString();
         level = "Beginer";
         try {

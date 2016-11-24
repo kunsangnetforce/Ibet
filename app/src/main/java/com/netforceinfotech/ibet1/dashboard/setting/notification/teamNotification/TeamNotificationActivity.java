@@ -71,7 +71,8 @@ public class TeamNotificationActivity extends AppCompatActivity {
     private void getFavTeam() {
         //https://netforcesales.com/ibet_admin/api/services.php?opt=get_fav_team_top&user_id=25
         String baseUrl = getString(R.string.url);
-        String url = baseUrl + "/services.php?opt=get_fav_team_top&user_id" + userSessionManager.getCustomerId();
+        String url = baseUrl + "/services.php?opt=get_fav_team_top&user_id=" + userSessionManager.getCustomerId();
+        Debugger.i("kunsang_fav_team", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
@@ -106,9 +107,18 @@ public class TeamNotificationActivity extends AppCompatActivity {
             }
             for (int i = 0; i < size; i++) {
                 JsonObject object = data.get(i).getAsJsonObject();
+                String name = "", logo = "";
                 String fav_team_id = object.get("fav_team_id").getAsString();
-                String name = object.get("name").getAsString();
-                String logo = object.get("logo").getAsString();
+                if (!object.get("name").isJsonNull()) {
+                    name = object.get("name").getAsString();
+                } else {
+                    name = "No Name";
+                }
+                if (!object.get("logo").isJsonNull()) {
+                    logo = object.get("logo").getAsString();
+                } else {
+                    logo = "";
+                }
                 teamDatas.add(new TeamData(fav_team_id, name, logo));
             }
             adapter.notifyDataSetChanged();

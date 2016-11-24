@@ -150,10 +150,23 @@ public class Home extends Fragment implements View.OnClickListener {
                                 String profile_image = jsonObject.get("profile_image").getAsString();
                                 String total_amt = jsonObject.get("total_amt").getAsString();
                                 String id = jsonObject.get("id").getAsString();
-                                String win = jsonObject.get("cust_win").getAsString();
-                                String lose = jsonObject.get("cust_lost").getAsString();
+                                String wins = jsonObject.get("wincount").getAsString();
+                                String losses = jsonObject.get("losscount").getAsString();
                                 String level = jsonObject.get("cust_level").getAsString();
-                                textViewLevel.setText("Beginer");
+                                try {
+                                    String levelString = jsonObject.get("level_string").getAsString();
+                                    textViewLevel.setText(levelString);
+                                } catch (Exception ex) {
+                                    textViewLevel.setText("Beginer");
+                                }
+                                try {
+                                    float level_remaining = jsonObject.get("level_remaining").getAsFloat();
+                                    circleProgressViewLevel.setValueAnimated(level_remaining, 1500);
+
+                                } catch (Exception ex) {
+                                    circleProgressViewLevel.setValueAnimated(0f, 1500);
+
+                                }
                                 userSessionManager.setCustomerId(id);
                                 userSessionManager.setName(name);
                                 userSessionManager.setProfilePic(profile_image);
@@ -161,8 +174,9 @@ public class Home extends Fragment implements View.OnClickListener {
                                 textViewName.setText(name);
                                 Dashboard.textViewName.setText(name);
                                 textviewLevelNumber.setText("Level\n" + level);
-                                textViewWins.setText(win);
-                                textViewLose.setText(lose);
+                                textViewWins.setText(wins);
+                                textViewLose.setText(losses);
+                                setupWinLose(wins, losses);
 
                             } else {
                                 showMessage("Authentication failure. Login again");
@@ -171,6 +185,23 @@ public class Home extends Fragment implements View.OnClickListener {
 
                     }
                 });
+    }
+
+    private void setupWinLose(String win, String lose) {
+        int win_count = 0, lose_count = 0;
+        win_count = Integer.parseInt(win);
+        lose_count = Integer.parseInt(lose);
+        int total = win_count + lose_count;
+        if (total == 0) {
+            return;
+        }
+        float winPercentage = (win_count / total) * 100;
+        float losePercentage = (lose_count / total) * 100;
+        roundCornerProgressBarWin.setProgress(winPercentage);
+        roundCornerProgressBarLost.setProgress(losePercentage);
+        //        circleProgressViewStatus.setValueAnimated(-12f);
+        float totalPercentage = ((win_count - lose_count) / total) * 100;
+        circleProgressViewStatus.setValueAnimated(totalPercentage);
     }
 
 
@@ -224,7 +255,7 @@ public class Home extends Fragment implements View.OnClickListener {
 
         });
         circleProgressViewLevel.setValueAnimated(0f, 1500);
-       circleProgressViewStatus.setValueAnimated(0f, 1500);
+        circleProgressViewStatus.setValueAnimated(0f, 1500);
         String fbId = userSessionManager.getFBID();
         Log.i("ibet_fbid", fbId);
 

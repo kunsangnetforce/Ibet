@@ -1,8 +1,10 @@
 package com.netforceinfotech.ibet1.profilesetting.selectteam;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -34,10 +38,7 @@ import com.netforceinfotech.ibet1.profilesetting.selectteam.expandteam.ExpandHea
 import com.netforceinfotech.ibet1.profilesetting.selectteam.expandteam.ExpandableListAdapter;
 import com.netforceinfotech.ibet1.profilesetting.selectteam.listofteam.TeamListAdapter;
 import com.netforceinfotech.ibet1.profilesetting.selectteam.listofteam.TeamListData;
-import com.netforceinfotech.ibet1.profilesetting.selectteam.selectedteam.SelectTeamAdapter;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.netforceinfotech.ibet1.profilesetting.selectteam.selectedteam.SelectedTeamAdapter;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -47,7 +48,6 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.net.ssl.SSLContext;
@@ -61,50 +61,107 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     ArrayList<TeamListData> teamListDatas1 = new ArrayList<>();
     private Toolbar toolbar;
     public static TeamListAdapter upcomingGameAdapter;
-   // LinearLayout linearLayoutProgress;
-    public static LinearLayout linearlayoutMain, linearLayoutSelectedTeams, linearLayoutTeams;
+    public static LinearLayout linearlayoutMain, linearLayoutTeams;
     EditText editTextSearch;
     public static ArrayList<TeamListData> selectTeamDatas = new ArrayList<>();
-    public static SelectTeamAdapter selectTeamAdapter;
+    public ArrayList<TeamListData> selectedTeams = new ArrayList<>();
+    public static SelectedTeamAdapter selectedTeamAdapter;
     private MaterialSearchView searchView;
     ExpandableListView expListView;
     public static ExpandableListAdapter listAdapter;
     ArrayList<ExpandHeaderData> expandHeaderDatas = new ArrayList<>();
     HashMap<ExpandHeaderData, List<TeamListData>> expandChildDatas = new HashMap<>();
-    LinearLayout linearLayoutSearch;
+    LinearLayout linearLayoutSearch, linearLayoutSTL, linearLayoutATL;
+    UserSessionManager userSessionManager;
+    CoordinatorLayout coordinatorLayout;
+    private View view1;
     private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_team1);
-        selectTeamDatas.clear();
         context = this;
+        userSessionManager = new UserSessionManager(context);
+        selectTeamDatas.clear();
+        setupStatusBar();
         initView();
-        setSearchView();
         setupToolBar("Select Team");
+        setSearchView();
+        setupTheme();
+        setupBackground();
+
         setupSelectedRecyler();
         setupExpandable();
         setupRecycler();
+        getFavTeam(userSessionManager.getCustomerId());
         getTeams();
     }
 
     private void initView() {
         progressDialog = new MaterialDialog.Builder(this)
-                .title(R.string.progress_dialog)
+                .title(R.string.fetching_data)
                 .content(R.string.please_wait)
                 .progress(true, 0).build();
-        progressDialog.setCanceledOnTouchOutside(false);
+        linearLayoutATL = (LinearLayout) findViewById(R.id.linearLayoutATL);
+        linearLayoutSTL = (LinearLayout) findViewById(R.id.linearLayoutSTL);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
+        view1 = findViewById(R.id.view);
         linearLayoutSearch = (LinearLayout) findViewById(R.id.linearLayoutSearch);
         linearLayoutSearch.setVisibility(View.GONE);
         findViewById(R.id.buttonDone).setOnClickListener(this);
-        //   linearLayoutProgress = (LinearLayout) findViewById(R.id.linearLayoutInput);
         linearlayoutMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
-        linearLayoutSelectedTeams = (LinearLayout) findViewById(R.id.linearLayoutSelectedTeams);
         linearLayoutTeams = (LinearLayout) findViewById(R.id.linearLayoutTeams);
 
     }
 
+    private void getFavTeam(String customerId) {
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=get_fav_team_top&user_id=137
+        String baseUrl = getString(R.string.url);
+        String richestListUrl = "/services.php?opt=get_fav_team_top&user_id=" + customerId;
+        String url = baseUrl + richestListUrl;
+        Debugger.i("kurl", url);
+        setupSelfSSLCert();
+        Ion.with(context)
+                .load(url)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
+                            showMessage("Something is wrong");
+                        } else {
+                            Log.i("kunsangresult", result.toString());
+                            if (result.get("status").getAsString().equalsIgnoreCase("success")) {
+                                setupSelectedTeam(result);
+                            }
+                        }
+                    }
+                });
+
+    }
+
+    private void setupSelectedTeam(JsonObject result) {
+        JsonArray data = result.getAsJsonArray("data");
+        try {
+            selectedTeams.clear();
+        } catch (Exception ex) {
+
+        }
+        int size = data.size();
+        for (int i = 0; i < size; i++) {
+            JsonObject jsonObject = data.get(i).getAsJsonObject();
+            //
+            String fav_team_id = jsonObject.get("fav_team_id").getAsString();
+            String name = "No name";
+            if (!jsonObject.get("name").isJsonNull()) {
+                name = jsonObject.get("name").getAsString();
+            }
+            selectedTeams.add(new TeamListData(fav_team_id, name, "", 1, ""));
+
+        }
+        selectedTeamAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,7 +203,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
                 linearLayoutTeams.setVisibility(View.GONE);
-         //       linearLayoutProgress.setVisibility(View.VISIBLE);
                 linearLayoutTeams.setVisibility(View.GONE);
                 teamListDatas1.clear();
                 upcomingGameAdapter.notifyDataSetChanged();
@@ -167,7 +223,6 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                     teamListDatas1.clear();
                     upcomingGameAdapter.notifyDataSetChanged();
                     linearLayoutTeams.setVisibility(View.GONE);
-                 //   linearLayoutProgress.setVisibility(View.VISIBLE);
                     getTeam(newText);
                 }
 
@@ -193,10 +248,9 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void getTeam(String string) {
-        progressDialog.show();
         String url = getResources().getString(R.string.urlsearch);
         url = url + "?sstr=" + string;
-        Debugger.i("kunsang_url_getteamByName", string);
+        Log.i("result url", url);
         setHeader();
         Ion.with(context)
                 .load(url)
@@ -204,15 +258,14 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        progressDialog.dismiss();
-                       // linearLayoutProgress.setVisibility(View.GONE);
                         linearlayoutMain.setVisibility(View.VISIBLE);
                         linearLayoutSearch.setVisibility(View.VISIBLE);
                         teamListDatas1.clear();
                         upcomingGameAdapter.notifyDataSetChanged();
                         if (result == null) {
-                            showMessage(getString(R.string.server_down));
+                            showMessage("nothings is here");
                         } else {
+                            Log.i("kunsang_test_login", result.toString());
                             String status = result.get("status").getAsString().toLowerCase();
                             if (status.equalsIgnoreCase("success")) {
                                 JsonArray data = result.getAsJsonArray("data");
@@ -238,7 +291,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         //https://netforcesales.com/ibet_admin/api/services.php?opt=team_list
         String url = getResources().getString(R.string.url);
         url = url + "/services.php?opt=team_list";
-        Debugger.i("kunsang_url_getAllteams", url);
+        Log.i("result url", url);
         setHeader();
         Ion.with(context)
                 .load(url)
@@ -246,13 +299,12 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        progressDialog.dismiss();
-                       // linearLayoutProgress.setVisibility(View.GONE);
                         linearlayoutMain.setVisibility(View.VISIBLE);
                         linearLayoutTeams.setVisibility(View.VISIBLE);
+                        progressDialog.dismiss();
 
                         if (result == null) {
-                            showMessage(getString(R.string.server_down));
+                            showMessage("nothings is here");
                         } else {
                             String status = result.get("status").getAsString().toLowerCase();
                             if (status.equalsIgnoreCase("success")) {
@@ -277,11 +329,11 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
 
                                             expandHeaderDatas.add(competition);
                                         }
-
                                         teamListDatas.add(new TeamListData(id, name, logo, competition_id, competition_name));
                                         Collections.sort(teamListDatas);
                                     }
                                 }
+
                                 setupExpandableData();
                                 //  upcomingGameAdapter.notifyDataSetChanged();
                             } else {
@@ -313,12 +365,11 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
 
     private void setupSelectedRecyler() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerSelected);
-        selectTeamAdapter = new SelectTeamAdapter(context, selectTeamDatas);
+        selectedTeamAdapter = new SelectedTeamAdapter(context, selectTeamDatas);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(selectTeamAdapter);
+        recyclerView.setAdapter(selectedTeamAdapter);
     }
-
 
     private void showMessage(String s) {
         Toast.makeText(SelectTeamActivity.this, s, Toast.LENGTH_SHORT).show();
@@ -356,6 +407,8 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                 for (int i = 0; i < selectTeamDatas.size(); i++) {
                     if (!ProfileSettingActivity.arrayListTeamids.contains(selectTeamDatas.get(i))) {
                         ProfileSettingActivity.arrayListTeamids.add(selectTeamDatas.get(i).id);
+                        userSessionManager.setTeamNotification(selectedTeams.get(i).id, true);
+
                     }
                 }
                 String teams = TextUtils.join(",", ProfileSettingActivity.arrayListTeamids);
@@ -373,7 +426,7 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         String updateTeamUrl = "/services.php?opt=insert_team_list&customer_id=" + userSessionManager.getCustomerId()
                 + "&team=" + teams;
         String url = baseUrl + updateTeamUrl;
-        Debugger.i("kunsang_url_updateFavTeam",url);
+        Log.i("kunsangurl", url);
         setupSelfSSLCert();
         Ion.with(context)
                 .load(url)
@@ -383,8 +436,9 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
                     public void onCompleted(Exception e, JsonObject result) {
                         progressDialog.dismiss();
                         if (result == null) {
-                            showMessage(getString(R.string.server_down));
+                            showMessage("Something is wrong");
                         } else {
+                            Log.i("kunsangresult", result.toString());
                             if (result.get("status").getAsString().equalsIgnoreCase("success")) {
                                 showMessage("Favourite Team Selected");
                                 finish();
@@ -486,5 +540,140 @@ public class SelectTeamActivity extends AppCompatActivity implements View.OnClic
         } catch (final KeyManagementException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setupTheme() {
+        int theme = userSessionManager.getTheme();
+        switch (theme) {
+            case 0:
+                // setupDefaultTheme();
+                break;
+            case 1:
+                setupBrownTheme();
+                break;
+            case 2:
+                setupPurlpleTheme();
+                break;
+            case 3:
+                setupGreenTheme();
+                break;
+            case 4:
+                setupMarronTheme();
+                break;
+            case 5:
+                setupLightBlueTheme();
+                break;
+        }
+    }
+
+    private void setupBrownTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryBrown));
+        linearLayoutSTL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+        linearLayoutATL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+    }
+
+    private void setupPurlpleTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryPurple));
+        linearLayoutSTL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+        linearLayoutATL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+    }
+
+    private void setupGreenTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryGreen));
+        linearLayoutSTL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+        linearLayoutATL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+    }
+
+    private void setupMarronTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryMarron));
+        linearLayoutSTL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+        linearLayoutATL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+    }
+
+    private void setupLightBlueTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryLightBlue));
+        linearLayoutSTL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+        linearLayoutATL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+    }
+
+    private void setupDefaultTheme() {
+        toolbar.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        coordinatorLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimary));
+        linearLayoutSTL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+        linearLayoutATL.setBackgroundColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+
+    }
+
+    private void setupBackground() {
+
+        switch (userSessionManager.getBackground()) {
+            case 0:
+                coordinatorLayout.setBackgroundResource(R.drawable.blue240);
+                break;
+            case 1:
+                coordinatorLayout.setBackgroundResource(R.drawable.france240);
+                break;
+            case 2:
+                coordinatorLayout.setBackgroundResource(R.drawable.soccer240);
+                break;
+            case 3:
+                coordinatorLayout.setBackgroundResource(R.drawable.spain240);
+                break;
+            case 4:
+                coordinatorLayout.setBackgroundResource(R.drawable.uk240);
+                break;
+            case 5:
+                view1.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    private void setupStatusBar() {
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        switch (userSessionManager.getTheme()) {
+            case 0:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                }
+                break;
+            case 1:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkBrown));
+                }
+                break;
+            case 2:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkPurple));
+                }
+                break;
+            case 3:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkGreen));
+                }
+                break;
+            case 4:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkMarron));
+                }
+                break;
+            case 5:
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+                    window.setStatusBarColor(ContextCompat.getColor(context, R.color.colorPrimaryDarkLightBlue));
+                }
+                break;
+        }
+
     }
 }

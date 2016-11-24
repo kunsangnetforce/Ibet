@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
@@ -167,12 +169,18 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
             }
         });
         try {
-            Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
         } catch (Exception ex) {
             Glide.with(context).load(R.drawable.ic_error).into(imageViewTeamA);
         }
         try {
-            Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+            Glide.with(context) .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         } catch (Exception ex) {
             Glide.with(context).load(R.drawable.ic_error).into(imageViewTeamB);
         }

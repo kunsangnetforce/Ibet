@@ -2,16 +2,16 @@ package com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_joi
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -23,13 +23,13 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
-import com.netforceinfotech.ibet1.dashboard.home.startnewbet.create_bet.WhoWillWinActivity;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
 import java.text.ParseException;
@@ -420,11 +420,17 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
                     }
                     if (!bet.get("team_away_flag").isJsonNull()) {
                         team_away_flag = bet.get("team_away_flag").getAsString();
-                        Glide.with(context).load(team_away_flag).error(R.drawable.ic_error).into(imageViewTeamB);
+                        Glide.with(context) .fromResource()
+                                .asBitmap()
+                                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                                .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
                     }
                     if (!bet.get("team_home_flag").isJsonNull()) {
                         team_home_flag = bet.get("team_home_flag").getAsString();
-                        Glide.with(context).load(team_home_flag).error(R.drawable.ic_error).into(imageViewTeamA);
+                        Glide.with(context) .fromResource()
+                                .asBitmap()
+                                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                                .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
                     }
                     if (!bet.get("team_away_name").isJsonNull()) {
                         away_name = bet.get("team_away_name").getAsString();
@@ -465,13 +471,13 @@ public class DetailBetToJoin extends AppCompatActivity implements View.OnClickLi
                         String home_score = user.get("home_scrore").getAsString();
                         String away_score = user.get("away_scrore").getAsString();
                         String score = home_score + "-" + away_score;
-                        if (selectedTeam.equalsIgnoreCase("home_win")) {
+                      /*  if (selectedTeam.equalsIgnoreCase("home_win")) {
                             selectedTeam = home_name;
                         } else if (selectedTeam.equalsIgnoreCase("away_win")) {
                             selectedTeam = away_name;
                         } else {
                             selectedTeam = "draw";
-                        }
+                        }*/
                         if (bet_option.equalsIgnoreCase("0")) {
                             score = "NA";
                         } else if (bet_option.equalsIgnoreCase("1")) {

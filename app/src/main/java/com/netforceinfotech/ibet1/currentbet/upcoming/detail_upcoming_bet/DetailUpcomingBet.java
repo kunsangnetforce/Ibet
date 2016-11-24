@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet1.currentbet.upcoming.detail_upcoming_bet;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -102,8 +104,14 @@ public class DetailUpcomingBet extends AppCompatActivity implements View.OnClick
         findViewById(R.id.buttonClose).setOnClickListener(this);
         imageViewTeamA = (ImageView) findViewById(R.id.imageViewTeamA);
         imageViewTeamB = (ImageView) findViewById(R.id.imageViewTeamB);
-        Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
-        Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
+        Glide.with(context) .fromResource()
+                .asBitmap()
+                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                .load(R.drawable.home_logo).error(R.drawable.ic_error).into(imageViewTeamA);
+        Glide.with(context) .fromResource()
+                .asBitmap()
+                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                .load(R.drawable.away_logo).error(R.drawable.ic_error).into(imageViewTeamB);
         textViewTeamA.setText(home_name);
         textViewTeamB.setText(away_name);
 
@@ -403,13 +411,13 @@ public class DetailUpcomingBet extends AppCompatActivity implements View.OnClick
                                 String home_score = user.get("home_scrore").getAsString();
                                 String away_score = user.get("away_scrore").getAsString();
                                 String score = home_score + "-" + away_score;
-                                if (selectedTeam.equalsIgnoreCase("home_win")) {
+                              /*  if (selectedTeam.equalsIgnoreCase("home_win")) {
                                     selectedTeam = home_name;
                                 } else if (selectedTeam.equalsIgnoreCase("away_win")) {
                                     selectedTeam = away_name;
                                 } else {
                                     selectedTeam = "draw";
-                                }
+                                }*/
                                 if (bet_option.equalsIgnoreCase("0")) {
                                     score = "NA";
                                 } else if (bet_option.equalsIgnoreCase("1")) {

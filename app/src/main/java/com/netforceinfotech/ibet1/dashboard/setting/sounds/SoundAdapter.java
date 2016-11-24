@@ -115,7 +115,7 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
 
-            textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             switchButton = (SwitchButton) view.findViewById(R.id.switchbutton);
             layout_view = (View) itemView.findViewById(R.id.view);
 

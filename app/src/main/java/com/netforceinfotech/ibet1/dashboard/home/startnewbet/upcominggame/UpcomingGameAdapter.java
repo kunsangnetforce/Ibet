@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.dashboard.home.startnewbet.upcominggame;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,11 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet1.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,21 +84,43 @@ public class UpcomingGameAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         upcomingGameHolder.textView.setText(itemList.get(position).home_name + " vs " + itemList.get(position).away_name);
         if (itemList.get(position).away_logo.length() > 1) {
             Glide.with(context)
-                    .load(itemList.get(position).away_logo)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                    .load(R.drawable.away_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(upcomingGameHolder.teamb);
         } else {
-            upcomingGameHolder.teamb.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                    .load(R.drawable.away_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingGameHolder.teamb);
         }
         if (itemList.get(position).home_logo.length() > 1) {
             Glide.with(context)
-                    .load(itemList.get(position).home_logo)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(upcomingGameHolder.teama);
         } else {
-            upcomingGameHolder.teama.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(upcomingGameHolder.teama);
         }
 
 

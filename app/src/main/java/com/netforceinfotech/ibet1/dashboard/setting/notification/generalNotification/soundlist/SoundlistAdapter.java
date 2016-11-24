@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
 
@@ -24,9 +25,6 @@ import java.util.List;
  */
 public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-
-    MyCount counter;
-    MediaPlayer m;
     SoundlistHolder viewHolder;
     private final LayoutInflater inflater;
     private List<SoundListData> itemList;
@@ -37,16 +35,17 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     AssetFileDescriptor descriptor;
     int lastClicked = 0;
     String event_name;
+    private MediaPlayer mediaPlayer;
 
-    public SoundlistAdapter(Context context, List<SoundListData> itemList, String event_name) {
+    public SoundlistAdapter(Context context, List<SoundListData> itemList, String event_name, MediaPlayer mediaPlayer) {
 
+        this.mediaPlayer = mediaPlayer;
         this.itemList = itemList;
         this.context = context;
         this.event_name = event_name;
         inflater = LayoutInflater.from(context);
         userSessionManager = new UserSessionManager(context);
         theme = userSessionManager.getTheme();
-        m = new MediaPlayer();
 
     }
 
@@ -97,7 +96,9 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void onClick(View view) {
                 lastClicked = position;
+                //setGeneralNotificationFileName
                 userSessionManager.setGeneralNotificationFileName(event_name + "filename", itemList.get(position).filename);
+                Debugger.i("filenotification", event_name + "filename  :" + itemList.get(position).filename);
                 userSessionManager.setGeneralNotificationSoundName(event_name + "soundname", itemList.get(position).title);
                 notifyDataSetChanged();
 
@@ -134,9 +135,8 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             //implementing onClickListener
             view = itemView;
             imageView = (ImageView) view.findViewById(R.id.imageViewCheck);
-            textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             layout_view = (View) itemView.findViewById(R.id.view);
-            m = new MediaPlayer();
 
         }
 
@@ -144,64 +144,27 @@ public class SoundlistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     private void playSound(int position) {
+
         try {
-            counter.cancel();
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
         } catch (Exception ex) {
 
         }
-        counter = new MyCount(3000, 1000);
-        counter.start();
-        AssetFileDescriptor descriptor = null;
-
         try {
-            descriptor = context.getAssets().openFd(itemList.get(position).filename);
-
-            if (m.isPlaying()) {
-                m.stop();
-                m.release();
-            }
-            m.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
-            descriptor.close();
-            m.prepare();
-            m.setVolume(1f, 1f);
-            m.setLooping(false);
-            m.start();
-
-
+            int resID = context.getResources().getIdentifier(itemList.get(position).filename, "raw", context.getPackageName());
+            mediaPlayer=MediaPlayer.create(context, resID);
+            mediaPlayer.start();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public class MyCount extends CountDownTimer {
-
-        public MyCount(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onFinish() {
-            try {
-                m.stop();
-                m.release();
-            } catch (Exception ex) {
-
-            }
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            s1 = millisUntilFinished;
-
-        }
-
-
-    }
 
     private void setlist_border() {
 
         if (theme == 0) {
-          //  viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
+            //  viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background1));
         } else if (theme == 1) {
             viewHolder.layout_view.setBackgroundColor(ContextCompat.getColor(context, R.color.view_background2));
         } else if (theme == 2) {

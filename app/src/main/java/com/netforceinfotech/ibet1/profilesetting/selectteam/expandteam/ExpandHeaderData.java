@@ -4,7 +4,7 @@ package com.netforceinfotech.ibet1.profilesetting.selectteam.expandteam;
  * Created by Netforce on 8/27/2016.
  */
 public class ExpandHeaderData {
-    public String name;
+    public String  name;
     public int id;
 
     public ExpandHeaderData(int id, String name) {
@@ -19,6 +19,6 @@ public class ExpandHeaderData {
         }
 
         ExpandHeaderData that = (ExpandHeaderData) obj;
-        return this.id == that.id;
+        return this.id==that.id;
     }
 }

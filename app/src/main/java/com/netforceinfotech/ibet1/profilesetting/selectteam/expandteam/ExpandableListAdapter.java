@@ -1,17 +1,21 @@
 package com.netforceinfotech.ibet1.profilesetting.selectteam.expandteam;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.bumptech.glide.Glide;
 import com.netforceinfotech.ibet1.R;
+import com.netforceinfotech.ibet1.general.UserSessionManager;
 import com.netforceinfotech.ibet1.profilesetting.selectteam.SelectTeamActivity;
 import com.netforceinfotech.ibet1.profilesetting.selectteam.listofteam.TeamListData;
 
@@ -25,6 +29,7 @@ import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
+    UserSessionManager userSessionManager;
     private Context _context;
     ArrayList<ExpandHeaderData> expandHeaderDatas = new ArrayList<>();
     HashMap<ExpandHeaderData, List<TeamListData>> expandChildDatas = new HashMap<>();
@@ -35,6 +40,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this._context = context;
         this.expandChildDatas = expandChildDatas;
         this.expandHeaderDatas = expandHeaderDatas;
+        userSessionManager = new UserSessionManager(context);
     }
 
     @Override
@@ -59,6 +65,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.row_team, parent, false);
         }
         ImageView imageViewicon = (ImageView) convertView.findViewById(R.id.logo);
+        LinearLayout linearLayoutMain= (LinearLayout) convertView.findViewById(R.id.linearLayoutMain);
         final ImageView imageViewChecked = (ImageView) convertView.findViewById(R.id.imageViewChecked);
         MaterialRippleLayout materialRippleLayout = (MaterialRippleLayout) convertView.findViewById(R.id.ripple);
         TextView txtListChild = (TextView) convertView
@@ -84,26 +91,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         materialRippleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("kunsangmessage","clicked");
-                if (SelectTeamActivity.selectTeamDatas.size() > 0) {
-                    boolean present = false;
-                    for (int i = 0; i < SelectTeamActivity.selectTeamDatas.size(); i++) {
-                        if (expandChildDatas.get(expandHeaderDatas.get(groupPosition)).get(childPosition).id.equalsIgnoreCase(SelectTeamActivity.selectTeamDatas.get(i).id)) {
-                            present = true;
-                            break;
-                        }
-                    }
-                    if (!present) {
-                        SelectTeamActivity.selectTeamDatas.add(expandChildDatas.get(expandHeaderDatas.get(groupPosition)).get(childPosition));
-                    }
-                } else {
-                    SelectTeamActivity.selectTeamDatas.add(expandChildDatas.get(expandHeaderDatas.get(groupPosition)).get(childPosition));
+                Log.i("kunsangmessage", "clicked");
+                TeamListData teamListData = expandChildDatas.get(expandHeaderDatas.get(groupPosition)).get(childPosition);
+
+                if (!SelectTeamActivity.selectTeamDatas.contains(teamListData)) {
+
+                    SelectTeamActivity.selectTeamDatas.add(teamListData);
                 }
                 imageViewChecked.setImageResource(R.drawable.ic_circle_filled);
-                SelectTeamActivity.selectTeamAdapter.notifyDataSetChanged();
-                if (expandChildDatas.size() > 0) {
-                    SelectTeamActivity.linearLayoutSelectedTeams.setVisibility(View.VISIBLE);
-                }
+                SelectTeamActivity.selectedTeamAdapter.notifyDataSetChanged();
 
             }
         });
@@ -114,6 +110,26 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 click.itemClicked(finalConvertView, groupPosition, childPosition);
             }
         });
+        switch (userSessionManager.getTheme()){
+            case 0:
+            //    linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimary));
+                break;
+            case 1:
+                linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryBrown));
+                break;
+            case 2:
+                linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryPurple));
+                break;
+            case 3:
+                linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryGreen));
+                break;
+            case 4:
+                linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryMarron));
+                break;
+            case 5:
+                linearLayoutMain.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryLightBlue));
+                break;
+        }
         return convertView;
     }
 
@@ -145,6 +161,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         LayoutInflater infalInflater = (LayoutInflater) this._context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = infalInflater.inflate(R.layout.list_group, parent, false);
+        RelativeLayout relativeLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayout);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
         TextView textViewCompetitionName = (TextView) convertView.findViewById(R.id.textViewCompetitionName);
         textViewCompetitionName.setText(headerTitle);
@@ -154,6 +171,33 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             imageView.setImageResource(R.drawable.ic_chevron_grey);
             notifyDataSetChanged();
+        }
+        switch (userSessionManager.getTheme()) {
+            case 0:
+              /*  relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDark));
+                textViewCompetitionName.setTextColor(ContextCompat.getColor(_context,R.color.colorAccent));
+              */  break;
+            case 1:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDarkBrown));
+                textViewCompetitionName.setTextColor(ContextCompat.getColor(_context,R.color.colorAccentBrown));
+                break;
+            case 2:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDarkPurple));
+                textViewCompetitionName.setTextColor(ContextCompat.getColor(_context,R.color.colorAccentPurple));
+                break;
+            case 3:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDarkGreen));
+                textViewCompetitionName.setTextColor(ContextCompat.getColor(_context,R.color.colorAccentGreen));
+                break;
+            case 4:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDarkMarron));
+                textViewCompetitionName.setTextColor(ContextCompat.getColor(_context,R.color.colorAccentMarron));
+                break;
+            case 5:
+                relativeLayout.setBackgroundColor(ContextCompat.getColor(_context,R.color.colorPrimaryDarkLightBlue));
+                textViewCompetitionName.setTextColor(ContextCompat.getColor(_context,R.color.colorAccentLightBlue));
+                break;
+
         }
 
         return convertView;

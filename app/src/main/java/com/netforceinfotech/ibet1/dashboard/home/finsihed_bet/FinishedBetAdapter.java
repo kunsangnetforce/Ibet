@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.dashboard.home.finsihed_bet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet;
 
@@ -88,21 +90,41 @@ public class FinishedBetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (itemList.get(position).teamalogo.length() > 1) {
             Glide.with(context)
-                    .load(itemList.get(position).teamalogo)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(finishedBetHolder.imageViewTeamA);
         } else {
-            finishedBetHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.home_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(finishedBetHolder.imageViewTeamA);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
             Glide.with(context)
-                    .load(itemList.get(position).teamblogo)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(finishedBetHolder.imageViewTeamB);
         } else {
-            finishedBetHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(finishedBetHolder.imageViewTeamB);
         }
         finishedBetHolder.textViewResult.setText(itemList.get(position).betstatus);
         finishedBetHolder.textViewName.setText(itemList.get(position).name);

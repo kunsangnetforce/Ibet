@@ -81,7 +81,7 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             public void onClick(View view) {
                 Intent intent = new Intent(context, SoundlistActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("name", itemList.get(position).eventname);
+                bundle.putString("name", itemList.get(position).type);
                 intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -117,8 +117,8 @@ public class SoundAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
 
-            image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
-            textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            image_icon = (ImageView) itemView.findViewById(R.id.imageViewLogo);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             textViewSound = (TextView) itemView.findViewById(R.id.sound_text);
 
             layout_view = (View) itemView.findViewById(R.id.view);

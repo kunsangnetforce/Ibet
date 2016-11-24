@@ -102,7 +102,7 @@ public class ThemeColorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             //implementing onClickListener
             view = itemView;
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
-            image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
+            image_icon = (ImageView) itemView.findViewById(R.id.imageViewLogo);
             image_icon.setOnClickListener(this);
             textViewThemenName = (TextView) view.findViewById(R.id.textViewThemeName);
 

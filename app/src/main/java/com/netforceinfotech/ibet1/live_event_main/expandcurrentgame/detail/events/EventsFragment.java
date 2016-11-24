@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.even
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.github.lzyzsd.circleprogress.CircleProgress;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -452,14 +454,26 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                             .placeholder(R.drawable.ic_holder)
                             .error(R.drawable.ic_error)
                             .into(imageViewHome);*/
-                    Glide.with(context).load(home_logo).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).into(imageViewHome);
+                    Glide.with(context) .fromResource()
+                            .asBitmap()
+                            .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                            .load(R.drawable.home_logo).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).into(imageViewHome);
                 } else {
-                    Glide.with(context).load(R.drawable.ic_error).into(imageViewHome);
+                    Glide.with(context) .fromResource()
+                            .asBitmap()
+                            .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                            .load(R.drawable.home_logo).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).into(imageViewHome);
                 }
                 if (away_logo.length() > 0) {
-                    Glide.with(context).load(away_logo).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).into(imageViewAway);
+                    Glide.with(context) .fromResource()
+                            .asBitmap()
+                            .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                            .load(R.drawable.away_logo).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).into(imageViewAway);
                 } else {
-                    Glide.with(context).load(R.drawable.ic_error).into(imageViewAway);
+                    Glide.with(context) .fromResource()
+                            .asBitmap()
+                            .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                            .load(R.drawable.away_logo).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).into(imageViewAway);
                 }
 
                 //adapter.notifyItemRangeChanged(0, adapter.getItemCount());

@@ -19,7 +19,7 @@
 
 
         <ImageView
-            android:id="@+id/setting_list_icon"
+            android:id="@+id/imageViewLogo"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="fitXY"

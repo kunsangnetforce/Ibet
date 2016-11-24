@@ -23,6 +23,8 @@ import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,7 @@ public class UpcomingBetFragment extends Fragment {
     private UpcomingBetAdapter adapter;
     LinearLayout linearLayoutNoBets;
     ImageView imageViewNoBets;
+    private SwipyRefreshLayout swipyRefreshLayout;
 
     public UpcomingBetFragment() {
         // Required empty public constructor
@@ -65,6 +68,13 @@ public class UpcomingBetFragment extends Fragment {
     }
 
     private void initView(View view) {
+        swipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                getUpcomingBets();
+            }
+        });
         linearLayoutNoBets = (LinearLayout) view.findViewById(R.id.linearLayoutNoBets);
         imageViewNoBets = (ImageView) view.findViewById(R.id.imageViewNoBets);
         Glide.with(context).load(R.drawable.gs_stadium).into(imageViewNoBets);
@@ -78,6 +88,11 @@ public class UpcomingBetFragment extends Fragment {
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
+                try {
+                    swipyRefreshLayout.setRefreshing(false);
+                } catch (Exception ex) {
+
+                }
                 if (result == null) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
                 } else {
@@ -110,22 +125,22 @@ public class UpcomingBetFragment extends Fragment {
 
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
-            String creatorDp="",creatorName="",participantsCount = "",date_time="",homeLogo="",homeName="",home_id="",matchid="",awayLogo="",awayName="",away_id="",seasonid="",betId="";
+            String creatorDp = "", creatorName = "", participantsCount = "", date_time = "", homeLogo = "", homeName = "", home_id = "", matchid = "", awayLogo = "", awayName = "", away_id = "", seasonid = "", betId = "";
             try {
-             creatorDp = jsonObject.get("profile_image").getAsString();
-             creatorName = jsonObject.get("name").getAsString();
-             participantsCount = jsonObject.get("participants").getAsString();
-             date_time = jsonObject.get("bet_match_date").getAsString() + " " + jsonObject.get("bet_match_time").getAsString();
-             homeLogo = jsonObject.get("team_home_flag").getAsString();
-             awayLogo = jsonObject.get("team_away_flag").getAsString();
+                creatorDp = jsonObject.get("profile_image").getAsString();
+                creatorName = jsonObject.get("name").getAsString();
+                participantsCount = jsonObject.get("participants").getAsString();
+                date_time = jsonObject.get("bet_match_date").getAsString() + " " + jsonObject.get("bet_match_time").getAsString();
+                homeLogo = jsonObject.get("team_home_flag").getAsString();
+                awayLogo = jsonObject.get("team_away_flag").getAsString();
                 if (!jsonObject.get("home_teamname").isJsonNull()) {
                     homeName = jsonObject.get("home_teamname").getAsString();
                 }
                 if (!jsonObject.get("away_teamname").isJsonNull()) {
                     awayName = jsonObject.get("away_teamname").getAsString();
                 }
-             betId = jsonObject.get("betid").getAsString();
-             matchid = jsonObject.get("bet_match_id").getAsString();
+                betId = jsonObject.get("betid").getAsString();
+                matchid = jsonObject.get("bet_match_id").getAsString();
 
                 home_id = jsonObject.get("team_home").getAsString();
                 away_id = jsonObject.get("team_away").getAsString();

@@ -2,6 +2,7 @@ package com.netforceinfotech.ibet1.live_event_main.expandcurrentgame.detail.stat
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.Cancellable;
 import com.koushikdutta.async.future.FutureCallback;
@@ -297,8 +299,11 @@ public class SummaryFragment extends Fragment {
                                         textViewTime.setText(minute + "'+" + extra_minute);
                                     }
                                     if (hometeamlogo.length() > 0) {
-                                        Glide.with(context)
-                                                .load(hometeamlogo)
+                                        Glide.with(context) .fromResource()
+                                                .asBitmap()
+                                                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                                                .load(R.drawable.home_logo)
                                                 .placeholder(R.drawable.ic_holder)
                                                 .error(R.drawable.ic_error)
                                                 .into(imageViewHome);
@@ -307,7 +312,10 @@ public class SummaryFragment extends Fragment {
                                     }
                                     if (awayteamlogo.length() > 0) {
                                         Glide.with(context)
-                                                .load(awayteamlogo)
+                                                .fromResource()
+                                                .asBitmap()
+                                                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                                                .load(R.drawable.away_logo)
                                                 .placeholder(R.drawable.ic_holder)
                                                 .error(R.drawable.ic_error)
                                                 .into(imageViewAway);

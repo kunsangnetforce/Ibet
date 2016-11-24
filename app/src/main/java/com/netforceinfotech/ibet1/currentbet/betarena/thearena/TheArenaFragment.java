@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.currentbet.betarena.thearena;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 
@@ -65,8 +67,15 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
         circleImageViewTeamA = (CircleImageView) view.findViewById(R.id.imageViewTeamA);
         circleImageViewTeamB = (CircleImageView) view.findViewById(R.id.imageViewTeamB);
         Debugger.i("kimage", home_logo + "   " + away_logo);
-        Glide.with(context).load(home_logo).error(R.drawable.ic_error).into(circleImageViewTeamA);
-        Glide.with(context).load(away_logo).error(R.drawable.ic_error).into(circleImageViewTeamB);
+        Glide.with(context) .fromResource()
+                .asBitmap()
+                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                .load(R.drawable.home_logo).error(R.drawable.ic_error).into(circleImageViewTeamA);
+        Glide.with(context)
+                .fromResource()
+                .asBitmap()
+                .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                .load(R.drawable.away_logo).error(R.drawable.ic_error).into(circleImageViewTeamB);
         buttonNeutral = (Button) view.findViewById(R.id.buttonNeutral);
         circleImageViewTeamA.setOnClickListener(this);
         circleImageViewTeamB.setOnClickListener(this);
@@ -84,7 +93,7 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
             team = bundle.getString("team");*/
                 bundle.putString("match_id", match_id);
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("team", "draw");
+                bundle.putString("team", "common");
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -96,7 +105,7 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
             team = bundle.getString("team");*/
                 bundle.putString("match_id", match_id);
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("team", "home");
+                bundle.putString("team", "common");
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -105,7 +114,7 @@ public class TheArenaFragment extends Fragment implements View.OnClickListener {
                 bundle = new Bundle();
                 bundle.putString("match_id", match_id);
                 bundle.putString("bet_id", bet_id);
-                bundle.putString("team", "away");
+                bundle.putString("team", "common");
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

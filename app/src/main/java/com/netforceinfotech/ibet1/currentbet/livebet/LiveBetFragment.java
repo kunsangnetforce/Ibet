@@ -2,7 +2,6 @@ package com.netforceinfotech.ibet1.currentbet.livebet;
 
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +14,6 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
@@ -25,6 +23,8 @@ import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.general.UserSessionManager;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +45,7 @@ public class LiveBetFragment extends Fragment {
     HashMap<String, List<LiveBetData>> listDataChild = new HashMap<String, List<LiveBetData>>();
     LinearLayout linearLayoutNoBets;
     ImageView imageViewNoBets;
+    SwipyRefreshLayout swipyRefreshLayout;
 
     public LiveBetFragment() {
         // Required empty public constructor
@@ -72,6 +73,13 @@ public class LiveBetFragment extends Fragment {
     }
 
     private void initView(View view) {
+        swipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        swipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                getrLiveBets();
+            }
+        });
         linearLayoutNoBets = (LinearLayout) view.findViewById(R.id.linearLayoutNoBets);
         imageViewNoBets = (ImageView) view.findViewById(R.id.imageViewNoBets);
         Glide.with(context).load(R.drawable.gs_stadium).into(imageViewNoBets);
@@ -95,12 +103,19 @@ public class LiveBetFragment extends Fragment {
 
 
     private void getrLiveBets() {
-        //https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=163
-        String url = "https://netforcesales.com/ibet_admin/api/live_bets.php?&user_id=" + userSessionManager.getCustomerId();
+        //https://netforcesales.com/ibet_admin/api/services.php?opt=live_bets&user_id=136
+        String baseUrl=getString(R.string.url);
+        String url=baseUrl+"/services.php?opt=live_bets&user_id="+ userSessionManager.getCustomerId();
+        //String url = "https://netforcesales.com/ibet_admin/api/services.php?opt=live_bets&user_id="
         Debugger.i("kunsang_url_LiveBets", url);
         Ion.with(context).load(url).asJsonObject().setCallback(new FutureCallback<JsonObject>() {
             @Override
             public void onCompleted(Exception e, JsonObject result) {
+                try {
+                    swipyRefreshLayout.setRefreshing(false);
+                } catch (Exception ex) {
+
+                }
                 if (result == null) {
                     linearLayoutNoBets.setVisibility(View.VISIBLE);
                 } else {
@@ -133,31 +148,29 @@ public class LiveBetFragment extends Fragment {
         linearLayoutNoBets.setVisibility(View.GONE);
         for (int i = 0; i < size; i++) {
             JsonObject jsonObject = data.get(i).getAsJsonObject();
-
-            String creatorDp = jsonObject.get("profile_image").getAsString();
-            String creatorName = jsonObject.get("name").getAsString();
-            String participantsCount = jsonObject.get("participants").getAsString();
-            String date_time = jsonObject.get("bet_match_date").getAsString() + " " + jsonObject.get("bet_match_time").getAsString();
-            String homeLogo = jsonObject.get("team_home_flag").getAsString();
-            String awayLogo = jsonObject.get("team_away_flag").getAsString();
+            JsonObject creator=jsonObject.getAsJsonObject("creator");
+            String creatorDp = creator.get("image").getAsString();
+            String creatorName = creator.get("name").getAsString();
+            String participantsCount = jsonObject.get("participants_count").getAsString();
+            String date_time = jsonObject.get("match_start_time").getAsString();
+            String homeLogo = "";
+            String awayLogo = "";
+            JsonObject home=jsonObject.getAsJsonObject("home");
+            JsonObject away=jsonObject.getAsJsonObject("away");
             String homeName = "";
-            if (!jsonObject.get("home_teamname").isJsonNull()) {
-                homeName = jsonObject.get("home_teamname").getAsString();
+            if (!home.get("name").isJsonNull()) {
+                homeName = home.get("name").getAsString();
+                homeLogo=home.get("logo").getAsString();
             }
             String awayName = "";
-            if (!jsonObject.get("away_teamname").isJsonNull()) {
-                awayName = jsonObject.get("away_teamname").getAsString();
+            if (!away.get("name").isJsonNull()) {
+                awayName = away.get("name").getAsString();
+                awayLogo=away.get("logo").getAsString();
             }
-            String betId = jsonObject.get("betid").getAsString();
-            String matchid = jsonObject.get("bet_match_id").getAsString();
+            String betId = jsonObject.get("bet_id").getAsString();
+            String matchid = jsonObject.get("match_id").getAsString();
             String home_id = "", away_id = "", seasonid = "";
-            try {
-                home_id = jsonObject.get("team_home").getAsString();
-                away_id = jsonObject.get("team_away").getAsString();
-                seasonid = jsonObject.get("season_id").getAsString();
-            } catch (Exception ex) {
-
-            }
+            seasonid = jsonObject.get("season_id").getAsString();
             if (participantsCount.equalsIgnoreCase("") || participantsCount.trim().length() <= 0) {
                 participantsCount = "0";
             }

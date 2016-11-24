@@ -89,13 +89,13 @@ public class SoundFragment extends Fragment {
         icon_list.add(R.drawable.half_timeicon);
         icon_list.add(R.drawable.final_icon);
 
-        soundData.add(new SoundData("Match Reminder", userSessionManager.getGeneralNotificationFileName("Match Reminder" + "filename"), userSessionManager.getGeneralNotificationSoundName("Match Reminder" + "soundname")));
-        soundData.add(new SoundData("Goal", userSessionManager.getGeneralNotificationFileName("Goal" + "filename"), userSessionManager.getGeneralNotificationSoundName("Goal" + "soundname")));
-        soundData.add(new SoundData("Red Card", userSessionManager.getGeneralNotificationFileName("Red Card" + "filename"), userSessionManager.getGeneralNotificationSoundName("Red Card" + "soundname")));
-        soundData.add(new SoundData("Yellow Card", userSessionManager.getGeneralNotificationFileName("Yellow Card" + "filename"), userSessionManager.getGeneralNotificationSoundName("Yellow Card" + "soundname")));
-        soundData.add(new SoundData("Match Start", userSessionManager.getGeneralNotificationFileName("Match Start" + "filename"), userSessionManager.getGeneralNotificationSoundName("Match Start" + "soundname")));
-        soundData.add(new SoundData("Half Time", userSessionManager.getGeneralNotificationFileName("Half Time" + "filename"), userSessionManager.getGeneralNotificationSoundName("Half Time" + "soundname")));
-        soundData.add(new SoundData("Final", userSessionManager.getGeneralNotificationFileName("Final" + "filename"), userSessionManager.getGeneralNotificationSoundName("Final" + "soundname")));
+        soundData.add(new SoundData("Match Reminder", userSessionManager.getGeneralNotificationFileName("Match Reminder" + "filename"), userSessionManager.getGeneralNotificationSoundName("Match Reminder" + "soundname"), "match_reminder"));
+        soundData.add(new SoundData("Goal", userSessionManager.getGeneralNotificationFileName("Goal" + "filename"), userSessionManager.getGeneralNotificationSoundName("Goal" + "soundname"), "goal"));
+        soundData.add(new SoundData("Red Card", userSessionManager.getGeneralNotificationFileName("Red Card" + "filename"), userSessionManager.getGeneralNotificationSoundName("Red Card" + "soundname"), "redcard"));
+        soundData.add(new SoundData("Yellow Card", userSessionManager.getGeneralNotificationFileName("Yellow Card" + "filename"), userSessionManager.getGeneralNotificationSoundName("Yellow Card" + "soundname"), "yellowcard"));
+        soundData.add(new SoundData("Match Start", userSessionManager.getGeneralNotificationFileName("Match Start" + "filename"), userSessionManager.getGeneralNotificationSoundName("Match Start" + "soundname"), "LIVE"));
+        soundData.add(new SoundData("Half Time", userSessionManager.getGeneralNotificationFileName("Half Time" + "filename"), userSessionManager.getGeneralNotificationSoundName("Half Time" + "soundname"), "HT"));
+        soundData.add(new SoundData("Final", userSessionManager.getGeneralNotificationFileName("Final" + "filename"), userSessionManager.getGeneralNotificationSoundName("Final" + "soundname"), "FT"));
 
 
         adapter = new SoundAdapter(getActivity(), soundData, icon_list);

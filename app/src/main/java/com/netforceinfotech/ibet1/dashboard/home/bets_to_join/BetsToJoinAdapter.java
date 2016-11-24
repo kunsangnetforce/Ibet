@@ -3,6 +3,7 @@ package com.netforceinfotech.ibet1.dashboard.home.bets_to_join;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet1.Debugger.Debugger;
 import com.netforceinfotech.ibet1.R;
 import com.netforceinfotech.ibet1.dashboard.home.bets_to_join.detail_bet_to_join.AcceptBetActivity;
@@ -86,7 +88,8 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 bundle.putString("away_name", itemList.get(position).teambname);
                 bundle.putString("match_id", itemList.get(position).matchid);
                 bundle.putString("bet_option", itemList.get(position).bet_option);
-                bundle.putString("bet_amount",itemList.get(position).bet_amount);
+                bundle.putString("bet_amount", itemList.get(position).bet_amount);
+                bundle.putString("creator_id", itemList.get(position).creator_id);
                 Debugger.i("kbetid", itemList.get(position).betid);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
@@ -105,8 +108,8 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 bundle.putString("home_name", itemList.get(position).teamaname);
                 bundle.putString("away_name", itemList.get(position).teambname);
                 bundle.putString("bet_option", itemList.get(position).bet_option);
-                bundle.putString("bet_amount",itemList.get(position).bet_amount);
-                bundle.putString("match_id",itemList.get(position).matchid);
+                bundle.putString("bet_amount", itemList.get(position).bet_amount);
+                bundle.putString("match_id", itemList.get(position).matchid);
                 Debugger.i("kbetid", itemList.get(position).betid);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
@@ -125,21 +128,43 @@ public class BetsToJoinAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (itemList.get(position).teamalogo.length() > 1) {
             Glide.with(context)
-                    .load(itemList.get(position).teamalogo)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                    .load(R.drawable.home_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(betsToJoinHolder.imageViewTeamA);
         } else {
-            betsToJoinHolder.imageViewTeamA.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+
+                    .load(R.drawable.home_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(betsToJoinHolder.imageViewTeamA);
         }
         if (itemList.get(position).teamblogo.length() > 1) {
             Glide.with(context)
-                    .load(itemList.get(position).teamblogo)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
                     .placeholder(R.drawable.ic_holder)
                     .error(R.drawable.ic_error)
                     .into(betsToJoinHolder.imageViewTeamB);
         } else {
-            betsToJoinHolder.imageViewTeamB.setImageResource(R.drawable.ic_error);
+            Glide.with(context)
+                    .fromResource()
+                    .asBitmap()
+                    .encoder(new BitmapEncoder(Bitmap.CompressFormat.PNG, 100))
+                    .load(R.drawable.away_logo)
+                    .placeholder(R.drawable.ic_holder)
+                    .error(R.drawable.ic_error)
+                    .into(betsToJoinHolder.imageViewTeamB);
         }
 
         betsToJoinHolder.textViewName.setText(itemList.get(position).name);

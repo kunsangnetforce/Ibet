@@ -9,12 +9,15 @@
     android:padding="16dp">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearLayoutInput"
         android:layout_marginTop="64dp"
         android:orientation="vertical"
-        android:padding="32dp">
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        >
 
         <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="match_parent"
@@ -113,5 +116,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
+    <ImageView
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ibet_logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
 </RelativeLayout>

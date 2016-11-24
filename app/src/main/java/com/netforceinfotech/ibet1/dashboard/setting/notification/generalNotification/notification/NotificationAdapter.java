@@ -82,7 +82,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 arrayListBoolean.set(position, b);
-                userSessionManager.setGeneralNotification(itemList.get(position).name + "general", b);
+                userSessionManager.setGeneralNotification(itemList.get(position).type + "general", b);
             }
         });
 
@@ -117,8 +117,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
             switchButton = (SwitchButton) view.findViewById(R.id.switchbutton);
-            image_icon = (ImageView) itemView.findViewById(R.id.setting_list_icon);
-            textViewTitle = (TextView) itemView.findViewById(R.id.setting_list_text);
+            image_icon = (ImageView) itemView.findViewById(R.id.imageViewLogo);
+            textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             layout_view = (View) itemView.findViewById(R.id.view);
 
         }
