@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.netforceinfotech.ibet1"
+        applicationId "com.netforceinfotech.ibet"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 2

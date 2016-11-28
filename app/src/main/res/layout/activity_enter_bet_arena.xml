@@ -43,7 +43,7 @@
                 app:tabSelectedTextColor="@color/colorText"
                 app:tabTextColor="@color/white" />
 
-            <com.netforceinfotech.ibet1.general.CustomViewPager
+            <com.netforceinfotech.ibet.general.CustomViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

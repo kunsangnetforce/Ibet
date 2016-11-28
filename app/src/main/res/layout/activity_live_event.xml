@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.netforceinfotech.ibet1.live_event_main.LiveEventActivity">
+        tools:context="com.netforceinfotech.ibet.live_event_main.LiveEventActivity">
 
         <include
             android:id="@+id/toolbar"
@@ -45,7 +45,7 @@
 
                 />
 
-            <com.netforceinfotech.ibet1.general.CustomViewPager
+            <com.netforceinfotech.ibet.general.CustomViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
