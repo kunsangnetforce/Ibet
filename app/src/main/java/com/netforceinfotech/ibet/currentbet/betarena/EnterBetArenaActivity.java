@@ -61,7 +61,7 @@ public class EnterBetArenaActivity extends AppCompatActivity {
         }
         setupStatusBar();
         initView();
-        setupToolBar("Ibet");
+        setupToolBar(getString(R.string.ibet));
         setupTab();
         setupTheme();
         setupBackbround();
@@ -91,10 +91,10 @@ public class EnterBetArenaActivity extends AppCompatActivity {
 
     private void setupTab() {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Live Events"));
-        tabLayout.addTab(tabLayout.newTab().setText("Stats"));
-        tabLayout.addTab(tabLayout.newTab().setText("Bet Detail"));
-        tabLayout.addTab(tabLayout.newTab().setText("The Arena"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.live_events)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.stats)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.bet_detail)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.the_arena)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.pager);

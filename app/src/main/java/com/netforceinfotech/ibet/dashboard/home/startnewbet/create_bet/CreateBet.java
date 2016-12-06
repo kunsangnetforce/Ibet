@@ -106,7 +106,7 @@ public class CreateBet extends AppCompatActivity implements View.OnClickListener
 
         }
         setupStatusBar();
-        setupToolBar("Create Bet");
+        setupToolBar(getString(R.string.create_bet));
         initView();
         setupTheme();
         setupBackbround();

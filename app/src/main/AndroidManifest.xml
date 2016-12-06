@@ -12,6 +12,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:name=".general.MainApplication"
         android:largeHeap="true"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"

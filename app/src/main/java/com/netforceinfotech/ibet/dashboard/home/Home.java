@@ -157,7 +157,7 @@ public class Home extends Fragment implements View.OnClickListener {
                                     String levelString = jsonObject.get("level_string").getAsString();
                                     textViewLevel.setText(levelString);
                                 } catch (Exception ex) {
-                                    textViewLevel.setText("Beginer");
+                                    textViewLevel.setText(getString(R.string.beginner));
                                 }
                                 try {
                                     float level_remaining = jsonObject.get("level_remaining").getAsFloat();
@@ -173,7 +173,7 @@ public class Home extends Fragment implements View.OnClickListener {
                                 Glide.with(context).load(profile_image).placeholder(R.drawable.ic_circle_filled).error(R.drawable.ic_error).dontAnimate().into(circleImageViewDp);
                                 textViewName.setText(name);
                                 Dashboard.textViewName.setText(name);
-                                textviewLevelNumber.setText("Level\n" + level);
+                                textviewLevelNumber.setText(getString(R.string.level)+"\n" + level);
                                 textViewWins.setText(wins);
                                 textViewLose.setText(losses);
                                 setupWinLose(wins, losses);
@@ -243,13 +243,13 @@ public class Home extends Fragment implements View.OnClickListener {
         textViewRemaining = (TextView) view.findViewById(R.id.textViewRemaining);
         buttonStartNewGame = (Button) view.findViewById(R.id.buttonStartnewBet);
         buttonStartNewGame.setOnClickListener(this);
-        textViewRemaining.setText(0 + "%\nto next level");
+        textViewRemaining.setText(0 + "%\n"+getString(R.string.tonextlevel));
         circleProgressViewLevel.setOnProgressChangedListener(new CircleProgressView.OnProgressChangedListener() {
 
             @Override
             public void onProgressChanged(float value) {
                 Log.i("ibetchange", value + "");
-                textViewRemaining.setText(value + "%\nto next level");
+                textViewRemaining.setText(value + "%\n"+getString(R.string.tonextlevel));
             }
 
 

@@ -48,10 +48,10 @@ public class DashboardFragment extends Fragment {
     }
 
     private void setupTab(View view) {
-        tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("Current Bets"));
-        tabLayout.addTab(tabLayout.newTab().setText("Live Events"));
-        tabLayout.addTab(tabLayout.newTab().setText("Solo Bet"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.home)));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.current_bets));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.live_events));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.solobet));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);

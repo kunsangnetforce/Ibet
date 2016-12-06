@@ -73,8 +73,8 @@ public class SoloBet extends Fragment implements View.OnClickListener {
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
 
-        tabLayout.addTab(tabLayout.newTab().setText("Current Game"));
-        tabLayout.addTab(tabLayout.newTab().setText("Upcoming Game"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.current_games)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.upcoming_games)));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);

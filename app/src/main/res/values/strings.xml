@@ -210,5 +210,40 @@
     <string name="got_notification">Got notification</string>
     <string name="bet_accepted">Bet accepted</string>
     <string name="bet_rejected">Bet Rejected</string>
+    <string name="english">English</string>
+    <string name="hebrew">Hebrew</string>
+    <string name="spain">Spain</string>
+    <string name="ibet">Ibet</string>
+    <string name="current_bets">Current Bets</string>
+    <string name="live_events">Live Events</string>
+    <string name="solobet">Solo Bet</string>
+    <string name="tonextlevel">to next level</string>
+    <string name="current_games">Current Games</string>
+    <string name="upcoming_games">Upcoming Games</string>
+    <string name="select_a_team">select a team</string>
+    <string name="enter_bet_amount">enter bet amount</string>
+    <string name="set">Set</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="live_bets">Live Bets</string>
+    <string name="upcoming_bets">Upcoming Bets</string>
+    <string name="bet_detail">Bet Detail</string>
+    <string name="the_arena">The arena</string>
+    <string name="line_up">Line up</string>
+    <string name="half_time">HALF TIME</string>
+    <string name="full_time">FULL TIME</string>
+    <string name="live">LIVE</string>
+    <string name="extra_time">EXTRA TIME</string>
+    <string name="penalty_shootout">PENALTY SHOOTOUT</string>
+    <string name="finished_after_extra_time">FINISHED AFTER EXTRA TIME</string>
+    <string name="ft_pen">Full-Time after penalties</string>
+    <string name="match_break">Match finished, waiting for extra time to start</string>
+    <string name="postpond">PostPoned</string>
+    <string name="interrupted">Interrupted</string>
+    <string name="abandon">Abandoned</string>
+    <string name="suspended">Suspended</string>
+    <string name="awarded">Awarded</string>
+    <string name="delayed">Delayed</string>
+    <string name="no_bet_found">No Bet Found</string>
+
 
 </resources>

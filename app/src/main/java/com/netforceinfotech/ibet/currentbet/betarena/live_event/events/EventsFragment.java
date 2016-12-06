@@ -171,7 +171,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         linearLayoutProgress.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
                         if (result == null) {
-                            showMessage("Somethings wrong");
+                            showMessage(getString(R.string.something_went_wrong));
                         } else {
                             setupResult(result);
                         }
@@ -335,7 +335,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                             firsttime = !firsttime;
                         }
                         setupProgressThread(minute, extra_minute, 5000);
-                        textViewMatchStatus.setText("LIVE");
+                        textViewMatchStatus.setText(R.string.live);
                         break;
                     case "HT":
                         try {
@@ -344,7 +344,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
                         }
                         setupProgressThread(minute, extra_minute, 60000);
-                        textViewMatchStatus.setText("HALF TIME");
+                        textViewMatchStatus.setText(R.string.half_time);
                         break;
                     case "FT":
                         try {
@@ -352,7 +352,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("FULL TIME");
+                        textViewMatchStatus.setText(R.string.full_time);
                         break;
                     case "ET":
                         try {
@@ -362,7 +362,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         }
                         setupProgressThread(minute, extra_minute, 60000);
                         cpvLevel.setMaxValue(120);
-                        textViewMatchStatus.setText("EXTRA TIME");
+                        textViewMatchStatus.setText(R.string.extra_time);
                         break;
                     case "PEN_LIVE":
                         try {
@@ -371,7 +371,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
                         }
                         setupProgressThread(minute, extra_minute, 5000);
-                        textViewMatchStatus.setText("PENALTY SHOOTOUT");
+                        textViewMatchStatus.setText(R.string.penalty_shootout);
                         break;
                     case "AET":
                         try {
@@ -380,7 +380,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
 
                         }
                         cpvLevel.setMaxValue(120);
-                        textViewMatchStatus.setText("FISHED AFTER EXTRA TIME");
+                        textViewMatchStatus.setText(R.string.finished_after_extra_time);
                         break;
                     case "BREAK":
                         try {
@@ -390,7 +390,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         }
                         setupProgressThread(minute, extra_minute, 60000);
                         cpvLevel.setMaxValue(120);
-                        textViewMatchStatus.setText("Match finished, waiting for extra time to start");
+                        textViewMatchStatus.setText(R.string.match_break);
                         break;
                     case "FT_PEN":
                         try {
@@ -398,7 +398,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("Full-Time after penalties");
+                        textViewMatchStatus.setText(R.string.ft_pen);
                         break;
                     case "CANCL":
                         try {
@@ -406,7 +406,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("Cancelled");
+                        textViewMatchStatus.setText(getString(R.string.cancel));
                         break;
                     case "POSTP":
                         try {
@@ -414,7 +414,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("PostPhoned");
+                        textViewMatchStatus.setText(R.string.postpond);
                         break;
                     case "INT":
                         try {
@@ -422,7 +422,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("Interrupted");
+                        textViewMatchStatus.setText(R.string.interrupted);
                         break;
                     case "ABAN":
                         try {
@@ -430,7 +430,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("Abandoned");
+                        textViewMatchStatus.setText(R.string.abandon);
                         break;
                     case "SUSP":
                         try {
@@ -438,7 +438,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("Suspended");
+                        textViewMatchStatus.setText(R.string.suspended);
                         break;
                     case "AWARDED":
                         try {
@@ -446,7 +446,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("Awarded");
+                        textViewMatchStatus.setText(R.string.awarded);
                         break;
                     case "DELAY":
                         try {
@@ -454,7 +454,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         } catch (Exception ex) {
 
                         }
-                        textViewMatchStatus.setText("Delayed");
+                        textViewMatchStatus.setText(R.string.delayed);
                         break;
                 }
                 if (extra_minute.equalsIgnoreCase("0")) {
@@ -545,7 +545,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
             }
 
             public void onFinish() {
-                textViewMatchStatus.setText("Live!");
+                textViewMatchStatus.setText(getString(R.string.live));
                 getEvents(match_id, home_id, away_id);
             }
 
@@ -631,7 +631,7 @@ public class EventsFragment extends Fragment implements View.OnClickListener {
                         nestedScrollView.setVisibility(View.VISIBLE);
                         linearLayoutProgress.setVisibility(View.GONE);
                         if (result == null) {
-                            showMessage("Somethings wrong");
+                            showMessage(getString(R.string.something_went_wrong));
                         } else {
                             setupVote(result);
                         }

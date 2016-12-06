@@ -80,7 +80,7 @@ public class TheArenaActivity extends AppCompatActivity implements ValueEventLis
         linearLayoutNoComment = (LinearLayout) findViewById(R.id.linearLayoutNoComment);
         _root = FirebaseDatabase.getInstance().getReference();
         imageViewSend.setOnClickListener(this);
-        setupToolBar("The Arena");
+        setupToolBar(getString(R.string.the_arena));
         setupTheme();
         setupBackground();
         setupHashMap();

@@ -99,8 +99,8 @@ public class LiveEventFragment extends Fragment {
         }
 
 
-        tabLayout.addTab(tabLayout.newTab().setText("Events"));
-        tabLayout.addTab(tabLayout.newTab().setText("Line up"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.events)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.line_up)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);
         final PagerAdapterLiveEvent adapter = new PagerAdapterLiveEvent

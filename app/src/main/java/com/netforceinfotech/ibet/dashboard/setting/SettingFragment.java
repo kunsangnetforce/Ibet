@@ -40,12 +40,12 @@ public class SettingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        context=getActivity();
+        context = getActivity();
         userSessionManager = new UserSessionManager(getActivity());
         View view = inflater.inflate(R.layout.activity_setting, container, false);
-        view1=view.findViewById(R.id.view);
-        coordinatorLayout= (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
-        Dashboard.title.setText("Setting");
+        view1 = view.findViewById(R.id.view);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id.coordinatorlayout);
+        Dashboard.title.setText(getString(R.string.setting));
         setupTheme();
         setupBackground();
         setupRecyclerView(view);
@@ -69,15 +69,15 @@ public class SettingFragment extends Fragment {
         icon_list.add(R.drawable.removeads_icon);
         icon_list.add(R.drawable.feedback_icon);
 
-        settingDatas.add("Languages");
-        settingDatas.add("Team Notification");
-        settingDatas.add("General Notification");
-        settingDatas.add("Sounds");
-        settingDatas.add("Themes");
-        settingDatas.add("Odds");
-        settingDatas.add("Info");
-        settingDatas.add("Remove Ads");
-        settingDatas.add("Feedback");
+        settingDatas.add(getString(R.string.language));
+        settingDatas.add(getString(R.string.teamnotification));
+        settingDatas.add(getString(R.string.generalnotification));
+        settingDatas.add(getString(R.string.sounds));
+        settingDatas.add(getString(R.string.themes));
+        settingDatas.add(getString(R.string.odds));
+        settingDatas.add(getString(R.string.info));
+        settingDatas.add(getString(R.string.removeads));
+        settingDatas.add(getString(R.string.feedback));
 
         adapter = new SettingAdapter(getActivity(), settingDatas, icon_list);
         recyclerView.setAdapter(adapter);

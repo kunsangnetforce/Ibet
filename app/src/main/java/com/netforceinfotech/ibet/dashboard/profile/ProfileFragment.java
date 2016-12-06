@@ -88,7 +88,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         theme = userSessionManager.getTheme();
         context = getActivity();
         View view = inflater.inflate(R.layout.activity_profile, container, false);
-        Dashboard.title.setText("Profile");
+        Dashboard.title.setText(getString(R.string.profile));
         setupLayout(view);
         getPermission();
         setupTheme();
@@ -137,7 +137,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         wins = jsonObject.get("wincount").getAsString();
         losses = jsonObject.get("losscount").getAsString();
         levelNumber = jsonObject.get("cust_level").getAsString();
-        level = "Beginer";
+        level = getString(R.string.beginner);
         try {
             Glide.with(context).load(profile_image).error(R.drawable.ic_error).into(circleImageViewDp);
         } catch (Exception ex) {

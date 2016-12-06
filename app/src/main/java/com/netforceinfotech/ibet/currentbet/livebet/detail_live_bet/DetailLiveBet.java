@@ -28,6 +28,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforceinfotech.ibet.Debugger.Debugger;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.general.LocaleHelper;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.text.ParseException;
@@ -59,6 +60,7 @@ public class DetailLiveBet extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_detail_finishedbet);
         context = this;
         userSessionManager = new UserSessionManager(this);
+       // setLanguage(userSessionManager.getLanguage());
         setupStatusBar();
         try {
             Bundle bundle = getIntent().getExtras();
@@ -79,7 +81,23 @@ public class DetailLiveBet extends AppCompatActivity implements View.OnClickList
         setupBackground();
 
     }
+    private void setLanguage(String language) {
+        switch (language) {
+            case "en":
+                LocaleHelper.setLocale(this, "en");
+                break;
+            case "iw":
+                LocaleHelper.setLocale(this, "iw");
+                break;
+            case "es":
+                LocaleHelper.setLocale(this, "es");
 
+                break;
+            default:
+                LocaleHelper.setLocale(this, "en");
+                break;
+        }
+    }
     private void initView() {
         view1 = findViewById(R.id.view);
         textViewMatchCountdown = (TextView) findViewById(R.id.textViewMatchCountdown);

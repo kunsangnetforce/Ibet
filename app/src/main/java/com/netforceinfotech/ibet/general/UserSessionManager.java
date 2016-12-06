@@ -32,6 +32,7 @@ public class UserSessionManager {
     private static final String LOSEBET = "losebet";
     private static final String BACKGROUND = "background";
     private static final String COINS = "coins";
+    private static final String LANGUAGE = "language";
     private static final String ISLOGGEDIN = "isloggedin";
     // Shared Preferences reference
     SharedPreferences pref;
@@ -307,4 +308,12 @@ public class UserSessionManager {
     }
 
 
+    public void setlanguage(String code) {
+        editor.putString(LANGUAGE, code);
+        editor.commit();
+    }
+
+    public String getLanguage() {
+        return pref.getString(LANGUAGE, "en");
+    }
 }

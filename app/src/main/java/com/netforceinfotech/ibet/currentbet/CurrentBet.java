@@ -73,8 +73,8 @@ public class CurrentBet extends Fragment implements View.OnClickListener {
 
     private void setupTab(View view) {
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Live Bets"));
-        tabLayout.addTab(tabLayout.newTab().setText("Upcoming Bets"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.live_bets)));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.upcoming_bets));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final CustomViewPager viewPager = (CustomViewPager) view.findViewById(R.id.pager);

@@ -91,12 +91,12 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
 
     private boolean validate() {
         if (betamount == 0) {
-            showMessage("enter bet amount");
+            showMessage(getString(R.string.enter_bet_amount));
             return false;
         }
         if (stringbetoption.equalsIgnoreCase("0")) {
             if (selectedteam.equalsIgnoreCase("")) {
-                showMessage("select a team");
+                showMessage(getString(R.string.select_a_team));
                 return false;
             }
         }
@@ -233,13 +233,13 @@ public class WhoWillWinActivity extends AppCompatActivity implements View.OnClic
     private void showPopup() {
         boolean wrapInScrollView = true;
         dialogbox = new MaterialDialog.Builder(WhoWillWinActivity.this)
-                .title("Set bet amount")
+                .title(getString(R.string.set_bet_ammount))
                 .customView(R.layout.setbetamount, wrapInScrollView)
-                .positiveText("Set").onPositive(new MaterialDialog.SingleButtonCallback() {
+                .positiveText(getString(R.string.set)).onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (editTextPopupBetAmount.getText().length() <= 0) {
-                            showMessage("Enter Amount");
+                            showMessage(getString(R.string.enter_amount));
                             showPopup();
                         } else {
                             betamount = Double.parseDouble(editTextPopupBetAmount.getText().toString());

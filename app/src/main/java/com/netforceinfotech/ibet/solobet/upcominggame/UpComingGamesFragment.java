@@ -151,11 +151,15 @@ public class UpComingGamesFragment extends Fragment implements View.OnClickListe
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
-                        if (result == null) {
-                            showMessage(getString(R.string.something_went_wrong));
-                        } else {
-                            setUpData(result);
+                        if(isAdded()){
+                            if (result == null) {
+
+                                showMessage(getString(R.string.something_went_wrong));
+                            } else {
+                                setUpData(result);
+                            }
                         }
+
                     }
                 });
     }

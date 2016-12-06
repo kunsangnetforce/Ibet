@@ -40,7 +40,7 @@ public class ChartFragment extends Fragment implements View.OnClickListener {
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
         View view = inflater.inflate(R.layout.activity_chart, container, false);
-        Dashboard.title.setText("Charts");
+        Dashboard.title.setText(getString(R.string.chart));
         setupLayout(view);
         setupTheme();
         setupBackground();

@@ -1,6 +1,7 @@
 package com.netforceinfotech.ibet.dashboard.setting.language;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<String> itemList;
+    private List<LanguageData> itemList;
     private Context context;
     private UserSessionManager userSessionManager;
     ArrayList<Integer> setting_icon = new ArrayList<>();
@@ -35,7 +37,7 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
 
-    public languageAdapter(Context context, List<String> itemList)
+    public languageAdapter(Context context, List<LanguageData> itemList)
     {
         this.itemList = itemList;
         this.context = context;
@@ -75,7 +77,16 @@ public class languageAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
     {
 
-        viewHolder.textViewTitle.setText(itemList.get(position));
+        viewHolder.textViewTitle.setText(itemList.get(position).name);
+        viewHolder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userSessionManager.setlanguage(itemList.get(position).code);
+                Intent intent = new Intent(context, Dashboard.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

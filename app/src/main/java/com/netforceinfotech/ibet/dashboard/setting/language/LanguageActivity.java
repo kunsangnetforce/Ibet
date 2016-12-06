@@ -29,7 +29,7 @@ public class LanguageActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     languageAdapter adapter;
-    ArrayList<String> languageDatas = new ArrayList<String>();
+    ArrayList<LanguageData> languageDatas = new ArrayList<>();
     private Toolbar toolbar;
     private UserSessionManager userSessionManager;
     LinearLayout language_layout;
@@ -43,7 +43,7 @@ public class LanguageActivity extends AppCompatActivity {
         userSessionManager = new UserSessionManager(context);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorlayout);
         view1 = findViewById(R.id.view);
-        setupToolBar("Language");
+        setupToolBar(getString(R.string.language));
         setupRecyclerView();
         setupTheme();
         setupBackground();
@@ -76,14 +76,16 @@ public class LanguageActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        languageDatas.add("English");
+        languageDatas.add(new LanguageData(getString(R.string.english), "en"));
+        languageDatas.add(new LanguageData(getString(R.string.hebrew), "iw"));
+        languageDatas.add(new LanguageData(getString(R.string.spain), "es"));
 
 
         layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
 
-        adapter = new languageAdapter(getApplicationContext(), languageDatas);
+        adapter = new languageAdapter(context, languageDatas);
 
         recyclerView.setAdapter(adapter);
 
@@ -147,7 +149,7 @@ public class LanguageActivity extends AppCompatActivity {
         int theme = userSessionManager.getTheme();
         switch (theme) {
             case 0:
-              //  setupDefaultTheme();
+                //  setupDefaultTheme();
                 break;
             case 1:
                 setupBrownTheme();

@@ -43,6 +43,7 @@ import com.netforceinfotech.ibet.dashboard.chart.ChartFragment;
 import com.netforceinfotech.ibet.dashboard.profile.ProfileFragment;
 import com.netforceinfotech.ibet.dashboard.purchase.PurchaseFragment;
 import com.netforceinfotech.ibet.dashboard.setting.SettingFragment;
+import com.netforceinfotech.ibet.general.LocaleHelper;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.login.LoginActivity;
 import com.netforceinfotech.ibet.profilesetting.tutorial.DefaultIntro;
@@ -95,9 +96,10 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_dashboard);
         context = this;
         userSessionManager = new UserSessionManager(getApplicationContext());
+        setLanguage(userSessionManager.getLanguage());
         loginmode = userSessionManager.getLoginMode();
         initView();
-        setupToolBar("Ibet");
+        setupToolBar(getString(R.string.ibet));
         setupNavigationView();
         setupTheme();
         setupStatusBar();
@@ -119,6 +121,24 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
         }
 
 
+    }
+
+    private void setLanguage(String language) {
+        switch (language) {
+            case "en":
+                LocaleHelper.setLocale(this, "en");
+                break;
+            case "iw":
+                LocaleHelper.setLocale(this, "iw");
+                break;
+            case "es":
+                LocaleHelper.setLocale(this, "es");
+
+                break;
+            default:
+                LocaleHelper.setLocale(this, "en");
+                break;
+        }
     }
 
     @Override
@@ -173,24 +193,24 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
     private void setupNavigationView() {
         menu = navigationView.getMenu();
         if (loginmode.equalsIgnoreCase("0")) {
-            menu.add("Home").setIcon(R.drawable.ic_home);
-            menu.add("Setting").setIcon(R.drawable.ic_setting);
-            menu.add("Tutorial").setIcon(R.drawable.ic_clipboard);
-            menu.add("Share").setIcon(R.drawable.ic_share);
-            menu.add("Rate us").setIcon(R.drawable.ic_rateus);
-            menu.add("Login").setIcon(R.drawable.ic_logout);
+            menu.add(getString(R.string.home)).setIcon(R.drawable.ic_home);
+            menu.add(getString(R.string.setting)).setIcon(R.drawable.ic_setting);
+            menu.add(getString(R.string.tutorial)).setIcon(R.drawable.ic_clipboard);
+            menu.add(getString(R.string.share)).setIcon(R.drawable.ic_share);
+            menu.add(getString(R.string.rateus)).setIcon(R.drawable.ic_rateus);
+            menu.add(getString(R.string.login)).setIcon(R.drawable.ic_logout);
             imageViewScratch.setVisibility(View.GONE);
 
         } else {
-            menu.add("Home").setIcon(R.drawable.ic_home);
-            menu.add("Profile").setIcon(R.drawable.ic_profile_setting);
-            menu.add("Chart").setIcon(R.drawable.ic_chart);
-            menu.add("Store").setIcon(R.drawable.ic_cart);
-            menu.add("Setting").setIcon(R.drawable.ic_setting);
-            menu.add("Tutorial").setIcon(R.drawable.ic_clipboard);
-            menu.add("Share").setIcon(R.drawable.ic_share);
-            menu.add("Rate us").setIcon(R.drawable.ic_rateus);
-            menu.add("Logout").setIcon(R.drawable.ic_logout);
+            menu.add(getString(R.string.home)).setIcon(R.drawable.ic_home);
+            menu.add(getString(R.string.profile)).setIcon(R.drawable.ic_profile_setting);
+            menu.add(getString(R.string.chart)).setIcon(R.drawable.ic_chart);
+            menu.add(getString(R.string.store)).setIcon(R.drawable.ic_cart);
+            menu.add(getString(R.string.setting)).setIcon(R.drawable.ic_setting);
+            menu.add(getString(R.string.tutorial)).setIcon(R.drawable.ic_clipboard);
+            menu.add(getString(R.string.share)).setIcon(R.drawable.ic_share);
+            menu.add(getString(R.string.rateus)).setIcon(R.drawable.ic_rateus);
+            menu.add(getString(R.string.logout)).setIcon(R.drawable.ic_logout);
 
         }
         menu.setGroupCheckable(0, true, false);
@@ -207,6 +227,52 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                 drawerLayout.closeDrawers();
 
                 //Check to see which item was being clicked and perform appropriate action
+                if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.home).trim())) {
+                    setupDashboardFragment();
+                    return true;
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.profile).trim())) {
+                    setupProfileFragment();
+                    return true;
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.chart).trim())) {
+                    setupChartFragment();
+                    return true;
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.store).trim())) {
+                    setupPurchaseFragment();
+                    return true;
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.setting).trim())) {
+                    setupSettingFragment();
+                    return true;
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.tutorial).trim())) {
+                    intent = new Intent(getApplicationContext(), DefaultIntro.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("from", "dashboard");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    return true;
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.share).trim())) {
+                    shareData();
+                    return true;
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.rateus).trim())) {
+                    Toast.makeText(getApplicationContext(), "App url... yet to implement", Toast.LENGTH_SHORT).show();
+                    return true;
+
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.logout).trim())) {
+                    userSessionManager.setIsLoggedIn(false);
+                    userSessionManager.clearSession();
+                    LoginManager.getInstance().logOut();
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                } else if (menuItem.getTitle().toString().trim().equalsIgnoreCase(getString(R.string.login).trim())) {
+                    userSessionManager.setIsLoggedIn(false);
+                    Intent login = new Intent(Dashboard.this, LoginActivity.class);
+                    startActivity(login);
+                    finish();
+                    return true;
+
+                }
+/*
                 switch (menuItem.getTitle().toString()) {
 
                     //Replacing the main content with ContentFragment Which is our Inbox View;
@@ -261,7 +327,8 @@ Dashboard extends AppCompatActivity implements View.OnClickListener {
                     default:
                         return false;
 
-                }
+                }*/
+                return false;
             }
         });
 

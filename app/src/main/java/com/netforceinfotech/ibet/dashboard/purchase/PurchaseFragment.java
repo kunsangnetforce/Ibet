@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.netforceinfotech.ibet.R;
+import com.netforceinfotech.ibet.dashboard.Dashboard;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 
 /**
@@ -46,6 +47,8 @@ public class PurchaseFragment extends Fragment implements View.OnClickListener {
         context = getActivity();
         userSessionManager = new UserSessionManager(context);
         initView(view);
+        Dashboard.title.setText(getString(R.string.store));
+
         setupTheme();
         setupBackground();
         return view;

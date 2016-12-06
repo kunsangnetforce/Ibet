@@ -98,8 +98,8 @@ public class StartNewBetActivity extends AppCompatActivity {
 
     private void setupTab() {
 
-        tabLayout.addTab(tabLayout.newTab().setText("Current Games"));
-        tabLayout.addTab(tabLayout.newTab().setText("Upcoming Games"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.current_games));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.upcoming_games));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

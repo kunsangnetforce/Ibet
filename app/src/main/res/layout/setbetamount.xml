@@ -9,5 +9,5 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Bet Amount" />
+        android:hint="@string/enter_bet_amount" />
 </LinearLayout>
