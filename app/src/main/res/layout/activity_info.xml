@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context="com.netforceinfotech.ibet1.dashboard.setting.InfoActivity">
+    tools:context="com.netforceinfotech.ibet.dashboard.setting.InfoActivity">
     <View
         android:id="@+id/view"
         android:background="@color/transulation"

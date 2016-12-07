@@ -18,7 +18,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.netforceinfotech.ibet1.currentbet.betarena.stats.summary.SummaryFragment">
+        tools:context="com.netforceinfotech.ibet.currentbet.betarena.stats.summary.SummaryFragment">
 
         <ScrollView
             android:id="@+id/scrollView"
