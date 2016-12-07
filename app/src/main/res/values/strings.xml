@@ -244,6 +244,7 @@
     <string name="awarded">Awarded</string>
     <string name="delayed">Delayed</string>
     <string name="no_bet_found">No Bet Found</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
 
 </resources>

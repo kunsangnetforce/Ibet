@@ -245,5 +245,6 @@
     <string name="awarded">Galardonado</string>
     <string name="delayed">Retrasado</string>
     <string name="no_bet_found">Ninguna apuesta encontrada</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
 </resources>
