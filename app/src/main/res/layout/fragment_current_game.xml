@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currentgame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashboard.home.startnewbet.currentgame.CurrentGameFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutInput"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:visibility="visible"
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ripple"
+            android:layout_alignParentTop="true"></android.support.v7.widget.RecyclerView>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            app:mrl_rippleColor="@color/ripple"
+            app:mrl_rippleOverlay="true">
+
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:background="@color/green"
+                android:text="@string/next"
+                android:textColor="@color/colorText" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+    </RelativeLayout>
+</FrameLayout>

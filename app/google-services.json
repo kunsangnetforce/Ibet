@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "714682806969",
+    "firebase_url": "https://ibet-app.firebaseio.com",
+    "project_id": "ibet-app",
+    "storage_bucket": "ibet-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714682806969:android:ade0d4e8a88565c3",
+        "android_client_info": {
+          "package_name": "com.netforceinfotech.ibet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714682806969-od6g1ukjnp03uhgqrj6b2r1j9jbed65m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3jyypN-zlMtC8SJYDvs9hXbKnx89mZho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

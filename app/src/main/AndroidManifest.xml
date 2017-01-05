@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.netforceinfotech.ibet">
+
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:name=".general.MainApplication"
+        android:largeHeap="true"
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon,android:supportsRtl">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.netforceinfotech.ibet.MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.netforceinfotech.ibet.currentbet.livebet.detail_live_bet.DetailLiveBet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.currentbet.upcoming.detail_upcoming_bet.DetailUpcomingBet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.login.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.login.EmailLogin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.Dashboard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.home.finsihed_bet.detail_finished_bet.DetailFinishedBet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.home.bets_to_join.detail_bet_to_join.DetailBetToJoin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.WhoWillWinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.home.startnewbet.StartNewBetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.profilesetting.ProfileSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.profilesetting.selectteam.SelectTeamActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.profile.selectteam.SelectTeamActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.chart.highest.HighestTabActivity"
+            android:label="@string/title_activity_chart_tab"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.soundlist.SoundlistActivity"
+            android:label="@string/title_activity_soundlist"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.soundlist.SoundlistActivity"
+            android:label="@string/title_activity_soundlist"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.feedback.FeedbackActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.teamlist.TeamlistActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.chart.richestrank.RichestTabActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.odds.OddsActivity"
+            android:label="@string/title_activity_odds"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.notification.generalNotification.GeneralNotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.notification.teamNotification.TeamNotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.language.LanguageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.theme.ThemeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.sounds.SoundActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.theme.themeColor.ThemeColorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.currentbet.betarena.EnterBetArenaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.currentbet.betarena.thearena.TheArenaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.currentbet.betarena.thearena.StandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.CreateBet"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.scratchview.ImageOverlayDrawable"
+            android:label="Image Overlay Drawable (Experimental)"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.winsontan520.testwscratchview.SAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.netforceinfotech.ibet.live_event_main.LiveEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.profilesetting.tutorial.TutorialActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.profilesetting.tutorial.DefaultIntro"
+            android:screenOrientation="portrait" />
+
+        <service android:name="com.netforceinfotech.ibet.general.firebasegcm.MyFirebaseIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.netforceinfotech.ibet.general.firebasegcm.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.StandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.home.startnewbet.create_bet.searchfriend.SearchFriendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.scratchview.ScratchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.setting.theme.background.BackgroundActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.solobet.recycler.SoloBetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.solobet.recycler.PlaceSoloBetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.netforceinfotech.ibet.dashboard.home.bets_to_join.detail_bet_to_join.AcceptBetActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.netforceinfotech.ibet.dashboard.setting.InfoActivity"></activity>
+    </application>
+
+</manifest>

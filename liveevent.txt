@@ -1,0 +1,218 @@
+{
+status: "Success",
+message: "Hit Successfully",
+data: {
+team: {
+hm_id: "256",
+hm_teamname: "Moreirense",
+hm_teamlogo: "https://soccerama.pro/images/teams/POR/256.png",
+aw_id: "273",
+aw_teamname: "Feirense",
+aw_teamlogo: "https://soccerama.pro/images/teams/POR/273.png"
+},
+data_event: [
+{
+id: 1264737,
+match_id: 700830,
+team_id: 256,
+minute: 12,
+extra_min: 0,
+type: "goal",
+player_id: 10747,
+player_name: "Roberto",
+assist_id: 58871,
+assist_player_name: "N. Petrolina"
+},
+{
+id: 1267581,
+match_id: 700830,
+team_id: 273,
+minute: 41,
+extra_min: null,
+type: "substitution",
+player_in_id: 8290,
+player_in_name: "Machado",
+player_out_id: 2805,
+player_out_name: "A. Kakuba"
+},
+{
+id: 1270957,
+match_id: 700830,
+team_id: 273,
+minute: 51,
+extra_min: 0,
+type: "yellowcard",
+player_id: 8265,
+player_name: "Fabio"
+},
+{
+id: 1271145,
+match_id: 700830,
+team_id: 256,
+minute: 57,
+extra_min: 0,
+type: "yellowcard",
+player_id: 134435,
+player_name: "F. Geraldes"
+},
+{
+id: 1271317,
+match_id: 700830,
+team_id: 273,
+minute: 58,
+extra_min: 0,
+type: "yellowcard",
+player_id: 8290,
+player_name: "Machado"
+},
+{
+id: 1271936,
+match_id: 700830,
+team_id: 256,
+minute: 59,
+extra_min: 0,
+type: "yellowcard",
+player_id: 118670,
+player_name: "Neto"
+},
+{
+id: 1272712,
+match_id: 700830,
+team_id: 256,
+minute: 69,
+extra_min: 0,
+type: "goal",
+player_id: 16843,
+player_name: "Marcelo Oliveira",
+assist_id: 134435,
+assist_player_name: "F. Geraldes"
+},
+{
+id: 1274269,
+match_id: 700830,
+team_id: 256,
+minute: 81,
+extra_min: 0,
+type: "goal",
+player_id: 134435,
+player_name: "F. Geraldes",
+assist_id: 118670,
+assist_player_name: "Neto"
+},
+{
+id: 1274701,
+match_id: 700830,
+team_id: 273,
+minute: 89,
+extra_min: 0,
+type: "yellowcard",
+player_id: 16957,
+player_name: "Tiago Jogo"
+},
+{
+id: 1275998,
+match_id: 700830,
+team_id: 273,
+minute: 46,
+extra_min: null,
+type: "substitution",
+player_in_id: 14586,
+player_in_name: "A. Karamanos",
+player_out_id: 16956,
+player_out_name: "Cris"
+},
+{
+id: 1276000,
+match_id: 700830,
+team_id: 273,
+minute: 62,
+extra_min: null,
+type: "substitution",
+player_in_id: 16957,
+player_in_name: "Tiago Jogo",
+player_out_id: null,
+player_out_name: null
+},
+{
+id: 1276002,
+match_id: 700830,
+team_id: 256,
+minute: 46,
+extra_min: null,
+type: "substitution",
+player_in_id: 69529,
+player_in_name: "T. Almeida",
+player_out_id: 16907,
+player_out_name: "Jander"
+},
+{
+id: 1276004,
+match_id: 700830,
+team_id: 256,
+minute: 55,
+extra_min: null,
+type: "substitution",
+player_in_id: 25735,
+player_in_name: "Alan Schons",
+player_out_id: 17129,
+player_out_name: "O. Drame"
+},
+{
+id: 1276006,
+match_id: 700830,
+team_id: 256,
+minute: 84,
+extra_min: null,
+type: "substitution",
+player_in_id: 23271,
+player_in_name: "D. Ram�rez",
+player_out_id: 10747,
+player_out_name: "Roberto"
+},
+{
+id: 1277768,
+match_id: 700830,
+team_id: 273,
+minute: 61,
+extra_min: null,
+type: "substitution",
+player_in_id: 16866,
+player_in_name: "Tiago Silva",
+player_out_id: 2840,
+player_out_name: "Semedo"
+}
+],
+data_score: [
+{
+id: 700830,
+ht_score: "0-1",
+ft_score: "0-3",
+et_score: null,
+home_team_id: 273,
+away_team_id: 256,
+home_score: 0,
+away_score: 3,
+home_score_penalties: 0,
+away_score_penalties: 0,
+formation: {
+home: null,
+away: null
+},
+date_time_tba: 0,
+spectators: null,
+starting_date: "2016-08-21",
+starting_time: "15:00:00",
+status: "FT",
+minute: 90,
+extra_minute: 0,
+competition_id: 16,
+venue_id: 417,
+season_id: 644,
+round_id: 11153,
+stage_id: 1719,
+aggregate: null,
+placeholder: false
+}
+]
+}
+}

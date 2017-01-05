@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#072f52</color>
+    <color name="colorPrimaryDark">#062239</color>
+    <color name="colorPrimaryDarkTranslusent">#c3062239</color>
+    <color name="colorAccent">#D08720</color>
+    <color name="colorAccentDark">#895813</color>
+    <color name="colorDivider">#B6B6B6</color>
+    <color name="black">#000000</color>
+    <color name="grey">#d1cece</color>
+    <color name="grey_transparent">#daaba8a8</color>
+    <color name="white">#ffffff</color>
+    <color name="greentranparent">#a463cc55</color>
+    <color name="red">#bdc42020</color>
+
+    <color name="footer">#d97ba5</color>
+    <color name="colorPrimary1">#99009688</color>
+    <color name="green">#2a990b</color>
+    <color name="statusbar_splash">#347fb1</color>
+    <color name="statusbar_nointernet">#d4c7c7</color>
+    <color name="colorPrimaryText">#515151</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="blue_background_view">#7FA1BC</color>
+    <color name="textviewBackground1">#ef1940</color>
+    <color name="colorPrimaryLight">#0a4273</color>
+    <color name="greendark">#185807</color>
+    <color name="row_odds_view">#EBEBEB</color>
+
+    //material drawer
+    <!-- Material DEFAULT colors -->
+    <color name="material_drawer_primary">#2196F3</color>
+    <color name="material_drawer_primary_dark">#1976D2</color>
+    <color name="material_drawer_primary_light">#BBDEFB</color>
+    <color name="material_drawer_accent">#FF4081</color>
+
+    <!-- OVERWRITE THESE COLORS FOR A LIGHT THEME -->
+    <!-- MaterialDrawer DEFAULT colors -->
+    <color name="material_drawer_background">#ff9700</color>
+    <!-- Material DEFAULT text / items colors -->
+    <color name="material_drawer_primary_text">#DE000000</color>
+    <color name="material_drawer_secondary_text">#8A000000</color>
+    <!-- Material DEFAULT drawer colors -->
+    <color name="material_drawer_selected">#a46304</color>
+    <color name="material_drawer_selected_text">#FFFFFF</color>
+    <color name="brown_color">#B17215</color>
+    <color name="orange">#D08720</color>
+    <color name="viewpager_color">#EBA746</color>
+
+    <color name="tab_background_theme1">#072f52</color>
+    <color name="home_background_theme1">#721D06</color>
+    <color name="tab_seclector_text_color_theme1">#D08720</color>
+    <color name="tab_not_seclector_highlitedcolor_theme1">#7C1E07</color>
+    <color name="tab_seclector_highlitedcolor_theme1">#D08720</color>
+
+
+    <color name="tab_background_theme2">#6F1C03</color>
+    <color name="home_background_theme2">#721D06</color>
+    <color name="tab_seclector_text_color_theme2">#FF5A2E</color>
+    <color name="tab_not_seclector_highlitedcolor_theme2">#7C1E07</color>
+    <color name="tab_seclector_highlitedcolor_theme2">#FF5A2E</color>.
+
+    <color name="tab_background_theme3">#39064B</color>
+    <color name="home_background_theme3">#721D06</color>
+    <color name="tab_seclector_text_color_theme3">#DE00FF</color>
+    <color name="tab_not_seclector_highlitedcolor_theme3">#7C1E07</color>
+    <color name="tab_seclector_highlitedcolor_theme3">#DE00FF</color>
+
+    <color name="tab_background_theme4">#002E07</color>
+    <color name="home_background_theme4">#721D06</color>
+    <color name="tab_seclector_text_color_theme4">#02C80F</color>
+    <color name="tab_not_seclector_highlitedcolor_theme4">#7C1E07</color>
+    <color name="tab_seclector_highlitedcolor_theme4">#02C80F</color>
+
+
+    <color name="home_background_theme5">#570000</color>
+    <color name="tab_background_theme5">#570000</color>
+    <color name="tab_seclector_text_color_theme5">#FF5A2E</color>
+    <color name="tab_not_seclector_highlitedcolor_theme5">#7C1E07</color>
+    <color name="tab_seclector_highlitedcolor_theme5">#FF5A2E</color>
+
+
+    <color name="toolbar_background_theme1">#072f52</color>
+    <color name="toolbar_background_theme2">#6F1C03</color>
+    <color name="toolbar_background_theme3">#39064B</color>
+    <color name="toolbar_background_theme4">#002E07</color>
+    <color name="toolbar_background_theme5">#570000</color>
+    <color name="blue">#04c4f9</color>
+    <color name="unselected">#504e4e</color>
+
+    <color name="statusbar_background_theme1">#FF072f52</color>
+    <color name="statusbar_background_theme2">#FF6F1C03</color>
+    <color name="statusbar_background_theme3">#FF39064B</color>
+    <color name="statusbar_background_theme4">#FF002E07</color>
+    <color name="statusbar_background_theme5">#FF570000</color>
+    <color name="overlayColor">#b1000000</color>
+
+    <color name="navigation_background_theme1">#D08720</color>
+    <color name="navigation_background_theme2">#FFF7A665</color>
+    <color name="navigation_background_theme3">#FFE6CDF1</color>
+    <color name="navigation_background_theme4">#FFC4C37F</color>
+    <color name="navigation_background_theme5">#FFDEC9CE</color>
+
+    <color name="view_background1">#EBA746</color>
+    <color name="view_background2">#d78645</color>
+    <color name="view_background3">#FFB9A6C1</color>
+    <color name="view_background4">#FFA6A567</color>
+    <color name="view_background5">#FFB4A4A8</color>
+
+    <color name="solo_txt_color">#FE9700</color>
+    <color name="transulation">#b9000000</color>
+    <color name="ripple">#adccc7c7</color>
+    <color name="colorAccentTransution">#9bd08720</color>
+    <color name="darkgrey">#424242</color>
+
+
+    <color name="colorPrimaryMarron">#570000</color>
+    <color name="colorPrimaryLightMaron">#ab0101</color>
+    <color name="colorPrimaryDarkMarron">#3d0101</color>
+    <color name="colorPrimaryDarkMarronTranslusent">#9f3d0101</color>
+    <color name="colorAccentMarron">#FF5A2E</color>
+    <color name="colorTextMarron">#FFFFFF</color>
+
+    <color name="colorPrimaryPurple">#FF39064B</color>
+    <color name="colorPrimaryLightPurple">#8611af</color>
+    <color name="colorPrimaryDarkPurple">#1b0323</color>
+    <color name="colorPrimaryDarkPurpleTranslusent">#b11b0323</color>
+    <color name="colorAccentPurple">#DE00FF</color>
+    <color name="colorTextPurple">#FFFFFF</color>
+
+    <color name="colorPrimaryGreen">#0a510f</color>
+    <color name="colorPrimaryLightGreen">#27862d</color>
+    <color name="colorPrimaryDarkGreen">#052507</color>
+    <color name="colorPrimaryDarkGreenTranslusent">#b5052507</color>
+    <color name="colorAccentGreen">#02C80F</color>
+    <color name="colorTextGreen">#FFFFFF</color>
+
+
+    <color name="colorPrimaryBrown">#6F1C03</color>
+    <color name="colorPrimaryLightBrown">#d73909</color>
+    <color name="colorPrimaryDarkBrown">#390f02</color>
+    <color name="colorPrimaryDarkBrownTranslusent">#ae390f02</color>
+    <color name="colorAccentBrown">#FF5A2E</color>
+    <color name="colorTextBrown">#FFFFFF</color>
+
+
+    <color name="colorPrimaryLightBlue">#04c4f9</color>
+    <color name="colorPrimaryLightBlueLight">#50e7f2</color>
+    <color name="colorPrimaryDarkLightBlue">#057897</color>
+    <color name="colorPrimaryDarkLightBlueTranslusent">#ab057897</color>
+    <color name="colorAccentLightBlue">#2bf2f5</color>
+    <color name="colorTextLightBlue">#FFFFFF</color>
+
+
+</resources>
