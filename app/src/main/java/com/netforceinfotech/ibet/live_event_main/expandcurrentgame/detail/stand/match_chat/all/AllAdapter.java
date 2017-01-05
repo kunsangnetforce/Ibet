@@ -23,7 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.netforceinfotech.ibet.R;
 import com.netforceinfotech.ibet.general.UserSessionManager;
 import com.netforceinfotech.ibet.live_event_main.expandcurrentgame.detail.stand.match_chat.comments_comment.CommentComments;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,8 +95,8 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         final AllHolder allHolder = (AllHolder) holder;
 
         allHolder.textViewName.setText(itemList.get(position).name);
-        allHolder.textViewDate.setText("22-7-2016");
-        allHolder.textViewTime.setText("23:11:02");
+        allHolder.textViewDate.setText(getformattedDate(itemList.get(position).timestamp));
+        allHolder.textViewTime.setText(getFormetedTime(itemList.get(position).timestamp));
         allHolder.textViewSC.setText(itemList.get(position).share);
         allHolder.textViewDC.setText(itemList.get(position).dislike);
         allHolder.textViewLC.setText(itemList.get(position).like);
@@ -270,6 +274,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 _share.updateChildren(map);
                 shareData(itemList.get(position).comment, itemList.get(position).name);
                 shareclicked.set(position, true);*/
+                shareclicked.set(position, true);
                 Map<String, Object> map = new HashMap<String, Object>();
                 String tempKey = userSessionManager.getCustomerId();
                 _share.updateChildren(map);
@@ -289,6 +294,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _dislike.updateChildren(map);
                 dislikeclicked.set(position, true);*/
+                dislikeclicked.set(position, true);
                 Map<String, Object> map = new HashMap<String, Object>();
                 String tempKey = userSessionManager.getCustomerId();
                 _dislike.updateChildren(map);
@@ -308,6 +314,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 map.put("id", userSessionManager.getCustomerId() + "_" + userSessionManager.getName());
                 _like.updateChildren(map);
                 likeclicked.set(position, true);*/
+                likeclicked.set(position, true);
                 Map<String, Object> map = new HashMap<String, Object>();
                 String tempKey = userSessionManager.getCustomerId();
                 _like.updateChildren(map);
@@ -319,6 +326,29 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 message_root.updateChildren(map1);
             }
         });
+
+    }
+
+
+    private String getFormetedTime(Long timestamp) {
+        SimpleDateFormat sfd = new SimpleDateFormat("hh:mm a");
+        return sfd.format(new Date(timestamp));
+    }
+
+
+    private String getformattedDate(Long timestamp) {
+        Date date = new Date(timestamp);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        Calendar now = Calendar.getInstance();
+        if (now.get(Calendar.DATE) == cal.get(Calendar.DATE)) {
+            return "Today";
+        } else if (now.get(Calendar.DATE) - cal.get(Calendar.DATE) == 1) {
+            return "Yesterday ";
+        } else {
+            SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy");
+            return sfd.format(new Date(timestamp));
+        }
 
     }
 
@@ -343,6 +373,7 @@ public class AllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void runTransaction(int position) {
+        showMessage("clicked");
         DatabaseReference _count = FirebaseDatabase.getInstance().getReference().child("all").child(matchid).child("comments").child(itemList.get(position).key).child("count");
         _count.runTransaction(new Transaction.Handler() {
             @Override
